@@ -117,6 +117,1141 @@
       min-width: 0;
     }
 
+    .open-direct {
+      display: none;
+      margin: 0 12px 10px;
+      min-height: 42px;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #b7cad8;
+      border-radius: 8px;
+      background: #ffffff;
+      color: var(--blue);
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(320px, .92fr);
+      gap: 14px;
+      align-items: start;
+    }
+
+    .stack {
+      display: grid;
+      gap: 14px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .panel-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 15px;
+      border-bottom: 1px solid var(--line);
+      background: #fbfcfd;
+    }
+
+    .panel-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 750;
+      min-width: 0;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: var(--soft);
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      padding: 14px;
+    }
+
+    .tile {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      min-height: 74px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      text-decoration: none;
+      color: var(--ink);
+      cursor: pointer;
+      transition: transform .15s ease, border-color .15s ease, background .15s ease;
+    }
+
+    .tile:hover {
+      transform: translateY(-1px);
+      border-color: #aab7c2;
+      background: #f9fbfc;
+    }
+
+    .tile strong {
+      display: block;
+      font-size: 14px;
+      line-height: 1.28;
+    }
+
+    .tile span:last-child {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .icon {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: var(--soft);
+      flex: 0 0 auto;
+    }
+
+    .calendar-wrap {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(220px, .55fr);
+      gap: 12px;
+      padding: 14px;
+    }
+
+    .calendar {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+    }
+
+    .dow, .day {
+      min-height: 42px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 7px;
+      font-size: 12px;
+    }
+
+    .dow {
+      min-height: 34px;
+      background: #f8fafb;
+      color: var(--muted);
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .day {
+      background: #fff;
+      position: relative;
+      color: var(--muted);
+    }
+
+    .day:nth-child(7n), .dow:nth-child(7n) { border-right: 0; }
+    .day.has-event { color: var(--ink); font-weight: 700; }
+    .day.is-muted { background: #f8fafb; color: #a8b1ba; }
+
+    .dot {
+      display: block;
+      width: 6px;
+      height: 6px;
+      margin-top: 6px;
+      border-radius: 999px;
+      background: var(--blue);
+    }
+
+    .month-tabs {
+      display: flex;
+      gap: 8px;
+      padding: 0 14px 14px;
+      flex-wrap: wrap;
+    }
+
+    .tab-button {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--ink);
+      padding: 8px 12px;
+      font: inherit;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .tab-button.is-active {
+      border-color: #9db7cb;
+      background: #edf6fc;
+      color: var(--blue);
+      font-weight: 700;
+    }
+
+    .event-list {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .event-row {
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      gap: 10px;
+      padding: 10px;
+      border-bottom: 1px solid var(--line);
+      font-size: 13px;
+      min-height: 58px;
+    }
+
+    .event-row:last-child { border-bottom: 0; }
+
+    .datebox {
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: var(--soft);
+      color: var(--blue);
+      font-weight: 800;
+      line-height: 1.2;
+      min-height: 38px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .event-title {
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .event-meta {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .link-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      padding: 14px;
+    }
+
+    .link-card {
+      display: grid;
+      gap: 7px;
+      min-height: 88px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      text-decoration: none;
+      background: #fff;
+    }
+
+    .link-card strong {
+      font-size: 14px;
+      line-height: 1.3;
+    }
+
+    .link-card span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .link-card:hover {
+      border-color: #aab7c2;
+      background: #f9fbfc;
+    }
+
+    .form-list,
+    .minutes-list,
+    .task-list {
+      padding: 10px 14px 14px;
+    }
+
+    .simple-row {
+      display: grid;
+      grid-template-columns: 86px 1fr auto;
+      gap: 10px;
+      align-items: center;
+      min-height: 50px;
+      border-bottom: 1px solid var(--line);
+      font-size: 13px;
+    }
+
+    .simple-row:last-child { border-bottom: 0; }
+
+    .status {
+      border-radius: 999px;
+      padding: 3px 8px;
+      background: var(--soft);
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .status.important { background: #faeeee; color: var(--red); }
+    .status.todo { background: #fff3d8; color: var(--amber); }
+    .status.done { background: #e9f5ef; color: var(--green); }
+
+    .note-box {
+      padding: 14px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .prompt {
+      margin-top: 10px;
+      border: 1px solid #c8d8e6;
+      border-radius: 8px;
+      background: #f3f8fc;
+      color: #26465f;
+      padding: 12px;
+    }
+
+    .hidden { display: none !important; }
+
+    svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .blue { color: var(--blue); }
+    .green { color: var(--green); }
+    .red { color: var(--red); }
+    .amber { color: var(--amber); }
+    .violet { color: var(--violet); }
+    .cyan { color: var(--cyan); }
+
+    @media (max-width: 1080px) {
+      .layout,
+      .calendar-wrap {
+        grid-template-columns: 1fr;
+      }
+
+      .quick-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 760px) {
+      body {
+        background: var(--panel);
+      }
+
+      .portal {
+        min-height: 100vh;
+        min-height: 100svh;
+        padding: 0;
+      }
+
+      .topbar {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding: 12px;
+        margin-bottom: 0;
+        background: #eef3f6;
+      }
+
+      .open-direct {
+        display: flex;
+      }
+
+      .layout {
+        gap: 0;
+        margin-top: 0 !important;
+      }
+
+      .stack {
+        gap: 0;
+      }
+
+      .panel {
+        border-left: 0;
+        border-right: 0;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      .panel + .panel,
+      .stack + .stack {
+        border-top: 8px solid #eef3f6;
+      }
+
+      .quick-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        padding: 10px;
+      }
+
+      .link-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        padding: 10px;
+      }
+
+      .calendar-wrap {
+        gap: 10px;
+        padding: 10px;
+      }
+
+      .month-tabs {
+        gap: 6px;
+        padding: 0 10px 10px;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        scrollbar-width: none;
+      }
+
+      .month-tabs::-webkit-scrollbar {
+        display: none;
+      }
+
+      .tab-button {
+        flex: 0 0 auto;
+        padding: 8px 10px;
+        white-space: nowrap;
+      }
+
+      .simple-row {
+        grid-template-columns: 72px 1fr;
+      }
+
+      .simple-row .status {
+        grid-column: 2;
+        justify-self: start;
+        margin-bottom: 8px;
+      }
+
+      .panel-head {
+        align-items: flex-start;
+      }
+
+      h1 {
+        font-size: 22px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .brand {
+        align-items: center;
+        gap: 10px;
+      }
+
+      .mark {
+        width: 40px;
+        height: 40px;
+      }
+
+      .sub {
+        font-size: 12px;
+        line-height: 1.35;
+      }
+
+      .search {
+        min-height: 40px;
+        box-shadow: none;
+      }
+
+      .quick-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .tile {
+        min-height: 72px;
+        padding: 10px;
+        gap: 8px;
+      }
+
+      .tile strong {
+        font-size: 13px;
+      }
+
+      .tile span:last-child {
+        font-size: 11px;
+        line-height: 1.35;
+      }
+
+      .icon {
+        width: 32px;
+        height: 32px;
+      }
+
+      .calendar-wrap {
+        padding: 8px;
+      }
+
+      .dow,
+      .day {
+        min-height: 34px;
+        padding: 4px;
+        font-size: 11px;
+      }
+
+      .event-row {
+        grid-template-columns: 58px 1fr;
+        padding: 9px;
+      }
+
+      .panel-head {
+        padding: 10px;
+      }
+
+      .panel-title {
+        font-size: 14px;
+      }
+
+      .badge {
+        min-height: 22px;
+        padding: 2px 7px;
+        font-size: 11px;
+      }
+
+      .link-card {
+        min-height: 72px;
+        padding: 10px;
+      }
+
+      .form-list,
+      .minutes-list,
+      .task-list {
+        padding: 8px 10px 10px;
+      }
+
+      .note-box {
+        padding: 10px;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .quick-grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 20px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      html,
+      body,
+      .portal,
+      .shell {
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        overflow-x: hidden !important;
+      }
+
+      .portal {
+        min-height: 100vh !important;
+        min-height: 100svh !important;
+        padding: 0 !important;
+        background: var(--panel) !important;
+      }
+
+      .panel {
+        width: 100% !important;
+        border-left: 0 !important;
+        border-right: 0 !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+      }
+
+      .quick-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      }
+    }
+
+    @media (max-width: 760px) and (max-height: 430px) {
+      .topbar {
+        display: flex !important;
+        gap: 8px !important;
+        align-items: center !important;
+        padding: 8px !important;
+      }
+
+      .mark {
+        width: 34px !important;
+        height: 34px !important;
+        font-size: 12px !important;
+      }
+
+      h1 {
+        font-size: 18px !important;
+      }
+
+      .sub,
+      .search {
+        display: none !important;
+      }
+
+      .open-direct {
+        margin: 0 !important;
+        min-height: 36px !important;
+        border-left: 0 !important;
+        border-right: 0 !important;
+        border-radius: 0 !important;
+      }
+
+      .panel-head {
+        min-height: 38px !important;
+        padding: 8px 10px !important;
+      }
+
+      .quick-grid {
+        gap: 6px !important;
+        padding: 8px !important;
+      }
+
+      .tile {
+        min-height: 58px !important;
+        padding: 8px !important;
+      }
+
+      .tile strong {
+        font-size: 12px !important;
+      }
+
+      .tile span:last-child {
+        font-size: 10px !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="portal">
+    <div class="shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="mark">PW</div>
+          <div>
+            <h1>Wonder＋運営ポータル</h1>
+            <div class="sub">スケジュール、準備タスク、報告フォーム、LINE WORKS導線を1画面に集約</div>
+          </div>
+        </div>
+        <label class="search" aria-label="メニュー検索">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+          <input id="filter" type="search" placeholder="項目を検索">
+        </label>
+      </header>
+
+      <a class="open-direct" href="https://wonderplus100-stack.github.io/wonder-plus-portal/" target="_blank" rel="noreferrer">全画面で開く</a>
+
+      <section class="panel" aria-label="すぐ使う">
+        <div class="panel-head">
+          <div class="panel-title">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8Z"></path></svg>
+            すぐ使う
+          </div>
+          <span class="badge">サンプルUI</span>
+        </div>
+        <nav class="quick-grid" id="quickGrid">
+          <a class="tile" href="#prepare">
+            <span class="icon amber"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg></span>
+            <span><strong>イベントの準備タスク</strong><span>準備の流れと対応方法</span></span>
+          </a>
+          <a class="tile" href="#mindset">
+            <span class="icon green"><svg viewBox="0 0 24 24"><path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg></span>
+            <span><strong>イベント運営の心得</strong><span>当日の判断基準</span></span>
+          </a>
+          <a class="tile" href="#lineworks">
+            <span class="icon cyan"><svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 0 1-10 10H4l2.4-4.1A10 10 0 1 1 22 12Z"></path></svg></span>
+            <span><strong>LINE WORKS</strong><span>トーク・掲示板へ移動</span></span>
+          </a>
+          <a class="tile" href="#reports">
+            <span class="icon red"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"></path><path d="M14 2v6h6"></path></svg></span>
+            <span><strong>報告関係</strong><span>活動状況・BO提出</span></span>
+          </a>
+          <a class="tile" href="#event-info">
+            <span class="icon blue"><svg viewBox="0 0 24 24"><path d="M3 4h18"></path><path d="M3 12h18"></path><path d="M3 20h18"></path></svg></span>
+            <span><strong>イベント情報</strong><span>案内文・申込フォーム</span></span>
+          </a>
+          <a class="tile" href="#media-share">
+            <span class="icon green"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m10 10 5 3-5 3v-6Z"></path><path d="M7 19l-2 3"></path><path d="M17 19l2 3"></path></svg></span>
+            <span><strong>画像・動画共有ポスト</strong><span>保存用Driveへ投稿</span></span>
+          </a>
+          <a class="tile" href="#minutes">
+            <span class="icon violet"><svg viewBox="0 0 24 24"><path d="M4 19.5V4a2 2 0 0 1 2-2h11l3 3v14.5A2.5 2.5 0 0 1 17.5 22H6.5A2.5 2.5 0 0 1 4 19.5Z"></path><path d="M14 2v6h6"></path></svg></span>
+            <span><strong>議事録</strong><span>最新順に確認</span></span>
+          </a>
+          <a class="tile" href="#ai">
+            <span class="icon violet"><svg viewBox="0 0 24 24"><path d="M12 8V4H8"></path><rect x="4" y="8" width="16" height="12" rx="2"></rect><path d="M2 14h2"></path><path d="M20 14h2"></path><path d="M15 13v2"></path><path d="M9 13v2"></path></svg></span>
+            <span><strong>AI相談</strong><span>社内情報を元に確認</span></span>
+          </a>
+        </nav>
+      </section>
+
+      <div class="layout" style="margin-top:14px;">
+        <div class="stack">
+          <section class="panel" id="schedule" aria-label="スケジュール">
+            <div class="panel-head">
+              <div class="panel-title">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M3 10h18"></path></svg>
+                スケジュール
+              </div>
+              <span class="badge" id="monthBadge">6月 Wonder＋</span>
+            </div>
+            <div class="calendar-wrap">
+              <div class="calendar">
+                <div class="cal-grid" id="calendarGrid" aria-label="月間カレンダー"></div>
+              </div>
+              <div class="event-list" id="eventList" aria-live="polite"></div>
+            </div>
+            <div class="month-tabs">
+              <button class="tab-button is-active" type="button" data-schedule="juneWonder">6月 Wonder＋</button>
+              <button class="tab-button" type="button" data-schedule="juneRegular">6月 レギュラー</button>
+              <button class="tab-button" type="button" data-schedule="julyWonder">7月 Wonder＋</button>
+              <button class="tab-button" type="button" data-schedule="julyRegular">7月 レギュラー</button>
+            </div>
+          </section>
+
+          <section class="panel" id="lineworks" aria-label="LINE WORKS">
+            <div class="panel-head">
+              <div class="panel-title">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12a10 10 0 0 1-10 10H4l2.4-4.1A10 10 0 1 1 22 12Z"></path></svg>
+                LINE WORKSリンク
+              </div>
+              <span class="badge">URL差し替え可</span>
+            </div>
+            <div class="link-grid">
+              <a class="link-card" href="#" target="_blank" rel="noreferrer">
+                <strong>2期専用トーク</strong>
+                <span>2期メンバー専用トークへ移動。実URLを設定すると直接開けます。</span>
+              </a>
+              <a class="link-card" href="#" target="_blank" rel="noreferrer">
+                <strong>2＆3期専用トーク</strong>
+                <span>合同連絡用トーク。イベント横断の相談・確認用。</span>
+              </a>
+              <a class="link-card" href="#" target="_blank" rel="noreferrer">
+                <strong>スケジュール共有トーク</strong>
+                <span>日程調整・変更連絡の確認先。</span>
+              </a>
+              <a class="link-card" href="#" target="_blank" rel="noreferrer">
+                <strong>掲示板</strong>
+                <span>重要連絡、固定ルール、全体告知の確認先。</span>
+              </a>
+            </div>
+          </section>
+
+          <section class="panel" id="event-info" aria-label="イベント情報">
+            <div class="panel-head">
+              <div class="panel-title">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h18"></path><path d="M3 12h18"></path><path d="M3 20h18"></path></svg>
+                イベント情報
+              </div>
+              <span class="badge">Drive / Form</span>
+            </div>
+            <div class="link-grid">
+              <a class="link-card" href="#" target="_blank" rel="noreferrer">
+                <strong>案内文章ドライブ</strong>
+                <span>参加者向け案内文、告知文、テンプレートを管理。</span>
+              </a>
+              <a class="link-card" href="#" target="_blank" rel="noreferrer">
+                <strong>申し込みフォーム</strong>
+                <span>イベント申込フォームへ移動。URLを差し替えて運用。</span>
+              </a>
+            </div>
+          </section>
+
+          <section class="panel" id="media-share" aria-label="画像・動画共有ポスト">
+            <div class="panel-head">
+              <div class="panel-title">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m10 10 5 3-5 3v-6Z"></path><path d="M7 19l-2 3"></path><path d="M17 19l2 3"></path></svg>
+                画像・動画共有ポスト
+              </div>
+              <span class="badge">Drive保存</span>
+            </div>
+            <div class="link-grid">
+              <a class="link-card" href="#" target="_blank" rel="noreferrer">
+                <strong>保存用ドライブ</strong>
+                <span>イベント写真・動画の保存先。ここにGoogle Driveの共有URLを設定します。</span>
+              </a>
+              <a class="link-card" href="#" target="_blank" rel="noreferrer">
+                <strong>投稿ルール</strong>
+                <span>ファイル名は「日付_イベント名_担当者」。人物が写る素材は公開可否を確認してから共有。</span>
+              </a>
+            </div>
+          </section>
+        </div>
+
+        <aside class="stack">
+          <section class="panel" id="prepare" aria-label="イベントの準備タスク">
+            <div class="panel-head">
+              <div class="panel-title">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+                イベントの準備タスク
+              </div>
+              <span class="badge">誰でも確認用</span>
+            </div>
+            <div class="task-list">
+              <div class="simple-row">
+                <div class="datebox">1</div>
+                <div><strong>開催内容を確認する</strong><div class="event-meta">日程、会場、対象者、申込フォーム、案内文章Driveの最新版を確認します。不明点はスケジュール共有トークへ投稿。</div></div>
+                <span class="status done">確認</span>
+              </div>
+              <div class="simple-row">
+                <div class="datebox">2</div>
+                <div><strong>案内・告知を準備する</strong><div class="event-meta">案内文をDriveから取得し、開催日、集合時間、持ち物、注意事項を差し替えてからLINE WORKS掲示板へ投稿。</div></div>
+                <span class="status todo">準備</span>
+              </div>
+              <div class="simple-row">
+                <div class="datebox">3</div>
+                <div><strong>参加者と役割を確定する</strong><div class="event-meta">申込フォームを確認し、参加者数、受付担当、案内担当、記録担当を決定。変更があれば該当トークへ即共有。</div></div>
+                <span class="status important">重要</span>
+              </div>
+              <div class="simple-row">
+                <div class="datebox">4</div>
+                <div><strong>当日運営を進行する</strong><div class="event-meta">受付、開始挨拶、進行、写真・議事録記録、トラブル対応を担当別に実施。緊急時は2＆3期専用トークへ連絡。</div></div>
+                <span class="status todo">当日</span>
+              </div>
+              <div class="simple-row">
+                <div class="datebox">5</div>
+                <div><strong>終了後に報告する</strong><div class="event-meta">活動状況入力フォームとBOスケジュール提出フォームを更新し、議事録を最新順に追加します。</div></div>
+                <span class="status done">報告</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel" id="reports" aria-label="報告関係">
+            <div class="panel-head">
+              <div class="panel-title">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"></path><path d="M14 2v6h6"></path></svg>
+                報告関係
+              </div>
+              <span class="badge">2フォーム</span>
+            </div>
+            <div class="link-grid">
+              <a class="link-card" href="#" target="_blank" rel="noreferrer">
+                <strong>毎月の活動状況入力フォーム</strong>
+                <span>月次の活動内容、参加状況、課題を入力。</span>
+              </a>
+              <a class="link-card" href="#" target="_blank" rel="noreferrer">
+                <strong>BOスケジュール提出フォーム</strong>
+                <span>BO予定、提出期限、担当確認用。</span>
+              </a>
+            </div>
+          </section>
+
+          <section class="panel" id="mindset" aria-label="イベント運営の心得">
+            <div class="panel-head">
+              <div class="panel-title">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg>
+                イベント運営の心得
+              </div>
+              <span class="badge">当日確認</span>
+            </div>
+            <div class="note-box">
+              判断に迷ったら「参加者の安全」「時間厳守」「情報共有」を優先。変更やトラブルはLINE WORKSの該当トークへ即共有し、後から報告フォームで記録します。
+            </div>
+          </section>
+
+          <section class="panel" id="minutes" aria-label="議事録">
+            <div class="panel-head">
+              <div class="panel-title">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5V4a2 2 0 0 1 2-2h11l3 3v14.5A2.5 2.5 0 0 1 17.5 22H6.5A2.5 2.5 0 0 1 4 19.5Z"></path><path d="M14 2v6h6"></path></svg>
+                議事録
+              </div>
+              <span class="badge">最新順</span>
+            </div>
+            <div class="minutes-list">
+              <div class="simple-row">
+                <div class="datebox">6/09</div>
+                <div><strong>第2期イベント運営MTG</strong><div class="event-meta">LINE WORKS投稿分を転記する想定</div></div>
+                <span class="status done">最新</span>
+              </div>
+              <div class="simple-row">
+                <div class="datebox">6/02</div>
+                <div><strong>6月準備進捗確認</strong><div class="event-meta">役割分担と告知文の確認</div></div>
+                <span class="status">確認</span>
+              </div>
+              <div class="simple-row">
+                <div class="datebox">5/28</div>
+                <div><strong>申込導線確認</strong><div class="event-meta">フォームとDrive資料の整理</div></div>
+                <span class="status">記録</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel" id="ai" aria-label="AI相談">
+            <div class="panel-head">
+              <div class="panel-title">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8V4H8"></path><rect x="4" y="8" width="16" height="12" rx="2"></rect><path d="M2 14h2"></path><path d="M20 14h2"></path><path d="M15 13v2"></path><path d="M9 13v2"></path></svg>
+                AI相談
+              </div>
+              <span class="badge">Notion AI用</span>
+            </div>
+            <div class="note-box">
+              Notion AIに聞くときは、資料名・対象月・LINE WORKS投稿日を含めると回答精度が上がります。
+              <div class="prompt">このポータル内のスケジュール、準備タスク、報告関係、イベント情報、議事録を優先して参照し、根拠と次のアクションを分けて回答してください。</div>
+            </div>
+          </section>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const schedules = {
+      juneWonder: {
+        month: 6,
+        label: "6月 Wonder＋",
+        items: [
+          { day: 8, title: "Wonder＋ 事前確認MTG", meta: "19:00 / 役割分担と案内文確認" },
+          { day: 13, title: "Wonder＋ 告知投稿", meta: "案内文章Driveから掲示板へ投稿" },
+          { day: 21, title: "Wonder＋ イベント本番", meta: "集合 10:00 / 受付 10:30 / 記録担当確認" },
+          { day: 24, title: "Wonder＋ 振り返り", meta: "議事録追加、活動状況フォーム入力" }
+        ]
+      },
+      juneRegular: {
+        month: 6,
+        label: "6月 レギュラー",
+        items: [
+          { day: 6, title: "レギュラー 参加者確認", meta: "申込フォームとLINE WORKSの確認" },
+          { day: 14, title: "レギュラー イベント本番", meta: "集合 13:00 / 受付 13:30" },
+          { day: 18, title: "BOスケジュール提出", meta: "提出フォームへ入力" },
+          { day: 28, title: "月次活動状況入力", meta: "活動状況入力フォームを更新" }
+        ]
+      },
+      julyWonder: {
+        month: 7,
+        label: "7月 Wonder＋",
+        items: [
+          { day: 4, title: "Wonder＋ 7月キックオフ", meta: "前月振り返りと改善点確認" },
+          { day: 11, title: "Wonder＋ 案内文更新", meta: "Drive資料の最新版へ差し替え" },
+          { day: 20, title: "Wonder＋ イベント本番", meta: "集合 10:00 / 当日運営チェック" },
+          { day: 23, title: "Wonder＋ 議事録共有", meta: "LINE WORKS投稿分をポータルへ転記" }
+        ]
+      },
+      julyRegular: {
+        month: 7,
+        label: "7月 レギュラー",
+        items: [
+          { day: 7, title: "レギュラー 参加者リスト更新", meta: "フォーム回答と名簿を照合" },
+          { day: 12, title: "レギュラー 告知確認", meta: "掲示板投稿とトーク共有" },
+          { day: 26, title: "レギュラー イベント本番", meta: "集合 13:00 / 受付 13:30" },
+          { day: 30, title: "7月活動状況入力", meta: "月次フォームとBO提出を確認" }
+        ]
+      }
+    };
+
+    const firstWeekday = { 6: 1, 7: 3 };
+    const daysInMonth = { 6: 30, 7: 31 };
+    const dows = ["月", "火", "水", "木", "金", "土", "日"];
+
+    const calendarGrid = document.querySelector("#calendarGrid");
+    const eventList = document.querySelector("#eventList");
+    const monthBadge = document.querySelector("#monthBadge");
+
+    function renderSchedule(key) {
+      const current = schedules[key];
+      const month = current.month;
+      monthBadge.textContent = current.label;
+      calendarGrid.innerHTML = "";
+      dows.forEach((dow) => {
+        const cell = document.createElement("div");
+        cell.className = "dow";
+        cell.textContent = dow;
+        calendarGrid.appendChild(cell);
+      });
+
+      for (let i = 1; i < firstWeekday[month]; i += 1) {
+        const cell = document.createElement("div");
+        cell.className = "day is-muted";
+        calendarGrid.appendChild(cell);
+      }
+
+      const eventDays = new Set(current.items.map((item) => item.day));
+      for (let day = 1; day <= daysInMonth[month]; day += 1) {
+        const cell = document.createElement("div");
+        cell.className = eventDays.has(day) ? "day has-event" : "day";
+        cell.innerHTML = `${day}${eventDays.has(day) ? '<span class="dot"></span>' : ""}`;
+        calendarGrid.appendChild(cell);
+      }
+
+      eventList.innerHTML = current.items.map((item) => `
+        <div class="event-row">
+          <div class="datebox">${month}/${item.day}</div>
+          <div>
+            <div class="event-title">${item.title}</div>
+            <div class="event-meta">${item.meta}</div>
+          </div>
+        </div>
+      `).join("");
+
+      document.querySelectorAll(".tab-button").forEach((button) => {
+        button.classList.toggle("is-active", button.dataset.schedule === key);
+      });
+    }
+
+    document.querySelectorAll(".tab-button").forEach((button) => {
+      button.addEventListener("click", () => renderSchedule(button.dataset.schedule));
+    });
+
+    const filter = document.querySelector("#filter");
+    const quickTiles = [...document.querySelectorAll("#quickGrid .tile")];
+    filter.addEventListener("input", () => {
+      const q = filter.value.trim().toLowerCase();
+      quickTiles.forEach((tile) => {
+        tile.classList.toggle("hidden", q && !tile.textContent.toLowerCase().includes(q));
+      });
+    });
+
+    renderSchedule("juneWonder");
+  </script>
+</body>
+</html>
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wonder＋運営ポータル</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #20272e;
+      --muted: #67727d;
+      --line: #d8e0e7;
+      --soft: #f4f7f9;
+      --panel: #ffffff;
+      --blue: #1f6598;
+      --green: #287357;
+      --red: #b24b4b;
+      --amber: #936616;
+      --violet: #66568e;
+      --cyan: #24727e;
+      --shadow: 0 10px 24px rgba(32, 39, 46, .08);
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      width: 100%;
+      min-height: 100%;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    body {
+      margin: 0;
+      width: 100%;
+      min-height: 100%;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans JP", sans-serif;
+      background: #eef3f6;
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; }
+
+    .portal {
+      min-height: 100vh;
+      min-height: 100svh;
+      padding: 18px;
+    }
+
+    .shell {
+      max-width: 1220px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .topbar {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(240px, 340px);
+      gap: 14px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .mark {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: #20272e;
+      color: #fff;
+      font-weight: 800;
+      flex: 0 0 auto;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    .sub {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .search {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 9px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .search input {
+      width: 100%;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      color: var(--ink);
+      font: inherit;
+      min-width: 0;
+    }
+
     .layout {
       display: grid;
       grid-template-columns: minmax(0, 1.08fr) minmax(320px, .92fr);

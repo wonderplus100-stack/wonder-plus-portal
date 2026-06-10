@@ -389,6 +389,39 @@
       background: #f9fbfc;
     }
 
+    .link-card.is-pending {
+      cursor: default;
+      color: inherit;
+      background: #f8fafb;
+    }
+
+    .link-card.is-pending:hover {
+      border-color: var(--line);
+      background: #f8fafb;
+    }
+
+    .share-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 30px;
+      padding: 6px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      background: #fff;
+      white-space: nowrap;
+    }
+
+    .share-link.is-pending {
+      color: var(--muted);
+      background: #f8fafb;
+      cursor: default;
+    }
+
     .form-list,
     .minutes-list,
     .task-list {
@@ -968,24 +1001,24 @@
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12a10 10 0 0 1-10 10H4l2.4-4.1A10 10 0 1 1 22 12Z"></path></svg>
                 LINE WORKSリンク
               </div>
-              <span class="badge">URL差し替え可</span>
+              <span class="badge">ID登録済み</span>
             </div>
             <div class="link-grid">
-              <a class="link-card" href="#" target="_blank" rel="noreferrer">
-                <strong>2期専用トーク</strong>
-                <span>2期メンバー専用トークへ移動。実URLを設定すると直接開けます。</span>
+              <a class="link-card is-pending" href="#" data-room-id="86be568e-ca15-b86a-3623-fbcbabe68431" aria-disabled="true">
+                <strong>2期パートナー参加トーク</strong>
+                <span>ID: 86be568e-ca15-b86a-3623-fbcbabe68431。LINE WORKSの共有URL確認後に直接リンク化します。</span>
               </a>
-              <a class="link-card" href="#" target="_blank" rel="noreferrer">
-                <strong>2＆3期専用トーク</strong>
-                <span>合同連絡用トーク。イベント横断の相談・確認用。</span>
+              <a class="link-card is-pending" href="#" data-room-id="4bec9198-ca7b-346c-092f-7d1e2d87eaf8" aria-disabled="true">
+                <strong>2&3期パートナー参加トーク</strong>
+                <span>ID: 4bec9198-ca7b-346c-092f-7d1e2d87eaf8。合同連絡用トークのリンク設定待ち。</span>
               </a>
-              <a class="link-card" href="#" target="_blank" rel="noreferrer">
-                <strong>スケジュール共有トーク</strong>
-                <span>日程調整・変更連絡の確認先。</span>
+              <a class="link-card is-pending" href="#" data-room-id="6d9bbe51-c4fd-f680-092c-4778e3673c34" aria-disabled="true">
+                <strong>参加スケジュール共有トーク</strong>
+                <span>ID: 6d9bbe51-c4fd-f680-092c-4778e3673c34。日程調整・変更連絡の確認先。</span>
               </a>
-              <a class="link-card" href="#" target="_blank" rel="noreferrer">
-                <strong>掲示板</strong>
-                <span>重要連絡、固定ルール、全体告知の確認先。</span>
+              <a class="link-card is-pending" href="#" aria-disabled="true">
+                <strong>情報共有掲示板</strong>
+                <span>簡易投稿・閲覧はGoogleフォームまたはApps Script Webアプリで共有掲示板化します。</span>
               </a>
             </div>
           </section>
@@ -999,13 +1032,13 @@
               <span class="badge">Drive / Form</span>
             </div>
             <div class="link-grid">
-              <a class="link-card" href="#" target="_blank" rel="noreferrer">
-                <strong>案内文章ドライブ</strong>
-                <span>参加者向け案内文、告知文、テンプレートを管理。</span>
+              <a class="link-card is-pending" href="#" aria-disabled="true">
+                <strong>案内文章一覧</strong>
+                <span>作成後共有。タイトル一覧、本文、画像素材、ダウンロードを1画面で確認できる形にします。</span>
               </a>
-              <a class="link-card" href="#" target="_blank" rel="noreferrer">
+              <a class="link-card" href="https://forms.gle/CEmeZWb9ttuBiqjP8" target="_blank" rel="noreferrer">
                 <strong>申し込みフォーム</strong>
-                <span>イベント申込フォームへ移動。URLを差し替えて運用。</span>
+                <span>イベント申込フォームへ移動。</span>
               </a>
             </div>
           </section>
@@ -1078,11 +1111,11 @@
               <span class="badge">2フォーム</span>
             </div>
             <div class="link-grid">
-              <a class="link-card" href="#" target="_blank" rel="noreferrer">
+              <a class="link-card" href="https://forms.gle/iUJCedEevzVqYA799" target="_blank" rel="noreferrer">
                 <strong>毎月の活動状況入力フォーム</strong>
                 <span>月次の活動内容、参加状況、課題を入力。</span>
               </a>
-              <a class="link-card" href="#" target="_blank" rel="noreferrer">
+              <a class="link-card" href="https://forms.gle/z3WeRpLin4QHB1ZNA" target="_blank" rel="noreferrer">
                 <strong>BOスケジュール提出フォーム</strong>
                 <span>BO予定、提出期限、担当確認用。</span>
               </a>
@@ -1108,7 +1141,7 @@
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5V4a2 2 0 0 1 2-2h11l3 3v14.5A2.5 2.5 0 0 1 17.5 22H6.5A2.5 2.5 0 0 1 4 19.5Z"></path><path d="M14 2v6h6"></path></svg>
                 議事録
               </div>
-              <span class="badge">最新順</span>
+              <a class="share-link is-pending" href="#" aria-disabled="true">共有リンク準備中</a>
             </div>
             <div class="minutes-list">
               <div class="simple-row">
@@ -1242,6 +1275,10 @@
 
     document.querySelectorAll(".tab-button").forEach((button) => {
       button.addEventListener("click", () => renderSchedule(button.dataset.schedule));
+    });
+
+    document.querySelectorAll(".is-pending[href='#']").forEach((link) => {
+      link.addEventListener("click", (event) => event.preventDefault());
     });
 
     const filter = document.querySelector("#filter");

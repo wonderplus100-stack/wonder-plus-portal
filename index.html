@@ -242,6 +242,75 @@
       padding: 14px;
     }
 
+    .sync-callout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      margin: 14px 14px 0;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: linear-gradient(180deg, #f7fbff 0%, #fff 100%);
+    }
+
+    .sync-callout strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .sync-callout span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .sync-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    .sync-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      padding: 0 12px;
+      border: 1px solid var(--line-strong);
+      border-radius: 7px;
+      background: #fff;
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .sync-button.primary {
+      border-color: var(--blue);
+      background: var(--blue);
+      color: #fff;
+    }
+
+    .sample-label {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      gap: 6px;
+      margin: 0 14px;
+      padding: 5px 8px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
     .calendar {
       border: 1px solid var(--line);
       border-radius: 8px;
@@ -460,6 +529,36 @@
       line-height: 1.7;
     }
 
+    .guide-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      padding: 14px;
+    }
+
+    .guide-section {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      background: #fff;
+    }
+
+    .guide-section h3 {
+      margin: 0 0 8px;
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    .guide-section ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.65;
+    }
+
+    .guide-section li + li { margin-top: 3px; }
+
     .prompt {
       margin-top: 10px;
       border: 1px solid #c8d8e6;
@@ -555,9 +654,28 @@
         padding: 10px;
       }
 
+      .guide-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        padding: 10px;
+      }
+
       .calendar-wrap {
         gap: 10px;
         padding: 10px;
+      }
+
+      .sync-callout {
+        grid-template-columns: minmax(0, 1fr);
+        margin: 10px 10px 0;
+      }
+
+      .sync-actions {
+        justify-content: stretch;
+      }
+
+      .sync-button {
+        flex: 1 1 140px;
       }
 
       .month-tabs {
@@ -862,6 +980,7 @@
     body.split-mode .form-list,
     body.split-mode .minutes-list,
     body.split-mode .task-list,
+    body.split-mode .guide-grid,
     body.split-mode .note-box {
       padding: 8px 10px 10px;
     }
@@ -981,17 +1100,88 @@
               </div>
               <span class="badge" id="monthBadge">6月 Wonder＋</span>
             </div>
+            <div class="sync-callout">
+              <div>
+                <strong>自動反映スケジュール</strong>
+                <span>Googleフォーム送信後の正式な反映先はNotionのスケジュールDBです。最新予定はDBカレンダーで確認し、この下のカレンダーはポータル内の見やすい表示サンプルとして使います。</span>
+              </div>
+              <div class="sync-actions">
+                <a class="sync-button primary" href="https://app.notion.com/p/37b8c354603380a09237df83ad096704?v=37b8c3546033805e8505000c9b6349c2" target="_blank" rel="noreferrer">Notionカレンダー</a>
+                <a class="sync-button" href="https://forms.gle/38UzoYYjz5DQzr5o6" target="_blank" rel="noreferrer">スケジュール投稿</a>
+              </div>
+            </div>
             <div class="calendar-wrap">
               <div class="calendar">
                 <div class="cal-grid" id="calendarGrid" aria-label="月間カレンダー"></div>
               </div>
               <div class="event-list" id="eventList" aria-live="polite"></div>
             </div>
+            <div class="sample-label">ポータル表示サンプル</div>
             <div class="month-tabs">
               <button class="tab-button is-active" type="button" data-schedule="juneWonder">6月 Wonder＋</button>
               <button class="tab-button" type="button" data-schedule="juneRegular">6月 レギュラー</button>
               <button class="tab-button" type="button" data-schedule="julyWonder">7月 Wonder＋</button>
               <button class="tab-button" type="button" data-schedule="julyRegular">7月 レギュラー</button>
+            </div>
+            <div class="link-grid">
+              <a class="link-card" href="https://forms.gle/38UzoYYjz5DQzr5o6" target="_blank" rel="noreferrer">
+                <strong>スケジュール投稿フォーム</strong>
+                <span>月間スケジュール原文をそのまま送信。整形後に一覧・カレンダー・案内文章の日付へ反映します。</span>
+              </a>
+              <a class="link-card" href="#lineworks">
+                <strong>参加スケジュール共有トーク</strong>
+                <span>LINE WORKS側で投稿内容を確認する入口です。</span>
+              </a>
+            </div>
+            <div class="month-tabs">
+              <button class="tab-button" type="button" data-scroll-target="operator-list">各会運営者担当一覧</button>
+              <button class="tab-button" type="button" data-scroll-target="shared-forms">共有フォーム</button>
+            </div>
+          </section>
+
+          <section class="panel" id="operator-list" aria-label="各会運営者担当一覧">
+            <div class="panel-head">
+              <div class="panel-title">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                各会運営者担当一覧
+              </div>
+              <span class="badge">参加スケジュール集約</span>
+            </div>
+            <div class="minutes-list">
+              <div class="simple-row">
+                <div class="datebox">集約</div>
+                <div><strong>個人の参加可能日を自動集計</strong><div class="event-meta">ログインIDごとの参加チェックを集約し、開催日ごとに担当候補を表示します。</div></div>
+                <span class="status todo">設計中</span>
+              </div>
+              <div class="simple-row">
+                <div class="datebox">更新</div>
+                <div><strong>個人ページから変更</strong><div class="event-meta">本人が参加可否を変更すると、全体一覧とNotion参加者一覧を更新します。</div></div>
+                <span class="status">自動</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel" id="shared-forms" aria-label="共有フォーム">
+            <div class="panel-head">
+              <div class="panel-title">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2h6"></path><path d="M9 22h6"></path><path d="M5 5h14v14H5z"></path><path d="M8 9h8"></path><path d="M8 13h8"></path></svg>
+                共有フォーム
+              </div>
+              <span class="badge">3フォーム</span>
+            </div>
+            <div class="link-grid">
+              <a class="link-card" href="https://forms.gle/38UzoYYjz5DQzr5o6" target="_blank" rel="noreferrer">
+                <strong>スケジュール共有フォーム</strong>
+                <span>月間スケジュール原文を投稿し、カレンダー/一覧/案内文日時へ反映します。</span>
+              </a>
+              <a class="link-card" href="https://forms.gle/ALC4KgoKgJB9tQWW9" target="_blank" rel="noreferrer">
+                <strong>議事録共有フォーム</strong>
+                <span>議事録を投稿し、テキスト閲覧ページとNotionへ反映します。</span>
+              </a>
+              <a class="link-card" href="https://forms.gle/rBzVgad5FXEM4dcm9" target="_blank" rel="noreferrer">
+                <strong>イベント案内共有フォーム</strong>
+                <span>案内文章と素材情報を投稿し、案内文章一覧へ反映します。</span>
+              </a>
             </div>
           </section>
 
@@ -1001,24 +1191,24 @@
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12a10 10 0 0 1-10 10H4l2.4-4.1A10 10 0 1 1 22 12Z"></path></svg>
                 LINE WORKSリンク
               </div>
-              <span class="badge">ID登録済み</span>
+              <span class="badge">LINE WORKSへ移動</span>
             </div>
             <div class="link-grid">
-              <a class="link-card is-pending" href="#" data-room-id="86be568e-ca15-b86a-3623-fbcbabe68431" aria-disabled="true">
+              <a class="link-card" href="https://talk.worksmobile.com" target="_blank" rel="noreferrer" data-room-id="86be568e-ca15-b86a-3623-fbcbabe68431" data-channel-key="352119290">
                 <strong>2期パートナー参加トーク</strong>
-                <span>ID: 86be568e-ca15-b86a-3623-fbcbabe68431。LINE WORKSの共有URL確認後に直接リンク化します。</span>
+                <span>LINE WORKSトークを開きます。内部キー: 352119290 / ID: 86be568e-ca15-b86a-3623-fbcbabe68431</span>
               </a>
-              <a class="link-card is-pending" href="#" data-room-id="4bec9198-ca7b-346c-092f-7d1e2d87eaf8" aria-disabled="true">
+              <a class="link-card" href="https://talk.worksmobile.com" target="_blank" rel="noreferrer" data-room-id="4bec9198-ca7b-346c-092f-7d1e2d87eaf8" data-channel-key="401847803">
                 <strong>2&3期パートナー参加トーク</strong>
-                <span>ID: 4bec9198-ca7b-346c-092f-7d1e2d87eaf8。合同連絡用トークのリンク設定待ち。</span>
+                <span>LINE WORKSトークを開きます。内部キー: 401847803 / ID: 4bec9198-ca7b-346c-092f-7d1e2d87eaf8</span>
               </a>
-              <a class="link-card is-pending" href="#" data-room-id="6d9bbe51-c4fd-f680-092c-4778e3673c34" aria-disabled="true">
+              <a class="link-card" href="https://talk.worksmobile.com" target="_blank" rel="noreferrer" data-room-id="6d9bbe51-c4fd-f680-092c-4778e3673c34" data-channel-key="366918350">
                 <strong>参加スケジュール共有トーク</strong>
-                <span>ID: 6d9bbe51-c4fd-f680-092c-4778e3673c34。日程調整・変更連絡の確認先。</span>
+                <span>LINE WORKSトークを開きます。内部キー: 366918350 / ID: 6d9bbe51-c4fd-f680-092c-4778e3673c34</span>
               </a>
-              <a class="link-card is-pending" href="#" aria-disabled="true">
+              <a class="link-card" href="https://board.worksmobile.com" target="_blank" rel="noreferrer">
                 <strong>情報共有掲示板</strong>
-                <span>簡易投稿・閲覧はGoogleフォームまたはApps Script Webアプリで共有掲示板化します。</span>
+                <span>掲示板を開きます。簡易投稿・閲覧の専用ページはApps Script Webアプリで追加できます。</span>
               </a>
             </div>
           </section>
@@ -1032,9 +1222,17 @@
               <span class="badge">Drive / Form</span>
             </div>
             <div class="link-grid">
-              <a class="link-card is-pending" href="#" aria-disabled="true">
-                <strong>案内文章一覧</strong>
-                <span>作成後共有。タイトル一覧、本文、画像素材、ダウンロードを1画面で確認できる形にします。</span>
+              <a class="link-card" href="#event-guides">
+                <strong>案内文章一覧ページ</strong>
+                <span>タイトル、本文、素材、ダウンロードを1画面で確認するページへ移動。</span>
+              </a>
+              <a class="link-card" href="https://drive.google.com/drive/folders/1HQpyzjkAMPFJKCc8WjosxWVqH2KSukJD?usp=sharing" target="_blank" rel="noreferrer">
+                <strong>案内文章ドライブ</strong>
+                <span>既存の案内文章・素材ファイルを確認します。</span>
+              </a>
+              <a class="link-card" href="https://forms.gle/rBzVgad5FXEM4dcm9" target="_blank" rel="noreferrer">
+                <strong>イベント案内投稿フォーム</strong>
+                <span>案内タイトル・本文・素材情報を送信し、一覧ページへ反映します。</span>
               </a>
               <a class="link-card" href="https://forms.gle/CEmeZWb9ttuBiqjP8" target="_blank" rel="noreferrer">
                 <strong>申し込みフォーム</strong>
@@ -1060,6 +1258,38 @@
                 <strong>投稿ルール</strong>
                 <span>ファイル名は「日付_イベント名_担当者」。人物が写る素材は公開可否を確認してから共有。</span>
               </a>
+            </div>
+          </section>
+
+          <section class="panel" id="event-guides" aria-label="案内文章一覧">
+            <div class="panel-head">
+              <div class="panel-title">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h18"></path><path d="M3 12h18"></path><path d="M3 20h18"></path></svg>
+                案内文章一覧
+              </div>
+              <span class="badge">自動反映予定</span>
+            </div>
+            <div class="link-grid">
+              <a class="link-card" href="https://drive.google.com/drive/folders/1HQpyzjkAMPFJKCc8WjosxWVqH2KSukJD?usp=sharing" target="_blank" rel="noreferrer">
+                <strong>既存Driveを開く</strong>
+                <span>現在アップロード済みの案内文章と素材を確認します。</span>
+              </a>
+              <a class="link-card" href="https://forms.gle/rBzVgad5FXEM4dcm9" target="_blank" rel="noreferrer">
+                <strong>案内文章を投稿する</strong>
+                <span>フォーム送信後、タイトル別一覧、本文、素材リンクとして掲載する想定です。</span>
+              </a>
+            </div>
+            <div class="minutes-list">
+              <div class="simple-row">
+                <div class="datebox">案内</div>
+                <div><strong>イベント案内テンプレート</strong><div class="event-meta">フォーム送信データから、開催日時をスケジュール表と照合して自動差し替えします。</div></div>
+                <span class="status todo">設計中</span>
+              </div>
+              <div class="simple-row">
+                <div class="datebox">素材</div>
+                <div><strong>画像・資料リンク</strong><div class="event-meta">Drive内の画像や資料を、案内文章ごとにダウンロードできる形で紐づけます。</div></div>
+                <span class="status">Drive</span>
+              </div>
             </div>
           </section>
         </div>
@@ -1098,6 +1328,91 @@
                 <div class="datebox">5</div>
                 <div><strong>終了後に報告する</strong><div class="event-meta">活動状況入力フォームとBOスケジュール提出フォームを更新し、議事録を最新順に追加します。</div></div>
                 <span class="status done">報告</span>
+              </div>
+            </div>
+            <div class="link-grid">
+              <a class="link-card" href="#prepare-guide">
+                <strong>準備タスク詳細を開く</strong>
+                <span>設営、受付、リスト、ドリンク、フード、ミライバの段取りを一覧で確認。</span>
+              </a>
+              <a class="link-card" href="https://wonderplus100-stack.github.io/wonder-plus-portal/?view=prepare-guide" target="_blank" rel="noreferrer">
+                <strong>詳細ページを別窓で開く</strong>
+                <span>Notion埋め込み外で広く表示して確認できます。</span>
+              </a>
+            </div>
+          </section>
+
+          <section class="panel" id="prepare-guide" aria-label="イベントの準備タスク詳細">
+            <div class="panel-head">
+              <div class="panel-title">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+                イベントの準備タスク詳細
+              </div>
+              <span class="badge">現場確認用</span>
+            </div>
+            <div class="guide-grid">
+              <div class="guide-section">
+                <h3>設営</h3>
+                <ul>
+                  <li>受付、ミライバ、荷物置き場、プロフィール記入台、ドリンクブースの配置を決める</li>
+                  <li>フードテーブルにクロスとランチョンマットを設置する</li>
+                  <li>箸、皿、お手拭き、スプーン、フォークを設置する</li>
+                  <li>出展ブースの配置と導線を確認する</li>
+                </ul>
+              </div>
+              <div class="guide-section">
+                <h3>受付</h3>
+                <ul>
+                  <li>お釣りを準備する</li>
+                  <li>プロフィールカードを用意する</li>
+                  <li>領収書を用意する</li>
+                  <li>配布物を受付にまとめる</li>
+                </ul>
+              </div>
+              <div class="guide-section">
+                <h3>リスト</h3>
+                <ul>
+                  <li>WKシステムリストを確認する</li>
+                  <li>WPフォームリストを確認する</li>
+                  <li>Peatixリストを確認する</li>
+                  <li>1期リストを確認する（EJ、安彦、野本、服部、徳田）</li>
+                </ul>
+              </div>
+              <div class="guide-section">
+                <h3>ドリンク</h3>
+                <ul>
+                  <li>ウーロン茶、アイスティ、水を用意する</li>
+                  <li>コーヒー、紅茶の有無を確認し、シロップ、ミルク、パドラーを準備する</li>
+                  <li>お酒がある場合は缶酎ハイ、ワイン、日本酒を確認する</li>
+                  <li>ソフトドリンクのみは紙コップ、お酒ありはプラカップを用意する</li>
+                  <li>ワイン、日本酒は専用の小さいプラカップを用意する</li>
+                </ul>
+              </div>
+              <div class="guide-section">
+                <h3>フード</h3>
+                <ul>
+                  <li>会によって食事、デザート提供の有無を確認する</li>
+                  <li>ガスコンロ、シルバープレート、トング、トング受け皿を用意する</li>
+                  <li>ゴミ袋をテーブルに貼り、包丁、まな板を用意する</li>
+                  <li>提供するデザート、フードを並べる</li>
+                </ul>
+              </div>
+              <div class="guide-section">
+                <h3>フード準備</h3>
+                <ul>
+                  <li>サニーレタスは洗って一口サイズにちぎり、ハムや生ハムと盛り付ける</li>
+                  <li>総菜系は一口サイズにカットし、サニーレタスの芯なども活用して盛り付ける</li>
+                  <li>パスタは700gを茹で、パスタソースは約200gに1袋、合計3袋を活用する</li>
+                  <li>デザートはホイップ、フルーツソース、フルーツ、チョコソースでデコレーションする</li>
+                </ul>
+              </div>
+              <div class="guide-section">
+                <h3>ミライバ</h3>
+                <ul>
+                  <li>ミライバポップを設置する</li>
+                  <li>QRコードを設置する</li>
+                  <li>ガード文言を設置する</li>
+                </ul>
               </div>
             </div>
           </section>
@@ -1141,7 +1456,7 @@
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5V4a2 2 0 0 1 2-2h11l3 3v14.5A2.5 2.5 0 0 1 17.5 22H6.5A2.5 2.5 0 0 1 4 19.5Z"></path><path d="M14 2v6h6"></path></svg>
                 議事録
               </div>
-              <a class="share-link is-pending" href="#" aria-disabled="true">共有リンク準備中</a>
+              <a class="share-link" href="https://forms.gle/ALC4KgoKgJB9tQWW9" target="_blank" rel="noreferrer">議事録を共有</a>
             </div>
             <div class="minutes-list">
               <div class="simple-row">
@@ -1274,7 +1589,12 @@
     }
 
     document.querySelectorAll(".tab-button").forEach((button) => {
-      button.addEventListener("click", () => renderSchedule(button.dataset.schedule));
+      button.addEventListener("click", () => {
+        if (button.dataset.schedule) renderSchedule(button.dataset.schedule);
+        if (button.dataset.scrollTarget) {
+          document.getElementById(button.dataset.scrollTarget)?.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      });
     });
 
     document.querySelectorAll(".is-pending[href='#']").forEach((link) => {
@@ -1296,11 +1616,15 @@
       "quick-more": ["quick"],
       schedule: ["schedule"],
       "schedule-events": ["schedule"],
+      operators: ["operator-list"],
+      forms: ["shared-forms"],
       lineworks: ["lineworks"],
       event: ["event-info"],
+      "event-guides": ["event-guides"],
       media: ["media-share"],
       prepare: ["prepare"],
       "prepare-next": ["prepare"],
+      "prepare-guide": ["prepare-guide"],
       mindset: ["mindset"],
       reports: ["reports"],
       minutes: ["minutes"],

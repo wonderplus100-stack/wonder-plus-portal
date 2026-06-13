@@ -1730,6 +1730,7 @@
     }
 
     loadSchedules();
+    window.setInterval(loadSchedules, 5 * 60 * 1000);
     applySplitView();
   </script>
 </body>

@@ -1103,11 +1103,11 @@
             <div class="sync-callout">
               <div>
                 <strong>自動反映スケジュール</strong>
-                <span>Googleフォーム送信後の正式な反映先はNotionのスケジュールDBです。最新予定はDBカレンダーで確認し、この下のカレンダーはポータル内の見やすい表示サンプルとして使います。</span>
+                <span>Googleフォーム送信後に整形されたスケジュールを読み込み、このカレンダーと一覧へ反映します。読み込みに失敗した場合のみ、Notionカレンダーから確認してください。</span>
               </div>
               <div class="sync-actions">
-                <a class="sync-button primary" href="https://app.notion.com/p/37b8c354603380a09237df83ad096704?v=37b8c3546033805e8505000c9b6349c2" target="_blank" rel="noreferrer">Notionカレンダー</a>
-                <a class="sync-button" href="https://forms.gle/38UzoYYjz5DQzr5o6" target="_blank" rel="noreferrer">スケジュール投稿</a>
+                <a class="sync-button primary" href="https://forms.gle/38UzoYYjz5DQzr5o6" target="_blank" rel="noreferrer">スケジュール投稿</a>
+                <a class="sync-button" href="https://app.notion.com/p/37b8c354603380a09237df83ad096704?v=37b8c3546033805e8505000c9b6349c2" target="_blank" rel="noreferrer">Notionカレンダー</a>
               </div>
             </div>
             <div class="calendar-wrap">
@@ -1116,7 +1116,7 @@
               </div>
               <div class="event-list" id="eventList" aria-live="polite"></div>
             </div>
-            <div class="sample-label">ポータル表示サンプル</div>
+            <div class="sample-label" id="scheduleStatus">スケジュール読込中</div>
             <div class="month-tabs">
               <button class="tab-button is-active" type="button" data-schedule="juneWonder">6月 Wonder＋</button>
               <button class="tab-button" type="button" data-schedule="juneRegular">6月 レギュラー</button>
@@ -1167,13 +1167,9 @@
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2h6"></path><path d="M9 22h6"></path><path d="M5 5h14v14H5z"></path><path d="M8 9h8"></path><path d="M8 13h8"></path></svg>
                 共有フォーム
               </div>
-              <span class="badge">3フォーム</span>
+              <span class="badge">2フォーム</span>
             </div>
             <div class="link-grid">
-              <a class="link-card" href="https://forms.gle/38UzoYYjz5DQzr5o6" target="_blank" rel="noreferrer">
-                <strong>スケジュール共有フォーム</strong>
-                <span>月間スケジュール原文を投稿し、カレンダー/一覧/案内文日時へ反映します。</span>
-              </a>
               <a class="link-card" href="https://forms.gle/ALC4KgoKgJB9tQWW9" target="_blank" rel="noreferrer">
                 <strong>議事録共有フォーム</strong>
                 <span>議事録を投稿し、テキスト閲覧ページとNotionへ反映します。</span>
@@ -1496,59 +1492,114 @@
   </main>
 
   <script>
-    const schedules = {
-      juneWonder: {
-        month: 6,
-        label: "6月 Wonder＋",
-        items: [
-          { day: 8, title: "Wonder＋ 事前確認MTG", meta: "19:00 / 役割分担と案内文確認" },
-          { day: 13, title: "Wonder＋ 告知投稿", meta: "案内文章Driveから掲示板へ投稿" },
-          { day: 21, title: "Wonder＋ イベント本番", meta: "集合 10:00 / 受付 10:30 / 記録担当確認" },
-          { day: 24, title: "Wonder＋ 振り返り", meta: "議事録追加、活動状況フォーム入力" }
-        ]
-      },
-      juneRegular: {
-        month: 6,
-        label: "6月 レギュラー",
-        items: [
-          { day: 6, title: "レギュラー 参加者確認", meta: "申込フォームとLINE WORKSの確認" },
-          { day: 14, title: "レギュラー イベント本番", meta: "集合 13:00 / 受付 13:30" },
-          { day: 18, title: "BOスケジュール提出", meta: "提出フォームへ入力" },
-          { day: 28, title: "月次活動状況入力", meta: "活動状況入力フォームを更新" }
-        ]
-      },
-      julyWonder: {
-        month: 7,
-        label: "7月 Wonder＋",
-        items: [
-          { day: 4, title: "Wonder＋ 7月キックオフ", meta: "前月振り返りと改善点確認" },
-          { day: 11, title: "Wonder＋ 案内文更新", meta: "Drive資料の最新版へ差し替え" },
-          { day: 20, title: "Wonder＋ イベント本番", meta: "集合 10:00 / 当日運営チェック" },
-          { day: 23, title: "Wonder＋ 議事録共有", meta: "LINE WORKS投稿分をポータルへ転記" }
-        ]
-      },
-      julyRegular: {
-        month: 7,
-        label: "7月 レギュラー",
-        items: [
-          { day: 7, title: "レギュラー 参加者リスト更新", meta: "フォーム回答と名簿を照合" },
-          { day: 12, title: "レギュラー 告知確認", meta: "掲示板投稿とトーク共有" },
-          { day: 26, title: "レギュラー イベント本番", meta: "集合 13:00 / 受付 13:30" },
-          { day: 30, title: "7月活動状況入力", meta: "月次フォームとBO提出を確認" }
-        ]
-      }
+    const SCHEDULE_YEAR = 2026;
+    const SCHEDULE_API_URL = "https://script.google.com/macros/s/AKfycbzoEhJKbhGD0FRlLOhpIslawcjZy7L0GoerNEt0GBfHS3QiDkCDfn84DJ0UyF7x41Mllw/exec?action=schedule";
+    const emptySchedules = {
+      juneWonder: { month: 6, label: "6月 Wonder＋", items: [] },
+      juneRegular: { month: 6, label: "6月 レギュラー", items: [] },
+      julyWonder: { month: 7, label: "7月 Wonder＋", items: [] },
+      julyRegular: { month: 7, label: "7月 レギュラー", items: [] }
     };
+    let schedules = structuredClone(emptySchedules);
+    let activeScheduleKey = "juneWonder";
 
-    const firstWeekday = { 6: 1, 7: 3 };
-    const daysInMonth = { 6: 30, 7: 31 };
     const dows = ["月", "火", "水", "木", "金", "土", "日"];
 
     const calendarGrid = document.querySelector("#calendarGrid");
     const eventList = document.querySelector("#eventList");
     const monthBadge = document.querySelector("#monthBadge");
+    const scheduleStatus = document.querySelector("#scheduleStatus");
+
+    function getScheduleApiUrl() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get("scheduleApi") || SCHEDULE_API_URL;
+    }
+
+    function daysInMonth(month) {
+      return new Date(SCHEDULE_YEAR, month, 0).getDate();
+    }
+
+    function firstWeekday(month) {
+      const day = new Date(SCHEDULE_YEAR, month - 1, 1).getDay();
+      return day === 0 ? 7 : day;
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? "").replace(/[&<>"']/g, (char) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        "\"": "&quot;",
+        "'": "&#039;"
+      })[char]);
+    }
+
+    function normalizeSchedules(payload) {
+      const next = structuredClone(emptySchedules);
+      Object.entries(payload?.schedules || {}).forEach(([key, value]) => {
+        if (!next[key]) return;
+        const items = Array.isArray(value.items) ? value.items : [];
+        next[key] = {
+          month: Number(value.month) || next[key].month,
+          label: value.label || next[key].label,
+          items: items
+            .map((item) => ({
+              day: Number(item.day),
+              title: String(item.title || "予定"),
+              meta: String(item.meta || "")
+            }))
+            .filter((item) => item.day >= 1 && item.day <= 31)
+            .sort((a, b) => a.day - b.day || a.title.localeCompare(b.title, "ja"))
+        };
+      });
+      return next;
+    }
+
+    function loadScheduleJsonp(apiUrl) {
+      return new Promise((resolve, reject) => {
+        const callbackName = `wonderSchedule_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+        const separator = apiUrl.includes("?") ? "&" : "?";
+        const script = document.createElement("script");
+        const timer = window.setTimeout(() => {
+          delete window[callbackName];
+          script.remove();
+          reject(new Error("JSONP timeout"));
+        }, 10000);
+        window[callbackName] = (payload) => {
+          window.clearTimeout(timer);
+          delete window[callbackName];
+          script.remove();
+          resolve(payload);
+        };
+        script.onerror = () => {
+          window.clearTimeout(timer);
+          delete window[callbackName];
+          script.remove();
+          reject(new Error("JSONP failed"));
+        };
+        script.src = `${apiUrl}${separator}callback=${encodeURIComponent(callbackName)}`;
+        document.head.appendChild(script);
+      });
+    }
+
+    async function fetchSchedulePayload(apiUrl) {
+      try {
+        const response = await fetch(apiUrl, { cache: "no-store" });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return await response.json();
+      } catch (error) {
+        return loadScheduleJsonp(apiUrl);
+      }
+    }
+
+    function setScheduleStatus(message) {
+      if (scheduleStatus) scheduleStatus.textContent = message;
+    }
 
     function renderSchedule(key) {
       const current = schedules[key];
+      if (!current) return;
+      activeScheduleKey = key;
       const month = current.month;
       monthBadge.textContent = current.label;
       calendarGrid.innerHTML = "";
@@ -1559,33 +1610,67 @@
         calendarGrid.appendChild(cell);
       });
 
-      for (let i = 1; i < firstWeekday[month]; i += 1) {
+      for (let i = 1; i < firstWeekday(month); i += 1) {
         const cell = document.createElement("div");
         cell.className = "day is-muted";
         calendarGrid.appendChild(cell);
       }
 
       const eventDays = new Set(current.items.map((item) => item.day));
-      for (let day = 1; day <= daysInMonth[month]; day += 1) {
+      for (let day = 1; day <= daysInMonth(month); day += 1) {
         const cell = document.createElement("div");
         cell.className = eventDays.has(day) ? "day has-event" : "day";
         cell.innerHTML = `${day}${eventDays.has(day) ? '<span class="dot"></span>' : ""}`;
         calendarGrid.appendChild(cell);
       }
 
-      eventList.innerHTML = current.items.map((item) => `
+      eventList.innerHTML = current.items.length ? current.items.map((item) => `
         <div class="event-row">
           <div class="datebox">${month}/${item.day}</div>
           <div>
-            <div class="event-title">${item.title}</div>
-            <div class="event-meta">${item.meta}</div>
+            <div class="event-title">${escapeHtml(item.title)}</div>
+            <div class="event-meta">${escapeHtml(item.meta || "詳細未入力")}</div>
           </div>
         </div>
-      `).join("");
+      `).join("") : `
+        <div class="event-row">
+          <div class="datebox">未反映</div>
+          <div>
+            <div class="event-title">この区分の予定はまだ反映されていません</div>
+            <div class="event-meta">スケジュール投稿フォーム送信後、Apps Scriptの反映データを読み込むとここに表示されます。</div>
+          </div>
+        </div>
+      `;
 
       document.querySelectorAll(".tab-button").forEach((button) => {
         button.classList.toggle("is-active", button.dataset.schedule === key);
       });
+    }
+
+    async function loadSchedules() {
+      const apiUrl = getScheduleApiUrl();
+      renderSchedule(activeScheduleKey);
+      if (!apiUrl) {
+        setScheduleStatus("スケジュール接続待ち: Apps ScriptのWebアプリURLを設定すると自動反映されます");
+        return;
+      }
+
+      try {
+        setScheduleStatus("スケジュール読込中");
+        const payload = await fetchSchedulePayload(apiUrl);
+        schedules = normalizeSchedules(payload);
+        renderSchedule(activeScheduleKey);
+        const updatedAt = payload?.updatedAt ? new Date(payload.updatedAt) : null;
+        const suffix = updatedAt && !Number.isNaN(updatedAt.getTime())
+          ? `最終更新 ${updatedAt.toLocaleString("ja-JP")}`
+          : "最新データを反映しました";
+        setScheduleStatus(`自動反映済み: ${suffix}`);
+      } catch (error) {
+        console.error(error);
+        schedules = structuredClone(emptySchedules);
+        renderSchedule(activeScheduleKey);
+        setScheduleStatus("スケジュール読込エラー: Notionカレンダーを確認してください");
+      }
     }
 
     document.querySelectorAll(".tab-button").forEach((button) => {
@@ -1644,7 +1729,7 @@
       });
     }
 
-    renderSchedule("juneWonder");
+    loadSchedules();
     applySplitView();
   </script>
 </body>

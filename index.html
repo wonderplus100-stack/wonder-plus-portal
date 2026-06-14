@@ -517,6 +517,74 @@
       display: none;
     }
 
+    [hidden] {
+      display: none !important;
+    }
+
+    body.auth-required:not(.is-member-logged-in) .topbar,
+    body.auth-required:not(.is-member-logged-in) .open-direct,
+    body.auth-required:not(.is-member-logged-in) #quick,
+    body.auth-required:not(.is-member-logged-in) #schedule,
+    body.auth-required:not(.is-member-logged-in) #operator-list,
+    body.auth-required:not(.is-member-logged-in) #shared-forms,
+    body.auth-required:not(.is-member-logged-in) #lineworks,
+    body.auth-required:not(.is-member-logged-in) #event-info,
+    body.auth-required:not(.is-member-logged-in) #media-share,
+    body.auth-required:not(.is-member-logged-in) #event-guides,
+    body.auth-required:not(.is-member-logged-in) #prepare,
+    body.auth-required:not(.is-member-logged-in) #prepare-detail,
+    body.auth-required:not(.is-member-logged-in) #mindset,
+    body.auth-required:not(.is-member-logged-in) #reports,
+    body.auth-required:not(.is-member-logged-in) #minutes,
+    body.auth-required:not(.is-member-logged-in) #ai {
+      display: none !important;
+    }
+
+    body.auth-required:not(.is-member-logged-in) .layout {
+      display: block;
+      margin-top: 0 !important;
+    }
+
+    body.auth-required:not(.is-member-logged-in) #member-portal {
+      max-width: 860px;
+      margin: 28px auto;
+    }
+
+    .personal-schedule-prompt {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 12px 14px 0;
+      padding: 12px;
+      border: 1px solid #c9dceb;
+      border-radius: 8px;
+      background: #f1f8fd;
+    }
+
+    .personal-schedule-prompt.is-visible {
+      display: flex;
+    }
+
+    .personal-schedule-prompt strong {
+      display: block;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .personal-schedule-prompt span {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .personal-schedule-prompt .member-button {
+      flex: 0 0 auto;
+      text-decoration: none;
+    }
+
     .member-schedule-list,
     .admin-list {
       max-height: 520px;
@@ -1242,8 +1310,8 @@
         <div class="brand">
           <div class="mark">PW</div>
           <div>
-            <h1>Wonder＋運営ポータル</h1>
-            <div class="sub">スケジュール、準備タスク、報告フォーム、LINE WORKS導線を1画面に集約</div>
+            <h1 id="portalTitle">Wonder＋運営ポータル</h1>
+            <div class="sub" id="portalSub">スケジュール、準備タスク、報告フォーム、LINE WORKS導線を1画面に集約</div>
           </div>
         </div>
         <label class="search" aria-label="メニュー検索">
@@ -1252,7 +1320,7 @@
         </label>
       </header>
 
-      <a class="open-direct" href="https://wonderplus100-stack.github.io/wonder-plus-portal/" target="_blank" rel="noreferrer">全画面で開く</a>
+      <a class="open-direct" href="https://wonderplus100-stack.github.io/wonder-plus-portal/?view=member" target="_blank" rel="noreferrer">全画面で開く</a>
 
       <section class="panel" id="quick" aria-label="すぐ使う">
         <div class="panel-head">
@@ -1318,9 +1386,16 @@
                 <span>Googleフォーム送信後に整形されたスケジュールを読み込み、このカレンダーと一覧へ反映します。読み込みに失敗した場合のみ、Notionカレンダーから確認してください。</span>
               </div>
               <div class="sync-actions">
-                <a class="sync-button primary" href="https://forms.gle/38UzoYYjz5DQzr5o6" target="_blank" rel="noreferrer">スケジュール投稿</a>
+                <a class="sync-button primary" data-phase-scope="2期" href="https://forms.gle/38UzoYYjz5DQzr5o6" target="_blank" rel="noreferrer">スケジュール投稿</a>
                 <a class="sync-button" href="https://app.notion.com/p/37b8c354603380a09237df83ad096704?v=37b8c3546033805e8505000c9b6349c2" target="_blank" rel="noreferrer">Notionカレンダー</a>
               </div>
+            </div>
+            <div class="personal-schedule-prompt" id="personalSchedulePrompt">
+              <div>
+                <strong id="personalScheduleText">運営参加スケジュールはこちらから入力できます</strong>
+                <span>参加希望日にチェックを入れると、全体の担当一覧へ反映されます。</span>
+              </div>
+              <a class="member-button primary" href="#member-portal">入力画面を開く</a>
             </div>
             <div class="calendar-wrap">
               <div class="calendar">
@@ -1336,7 +1411,7 @@
               <button class="tab-button" type="button" data-schedule="julyRegular">7月 レギュラー</button>
             </div>
             <div class="link-grid">
-              <a class="link-card" href="https://forms.gle/38UzoYYjz5DQzr5o6" target="_blank" rel="noreferrer">
+              <a class="link-card" data-phase-scope="2期" href="https://forms.gle/38UzoYYjz5DQzr5o6" target="_blank" rel="noreferrer">
                 <strong>スケジュール投稿フォーム</strong>
                 <span>月間スケジュール原文をそのまま送信。整形後に一覧・カレンダー・案内文章の日付へ反映します。</span>
               </a>
@@ -1384,8 +1459,8 @@
             <div class="member-grid">
               <div class="member-card member-auth">
                 <form class="member-form" id="memberLoginForm">
-                  <label class="field-label">メールアドレス
-                    <input class="field-input" id="loginEmail" type="email" autocomplete="username" required>
+                  <label class="field-label">ID
+                    <input class="field-input" id="loginEmail" type="text" autocomplete="username" required>
                   </label>
                   <label class="field-label">パスワード
                     <input class="field-input" id="loginPassword" type="password" autocomplete="current-password" required>
@@ -1395,11 +1470,11 @@
                   </div>
                 </form>
                 <form class="member-form" id="memberRegisterForm" style="margin-top:14px;">
-                  <label class="field-label">申請者名
+                  <label class="field-label">名前フルネーム
                     <input class="field-input" id="registerName" type="text" autocomplete="name" required>
                   </label>
-                  <label class="field-label">メールアドレス
-                    <input class="field-input" id="registerEmail" type="email" autocomplete="email" required>
+                  <label class="field-label">ID
+                    <input class="field-input" id="registerEmail" type="text" autocomplete="username" required>
                   </label>
                   <label class="field-label">期
                     <select class="field-select" id="registerPhase">
@@ -1413,7 +1488,7 @@
                     <input class="field-input" id="registerPassword" type="password" autocomplete="new-password" required>
                   </label>
                   <div class="member-actions">
-                    <button class="member-button" type="submit">アカウント申請</button>
+                    <button class="member-button" type="submit">新規アカウント作成</button>
                   </div>
                 </form>
                 <div class="member-status" id="memberAuthStatus">承認済みアカウントのみログインできます。</div>
@@ -1471,19 +1546,23 @@
               <span class="badge">LINE WORKSへ移動</span>
             </div>
             <div class="link-grid">
-              <a class="link-card" href="https://talk.worksmobile.com" target="_blank" rel="noreferrer" data-room-id="86be568e-ca15-b86a-3623-fbcbabe68431" data-channel-key="352119290">
+              <a class="link-card" href="#" data-phase-scope="1期">
+                <strong>1期専用LINEトーク</strong>
+                <span>LINEのグループチャットURL登録待ちです。URL共有後に直接リンクへ差し替えます。</span>
+              </a>
+              <a class="link-card" href="https://talk.worksmobile.com" target="_blank" rel="noreferrer" data-phase-scope="2期" data-room-id="86be568e-ca15-b86a-3623-fbcbabe68431" data-channel-key="352119290">
                 <strong>2期パートナー参加トーク</strong>
                 <span>LINE WORKSトークを開きます。内部キー: 352119290 / ID: 86be568e-ca15-b86a-3623-fbcbabe68431</span>
               </a>
-              <a class="link-card" href="https://talk.worksmobile.com" target="_blank" rel="noreferrer" data-room-id="4bec9198-ca7b-346c-092f-7d1e2d87eaf8" data-channel-key="401847803">
+              <a class="link-card" href="https://talk.worksmobile.com" target="_blank" rel="noreferrer" data-phase-scope="2期 3期" data-room-id="4bec9198-ca7b-346c-092f-7d1e2d87eaf8" data-channel-key="401847803">
                 <strong>2&3期パートナー参加トーク</strong>
                 <span>LINE WORKSトークを開きます。内部キー: 401847803 / ID: 4bec9198-ca7b-346c-092f-7d1e2d87eaf8</span>
               </a>
-              <a class="link-card" href="https://talk.worksmobile.com" target="_blank" rel="noreferrer" data-room-id="6d9bbe51-c4fd-f680-092c-4778e3673c34" data-channel-key="366918350">
+              <a class="link-card" href="https://talk.worksmobile.com" target="_blank" rel="noreferrer" data-phase-scope="2期" data-room-id="6d9bbe51-c4fd-f680-092c-4778e3673c34" data-channel-key="366918350">
                 <strong>参加スケジュール共有トーク</strong>
                 <span>LINE WORKSトークを開きます。内部キー: 366918350 / ID: 6d9bbe51-c4fd-f680-092c-4778e3673c34</span>
               </a>
-              <a class="link-card" href="https://board.worksmobile.com" target="_blank" rel="noreferrer">
+              <a class="link-card" href="https://board.worksmobile.com" target="_blank" rel="noreferrer" data-phase-scope="2期">
                 <strong>情報共有掲示板</strong>
                 <span>掲示板を開きます。簡易投稿・閲覧の専用ページはApps Script Webアプリで追加できます。</span>
               </a>
@@ -1499,7 +1578,7 @@
               <span class="badge">Drive / Form</span>
             </div>
             <div class="link-grid">
-              <a class="link-card" href="#event-guides">
+              <a class="link-card" href="#event-guides" data-event-guide-main>
                 <strong>案内文章一覧ページ</strong>
                 <span>タイトル、本文、素材、ダウンロードを1画面で確認するページへ移動。</span>
               </a>
@@ -1799,6 +1878,13 @@
     const adminCard = document.querySelector("#adminCard");
     const adminUserList = document.querySelector("#adminUserList");
     const operatorAssignmentList = document.querySelector("#operator-list .minutes-list");
+    const portalTitle = document.querySelector("#portalTitle");
+    const portalSub = document.querySelector("#portalSub");
+    const personalSchedulePrompt = document.querySelector("#personalSchedulePrompt");
+    const personalScheduleText = document.querySelector("#personalScheduleText");
+    const queryParams = new URLSearchParams(window.location.search);
+    const authRequired = queryParams.get("view") === "member";
+    if (authRequired) document.body.classList.add("auth-required");
     let selectedScheduleDay = null;
     let assignmentMap = {};
     let currentMember = null;
@@ -2054,13 +2140,92 @@
       if (memberAuthStatus) memberAuthStatus.textContent = message;
     }
 
+    function normalizePhase(phase) {
+      const value = String(phase || "").trim();
+      if (value.includes("1")) return "1期";
+      if (value.includes("2")) return "2期";
+      if (value.includes("3")) return "3期";
+      return value;
+    }
+
+    function showElement(selector, visible) {
+      const element = document.querySelector(selector);
+      if (element) {
+        element.hidden = !visible;
+        element.setAttribute("data-phase-managed", "true");
+      }
+    }
+
+    function resetPortalAccessView() {
+      if (portalTitle) portalTitle.textContent = "Wonder＋運営ポータル";
+      if (portalSub) portalSub.textContent = "スケジュール、準備タスク、報告フォーム、LINE WORKS導線を1画面に集約";
+      if (personalSchedulePrompt) personalSchedulePrompt.classList.remove("is-visible");
+      document.querySelectorAll("[data-phase-managed]").forEach((element) => {
+        element.hidden = false;
+        element.removeAttribute("data-phase-managed");
+      });
+    }
+
+    function setManagedVisibility(element, visible) {
+      if (!element) return;
+      element.hidden = !visible;
+      element.setAttribute("data-phase-managed", "true");
+    }
+
+    function applyPortalAccessView() {
+      resetPortalAccessView();
+      if (!currentMember) return;
+
+      const phase = normalizePhase(currentMember.phase);
+      const isSecondPhase = phase === "2期" || currentMember.role === "admin";
+      const isLimitedPhase = phase === "1期" || phase === "3期";
+      const memberDisplayName = currentMember.name || "メンバー";
+
+      if (portalTitle) portalTitle.textContent = `${memberDisplayName}さん専用ページ`;
+      if (portalSub) portalSub.textContent = `${phase || "未設定"}向けの表示に切り替えています。`;
+      if (personalSchedulePrompt && personalScheduleText) {
+        personalScheduleText.textContent = `${memberDisplayName}さんの運営参加スケジュールはコチラから入力`;
+        personalSchedulePrompt.classList.add("is-visible");
+      }
+
+      if (isSecondPhase) return;
+
+      if (isLimitedPhase) {
+        document.querySelectorAll("#quickGrid .tile").forEach((tile) => {
+          const target = tile.getAttribute("href");
+          const allowedTargets = new Set(["#prepare", "#event-info", "#mindset", "#media-share"]);
+          setManagedVisibility(tile, allowedTargets.has(target));
+        });
+
+        document.querySelectorAll("[data-phase-scope]").forEach((element) => {
+          const scope = String(element.dataset.phaseScope || "");
+          setManagedVisibility(element, scope.includes(phase));
+        });
+
+        document.querySelectorAll("#event-info .link-card").forEach((card) => {
+          setManagedVisibility(card, Boolean(card.dataset.eventGuideMain !== undefined));
+        });
+
+        showElement("#operator-list", false);
+        showElement("#shared-forms", false);
+        showElement("#reports", false);
+        showElement("#minutes", false);
+        showElement("#ai", false);
+
+        document.querySelectorAll("[data-scroll-target='operator-list'], [data-scroll-target='shared-forms']").forEach((button) => {
+          setManagedVisibility(button, false);
+        });
+      }
+    }
+
     function applyMemberSession(user) {
       currentMember = user || null;
       document.body.classList.toggle("is-member-logged-in", Boolean(currentMember));
       if (memberBadge) memberBadge.textContent = currentMember ? "ログイン中" : "承認制";
-      if (memberName) memberName.textContent = currentMember ? currentMember.name : "未ログイン";
-      if (memberRole) memberRole.textContent = currentMember ? `${currentMember.phase || "未設定"} / ${currentMember.role || "member"}` : "アカウント情報";
+      if (memberName) memberName.textContent = currentMember ? `${currentMember.name}さん専用ページ` : "未ログイン";
+      if (memberRole) memberRole.textContent = currentMember ? `${normalizePhase(currentMember.phase) || "未設定"} / ${currentMember.role || "member"}` : "アカウント情報";
       if (adminCard) adminCard.style.display = currentMember?.role === "admin" ? "" : "none";
+      applyPortalAccessView();
       renderMemberScheduleList();
       if (currentMember?.role === "admin") loadAdminUsers();
     }

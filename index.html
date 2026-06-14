@@ -1481,7 +1481,6 @@
                       <option value="1期">1期</option>
                       <option value="2期">2期</option>
                       <option value="3期">3期</option>
-                      <option value="運営">運営</option>
                     </select>
                   </label>
                   <label class="field-label">パスワード
@@ -1941,6 +1940,17 @@
       return loadScheduleJsonp(buildPortalUrl(action, params));
     }
 
+    function sendPortalActionWithoutReading(action, params = {}) {
+      return new Promise((resolve) => {
+        const beacon = new Image();
+        const done = () => resolve();
+        beacon.onload = done;
+        beacon.onerror = done;
+        beacon.src = buildPortalUrl(action, { ...params, t: Date.now() });
+        window.setTimeout(done, 2500);
+      });
+    }
+
     function normalizeSchedules(payload) {
       const next = structuredClone(emptySchedules);
       Object.entries(payload?.schedules || {}).forEach(([key, value]) => {
@@ -2389,7 +2399,12 @@
         if (!payload.ok) throw new Error(payload.message || "申請できませんでした");
         setMemberStatus(payload.message || "申請しました。管理者の承認後にログインできます。");
       } catch (error) {
-        setMemberStatus(error.message || "申請できませんでした。");
+        if (String(error.message || "").includes("JSONP")) {
+          await sendPortalActionWithoutReading("register", { name, email, phase, password });
+          setMemberStatus("申請を送信しました。管理者の承認後にログインしてください。");
+        } else {
+          setMemberStatus(error.message || "申請できませんでした。");
+        }
       }
     });
 

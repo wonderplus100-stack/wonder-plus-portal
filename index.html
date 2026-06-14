@@ -1590,7 +1590,7 @@
     function isValidScheduleDisplayItem(item) {
       const title = String(item.title || "").trim();
       const meta = String(item.meta || "").trim();
-      const looksLikePersonOnlyWonder = /^[ぁ-んァ-ヶ一-龠々ー]{2,8}(（.*）)?\s+Wonder＋$/.test(title);
+      const looksLikePersonOnlyWonder = /^[ぁ-んァ-ヶ一-龠々ー]{2,8}.*\s+Wonder[＋+]$/.test(title);
       const hasOnlyAvailabilityTime = !meta || /^\d{1,2}:\d{2}$/.test(meta);
       return !(looksLikePersonOnlyWonder && hasOnlyAvailabilityTime);
     }

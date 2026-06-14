@@ -448,13 +448,22 @@
     .field-select {
       min-height: 38px;
       width: 100%;
-      border: 1px solid var(--line-strong);
+      border: 1.5px solid #a9b8c8;
       border-radius: 7px;
       padding: 0 10px;
       color: var(--text);
       font: inherit;
       font-size: 14px;
-      background: #fff;
+      background: #fbfdff;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .85);
+      display: block;
+    }
+
+    .field-input:focus,
+    .field-select:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(31, 101, 152, .14);
+      outline: none;
     }
 
     .member-actions {

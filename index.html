@@ -1020,6 +1020,36 @@
       display: block !important;
     }
 
+    body.view-schedule-events .sync-callout,
+    body.view-schedule-events .sample-label,
+    body.view-schedule-events .month-tabs,
+    body.view-schedule-events .link-grid {
+      display: none !important;
+    }
+
+    body.view-schedule.has-day-selection .calendar-wrap {
+      display: block !important;
+    }
+
+    body.view-schedule.has-day-selection .event-list {
+      display: block !important;
+      margin-top: 8px;
+    }
+
+    .day {
+      cursor: pointer;
+    }
+
+    .day.is-muted {
+      cursor: default;
+    }
+
+    .day.is-selected {
+      outline: 2px solid var(--blue);
+      outline-offset: -2px;
+      background: #eef6fb;
+    }
+
     body.view-quick-more .panel-head,
     body.view-schedule-events .panel-head,
     body.view-prepare-next .panel-head {
@@ -1509,6 +1539,7 @@
     const eventList = document.querySelector("#eventList");
     const monthBadge = document.querySelector("#monthBadge");
     const scheduleStatus = document.querySelector("#scheduleStatus");
+    let selectedScheduleDay = null;
 
     function getScheduleApiUrl() {
       const params = new URLSearchParams(window.location.search);
@@ -1549,10 +1580,19 @@
               meta: String(item.meta || "")
             }))
             .filter((item) => item.day >= 1 && item.day <= 31)
+            .filter(isValidScheduleDisplayItem)
             .sort((a, b) => a.day - b.day || a.title.localeCompare(b.title, "ja"))
         };
       });
       return next;
+    }
+
+    function isValidScheduleDisplayItem(item) {
+      const title = String(item.title || "").trim();
+      const meta = String(item.meta || "").trim();
+      const looksLikePersonOnlyWonder = /^[ぁ-んァ-ヶ一-龠々ー]{2,8}(（.*）)?\s+Wonder＋$/.test(title);
+      const hasOnlyAvailabilityTime = !meta || /^\d{1,2}:\d{2}$/.test(meta);
+      return !(looksLikePersonOnlyWonder && hasOnlyAvailabilityTime);
     }
 
     function loadScheduleJsonp(apiUrl) {
@@ -1596,6 +1636,37 @@
       if (scheduleStatus) scheduleStatus.textContent = message;
     }
 
+    function renderEventList(current, filterDay = null) {
+      const month = current.month;
+      const items = filterDay
+        ? current.items.filter((item) => item.day === filterDay)
+        : current.items;
+
+      if (filterDay) {
+        document.body.classList.add("has-day-selection");
+      } else {
+        document.body.classList.remove("has-day-selection");
+      }
+
+      eventList.innerHTML = items.length ? items.map((item) => `
+        <div class="event-row">
+          <div class="datebox">${month}/${item.day}</div>
+          <div>
+            <div class="event-title">${escapeHtml(item.title)}</div>
+            <div class="event-meta">${escapeHtml(item.meta || "詳細未入力")}</div>
+          </div>
+        </div>
+      `).join("") : `
+        <div class="event-row">
+          <div class="datebox">${filterDay ? `${month}/${filterDay}` : "未反映"}</div>
+          <div>
+            <div class="event-title">${filterDay ? "この日の予定はありません" : "この区分の予定はまだ反映されていません"}</div>
+            <div class="event-meta">${filterDay ? "別の日付をクリックするか、月タブを押すと月全体の一覧へ戻ります。" : "スケジュール投稿フォーム送信後、Apps Scriptの反映データを読み込むとここに表示されます。"}</div>
+          </div>
+        </div>
+      `;
+    }
+
     function renderSchedule(key) {
       const current = schedules[key];
       if (!current) return;
@@ -1619,28 +1690,20 @@
       const eventDays = new Set(current.items.map((item) => item.day));
       for (let day = 1; day <= daysInMonth(month); day += 1) {
         const cell = document.createElement("div");
-        cell.className = eventDays.has(day) ? "day has-event" : "day";
+        const classNames = ["day"];
+        if (eventDays.has(day)) classNames.push("has-event");
+        if (selectedScheduleDay === day) classNames.push("is-selected");
+        cell.className = classNames.join(" ");
+        cell.dataset.day = String(day);
+        cell.type = "button";
+        cell.setAttribute("role", "button");
+        cell.setAttribute("tabindex", "0");
+        cell.setAttribute("aria-label", `${month}月${day}日の予定を表示`);
         cell.innerHTML = `${day}${eventDays.has(day) ? '<span class="dot"></span>' : ""}`;
         calendarGrid.appendChild(cell);
       }
 
-      eventList.innerHTML = current.items.length ? current.items.map((item) => `
-        <div class="event-row">
-          <div class="datebox">${month}/${item.day}</div>
-          <div>
-            <div class="event-title">${escapeHtml(item.title)}</div>
-            <div class="event-meta">${escapeHtml(item.meta || "詳細未入力")}</div>
-          </div>
-        </div>
-      `).join("") : `
-        <div class="event-row">
-          <div class="datebox">未反映</div>
-          <div>
-            <div class="event-title">この区分の予定はまだ反映されていません</div>
-            <div class="event-meta">スケジュール投稿フォーム送信後、Apps Scriptの反映データを読み込むとここに表示されます。</div>
-          </div>
-        </div>
-      `;
+      renderEventList(current, selectedScheduleDay);
 
       document.querySelectorAll(".tab-button").forEach((button) => {
         button.classList.toggle("is-active", button.dataset.schedule === key);
@@ -1675,11 +1738,32 @@
 
     document.querySelectorAll(".tab-button").forEach((button) => {
       button.addEventListener("click", () => {
-        if (button.dataset.schedule) renderSchedule(button.dataset.schedule);
+        if (button.dataset.schedule) {
+          selectedScheduleDay = null;
+          renderSchedule(button.dataset.schedule);
+        }
         if (button.dataset.scrollTarget) {
           document.getElementById(button.dataset.scrollTarget)?.scrollIntoView({ behavior: "smooth", block: "start" });
         }
       });
+    });
+
+    calendarGrid.addEventListener("click", (event) => {
+      const dayCell = event.target.closest(".day:not(.is-muted)");
+      if (!dayCell) return;
+      selectedScheduleDay = Number(dayCell.dataset.day);
+      renderSchedule(activeScheduleKey);
+      eventList.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    });
+
+    calendarGrid.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      const dayCell = event.target.closest(".day:not(.is-muted)");
+      if (!dayCell) return;
+      event.preventDefault();
+      selectedScheduleDay = Number(dayCell.dataset.day);
+      renderSchedule(activeScheduleKey);
+      eventList.scrollIntoView({ behavior: "smooth", block: "nearest" });
     });
 
     document.querySelectorAll(".is-pending[href='#']").forEach((link) => {

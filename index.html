@@ -385,7 +385,24 @@
     .event-list {
       border: 1px solid var(--line);
       border-radius: 8px;
-      overflow: hidden;
+      max-height: 560px;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+      background: #fff;
+    }
+
+    .event-list::-webkit-scrollbar,
+    .member-schedule-list::-webkit-scrollbar,
+    .admin-list::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .event-list::-webkit-scrollbar-thumb,
+    .member-schedule-list::-webkit-scrollbar-thumb,
+    .admin-list::-webkit-scrollbar-thumb {
+      border-radius: 999px;
+      background: #c8d5df;
     }
 
     .event-row {
@@ -399,6 +416,144 @@
     }
 
     .event-row:last-child { border-bottom: 0; }
+
+    .member-grid {
+      display: grid;
+      grid-template-columns: minmax(260px, .42fr) minmax(0, 1fr);
+      gap: 12px;
+      padding: 14px;
+    }
+
+    .member-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 12px;
+    }
+
+    .member-form {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field-label {
+      display: grid;
+      gap: 4px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .field-input,
+    .field-select {
+      min-height: 38px;
+      width: 100%;
+      border: 1px solid var(--line-strong);
+      border-radius: 7px;
+      padding: 0 10px;
+      color: var(--text);
+      font: inherit;
+      font-size: 14px;
+      background: #fff;
+    }
+
+    .member-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .member-button {
+      min-height: 36px;
+      border: 1px solid var(--line-strong);
+      border-radius: 7px;
+      background: #fff;
+      color: var(--text);
+      padding: 0 12px;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .member-button.primary {
+      border-color: var(--blue);
+      background: var(--blue);
+      color: #fff;
+    }
+
+    .member-button:disabled {
+      cursor: not-allowed;
+      opacity: .55;
+    }
+
+    .member-status {
+      min-height: 20px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .member-session {
+      display: none;
+      gap: 8px;
+    }
+
+    body.is-member-logged-in .member-session {
+      display: grid;
+    }
+
+    body.is-member-logged-in .member-auth {
+      display: none;
+    }
+
+    .member-schedule-list,
+    .admin-list {
+      max-height: 520px;
+      overflow-y: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .check-row {
+      display: grid;
+      grid-template-columns: 34px 72px minmax(0, 1fr);
+      gap: 10px;
+      align-items: center;
+      padding: 10px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .check-row:last-child,
+    .admin-row:last-child {
+      border-bottom: 0;
+    }
+
+    .check-row input {
+      width: 20px;
+      height: 20px;
+      accent-color: var(--blue);
+    }
+
+    .assignment-names {
+      margin-top: 4px;
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    .admin-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: center;
+      padding: 10px;
+      border-bottom: 1px solid var(--line);
+      font-size: 13px;
+    }
 
     .datebox {
       display: grid;
@@ -663,6 +818,20 @@
       .calendar-wrap {
         gap: 10px;
         padding: 10px;
+      }
+
+      .event-list {
+        max-height: 360px;
+      }
+
+      .member-grid {
+        grid-template-columns: 1fr;
+        padding: 10px;
+      }
+
+      .member-schedule-list,
+      .admin-list {
+        max-height: 420px;
       }
 
       .sync-callout {
@@ -1101,6 +1270,10 @@
             <span class="icon red"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"></path><path d="M14 2v6h6"></path></svg></span>
             <span><strong>報告関係</strong><span>活動状況・BO提出</span></span>
           </a>
+          <a class="tile" href="#member-portal">
+            <span class="icon blue"><svg viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><path d="M10 17l5-5-5-5"></path><path d="M15 12H3"></path></svg></span>
+            <span><strong>個人ログイン</strong><span>運営参加チェック</span></span>
+          </a>
           <a class="tile" href="#event-info">
             <span class="icon blue"><svg viewBox="0 0 24 24"><path d="M3 4h18"></path><path d="M3 12h18"></path><path d="M3 20h18"></path></svg></span>
             <span><strong>イベント情報</strong><span>案内文・申込フォーム</span></span>
@@ -1187,6 +1360,75 @@
                 <div class="datebox">更新</div>
                 <div><strong>個人ページから変更</strong><div class="event-meta">本人が参加可否を変更すると、全体一覧とNotion参加者一覧を更新します。</div></div>
                 <span class="status">自動</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel" id="member-portal" aria-label="個人ログイン">
+            <div class="panel-head">
+              <div class="panel-title">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><path d="M10 17l5-5-5-5"></path><path d="M15 12H3"></path></svg>
+                個人ログイン・運営参加チェック
+              </div>
+              <span class="badge" id="memberBadge">承認制</span>
+            </div>
+            <div class="member-grid">
+              <div class="member-card member-auth">
+                <form class="member-form" id="memberLoginForm">
+                  <label class="field-label">メールアドレス
+                    <input class="field-input" id="loginEmail" type="email" autocomplete="username" required>
+                  </label>
+                  <label class="field-label">パスワード
+                    <input class="field-input" id="loginPassword" type="password" autocomplete="current-password" required>
+                  </label>
+                  <div class="member-actions">
+                    <button class="member-button primary" type="submit">ログイン</button>
+                  </div>
+                </form>
+                <form class="member-form" id="memberRegisterForm" style="margin-top:14px;">
+                  <label class="field-label">申請者名
+                    <input class="field-input" id="registerName" type="text" autocomplete="name" required>
+                  </label>
+                  <label class="field-label">メールアドレス
+                    <input class="field-input" id="registerEmail" type="email" autocomplete="email" required>
+                  </label>
+                  <label class="field-label">期
+                    <select class="field-select" id="registerPhase">
+                      <option value="1期">1期</option>
+                      <option value="2期">2期</option>
+                      <option value="3期">3期</option>
+                      <option value="運営">運営</option>
+                    </select>
+                  </label>
+                  <label class="field-label">パスワード
+                    <input class="field-input" id="registerPassword" type="password" autocomplete="new-password" required>
+                  </label>
+                  <div class="member-actions">
+                    <button class="member-button" type="submit">アカウント申請</button>
+                  </div>
+                </form>
+                <div class="member-status" id="memberAuthStatus">承認済みアカウントのみログインできます。</div>
+              </div>
+
+              <div class="member-card member-session">
+                <div class="member-actions">
+                  <div>
+                    <strong id="memberName">未ログイン</strong>
+                    <div class="event-meta" id="memberRole">アカウント情報</div>
+                  </div>
+                  <button class="member-button" id="memberLogout" type="button">ログアウト</button>
+                </div>
+                <div class="member-status" id="memberActionStatus">チェックすると全体担当一覧へ反映されます。</div>
+                <div class="member-schedule-list" id="memberScheduleList" aria-live="polite"></div>
+              </div>
+
+              <div class="member-card member-session" id="adminCard">
+                <div class="member-actions">
+                  <strong>管理画面</strong>
+                  <button class="member-button" id="refreshAdminUsers" type="button">申請一覧を更新</button>
+                </div>
+                <div class="member-status">管理者のみ、申請アカウントの承認・停止ができます。</div>
+                <div class="admin-list" id="adminUserList"></div>
               </div>
             </div>
           </section>
@@ -1523,7 +1765,7 @@
 
   <script>
     const SCHEDULE_YEAR = 2026;
-    const SCHEDULE_API_URL = "https://script.google.com/macros/s/AKfycbzoEhJKbhGD0FRlLOhpIslawcjZy7L0GoerNEt0GBfHS3QiDkCDfn84DJ0UyF7x41Mllw/exec?action=schedule";
+    const SCHEDULE_API_URL = "https://script.google.com/macros/s/AKfycbwdI4FZcM2-bMA1U5425QJz_SOXWY7R8vKQfx0z-xHfHjWQJix1KIKbtf0dMXScGqQZrw/exec?action=schedule";
     const emptySchedules = {
       juneWonder: { month: 6, label: "6月 Wonder＋", items: [] },
       juneRegular: { month: 6, label: "6月 レギュラー", items: [] },
@@ -1539,11 +1781,27 @@
     const eventList = document.querySelector("#eventList");
     const monthBadge = document.querySelector("#monthBadge");
     const scheduleStatus = document.querySelector("#scheduleStatus");
+    const memberScheduleList = document.querySelector("#memberScheduleList");
+    const memberAuthStatus = document.querySelector("#memberAuthStatus");
+    const memberActionStatus = document.querySelector("#memberActionStatus");
+    const memberBadge = document.querySelector("#memberBadge");
+    const memberName = document.querySelector("#memberName");
+    const memberRole = document.querySelector("#memberRole");
+    const adminCard = document.querySelector("#adminCard");
+    const adminUserList = document.querySelector("#adminUserList");
+    const operatorAssignmentList = document.querySelector("#operator-list .minutes-list");
     let selectedScheduleDay = null;
+    let assignmentMap = {};
+    let currentMember = null;
+    let userAssignments = new Set();
 
     function getScheduleApiUrl() {
       const params = new URLSearchParams(window.location.search);
       return params.get("scheduleApi") || SCHEDULE_API_URL;
+    }
+
+    function getPortalApiBase() {
+      return getScheduleApiUrl().split("?")[0];
     }
 
     function daysInMonth(month) {
@@ -1565,6 +1823,29 @@
       })[char]);
     }
 
+    function getScheduleEntries() {
+      return Object.entries(schedules).flatMap(([key, group]) => (
+        group.items.map((item) => ({ key, group, item }))
+      ));
+    }
+
+    function getEventId(group, item) {
+      return `${SCHEDULE_YEAR}-${group.month}-${item.day}-${item.title}`;
+    }
+
+    function buildPortalUrl(action, params = {}) {
+      const url = new URL(getPortalApiBase());
+      url.searchParams.set("action", action);
+      Object.entries(params).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) url.searchParams.set(key, value);
+      });
+      return url.toString();
+    }
+
+    function callPortalAction(action, params = {}) {
+      return loadScheduleJsonp(buildPortalUrl(action, params));
+    }
+
     function normalizeSchedules(payload) {
       const next = structuredClone(emptySchedules);
       Object.entries(payload?.schedules || {}).forEach(([key, value]) => {
@@ -1584,6 +1865,7 @@
             .sort((a, b) => a.day - b.day || a.title.localeCompare(b.title, "ja"))
         };
       });
+      assignmentMap = payload?.assignments || assignmentMap || {};
       return next;
     }
 
@@ -1654,6 +1936,7 @@
           <div>
             <div class="event-title">${escapeHtml(item.title)}</div>
             <div class="event-meta">${escapeHtml(item.meta || "詳細未入力")}</div>
+            ${renderAssignmentNames(getEventId(current, item))}
           </div>
         </div>
       `).join("") : `
@@ -1665,6 +1948,11 @@
           </div>
         </div>
       `;
+    }
+
+    function renderAssignmentNames(eventId) {
+      const names = assignmentMap[eventId] || [];
+      return names.length ? `<div class="assignment-names">担当: ${escapeHtml(names.join("、"))}</div>` : "";
     }
 
     function renderSchedule(key) {
@@ -1704,6 +1992,8 @@
       }
 
       renderEventList(current, selectedScheduleDay);
+      renderMemberScheduleList();
+      renderOperatorAssignments();
 
       document.querySelectorAll(".tab-button").forEach((button) => {
         button.classList.toggle("is-active", button.dataset.schedule === key);
@@ -1722,6 +2012,7 @@
         setScheduleStatus("スケジュール読込中");
         const payload = await fetchSchedulePayload(apiUrl);
         schedules = normalizeSchedules(payload);
+        await loadAssignments();
         renderSchedule(activeScheduleKey);
         const updatedAt = payload?.updatedAt ? new Date(payload.updatedAt) : null;
         const suffix = updatedAt && !Number.isNaN(updatedAt.getTime())
@@ -1733,6 +2024,135 @@
         schedules = structuredClone(emptySchedules);
         renderSchedule(activeScheduleKey);
         setScheduleStatus("スケジュール読込エラー: Notionカレンダーを確認してください");
+      }
+    }
+
+    async function loadAssignments() {
+      try {
+        const payload = await callPortalAction("assignments");
+        assignmentMap = payload.assignments || {};
+        if (currentMember) {
+          const mine = payload.mine || [];
+          userAssignments = new Set(mine);
+        }
+      } catch (error) {
+        console.warn(error);
+      }
+    }
+
+    function setMemberStatus(message) {
+      if (memberActionStatus) memberActionStatus.textContent = message;
+      if (memberAuthStatus) memberAuthStatus.textContent = message;
+    }
+
+    function applyMemberSession(user) {
+      currentMember = user || null;
+      document.body.classList.toggle("is-member-logged-in", Boolean(currentMember));
+      if (memberBadge) memberBadge.textContent = currentMember ? "ログイン中" : "承認制";
+      if (memberName) memberName.textContent = currentMember ? currentMember.name : "未ログイン";
+      if (memberRole) memberRole.textContent = currentMember ? `${currentMember.phase || "未設定"} / ${currentMember.role || "member"}` : "アカウント情報";
+      if (adminCard) adminCard.style.display = currentMember?.role === "admin" ? "" : "none";
+      renderMemberScheduleList();
+      if (currentMember?.role === "admin") loadAdminUsers();
+    }
+
+    function renderMemberScheduleList() {
+      if (!memberScheduleList) return;
+      const entries = getScheduleEntries();
+      if (!currentMember) {
+        memberScheduleList.innerHTML = `
+          <div class="event-row">
+            <div class="datebox">ログイン</div>
+            <div>
+              <div class="event-title">ログインすると参加チェックを変更できます</div>
+              <div class="event-meta">承認済みアカウントごとに参加予定を保存します。</div>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      memberScheduleList.innerHTML = entries.length ? entries.map(({ group, item }) => {
+        const eventId = getEventId(group, item);
+        const checked = userAssignments.has(eventId);
+        return `
+          <label class="check-row">
+            <input type="checkbox" data-event-id="${escapeHtml(eventId)}" data-title="${escapeHtml(item.title)}" data-date="${group.month}/${item.day}" ${checked ? "checked" : ""}>
+            <div class="datebox">${group.month}/${item.day}</div>
+            <div>
+              <div class="event-title">${escapeHtml(item.title)}</div>
+              <div class="event-meta">${escapeHtml(item.meta || "詳細未入力")}</div>
+              ${renderAssignmentNames(eventId)}
+            </div>
+          </label>
+        `;
+      }).join("") : `
+        <div class="event-row">
+          <div class="datebox">未反映</div>
+          <div><div class="event-title">スケジュールがまだ読み込まれていません</div></div>
+        </div>
+      `;
+    }
+
+    function renderOperatorAssignments() {
+      if (!operatorAssignmentList) return;
+      const rows = getScheduleEntries()
+        .map(({ group, item }) => ({ group, item, names: assignmentMap[getEventId(group, item)] || [] }))
+        .filter((row) => row.names.length);
+
+      operatorAssignmentList.innerHTML = rows.length ? rows.map(({ group, item, names }) => `
+        <div class="simple-row">
+          <div class="datebox">${group.month}/${item.day}</div>
+          <div>
+            <strong>${escapeHtml(item.title)}</strong>
+            <div class="event-meta">${escapeHtml(item.meta || "詳細未入力")}</div>
+            <div class="assignment-names">担当: ${escapeHtml(names.join("、"))}</div>
+          </div>
+          <span class="status">反映済み</span>
+        </div>
+      `).join("") : `
+        <div class="simple-row">
+          <div class="datebox">未反映</div>
+          <div><strong>担当者チェックはまだありません</strong><div class="event-meta">個人ログイン後に運営参加チェックを入れると、ここに集約されます。</div></div>
+          <span class="status todo">待機</span>
+        </div>
+      `;
+    }
+
+    async function restoreMemberSession() {
+      const token = localStorage.getItem("wonderMemberToken");
+      if (!token) {
+        applyMemberSession(null);
+        return;
+      }
+      try {
+        const payload = await callPortalAction("me", { token });
+        if (!payload.ok) throw new Error(payload.message || "ログイン期限切れです");
+        userAssignments = new Set(payload.assignments || []);
+        applyMemberSession(payload.user);
+        setMemberStatus("ログイン状態を復元しました。");
+      } catch (error) {
+        localStorage.removeItem("wonderMemberToken");
+        applyMemberSession(null);
+      }
+    }
+
+    async function loadAdminUsers() {
+      if (!currentMember || currentMember.role !== "admin" || !adminUserList) return;
+      try {
+        const payload = await callPortalAction("adminUsers", { token: localStorage.getItem("wonderMemberToken") });
+        const users = payload.users || [];
+        adminUserList.innerHTML = users.length ? users.map((user) => `
+          <div class="admin-row">
+            <div>
+              <strong>${escapeHtml(user.name || user.email)}</strong>
+              <div class="event-meta">${escapeHtml(user.email)} / ${escapeHtml(user.phase || "")} / ${escapeHtml(user.status || "")} / ${escapeHtml(user.role || "")}</div>
+            </div>
+            <button class="member-button" type="button" data-admin-email="${escapeHtml(user.email)}" data-admin-action="${user.status === "approved" ? "suspend" : "approve"}">${user.status === "approved" ? "停止" : "承認"}</button>
+          </div>
+        `).join("") : `<div class="admin-row"><div>申請はありません。</div></div>`;
+      } catch (error) {
+        adminUserList.innerHTML = `<div class="admin-row"><div>管理情報を読み込めませんでした。</div></div>`;
       }
     }
 
@@ -1766,6 +2186,95 @@
       eventList.scrollIntoView({ behavior: "smooth", block: "nearest" });
     });
 
+    document.querySelector("#memberLoginForm")?.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const email = document.querySelector("#loginEmail").value.trim();
+      const password = document.querySelector("#loginPassword").value;
+      setMemberStatus("ログイン確認中です。");
+      try {
+        const payload = await callPortalAction("login", { email, password });
+        if (!payload.ok) throw new Error(payload.message || "ログインできませんでした");
+        localStorage.setItem("wonderMemberToken", payload.token);
+        userAssignments = new Set(payload.assignments || []);
+        applyMemberSession(payload.user);
+        setMemberStatus("ログインしました。参加チェックを変更できます。");
+      } catch (error) {
+        setMemberStatus(error.message || "ログインできませんでした。");
+      }
+    });
+
+    document.querySelector("#memberRegisterForm")?.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const name = document.querySelector("#registerName").value.trim();
+      const email = document.querySelector("#registerEmail").value.trim();
+      const phase = document.querySelector("#registerPhase").value;
+      const password = document.querySelector("#registerPassword").value;
+      setMemberStatus("アカウント申請中です。");
+      try {
+        const payload = await callPortalAction("register", { name, email, phase, password });
+        if (!payload.ok) throw new Error(payload.message || "申請できませんでした");
+        setMemberStatus(payload.message || "申請しました。管理者の承認後にログインできます。");
+      } catch (error) {
+        setMemberStatus(error.message || "申請できませんでした。");
+      }
+    });
+
+    document.querySelector("#memberLogout")?.addEventListener("click", () => {
+      localStorage.removeItem("wonderMemberToken");
+      userAssignments = new Set();
+      applyMemberSession(null);
+      setMemberStatus("ログアウトしました。");
+    });
+
+    memberScheduleList?.addEventListener("change", async (event) => {
+      const input = event.target.closest("input[type='checkbox'][data-event-id]");
+      if (!input || !currentMember) return;
+      input.disabled = true;
+      setMemberStatus("参加チェックを保存中です。");
+      try {
+        const token = localStorage.getItem("wonderMemberToken");
+        const payload = await callPortalAction("toggleAssignment", {
+          token,
+          eventId: input.dataset.eventId,
+          title: input.dataset.title,
+          date: input.dataset.date,
+          checked: input.checked ? "1" : "0"
+        });
+        if (!payload.ok) throw new Error(payload.message || "保存できませんでした");
+        userAssignments = new Set(payload.mine || []);
+        assignmentMap = payload.assignments || assignmentMap;
+        renderSchedule(activeScheduleKey);
+        setMemberStatus("参加チェックを保存しました。");
+      } catch (error) {
+        input.checked = !input.checked;
+        setMemberStatus(error.message || "保存できませんでした。");
+      } finally {
+        input.disabled = false;
+      }
+    });
+
+    document.querySelector("#refreshAdminUsers")?.addEventListener("click", loadAdminUsers);
+
+    adminUserList?.addEventListener("click", async (event) => {
+      const button = event.target.closest("button[data-admin-email]");
+      if (!button || !currentMember || currentMember.role !== "admin") return;
+      button.disabled = true;
+      try {
+        const payload = await callPortalAction("adminSetUserStatus", {
+          token: localStorage.getItem("wonderMemberToken"),
+          email: button.dataset.adminEmail,
+          status: button.dataset.adminAction === "approve" ? "approved" : "suspended"
+        });
+        if (!payload.ok) throw new Error(payload.message || "更新できませんでした");
+        await loadAdminUsers();
+        setMemberStatus("ユーザー権限を更新しました。");
+      } catch (error) {
+        setMemberStatus(error.message || "更新できませんでした。");
+      } finally {
+        button.disabled = false;
+      }
+    });
+
     document.querySelectorAll(".is-pending[href='#']").forEach((link) => {
       link.addEventListener("click", (event) => event.preventDefault());
     });
@@ -1786,6 +2295,7 @@
       schedule: ["schedule"],
       "schedule-events": ["schedule"],
       operators: ["operator-list"],
+      member: ["member-portal"],
       forms: ["shared-forms"],
       lineworks: ["lineworks"],
       event: ["event-info"],
@@ -1814,6 +2324,7 @@
     }
 
     loadSchedules();
+    restoreMemberSession();
     window.setInterval(loadSchedules, 5 * 60 * 1000);
     applySplitView();
   </script>

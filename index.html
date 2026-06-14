@@ -1937,7 +1937,7 @@
     }
 
     function callPortalAction(action, params = {}) {
-      return loadScheduleJsonp(buildPortalUrl(action, params));
+      return loadScheduleJsonp(buildPortalUrl(action, { ...params, t: Date.now() }));
     }
 
     function sendPortalActionWithoutReading(action, params = {}) {

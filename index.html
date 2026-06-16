@@ -2163,8 +2163,7 @@
         const payload = await callPortalAction("assignments");
         assignmentMap = payload.assignments || {};
         if (currentMember) {
-          const mine = payload.mine || [];
-          userAssignments = new Set(mine);
+          userAssignments = new Set(toArray(payload.mine));
         }
       } catch (error) {
         console.warn(error);
@@ -2174,6 +2173,10 @@
     function setMemberStatus(message) {
       if (memberActionStatus) memberActionStatus.textContent = message;
       if (memberAuthStatus) memberAuthStatus.textContent = message;
+    }
+
+    function toArray(value) {
+      return Array.isArray(value) ? value : [];
     }
 
     function normalizePhase(phase) {
@@ -2338,7 +2341,7 @@
       try {
         const payload = await callPortalAction("me", { token });
         if (!payload.ok) throw new Error(payload.message || "ログイン期限切れです");
-        userAssignments = new Set(payload.assignments || []);
+        userAssignments = new Set(toArray(payload.assignments));
         applyMemberSession(payload.user);
         setMemberStatus("ログイン状態を復元しました。");
       } catch (error) {
@@ -2405,7 +2408,7 @@
         const payload = await callPortalAction("login", { email, password });
         if (!payload.ok) throw new Error(payload.message || "ログインできませんでした");
         localStorage.setItem("wonderMemberToken", payload.token);
-        userAssignments = new Set(payload.assignments || []);
+        userAssignments = new Set(toArray(payload.assignments));
         applyMemberSession(payload.user);
         setMemberStatus("ログインしました。参加チェックを変更できます。");
       } catch (error) {
@@ -2480,7 +2483,7 @@
           checked: input.checked ? "1" : "0"
         });
         if (!payload.ok) throw new Error(payload.message || "保存できませんでした");
-        userAssignments = new Set(payload.mine || []);
+        userAssignments = new Set(toArray(payload.mine));
         assignmentMap = payload.assignments || assignmentMap;
         renderSchedule(activeScheduleKey);
         setMemberStatus("参加チェックを保存しました。");

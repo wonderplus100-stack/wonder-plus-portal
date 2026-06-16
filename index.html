@@ -1490,6 +1490,17 @@
                     <button class="member-button" type="submit">新規アカウント作成</button>
                   </div>
                 </form>
+                <form class="member-form" id="memberResetForm" style="margin-top:14px;">
+                  <label class="field-label">パスワード再設定 ID
+                    <input class="field-input" id="resetEmail" type="text" autocomplete="username">
+                  </label>
+                  <label class="field-label">新しいパスワード
+                    <input class="field-input" id="resetPassword" type="password" autocomplete="new-password">
+                  </label>
+                  <div class="member-actions">
+                    <button class="member-button" type="submit">パスワード再設定申請</button>
+                  </div>
+                </form>
                 <div class="member-status" id="memberAuthStatus">承認済みアカウントのみログインできます。</div>
               </div>
 
@@ -2420,6 +2431,25 @@
         } else {
           setMemberStatus(error.message || "申請できませんでした。");
         }
+      }
+    });
+
+    document.querySelector("#memberResetForm")?.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const email = document.querySelector("#resetEmail").value.trim();
+      const password = document.querySelector("#resetPassword").value;
+      if (!email || !password) {
+        setMemberStatus("IDと新しいパスワードを入力してください。");
+        return;
+      }
+      setMemberStatus("パスワード再設定を申請中です。");
+      try {
+        const payload = await callPortalAction("requestPasswordReset", { email, password });
+        if (!payload.ok) throw new Error(payload.message || "再設定申請できませんでした");
+        document.querySelector("#resetPassword").value = "";
+        setMemberStatus(payload.message || "管理者へ承認メールを送信しました。承認後、新しいパスワードでログインできます。");
+      } catch (error) {
+        setMemberStatus(error.message || "再設定申請できませんでした。");
       }
     });
 

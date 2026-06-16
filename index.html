@@ -2216,7 +2216,7 @@
       if (!currentMember) return;
 
       const phase = normalizePhase(currentMember.phase);
-      const isSecondPhase = phase === "2期" || currentMember.role === "admin";
+      const isSecondPhase = phase === "2期";
       const isLimitedPhase = phase === "1期" || phase === "3期";
       const memberDisplayName = currentMember.name || "メンバー";
 

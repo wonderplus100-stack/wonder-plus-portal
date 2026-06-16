@@ -533,6 +533,7 @@
     body.auth-required:not(.is-member-logged-in) #event-guides,
     body.auth-required:not(.is-member-logged-in) #prepare,
     body.auth-required:not(.is-member-logged-in) #prepare-detail,
+    body.auth-required:not(.is-member-logged-in) #prepare-guide,
     body.auth-required:not(.is-member-logged-in) #mindset,
     body.auth-required:not(.is-member-logged-in) #reports,
     body.auth-required:not(.is-member-logged-in) #minutes,
@@ -2261,6 +2262,7 @@
     function applyMemberSession(user) {
       currentMember = user || null;
       document.body.classList.toggle("is-member-logged-in", Boolean(currentMember));
+      document.body.classList.toggle("auth-required", authRequired && !currentMember);
       if (memberBadge) memberBadge.textContent = currentMember ? "ログイン中" : "承認制";
       if (memberName) memberName.textContent = currentMember ? `${currentMember.name}さん専用ページ` : "未ログイン";
       if (memberRole) memberRole.textContent = currentMember ? `${normalizePhase(currentMember.phase) || "未設定"} / ${currentMember.role || "member"}` : "アカウント情報";

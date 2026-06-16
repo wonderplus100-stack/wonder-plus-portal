@@ -2444,10 +2444,9 @@
       }
       setMemberStatus("パスワード再設定を申請中です。");
       try {
-        const payload = await callPortalAction("requestPasswordReset", { email, password });
-        if (!payload.ok) throw new Error(payload.message || "再設定申請できませんでした");
+        await sendPortalActionWithoutReading("requestPasswordReset", { email, password });
         document.querySelector("#resetPassword").value = "";
-        setMemberStatus(payload.message || "管理者へ承認メールを送信しました。承認後、新しいパスワードでログインできます。");
+        setMemberStatus("管理者へパスワード再設定申請を送信しました。wonderplus100@gmail.com に届く承認メールを確認してください。");
       } catch (error) {
         const message = String(error?.message || "");
         if (message.includes("object is not iterable") || message.includes("JSONP") || message.includes("Failed to fetch")) {

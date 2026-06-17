@@ -2222,65 +2222,7 @@
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h18"></path><path d="M3 12h18"></path><path d="M3 20h18"></path></svg>
                 イベント情報
               </div>
-              <span class="badge">Drive / Form</span>
-            </div>
-            <div class="link-grid">
-              <a class="link-card" href="#event-guides" data-event-guide-main>
-                <strong>案内文章一覧ページ</strong>
-                <span>タイトル、本文、素材、ダウンロードを1画面で確認するページへ移動。</span>
-              </a>
-              <a class="link-card" href="https://drive.google.com/drive/folders/1HQpyzjkAMPFJKCc8WjosxWVqH2KSukJD?usp=sharing" target="_blank" rel="noreferrer">
-                <strong>案内文章ドライブ</strong>
-                <span>既存の案内文章・素材ファイルを確認します。</span>
-              </a>
-              <a class="link-card" href="https://forms.gle/rBzVgad5FXEM4dcm9" target="_blank" rel="noreferrer">
-                <strong>イベント案内投稿フォーム</strong>
-                <span>案内タイトル・本文・素材情報を送信し、一覧ページへ反映します。</span>
-              </a>
-              <a class="link-card" href="https://forms.gle/CEmeZWb9ttuBiqjP8" target="_blank" rel="noreferrer">
-                <strong>申し込みフォーム</strong>
-                <span>イベント申込フォームへ移動。</span>
-              </a>
-            </div>
-          </section>
-
-          <section class="panel" id="media-share" aria-label="画像・動画共有ポスト">
-            <div class="panel-head">
-              <div class="panel-title">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m10 10 5 3-5 3v-6Z"></path><path d="M7 19l-2 3"></path><path d="M17 19l2 3"></path></svg>
-                画像・動画共有ポスト
-              </div>
-              <span class="badge">Drive保存</span>
-            </div>
-            <div class="link-grid">
-              <a class="link-card" href="#" target="_blank" rel="noreferrer">
-                <strong>保存用ドライブ</strong>
-                <span>イベント写真・動画の保存先。ここにGoogle Driveの共有URLを設定します。</span>
-              </a>
-              <a class="link-card" href="#" target="_blank" rel="noreferrer">
-                <strong>投稿ルール</strong>
-                <span>ファイル名は「日付_イベント名_担当者」。人物が写る素材は公開可否を確認してから共有。</span>
-              </a>
-            </div>
-          </section>
-
-          <section class="panel" id="event-guides" aria-label="案内文章一覧">
-            <div class="panel-head">
-              <div class="panel-title">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h18"></path><path d="M3 12h18"></path><path d="M3 20h18"></path></svg>
-                案内文章一覧
-              </div>
-              <span class="badge">月別表示</span>
-            </div>
-            <div class="link-grid">
-              <a class="link-card" href="https://drive.google.com/drive/folders/1HQpyzjkAMPFJKCc8WjosxWVqH2KSukJD?usp=sharing" target="_blank" rel="noreferrer">
-                <strong>既存Driveを開く</strong>
-                <span>PDF・スプレッドシート形式で保存された案内文章と素材を確認します。</span>
-              </a>
-              <a class="link-card" href="https://forms.gle/rBzVgad5FXEM4dcm9" target="_blank" rel="noreferrer">
-                <strong>案内文章を投稿する</strong>
-                <span>フォーム送信後、Drive保存、本文抽出、月別タブ反映を行う入口です。</span>
-              </a>
+              <span class="badge">案内文章</span>
             </div>
             <div class="event-guide-controls">
               <div class="event-guide-brand-grid" aria-label="イベントブランド一覧">
@@ -2310,20 +2252,36 @@
                   </div>
                   <button class="copy-guide-button" type="button" data-copy-guide>コピー</button>
                 </div>
-                <div class="event-guide-body" id="eventGuideBody">案内文章はここに表示されます。Googleフォームで投稿された本文はDrive保存後、Apps Script連携でこの一覧に反映できます。</div>
+                <div class="event-guide-body" id="eventGuideBody">案内文章はここに表示されます。Drive抽出データが連携されると、選択したイベントに紐づく案内文章を表示します。</div>
               </article>
               <div class="simple-row">
-                <div class="datebox">自動化</div>
-                <div><strong>Drive抽出とスケジュール連動</strong><div class="event-meta">Drive内のPDF・スプレッドシートから本文を抽出し、スケジュール表の日時で月別の案内文へ反映します。</div></div>
-                <span class="status todo">連携中</span>
-              </div>
-              <div class="simple-row">
-                <div class="datebox">コピー</div>
-                <div><strong>案内文章コピー</strong><div class="event-meta">案内文のコピーを押すと、表示中の本文だけをクリップボードに保存できます。</div></div>
-                <span class="status">Drive</span>
+                <div class="datebox">Drive</div>
+                <div><strong>案内文章Drive連携</strong><div class="event-meta">Drive内のPDF・スプレッドシートから抽出した本文を、イベント名と月で紐づけて表示します。</div></div>
+                <span class="status todo">連携待ち</span>
               </div>
             </div>
           </section>
+
+          <section class="panel" id="media-share" aria-label="画像・動画共有ポスト">
+            <div class="panel-head">
+              <div class="panel-title">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m10 10 5 3-5 3v-6Z"></path><path d="M7 19l-2 3"></path><path d="M17 19l2 3"></path></svg>
+                画像・動画共有ポスト
+              </div>
+              <span class="badge">Drive保存</span>
+            </div>
+            <div class="link-grid">
+              <a class="link-card" href="#" target="_blank" rel="noreferrer">
+                <strong>保存用ドライブ</strong>
+                <span>イベント写真・動画の保存先。ここにGoogle Driveの共有URLを設定します。</span>
+              </a>
+              <a class="link-card" href="#" target="_blank" rel="noreferrer">
+                <strong>投稿ルール</strong>
+                <span>ファイル名は「日付_イベント名_担当者」。人物が写る素材は公開可否を確認してから共有。</span>
+              </a>
+            </div>
+          </section>
+
         </div>
 
         <aside class="stack">
@@ -2604,6 +2562,7 @@
     let activeMemberMonth = 6;
     let activeGuideMonth = 6;
     let activeGuideBrand = "wonder";
+    let eventGuideDocuments = [];
     let scheduleLogs = [];
     try {
       scheduleLogs = JSON.parse(localStorage.getItem("wonderScheduleLogs") || "[]");
@@ -2990,6 +2949,13 @@
 
     function normalizeSchedules(payload) {
       const next = structuredClone(emptySchedules);
+      eventGuideDocuments = Array.isArray(payload?.eventGuides)
+        ? payload.eventGuides
+        : (Array.isArray(payload?.eventGuideDocuments)
+          ? payload.eventGuideDocuments
+          : (Array.isArray(payload?.eventInfoGuides)
+            ? payload.eventInfoGuides
+            : (Array.isArray(payload?.guides) ? payload.guides : eventGuideDocuments)));
       Object.entries(payload?.schedules || {}).forEach(([key, value]) => {
         if (!next[key]) return;
         const items = Array.isArray(value.items) ? value.items : [];
@@ -3809,18 +3775,51 @@
       renderSelectedEventGuide();
     }
 
+    function normalizeGuideMatchText(value) {
+      return String(value || "")
+        .replace(/\s+/g, "")
+        .replace(/[＋+]/g, "+")
+        .toLowerCase();
+    }
+
+    function findDriveEventGuide(group, item) {
+      const title = normalizeGuideMatchText(item.title);
+      const month = Number(group.month);
+      const category = getMemberScheduleCategory(item);
+      return eventGuideDocuments.find((guide) => {
+        const guideTitle = normalizeGuideMatchText(guide.title || guide.eventName || guide.name || guide.fileName);
+        const guideMonth = Number(guide.month || guide.eventMonth || 0);
+        const guideCategory = String(guide.category || guide.brand || "").toLowerCase();
+        const monthMatches = !guideMonth || guideMonth === month;
+        const categoryMatches = !guideCategory || guideCategory.includes(category) || guideCategory.includes(activeGuideBrand.toLowerCase());
+        return monthMatches && categoryMatches && (guideTitle.includes(title) || title.includes(guideTitle));
+      });
+    }
+
+    function buildDriveEventGuideBody(guide, group, item) {
+      const body = guide.body || guide.text || guide.content || guide.description || "";
+      const materialUrl = guide.materialUrl || guide.driveUrl || guide.fileUrl || guide.url || "";
+      const dateLine = `${group.month}月${item.day}日 ${normalizeDisplayMeta(item.meta) || "詳細未入力"}`;
+      return `【イベント名】${guide.title || guide.eventName || item.title}
+【開催日時】${dateLine}
+【案内文】
+${body || "Driveから案内文章を抽出しましたが、本文フィールドが空です。"}
+
+【素材】
+${materialUrl || "素材URLはDrive抽出データに未登録です。"}`;
+    }
+
     function buildEventGuideBody(group, item) {
       const date = `${group.month}月${item.day}日`;
       const detail = normalizeDisplayMeta(item.meta) || "詳細未入力";
       return `【イベント名】${item.title}
 【開催日時】${date} ${detail}
 【案内文】
-${item.title}を開催します。
-開催日時は投稿済みスケジュールから自動反映しています。
-参加希望者には、案内文章・申込フォーム・必要素材をあわせて共有してください。
+このイベントに紐づくDrive案内文章はまだ読み込まれていません。
+Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽出し、eventGuidesデータとして返すと、この欄に正式な案内文章が表示されます。
 
 【素材】
-案内文章Drive内のPDF・スプレッドシート・画像素材を確認してください。
+Drive抽出データに素材URLが含まれると、この欄に表示されます。
 https://drive.google.com/drive/folders/1HQpyzjkAMPFJKCc8WjosxWVqH2KSukJD?usp=sharing`;
     }
 
@@ -3835,8 +3834,13 @@ https://drive.google.com/drive/folders/1HQpyzjkAMPFJKCc8WjosxWVqH2KSukJD?usp=sha
         return;
       }
       eventGuideTitle.textContent = `${entry.group.month}/${entry.item.day} ${entry.item.title}`;
-      eventGuideMeta.textContent = `${getGuideBrandLabel()} / ${normalizeDisplayMeta(entry.item.meta) || "詳細未入力"}`;
-      eventGuideBody.textContent = buildEventGuideBody(entry.group, entry.item);
+      const driveGuide = findDriveEventGuide(entry.group, entry.item);
+      eventGuideMeta.textContent = driveGuide
+        ? `${getGuideBrandLabel()} / Drive案内文を表示中`
+        : `${getGuideBrandLabel()} / Drive連携待ち`;
+      eventGuideBody.textContent = driveGuide
+        ? buildDriveEventGuideBody(driveGuide, entry.group, entry.item)
+        : buildEventGuideBody(entry.group, entry.item);
     }
 
     document.querySelectorAll("[data-guide-month]").forEach((button) => {
@@ -4043,7 +4047,7 @@ https://drive.google.com/drive/folders/1HQpyzjkAMPFJKCc8WjosxWVqH2KSukJD?usp=sha
       member: ["member-portal"],
       lineworks: ["lineworks"],
       event: ["event-info"],
-      "event-guides": ["event-guides"],
+      "event-guides": ["event-info"],
       board: ["shared-board"],
       media: ["media-share"],
       prepare: ["prepare"],

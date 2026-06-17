@@ -296,6 +296,36 @@
       color: #fff;
     }
 
+    .schedule-log,
+    .archive-list {
+      margin: 10px 14px 0;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      max-height: 112px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+    }
+
+    .schedule-log-row {
+      display: grid;
+      grid-template-columns: 88px minmax(0, 1fr);
+      gap: 8px;
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--line);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .schedule-log-row:last-child {
+      border-bottom: 0;
+    }
+
+    .schedule-log-row time {
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+    }
+
     .sample-label {
       display: inline-flex;
       align-items: center;
@@ -504,9 +534,36 @@
       line-height: 1.45;
     }
 
+    .member-savebar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 0 2px;
+    }
+
+    .member-category-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 8px 0 4px;
+    }
+
+    .member-month-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 10px 0 0;
+    }
+
     .member-session {
       display: none;
       gap: 8px;
+    }
+
+    .member-session.is-primary {
+      display: grid;
     }
 
     body.is-member-logged-in .member-session {
@@ -533,7 +590,6 @@
     body.auth-required:not(.is-member-logged-in) #event-guides,
     body.auth-required:not(.is-member-logged-in) #prepare,
     body.auth-required:not(.is-member-logged-in) #prepare-detail,
-    body.auth-required:not(.is-member-logged-in) #prepare-guide,
     body.auth-required:not(.is-member-logged-in) #mindset,
     body.auth-required:not(.is-member-logged-in) #reports,
     body.auth-required:not(.is-member-logged-in) #minutes,
@@ -727,6 +783,14 @@
       white-space: nowrap;
     }
 
+    .share-link.primary {
+      border-color: var(--blue);
+      background: var(--blue);
+      color: #fff;
+      border-radius: 8px;
+      padding: 7px 12px;
+    }
+
     .share-link.is-pending {
       color: var(--muted);
       background: #f8fafb;
@@ -750,6 +814,12 @@
     }
 
     .simple-row:last-child { border-bottom: 0; }
+
+    .operator-assignment-list {
+      max-height: 324px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+    }
 
     .status {
       border-radius: 999px;
@@ -800,6 +870,153 @@
     }
 
     .guide-section li + li { margin-top: 3px; }
+
+    .prepare-details {
+      display: grid;
+      gap: 10px;
+      padding: 14px;
+    }
+
+    .prepare-detail-item {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .prepare-detail-item summary {
+      display: grid;
+      grid-template-columns: 58px minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: center;
+      min-height: 72px;
+      padding: 12px;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .prepare-detail-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .prepare-detail-item summary::after {
+      content: "開く";
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 3px 8px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .prepare-detail-item[open] summary {
+      border-bottom: 1px solid var(--line);
+      background: #f8fbfd;
+    }
+
+    .prepare-detail-item[open] summary::after {
+      content: "閉じる";
+      color: var(--blue);
+      border-color: #b9d1e3;
+      background: #edf6fc;
+    }
+
+    .prepare-detail-body {
+      padding: 12px 12px 14px 80px;
+    }
+
+    .prepare-detail-body ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.75;
+    }
+
+    .prepare-action-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 10px;
+      padding: 0 14px 14px;
+    }
+
+    .guide-section.compact {
+      display: grid;
+      grid-template-columns: 58px minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: start;
+      min-height: 112px;
+    }
+
+    .guide-number {
+      min-height: 42px;
+      border-radius: 8px;
+      background: #f2f6f9;
+      color: var(--blue);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .event-guide-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 14px 14px 0;
+    }
+
+    .event-guide-list {
+      display: grid;
+      gap: 10px;
+      padding: 14px;
+    }
+
+    .event-guide-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 14px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .event-guide-card[hidden] {
+      display: none !important;
+    }
+
+    .event-guide-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .event-guide-body {
+      border: 1px solid #d9e5ee;
+      border-radius: 8px;
+      background: #f8fbfd;
+      padding: 12px;
+      color: #2f4150;
+      font-size: 13px;
+      line-height: 1.65;
+      white-space: pre-wrap;
+    }
+
+    .copy-guide-button {
+      border: 1px solid var(--blue);
+      border-radius: 7px;
+      background: #fff;
+      color: var(--blue);
+      min-height: 32px;
+      padding: 0 10px;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      white-space: nowrap;
+    }
 
     .prompt {
       margin-top: 10px;
@@ -912,6 +1129,32 @@
         grid-template-columns: 1fr;
         gap: 8px;
         padding: 10px;
+      }
+
+      .guide-section.compact {
+        grid-template-columns: 46px minmax(0, 1fr);
+      }
+
+      .guide-section.compact .status {
+        grid-column: 2;
+        width: fit-content;
+      }
+
+      .prepare-detail-item summary {
+        grid-template-columns: 46px minmax(0, 1fr);
+      }
+
+      .prepare-detail-item summary::after {
+        grid-column: 2;
+        width: fit-content;
+      }
+
+      .prepare-detail-body {
+        padding: 12px;
+      }
+
+      .event-guide-head {
+        display: grid;
       }
 
       .calendar-wrap {
@@ -1278,8 +1521,6 @@
 
     body.view-quick .quick-grid .tile:nth-child(n+5),
     body.view-quick-more .quick-grid .tile:nth-child(-n+4),
-    body.view-prepare .task-list .simple-row:nth-child(n+4),
-    body.view-prepare-next .task-list .simple-row:nth-child(-n+3),
     body.view-schedule .event-list,
     body.view-schedule-events .calendar,
     body.view-minutes .minutes-list .simple-row:nth-child(n+3),
@@ -1326,8 +1567,7 @@
     }
 
     body.view-quick-more .panel-head,
-    body.view-schedule-events .panel-head,
-    body.view-prepare-next .panel-head {
+    body.view-schedule-events .panel-head {
       display: none !important;
     }
   </style>
@@ -1378,7 +1618,7 @@
           </a>
           <a class="tile" href="#member-portal">
             <span class="icon blue"><svg viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><path d="M10 17l5-5-5-5"></path><path d="M15 12H3"></path></svg></span>
-            <span><strong>個人ログイン</strong><span>運営参加チェック</span></span>
+            <span><strong>運営参加チェック</strong><span>ログイン済みなら自動表示</span></span>
           </a>
           <a class="tile" href="#event-info">
             <span class="icon blue"><svg viewBox="0 0 24 24"><path d="M3 4h18"></path><path d="M3 12h18"></path><path d="M3 20h18"></path></svg></span>
@@ -1409,22 +1649,12 @@
               </div>
               <span class="badge" id="monthBadge">6月 Wonder＋</span>
             </div>
-            <div class="sync-callout">
-              <div>
-                <strong>自動反映スケジュール</strong>
-                <span>Googleフォーム送信後に整形されたスケジュールを読み込み、このカレンダーと一覧へ反映します。読み込みに失敗した場合のみ、Notionカレンダーから確認してください。</span>
-              </div>
-              <div class="sync-actions">
-                <a class="sync-button primary" data-phase-scope="2期" href="https://forms.gle/38UzoYYjz5DQzr5o6" target="_blank" rel="noreferrer">スケジュール投稿</a>
-                <a class="sync-button" href="https://app.notion.com/p/37b8c354603380a09237df83ad096704?v=37b8c3546033805e8505000c9b6349c2" target="_blank" rel="noreferrer">Notionカレンダー</a>
-              </div>
-            </div>
             <div class="personal-schedule-prompt" id="personalSchedulePrompt">
               <div>
                 <strong id="personalScheduleText">運営参加スケジュールはこちらから入力できます</strong>
                 <span>参加希望日にチェックを入れると、全体の担当一覧へ反映されます。</span>
               </div>
-              <a class="member-button primary" href="#member-portal">入力画面を開く</a>
+              <a class="member-button primary" href="#member-portal">運営参加チェックを開く</a>
             </div>
             <div class="calendar-wrap">
               <div class="calendar">
@@ -1438,21 +1668,20 @@
               <button class="tab-button" type="button" data-schedule="juneRegular">6月 レギュラー</button>
               <button class="tab-button" type="button" data-schedule="julyWonder">7月 Wonder＋</button>
               <button class="tab-button" type="button" data-schedule="julyRegular">7月 レギュラー</button>
+              <button class="tab-button" type="button" data-schedule="augustWonder">8月 Wonder＋</button>
+              <button class="tab-button" type="button" data-schedule="augustRegular">8月 レギュラー</button>
             </div>
-            <div class="link-grid">
-              <a class="link-card" data-phase-scope="2期" href="https://forms.gle/38UzoYYjz5DQzr5o6" target="_blank" rel="noreferrer">
-                <strong>スケジュール投稿フォーム</strong>
-                <span>月間スケジュール原文をそのまま送信。整形後に一覧・カレンダー・案内文章の日付へ反映します。</span>
-              </a>
-              <a class="link-card" href="#lineworks">
-                <strong>参加スケジュール共有トーク</strong>
-                <span>LINE WORKS側で投稿内容を確認する入口です。</span>
-              </a>
+            <div class="sync-callout">
+              <div>
+                <strong>自動反映スケジュール</strong>
+                <span>Googleフォーム送信後に整形されたスケジュールを読み込み、このカレンダーと一覧へ反映します。</span>
+              </div>
+              <div class="sync-actions">
+                <a class="sync-button primary" data-phase-scope="2期" href="https://forms.gle/38UzoYYjz5DQzr5o6" target="_blank" rel="noreferrer">スケジュール投稿</a>
+              </div>
             </div>
-            <div class="month-tabs">
-              <button class="tab-button" type="button" data-scroll-target="operator-list">各会運営者担当一覧</button>
-              <button class="tab-button" type="button" data-scroll-target="shared-forms">共有フォーム</button>
-            </div>
+            <div class="schedule-log" id="scheduleUpdateLog" aria-live="polite"></div>
+            <div class="archive-list" id="scheduleArchiveList" aria-label="過去のスケジュール"></div>
           </section>
 
           <section class="panel" id="operator-list" aria-label="各会運営者担当一覧">
@@ -1463,7 +1692,7 @@
               </div>
               <span class="badge">参加スケジュール集約</span>
             </div>
-            <div class="minutes-list">
+            <div class="minutes-list operator-assignment-list">
               <div class="simple-row">
                 <div class="datebox">集約</div>
                 <div><strong>個人の参加可能日を自動集計</strong><div class="event-meta">ログインIDごとの参加チェックを集約し、開催日ごとに担当候補を表示します。</div></div>
@@ -1477,71 +1706,38 @@
             </div>
           </section>
 
-          <section class="panel" id="member-portal" aria-label="個人ログイン">
+          <section class="panel" id="member-portal" aria-label="運営参加チェック">
             <div class="panel-head">
               <div class="panel-title">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><path d="M10 17l5-5-5-5"></path><path d="M15 12H3"></path></svg>
-                個人ログイン・運営参加チェック
+                <span id="memberPanelTitle">運営参加チェック</span>
               </div>
-              <span class="badge" id="memberBadge">承認制</span>
+              <span class="badge" id="memberBadge">カテゴリ別</span>
             </div>
             <div class="member-grid">
-              <div class="member-card member-auth">
-                <form class="member-form" id="memberLoginForm">
-                  <label class="field-label">ID
-                    <input class="field-input" id="loginEmail" type="text" autocomplete="username" required>
-                  </label>
-                  <label class="field-label">パスワード
-                    <input class="field-input" id="loginPassword" type="password" autocomplete="current-password" required>
-                  </label>
-                  <div class="member-actions">
-                    <button class="member-button primary" type="submit">ログイン</button>
-                  </div>
-                </form>
-                <form class="member-form" id="memberRegisterForm" style="margin-top:14px;">
-                  <label class="field-label">名前フルネーム
-                    <input class="field-input" id="registerName" type="text" autocomplete="name" required>
-                  </label>
-                  <label class="field-label">ID
-                    <input class="field-input" id="registerEmail" type="text" autocomplete="username" required>
-                  </label>
-                  <label class="field-label">期
-                    <select class="field-select" id="registerPhase">
-                      <option value="1期">1期</option>
-                      <option value="2期">2期</option>
-                      <option value="3期">3期</option>
-                    </select>
-                  </label>
-                  <label class="field-label">パスワード
-                    <input class="field-input" id="registerPassword" type="password" autocomplete="new-password" required>
-                  </label>
-                  <div class="member-actions">
-                    <button class="member-button" type="submit">新規アカウント作成</button>
-                  </div>
-                </form>
-                <form class="member-form" id="memberResetForm" style="margin-top:14px;">
-                  <label class="field-label">パスワード再設定 ID
-                    <input class="field-input" id="resetEmail" type="text" autocomplete="username">
-                  </label>
-                  <label class="field-label">新しいパスワード
-                    <input class="field-input" id="resetPassword" type="password" autocomplete="new-password">
-                  </label>
-                  <div class="member-actions">
-                    <button class="member-button" type="submit">パスワード再設定申請</button>
-                  </div>
-                </form>
-                <div class="member-status" id="memberAuthStatus">承認済みアカウントのみログインできます。</div>
-              </div>
-
-              <div class="member-card member-session">
+              <div class="member-card member-session is-primary">
                 <div class="member-actions">
                   <div>
-                    <strong id="memberName">未ログイン</strong>
-                    <div class="event-meta" id="memberRole">アカウント情報</div>
+                    <strong id="memberName">運営参加チェック</strong>
+                    <div class="event-meta" id="memberRole">ポータルログイン済みのアカウントで参加予定を更新します。</div>
                   </div>
-                  <button class="member-button" id="memberLogout" type="button">ログアウト</button>
                 </div>
                 <div class="member-status" id="memberActionStatus">チェックすると全体担当一覧へ反映されます。</div>
+                <div class="member-month-tabs" aria-label="運営参加チェックの月">
+                  <button class="tab-button is-active" type="button" data-member-month="6">6月</button>
+                  <button class="tab-button" type="button" data-member-month="7">7月</button>
+                  <button class="tab-button" type="button" data-member-month="8">8月</button>
+                </div>
+                <div class="member-category-tabs" aria-label="運営参加チェックの分類">
+                  <button class="tab-button is-active" type="button" data-member-category="wonder">Wonder＋</button>
+                  <button class="tab-button" type="button" data-member-category="regular">レギュラー</button>
+                  <button class="tab-button" type="button" data-member-category="morning">朝活異業種交流会</button>
+                  <button class="tab-button" type="button" data-member-category="miraiba">ミライバ</button>
+                </div>
+                <div class="member-savebar">
+                  <span class="member-status" id="memberPendingStatus">チェック後に「参加チェックを更新」を押すと反映されます。</span>
+                  <button class="member-button primary" id="memberSaveAssignments" type="button" disabled>参加チェックを更新</button>
+                </div>
                 <div class="member-schedule-list" id="memberScheduleList" aria-live="polite"></div>
               </div>
 
@@ -1562,13 +1758,9 @@
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2h6"></path><path d="M9 22h6"></path><path d="M5 5h14v14H5z"></path><path d="M8 9h8"></path><path d="M8 13h8"></path></svg>
                 共有フォーム
               </div>
-              <span class="badge">2フォーム</span>
+              <span class="badge">1フォーム</span>
             </div>
             <div class="link-grid">
-              <a class="link-card" href="https://forms.gle/ALC4KgoKgJB9tQWW9" target="_blank" rel="noreferrer">
-                <strong>議事録共有フォーム</strong>
-                <span>議事録を投稿し、テキスト閲覧ページとNotionへ反映します。</span>
-              </a>
               <a class="link-card" href="https://forms.gle/rBzVgad5FXEM4dcm9" target="_blank" rel="noreferrer">
                 <strong>イベント案内共有フォーム</strong>
                 <span>案内文章と素材情報を投稿し、案内文章一覧へ反映します。</span>
@@ -1589,15 +1781,15 @@
                 <strong>1期専用LINEトーク</strong>
                 <span>LINEのグループチャットURL登録待ちです。URL共有後に直接リンクへ差し替えます。</span>
               </a>
-              <a class="link-card" href="https://talk.worksmobile.com" target="_blank" rel="noreferrer" data-phase-scope="2期" data-room-id="86be568e-ca15-b86a-3623-fbcbabe68431" data-channel-key="352119290">
+              <a class="link-card" href="https://talk.worksmobile.com/#/400720233/openapi/chatRoomOnly/352119290" target="_blank" rel="noreferrer" data-phase-scope="2期" data-room-id="86be568e-ca15-b86a-3623-fbcbabe68431" data-channel-key="352119290">
                 <strong>2期パートナー参加トーク</strong>
                 <span>LINE WORKSトークを開きます。内部キー: 352119290 / ID: 86be568e-ca15-b86a-3623-fbcbabe68431</span>
               </a>
-              <a class="link-card" href="https://talk.worksmobile.com" target="_blank" rel="noreferrer" data-phase-scope="2期 3期" data-room-id="4bec9198-ca7b-346c-092f-7d1e2d87eaf8" data-channel-key="401847803">
+              <a class="link-card" href="https://talk.worksmobile.com/#/400720233/openapi/chatRoomOnly/401847803" target="_blank" rel="noreferrer" data-phase-scope="2期 3期" data-room-id="4bec9198-ca7b-346c-092f-7d1e2d87eaf8" data-channel-key="401847803">
                 <strong>2&3期パートナー参加トーク</strong>
                 <span>LINE WORKSトークを開きます。内部キー: 401847803 / ID: 4bec9198-ca7b-346c-092f-7d1e2d87eaf8</span>
               </a>
-              <a class="link-card" href="https://talk.worksmobile.com" target="_blank" rel="noreferrer" data-phase-scope="2期" data-room-id="6d9bbe51-c4fd-f680-092c-4778e3673c34" data-channel-key="366918350">
+              <a class="link-card" href="https://talk.worksmobile.com/#/400720233/openapi/chatRoomOnly/366918350" target="_blank" rel="noreferrer" data-phase-scope="2期" data-room-id="6d9bbe51-c4fd-f680-092c-4778e3673c34" data-channel-key="366918350">
                 <strong>参加スケジュール共有トーク</strong>
                 <span>LINE WORKSトークを開きます。内部キー: 366918350 / ID: 6d9bbe51-c4fd-f680-092c-4778e3673c34</span>
               </a>
@@ -1662,27 +1854,57 @@
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h18"></path><path d="M3 12h18"></path><path d="M3 20h18"></path></svg>
                 案内文章一覧
               </div>
-              <span class="badge">自動反映予定</span>
+              <span class="badge">月別表示</span>
             </div>
             <div class="link-grid">
               <a class="link-card" href="https://drive.google.com/drive/folders/1HQpyzjkAMPFJKCc8WjosxWVqH2KSukJD?usp=sharing" target="_blank" rel="noreferrer">
                 <strong>既存Driveを開く</strong>
-                <span>現在アップロード済みの案内文章と素材を確認します。</span>
+                <span>PDF・スプレッドシート形式で保存された案内文章と素材を確認します。</span>
               </a>
               <a class="link-card" href="https://forms.gle/rBzVgad5FXEM4dcm9" target="_blank" rel="noreferrer">
                 <strong>案内文章を投稿する</strong>
-                <span>フォーム送信後、タイトル別一覧、本文、素材リンクとして掲載する想定です。</span>
+                <span>フォーム送信後、Drive保存、本文抽出、月別タブ反映を行う入口です。</span>
               </a>
             </div>
-            <div class="minutes-list">
+            <div class="event-guide-tabs" role="tablist" aria-label="案内文章の月別タブ">
+              <button class="tab-button is-active" type="button" data-guide-month="6">6月</button>
+              <button class="tab-button" type="button" data-guide-month="7">7月</button>
+            </div>
+            <div class="event-guide-list" id="eventGuideList">
+              <article class="event-guide-card" data-guide-card-month="6">
+                <div class="event-guide-head">
+                  <div>
+                    <strong>6月 Wonder+ イベント案内</strong>
+                    <div class="event-meta">6月スケジュールの開催日時を反映して掲載します。</div>
+                  </div>
+                  <button class="copy-guide-button" type="button" data-copy-guide>コピー</button>
+                </div>
+                <div class="event-guide-body">【イベント名】6月 Wonder+ イベント案内
+【開催日時】6月スケジュールから自動反映
+【案内文】フォームまたはDrive内のPDF・スプレッドシートから本文を抽出してここに表示します。
+【素材】Drive内の画像・資料リンクを案内文ごとに紐づけます。</div>
+              </article>
+              <article class="event-guide-card" data-guide-card-month="7" hidden>
+                <div class="event-guide-head">
+                  <div>
+                    <strong>7月 Wonder+ イベント案内</strong>
+                    <div class="event-meta">7月スケジュール投稿後、開催日時を7月版へ自動差し替えします。</div>
+                  </div>
+                  <button class="copy-guide-button" type="button" data-copy-guide>コピー</button>
+                </div>
+                <div class="event-guide-body">【イベント名】7月 Wonder+ イベント案内
+【開催日時】7月スケジュールから自動反映
+【案内文】フォームまたはDrive内のPDF・スプレッドシートから本文を抽出してここに表示します。
+【素材】Drive内の画像・資料リンクを案内文ごとに紐づけます。</div>
+              </article>
               <div class="simple-row">
-                <div class="datebox">案内</div>
-                <div><strong>イベント案内テンプレート</strong><div class="event-meta">フォーム送信データから、開催日時をスケジュール表と照合して自動差し替えします。</div></div>
-                <span class="status todo">設計中</span>
+                <div class="datebox">自動化</div>
+                <div><strong>Drive抽出とスケジュール連動</strong><div class="event-meta">Apps ScriptでDrive内のPDF・スプレッドシートを読み取り、スケジュール表の日時で本文を月別に更新します。</div></div>
+                <span class="status todo">追加実装</span>
               </div>
               <div class="simple-row">
-                <div class="datebox">素材</div>
-                <div><strong>画像・資料リンク</strong><div class="event-meta">Drive内の画像や資料を、案内文章ごとにダウンロードできる形で紐づけます。</div></div>
+                <div class="datebox">コピー</div>
+                <div><strong>案内文章コピー</strong><div class="event-meta">各案内文のコピーを押すと、本文だけをクリップボードに保存できます。</div></div>
                 <span class="status">Drive</span>
               </div>
             </div>
@@ -1698,117 +1920,105 @@
               </div>
               <span class="badge">誰でも確認用</span>
             </div>
-            <div class="task-list">
-              <div class="simple-row">
-                <div class="datebox">1</div>
-                <div><strong>開催内容を確認する</strong><div class="event-meta">日程、会場、対象者、申込フォーム、案内文章Driveの最新版を確認します。不明点はスケジュール共有トークへ投稿。</div></div>
-                <span class="status done">確認</span>
-              </div>
-              <div class="simple-row">
-                <div class="datebox">2</div>
-                <div><strong>案内・告知を準備する</strong><div class="event-meta">案内文をDriveから取得し、開催日、集合時間、持ち物、注意事項を差し替えてからLINE WORKS掲示板へ投稿。</div></div>
-                <span class="status todo">準備</span>
-              </div>
-              <div class="simple-row">
-                <div class="datebox">3</div>
-                <div><strong>参加者と役割を確定する</strong><div class="event-meta">申込フォームを確認し、参加者数、受付担当、案内担当、記録担当を決定。変更があれば該当トークへ即共有。</div></div>
-                <span class="status important">重要</span>
-              </div>
-              <div class="simple-row">
-                <div class="datebox">4</div>
-                <div><strong>当日運営を進行する</strong><div class="event-meta">受付、開始挨拶、進行、写真・議事録記録、トラブル対応を担当別に実施。緊急時は2＆3期専用トークへ連絡。</div></div>
-                <span class="status todo">当日</span>
-              </div>
-              <div class="simple-row">
-                <div class="datebox">5</div>
-                <div><strong>終了後に報告する</strong><div class="event-meta">活動状況入力フォームとBOスケジュール提出フォームを更新し、議事録を最新順に追加します。</div></div>
-                <span class="status done">報告</span>
-              </div>
-            </div>
-            <div class="link-grid">
-              <a class="link-card" href="#prepare-guide">
-                <strong>準備タスク詳細を開く</strong>
-                <span>設営、受付、リスト、ドリンク、フード、ミライバの段取りを一覧で確認。</span>
-              </a>
-              <a class="link-card" href="https://wonderplus100-stack.github.io/wonder-plus-portal/?view=prepare-guide" target="_blank" rel="noreferrer">
-                <strong>詳細ページを別窓で開く</strong>
-                <span>Notion埋め込み外で広く表示して確認できます。</span>
-              </a>
-            </div>
-          </section>
-
-          <section class="panel" id="prepare-guide" aria-label="イベントの準備タスク詳細">
-            <div class="panel-head">
-              <div class="panel-title">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
-                イベントの準備タスク詳細
-              </div>
-              <span class="badge">現場確認用</span>
-            </div>
-            <div class="guide-grid">
-              <div class="guide-section">
-                <h3>設営</h3>
-                <ul>
-                  <li>受付、ミライバ、荷物置き場、プロフィール記入台、ドリンクブースの配置を決める</li>
-                  <li>フードテーブルにクロスとランチョンマットを設置する</li>
-                  <li>箸、皿、お手拭き、スプーン、フォークを設置する</li>
-                  <li>出展ブースの配置と導線を確認する</li>
-                </ul>
-              </div>
-              <div class="guide-section">
-                <h3>受付</h3>
-                <ul>
-                  <li>お釣りを準備する</li>
-                  <li>プロフィールカードを用意する</li>
-                  <li>領収書を用意する</li>
-                  <li>配布物を受付にまとめる</li>
-                </ul>
-              </div>
-              <div class="guide-section">
-                <h3>リスト</h3>
-                <ul>
-                  <li>WKシステムリストを確認する</li>
-                  <li>WPフォームリストを確認する</li>
-                  <li>Peatixリストを確認する</li>
-                  <li>1期リストを確認する（EJ、安彦、野本、服部、徳田）</li>
-                </ul>
-              </div>
-              <div class="guide-section">
-                <h3>ドリンク</h3>
-                <ul>
-                  <li>ウーロン茶、アイスティ、水を用意する</li>
-                  <li>コーヒー、紅茶の有無を確認し、シロップ、ミルク、パドラーを準備する</li>
-                  <li>お酒がある場合は缶酎ハイ、ワイン、日本酒を確認する</li>
-                  <li>ソフトドリンクのみは紙コップ、お酒ありはプラカップを用意する</li>
-                  <li>ワイン、日本酒は専用の小さいプラカップを用意する</li>
-                </ul>
-              </div>
-              <div class="guide-section">
-                <h3>フード</h3>
-                <ul>
-                  <li>会によって食事、デザート提供の有無を確認する</li>
-                  <li>ガスコンロ、シルバープレート、トング、トング受け皿を用意する</li>
-                  <li>ゴミ袋をテーブルに貼り、包丁、まな板を用意する</li>
-                  <li>提供するデザート、フードを並べる</li>
-                </ul>
-              </div>
-              <div class="guide-section">
-                <h3>フード準備</h3>
-                <ul>
-                  <li>サニーレタスは洗って一口サイズにちぎり、ハムや生ハムと盛り付ける</li>
-                  <li>総菜系は一口サイズにカットし、サニーレタスの芯なども活用して盛り付ける</li>
-                  <li>パスタは700gを茹で、パスタソースは約200gに1袋、合計3袋を活用する</li>
-                  <li>デザートはホイップ、フルーツソース、フルーツ、チョコソースでデコレーションする</li>
-                </ul>
-              </div>
-              <div class="guide-section">
-                <h3>ミライバ</h3>
-                <ul>
-                  <li>ミライバポップを設置する</li>
-                  <li>QRコードを設置する</li>
-                  <li>ガード文言を設置する</li>
-                </ul>
-              </div>
+            <div class="prepare-details">
+              <details class="prepare-detail-item">
+                <summary>
+                  <div class="guide-number">1</div>
+                  <div><strong>設営</strong><div class="event-meta">受付、ミライバ、荷物置き場、プロフィール記入台、ドリンクブース、フードテーブル、出展ブースを確認。</div></div>
+                </summary>
+                <div class="prepare-detail-body">
+                  <ul>
+                    <li>受付、ミライバ、荷物置き場、プロフィール記入台、ドリンクブースの配置を決める</li>
+                    <li>フードテーブルにクロスとランチョンマットを設置する</li>
+                    <li>箸、皿、お手拭き、スプーン、フォークを設置する</li>
+                    <li>出展ブースの配置と導線を確認する</li>
+                  </ul>
+                </div>
+              </details>
+              <details class="prepare-detail-item">
+                <summary>
+                  <div class="guide-number">2</div>
+                  <div><strong>受付</strong><div class="event-meta">お釣り、プロフィールカード、領収書、配布物を受付にまとめます。</div></div>
+                </summary>
+                <div class="prepare-detail-body">
+                  <ul>
+                    <li>お釣りを準備する</li>
+                    <li>プロフィールカードを用意する</li>
+                    <li>領収書を用意する</li>
+                    <li>配布物を受付にまとめる</li>
+                  </ul>
+                </div>
+              </details>
+              <details class="prepare-detail-item">
+                <summary>
+                  <div class="guide-number">3</div>
+                  <div><strong>リスト</strong><div class="event-meta">各申込リストと1期リストを確認し、受付時に照合できる状態にします。</div></div>
+                </summary>
+                <div class="prepare-detail-body">
+                  <ul>
+                    <li>WKシステムリストを確認する</li>
+                    <li>WPフォームリストを確認する</li>
+                    <li>Peatixリストを確認する</li>
+                    <li>1期リストを確認する（EJ、安彦、野本、服部、徳田）</li>
+                  </ul>
+                </div>
+              </details>
+              <details class="prepare-detail-item">
+                <summary>
+                  <div class="guide-number">4</div>
+                  <div><strong>ドリンク</strong><div class="event-meta">ソフトドリンク、コーヒー、紅茶、お酒の有無に合わせて備品を準備します。</div></div>
+                </summary>
+                <div class="prepare-detail-body">
+                  <ul>
+                    <li>ウーロン茶、アイスティ、水を用意する</li>
+                    <li>コーヒー、紅茶の有無を確認し、シロップ、ミルク、パドラーを準備する</li>
+                    <li>お酒がある場合は缶酎ハイ、ワイン、日本酒を確認する</li>
+                    <li>ソフトドリンクのみは紙コップ、お酒ありはプラカップを用意する</li>
+                    <li>ワイン、日本酒は専用の小さいプラカップを用意する</li>
+                  </ul>
+                </div>
+              </details>
+              <details class="prepare-detail-item">
+                <summary>
+                  <div class="guide-number">5</div>
+                  <div><strong>フード</strong><div class="event-meta">食事・デザート提供の有無を確認し、調理と提供の備品を揃えます。</div></div>
+                </summary>
+                <div class="prepare-detail-body">
+                  <ul>
+                    <li>会によって食事、デザート提供の有無を確認する</li>
+                    <li>ガスコンロ、シルバープレート、トング、トング受け皿を用意する</li>
+                    <li>ゴミ袋をテーブルに貼り、包丁、まな板を用意する</li>
+                    <li>提供するデザート、フードを並べる</li>
+                  </ul>
+                </div>
+              </details>
+              <details class="prepare-detail-item">
+                <summary>
+                  <div class="guide-number">6</div>
+                  <div><strong>フード準備</strong><div class="event-meta">サラダ、惣菜、パスタ、デザートを提供しやすい形に整えます。</div></div>
+                </summary>
+                <div class="prepare-detail-body">
+                  <ul>
+                    <li>サニーレタスは洗って一口サイズにちぎり、ハムや生ハムと盛り付ける</li>
+                    <li>総菜系は一口サイズにカットし、サニーレタスの芯なども活用して盛り付ける</li>
+                    <li>パスタは700gを茹で、パスタソースは約200gに1袋、合計3袋を活用する</li>
+                    <li>デザートはホイップ、フルーツソース、フルーツ、チョコソースでデコレーションする</li>
+                  </ul>
+                </div>
+              </details>
+              <details class="prepare-detail-item">
+                <summary>
+                  <div class="guide-number">7</div>
+                  <div><strong>ミライバ</strong><div class="event-meta">ミライバポップ、QRコード、ガード文言を参加者が見やすい位置に設置します。</div></div>
+                </summary>
+                <div class="prepare-detail-body">
+                  <ul>
+                    <li>ミライバポップを設置する</li>
+                    <li>QRコードを設置する</li>
+                    <li>ガード文言を設置する</li>
+                  </ul>
+                </div>
+              </details>
             </div>
           </section>
 
@@ -1851,7 +2061,7 @@
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5V4a2 2 0 0 1 2-2h11l3 3v14.5A2.5 2.5 0 0 1 17.5 22H6.5A2.5 2.5 0 0 1 4 19.5Z"></path><path d="M14 2v6h6"></path></svg>
                 議事録
               </div>
-              <a class="share-link" href="https://forms.gle/ALC4KgoKgJB9tQWW9" target="_blank" rel="noreferrer">議事録を共有</a>
+              <a class="share-link primary" href="https://forms.gle/ALC4KgoKgJB9tQWW9" target="_blank" rel="noreferrer">議事録共有フォーム</a>
             </div>
             <div class="minutes-list">
               <div class="simple-row">
@@ -1897,7 +2107,9 @@
       juneWonder: { month: 6, label: "6月 Wonder＋", items: [] },
       juneRegular: { month: 6, label: "6月 レギュラー", items: [] },
       julyWonder: { month: 7, label: "7月 Wonder＋", items: [] },
-      julyRegular: { month: 7, label: "7月 レギュラー", items: [] }
+      julyRegular: { month: 7, label: "7月 レギュラー", items: [] },
+      augustWonder: { month: 8, label: "8月 Wonder＋", items: [] },
+      augustRegular: { month: 8, label: "8月 レギュラー", items: [] }
     };
     let schedules = structuredClone(emptySchedules);
     let activeScheduleKey = "juneWonder";
@@ -1908,10 +2120,15 @@
     const eventList = document.querySelector("#eventList");
     const monthBadge = document.querySelector("#monthBadge");
     const scheduleStatus = document.querySelector("#scheduleStatus");
+    const scheduleUpdateLog = document.querySelector("#scheduleUpdateLog");
+    const scheduleArchiveList = document.querySelector("#scheduleArchiveList");
     const memberScheduleList = document.querySelector("#memberScheduleList");
     const memberAuthStatus = document.querySelector("#memberAuthStatus");
     const memberActionStatus = document.querySelector("#memberActionStatus");
+    const memberPendingStatus = document.querySelector("#memberPendingStatus");
+    const memberSaveAssignments = document.querySelector("#memberSaveAssignments");
     const memberBadge = document.querySelector("#memberBadge");
+    const memberPanelTitle = document.querySelector("#memberPanelTitle");
     const memberName = document.querySelector("#memberName");
     const memberRole = document.querySelector("#memberRole");
     const adminCard = document.querySelector("#adminCard");
@@ -1928,6 +2145,15 @@
     let assignmentMap = {};
     let currentMember = null;
     let userAssignments = new Set();
+    let pendingAssignments = new Set();
+    let activeMemberCategory = "wonder";
+    let activeMemberMonth = 6;
+    let scheduleLogs = [];
+    try {
+      scheduleLogs = JSON.parse(localStorage.getItem("wonderScheduleLogs") || "[]");
+    } catch (error) {
+      scheduleLogs = [];
+    }
 
     function getScheduleApiUrl() {
       const params = new URLSearchParams(window.location.search);
@@ -1957,7 +2183,27 @@
       })[char]);
     }
 
-    function getScheduleEntries() {
+    function currentScheduleMonth() {
+      const now = new Date();
+      if (now.getFullYear() > SCHEDULE_YEAR) return 13;
+      if (now.getFullYear() < SCHEDULE_YEAR) return 1;
+      return now.getMonth() + 1;
+    }
+
+    function isArchivedScheduleGroup(group) {
+      return Number(group?.month || 0) < currentScheduleMonth();
+    }
+
+    function getScheduleEntries(options = {}) {
+      const { includeArchived = false, archivedOnly = false } = options;
+      return Object.entries(schedules).flatMap(([key, group]) => (
+        (!includeArchived && isArchivedScheduleGroup(group)) || (archivedOnly && !isArchivedScheduleGroup(group))
+          ? []
+          : group.items.map((item) => ({ key, group, item }))
+      ));
+    }
+
+    function getAllScheduleEntries() {
       return Object.entries(schedules).flatMap(([key, group]) => (
         group.items.map((item) => ({ key, group, item }))
       ));
@@ -1965,6 +2211,144 @@
 
     function getEventId(group, item) {
       return `${SCHEDULE_YEAR}-${group.month}-${item.day}-${item.title}`;
+    }
+
+    function getEventDetailsById(eventId) {
+      const entry = getAllScheduleEntries().find(({ group, item }) => getEventId(group, item) === eventId);
+      if (!entry) return { title: eventId, date: "" };
+      return {
+        title: entry.item.title,
+        date: `${entry.group.month}/${entry.item.day}`
+      };
+    }
+
+    function saveScheduleLogs() {
+      localStorage.setItem("wonderScheduleLogs", JSON.stringify(scheduleLogs.slice(0, 30)));
+    }
+
+    function addScheduleLog(message) {
+      if (scheduleLogs[0]?.message === message) {
+        renderScheduleLogs();
+        return;
+      }
+      scheduleLogs = [{ at: new Date().toISOString(), message }, ...scheduleLogs].slice(0, 30);
+      saveScheduleLogs();
+      renderScheduleLogs();
+    }
+
+    function renderScheduleLogs() {
+      if (!scheduleUpdateLog) return;
+      scheduleUpdateLog.innerHTML = scheduleLogs.length ? scheduleLogs.map((log) => {
+        const at = new Date(log.at);
+        const time = Number.isNaN(at.getTime()) ? "" : at.toLocaleString("ja-JP", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" });
+        return `
+          <div class="schedule-log-row">
+            <time>${escapeHtml(time)}</time>
+            <div>${escapeHtml(log.message)}</div>
+          </div>
+        `;
+      }).join("") : `
+        <div class="schedule-log-row">
+          <time>ログ</time>
+          <div>スケジュール更新や参加チェックの変更履歴がここに表示されます。</div>
+        </div>
+      `;
+    }
+
+    function displayFamilyName(name) {
+      const text = String(name || "").trim();
+      if (!text) return "";
+      const knownFamilyNames = [
+        "高杉", "大西", "小宮", "池田", "小菅", "長田", "堂本", "荒井", "湯原", "日比野", "米元",
+        "小川", "平田", "山口", "塚原", "竹森", "新井", "福本", "望月", "鈴木", "金田", "高崎",
+        "志村", "大榮", "安彦", "野本", "服部", "徳田", "横山", "熊谷", "村松"
+      ];
+      const normalized = text
+        .replace(/[　]+/g, " ")
+        .replace(/さん$|様$|くん$|ちゃん$/u, "")
+        .trim();
+      if (normalized.includes(" ")) return normalized.split(" ").filter(Boolean)[0] || normalized;
+      const parenIndex = normalized.search(/[（(]/);
+      const baseName = parenIndex > 0 ? normalized.slice(0, parenIndex) : normalized;
+      const matched = knownFamilyNames.find((familyName) => baseName.startsWith(familyName));
+      if (matched) return matched;
+      if (/^[一-龠々]{3,5}$/.test(baseName)) return baseName.slice(0, 2);
+      return baseName;
+    }
+
+    function displayAssignmentNames(names) {
+      return [...new Set(toArray(names).map(displayFamilyName).filter(Boolean))];
+    }
+
+    function getAssignmentDiff() {
+      const added = [...pendingAssignments].filter((id) => !userAssignments.has(id));
+      const removed = [...userAssignments].filter((id) => !pendingAssignments.has(id));
+      return { added, removed };
+    }
+
+    function getCurrentMemberAssignmentName() {
+      return currentMember?.name || currentMember?.email || "メンバー";
+    }
+
+    function applyLocalAssignmentChange(eventId, checked) {
+      const name = getCurrentMemberAssignmentName();
+      const currentNames = toArray(assignmentMap[eventId]);
+      if (checked) {
+        assignmentMap[eventId] = [...new Set([...currentNames, name])];
+        return;
+      }
+      const memberFamily = displayFamilyName(name);
+      assignmentMap[eventId] = currentNames.filter((item) => {
+        const value = String(item || "");
+        return value !== name && displayFamilyName(value) !== memberFamily;
+      });
+      if (!assignmentMap[eventId].length) delete assignmentMap[eventId];
+    }
+
+    function applyLocalAssignmentChanges(changes) {
+      changes.forEach((change) => applyLocalAssignmentChange(change.eventId, change.checked === "1"));
+    }
+
+    function getCompactEventLabel(eventId) {
+      const details = getEventDetailsById(eventId);
+      return `${details.date || ""} ${details.title || eventId}`.trim();
+    }
+
+    function getMemberAssignmentStorageKey(user = currentMember) {
+      const id = user?.email || user?.id || user?.name || localStorage.getItem("wonderMemberToken") || "guest";
+      return `wonderMemberAssignments:${id}`;
+    }
+
+    function loadStoredMemberAssignments(user = currentMember) {
+      try {
+        return new Set(JSON.parse(localStorage.getItem(getMemberAssignmentStorageKey(user)) || "[]"));
+      } catch (error) {
+        return new Set();
+      }
+    }
+
+    function hasStoredMemberAssignments(user = currentMember) {
+      return localStorage.getItem(getMemberAssignmentStorageKey(user)) !== null;
+    }
+
+    function saveStoredMemberAssignments() {
+      if (!currentMember) return;
+      localStorage.setItem(getMemberAssignmentStorageKey(), JSON.stringify([...userAssignments]));
+    }
+
+    function mergeAssignmentSets(...sets) {
+      return new Set(sets.flatMap((set) => [...set]));
+    }
+
+    function updateAssignmentSaveState() {
+      const { added, removed } = getAssignmentDiff();
+      const count = added.length + removed.length;
+      if (memberSaveAssignments) memberSaveAssignments.disabled = !currentMember;
+      if (memberPendingStatus) {
+        memberPendingStatus.textContent = count
+          ? `${count}件の変更があります。参加チェックを更新すると反映されます。`
+          : "現在のチェックは反映済みです。変更したら再度更新できます。";
+      }
     }
 
     function buildPortalUrl(action, params = {}) {
@@ -2006,6 +2390,64 @@
       });
     }
 
+    function normalizeEventTitle(title) {
+      const text = String(title || "予定").replace(/\s+/g, " ").trim();
+      const compact = text.replace(/\s+/g, "");
+      const venue = [
+        "銀座", "新宿", "名古屋", "大阪", "福岡", "博多", "北九州", "小倉", "熊本", "岡山", "広島",
+        "船橋", "横浜", "高崎", "静岡", "札幌", "京都", "神戸", "浜松", "久留米", "仙台", "郡山", "新潟"
+      ].find((name) => compact.includes(name));
+
+      if (/ミライバ/i.test(compact)) return "ミライバ";
+      if (/朝活/.test(compact)) return "朝活異業種交流会";
+      if (/Wonder|W[＋+]/i.test(compact)) {
+        const wonderName = compact
+          .replace(/W[＋+]/i, "Wonder＋")
+          .replace(/Wonder\+/i, "Wonder＋")
+          .replace(/WonderPlus/i, "Wonder＋");
+        return wonderName.replace(/(銀座|新宿|名古屋|大阪|福岡|博多|北九州|小倉|熊本|岡山|広島|船橋|横浜|高崎|静岡|札幌|京都|神戸|浜松|久留米|仙台|郡山|新潟)/, "$1 ");
+      }
+      if (/レギュラー|通常|異業種交流会/.test(compact)) return "レギュラー異業種交流会";
+      return text;
+    }
+
+    function getScheduleDedupeKey(item) {
+      const category = getMemberScheduleCategory(item);
+      if (category === "regular" || category === "morning" || category === "miraiba") {
+        return `${item.day}|${category}|${item.title}`;
+      }
+      const time = (normalizeDisplayMeta(item.meta).match(/\d{1,2}:\d{2}/) || [])[0] || "";
+      return `${item.day}|${item.title}|${time}`;
+    }
+
+    function pickRicherScheduleItem(current, next) {
+      const currentMeta = normalizeDisplayMeta(current.meta);
+      const nextMeta = normalizeDisplayMeta(next.meta);
+      const currentHasTime = /\d{1,2}:\d{2}/.test(currentMeta);
+      const nextHasTime = /\d{1,2}:\d{2}/.test(nextMeta);
+      if (!currentHasTime && nextHasTime) return next;
+      if (currentHasTime && !nextHasTime) return current;
+      if (nextMeta.length > currentMeta.length) return next;
+      return current;
+    }
+
+    function mergeScheduleDuplicates(items) {
+      const merged = new Map();
+      items.forEach((item) => {
+        const key = getScheduleDedupeKey(item);
+        const current = merged.get(key);
+        merged.set(key, current ? pickRicherScheduleItem(current, item) : item);
+      });
+      return [...merged.values()];
+    }
+
+    function getScheduleGroupKey(month, item) {
+      const prefix = { 6: "june", 7: "july", 8: "august" }[Number(month)];
+      if (!prefix) return null;
+      const category = getMemberScheduleCategory(item);
+      return `${prefix}${category === "wonder" || category === "miraiba" ? "Wonder" : "Regular"}`;
+    }
+
     function normalizeSchedules(payload) {
       const next = structuredClone(emptySchedules);
       Object.entries(payload?.schedules || {}).forEach(([key, value]) => {
@@ -2014,16 +2456,27 @@
         next[key] = {
           month: Number(value.month) || next[key].month,
           label: value.label || next[key].label,
-          items: items
+          items: mergeScheduleDuplicates(items
             .map((item) => ({
               day: Number(item.day),
-              title: String(item.title || "予定"),
+              title: normalizeEventTitle(item.title),
               meta: String(item.meta || "")
             }))
             .filter((item) => item.day >= 1 && item.day <= 31)
-            .filter(isValidScheduleDisplayItem)
+            .filter(isValidScheduleDisplayItem))
             .sort((a, b) => a.day - b.day || a.title.localeCompare(b.title, "ja"))
         };
+      });
+      const consolidated = structuredClone(emptySchedules);
+      Object.values(next).forEach((group) => {
+        group.items.forEach((item) => {
+          const targetKey = getScheduleGroupKey(group.month, item);
+          if (targetKey && consolidated[targetKey]) consolidated[targetKey].items.push(item);
+        });
+      });
+      Object.keys(next).forEach((key) => {
+        next[key].items = mergeScheduleDuplicates(consolidated[key].items)
+          .sort((a, b) => a.day - b.day || a.title.localeCompare(b.title, "ja"));
       });
       assignmentMap = payload?.assignments || assignmentMap || {};
       return next;
@@ -2104,17 +2557,51 @@
           <div class="datebox">${filterDay ? `${month}/${filterDay}` : "未反映"}</div>
           <div>
             <div class="event-title">${filterDay ? "この日の予定はありません" : "この区分の予定はまだ反映されていません"}</div>
-            <div class="event-meta">${filterDay ? "別の日付をクリックするか、月タブを押すと月全体の一覧へ戻ります。" : "スケジュール投稿フォーム送信後、Apps Scriptの反映データを読み込むとここに表示されます。"}</div>
+            <div class="event-meta">${filterDay ? "別の日付をクリックするか、月タブを押すと月全体の一覧へ戻ります。" : "スケジュール投稿後、Apps Scriptの反映データを読み込むとここに表示されます。"}</div>
           </div>
         </div>
       `;
     }
 
     function renderAssignmentNames(eventId) {
-      const names = assignmentMap[eventId] || [];
+      const names = displayAssignmentNames(assignmentMap[eventId]);
       return names.length
         ? `<div class="assignment-names"><span class="assignment-label">担当:</span> <span class="assignment-value">${escapeHtml(names.join("、"))}</span></div>`
         : "";
+    }
+
+    function renderArchiveSchedule() {
+      if (!scheduleArchiveList) return;
+      const rows = getScheduleEntries({ includeArchived: true, archivedOnly: true });
+      scheduleArchiveList.innerHTML = rows.length ? `
+        <details>
+          <summary class="note-box"><strong>過去のスケジュール</strong> 月が終了した予定はこちらに保存されます。</summary>
+          ${rows.map(({ group, item }) => `
+            <div class="schedule-log-row">
+              <time>${group.month}/${item.day}</time>
+              <div><strong>${escapeHtml(item.title)}</strong><br>${escapeHtml(normalizeDisplayMeta(item.meta) || "詳細未入力")}</div>
+            </div>
+          `).join("")}
+        </details>
+      ` : `
+        <div class="schedule-log-row">
+          <time>保存</time>
+          <div>終了した月のスケジュールはここにアーカイブ表示されます。</div>
+        </div>
+      `;
+    }
+
+    function updateScheduleTabVisibility() {
+      const tabs = [...document.querySelectorAll("[data-schedule]")];
+      tabs.forEach((tab) => {
+        const group = schedules[tab.dataset.schedule] || emptySchedules[tab.dataset.schedule];
+        tab.hidden = Boolean(group && isArchivedScheduleGroup(group));
+      });
+      if (tabs.some((tab) => tab.dataset.schedule === activeScheduleKey && tab.hidden)) {
+        const nextTab = tabs.find((tab) => !tab.hidden);
+        if (nextTab) activeScheduleKey = nextTab.dataset.schedule;
+      }
+      tabs.forEach((tab) => tab.classList.toggle("is-active", tab.dataset.schedule === activeScheduleKey));
     }
 
     function normalizeDisplayMeta(meta) {
@@ -2127,10 +2614,30 @@
         .trim();
     }
 
+    function getMemberScheduleCategory(item) {
+      const title = String(item?.title || "");
+      const meta = String(item?.meta || "");
+      const source = `${title} ${meta}`;
+      if (/ミライバ/i.test(source)) return "miraiba";
+      if (/朝活/.test(source)) return "morning";
+      if (/Wonder|W[＋+]/i.test(source)) return "wonder";
+      return "regular";
+    }
+
+    function getMemberCategoryLabel(category) {
+      return {
+        wonder: "Wonder＋",
+        regular: "レギュラー",
+        morning: "朝活異業種交流会",
+        miraiba: "ミライバ"
+      }[category] || "スケジュール";
+    }
+
     function renderSchedule(key) {
       const current = schedules[key];
       if (!current) return;
       activeScheduleKey = key;
+      updateScheduleTabVisibility();
       const month = current.month;
       monthBadge.textContent = current.label;
       calendarGrid.innerHTML = "";
@@ -2166,14 +2673,21 @@
       renderEventList(current, selectedScheduleDay);
       renderMemberScheduleList();
       renderOperatorAssignments();
+      renderArchiveSchedule();
+      renderScheduleLogs();
 
-      document.querySelectorAll(".tab-button").forEach((button) => {
+      document.querySelectorAll("[data-schedule]").forEach((button) => {
         button.classList.toggle("is-active", button.dataset.schedule === key);
       });
     }
 
     async function loadSchedules() {
       const apiUrl = getScheduleApiUrl();
+      activeMemberMonth = Math.min(8, Math.max(6, currentScheduleMonth()));
+      document.querySelectorAll("[data-member-month]").forEach((tab) => {
+        tab.classList.toggle("is-active", Number(tab.dataset.memberMonth) === activeMemberMonth);
+      });
+      renderScheduleLogs();
       renderSchedule(activeScheduleKey);
       if (!apiUrl) {
         setScheduleStatus("スケジュール接続待ち: Apps ScriptのWebアプリURLを設定すると自動反映されます");
@@ -2185,17 +2699,20 @@
         const payload = await fetchSchedulePayload(apiUrl);
         schedules = normalizeSchedules(payload);
         await loadAssignments();
+        updateScheduleTabVisibility();
         renderSchedule(activeScheduleKey);
+        renderArchiveSchedule();
         const updatedAt = payload?.updatedAt ? new Date(payload.updatedAt) : null;
         const suffix = updatedAt && !Number.isNaN(updatedAt.getTime())
           ? `最終更新 ${updatedAt.toLocaleString("ja-JP")}`
           : "最新データを反映しました";
         setScheduleStatus(`自動反映済み: ${suffix}`);
+        if (payload?.updatedAt) addScheduleLog(`スケジュール自動反映: ${suffix}`);
       } catch (error) {
         console.error(error);
         schedules = structuredClone(emptySchedules);
         renderSchedule(activeScheduleKey);
-        setScheduleStatus("スケジュール読込エラー: Notionカレンダーを確認してください");
+        setScheduleStatus("スケジュール読込エラー: 時間を置いて再読み込みしてください");
       }
     }
 
@@ -2203,8 +2720,12 @@
       try {
         const payload = await callPortalAction("assignments");
         assignmentMap = payload.assignments || {};
-        if (currentMember) {
-          userAssignments = new Set(toArray(payload.mine));
+        if (currentMember && Array.isArray(payload.mine)) {
+          const apiAssignments = new Set(toArray(payload.mine));
+          userAssignments = hasStoredMemberAssignments() ? loadStoredMemberAssignments() : apiAssignments;
+          pendingAssignments = new Set(userAssignments);
+          saveStoredMemberAssignments();
+          updateAssignmentSaveState();
         }
       } catch (error) {
         console.warn(error);
@@ -2301,27 +2822,31 @@
 
     function applyMemberSession(user) {
       currentMember = user || null;
+      pendingAssignments = new Set(userAssignments);
       document.body.classList.toggle("is-member-logged-in", Boolean(currentMember));
       document.body.classList.toggle("auth-required", authRequired && !currentMember);
-      if (memberBadge) memberBadge.textContent = currentMember ? "ログイン中" : "承認制";
-      if (memberName) memberName.textContent = currentMember ? `${currentMember.name}さん専用ページ` : "未ログイン";
-      if (memberRole) memberRole.textContent = currentMember ? `${normalizePhase(currentMember.phase) || "未設定"} / ${currentMember.role || "member"}` : "アカウント情報";
+      if (memberBadge) memberBadge.textContent = currentMember ? "更新可" : "ポータルログイン後";
+      if (memberPanelTitle) memberPanelTitle.textContent = "運営参加チェック";
+      if (memberName) memberName.textContent = currentMember ? `${currentMember.name}さんの運営参加チェック` : "運営参加チェック";
+      if (memberRole) memberRole.textContent = currentMember ? `${normalizePhase(currentMember.phase) || "未設定"} / ${currentMember.role || "member"}` : "ポータルログイン後にチェックできます";
       if (adminCard) adminCard.style.display = currentMember?.role === "admin" ? "" : "none";
       applyPortalAccessView();
       renderMemberScheduleList();
+      updateAssignmentSaveState();
       if (currentMember?.role === "admin") loadAdminUsers();
     }
 
     function renderMemberScheduleList() {
       if (!memberScheduleList) return;
-      const entries = getScheduleEntries();
+      const entries = getScheduleEntries({ includeArchived: true })
+        .filter(({ group, item }) => group.month === activeMemberMonth && getMemberScheduleCategory(item) === activeMemberCategory);
       if (!currentMember) {
         memberScheduleList.innerHTML = `
           <div class="event-row">
-            <div class="datebox">ログイン</div>
+            <div class="datebox">確認</div>
             <div>
-              <div class="event-title">ログインすると参加チェックを変更できます</div>
-              <div class="event-meta">承認済みアカウントごとに参加予定を保存します。</div>
+              <div class="event-title">ポータルログイン後に参加チェックを変更できます</div>
+              <div class="event-meta">この欄にはログインフォームを置かず、ログイン済みアカウントの情報を使用します。</div>
             </div>
           </div>
         `;
@@ -2330,7 +2855,7 @@
 
       memberScheduleList.innerHTML = entries.length ? entries.map(({ group, item }) => {
         const eventId = getEventId(group, item);
-        const checked = userAssignments.has(eventId);
+        const checked = pendingAssignments.has(eventId);
         return `
           <label class="check-row">
             <input type="checkbox" data-event-id="${escapeHtml(eventId)}" data-title="${escapeHtml(item.title)}" data-date="${group.month}/${item.day}" ${checked ? "checked" : ""}>
@@ -2345,7 +2870,10 @@
       }).join("") : `
         <div class="event-row">
           <div class="datebox">未反映</div>
-          <div><div class="event-title">スケジュールがまだ読み込まれていません</div></div>
+          <div>
+            <div class="event-title">${activeMemberMonth}月 ${escapeHtml(getMemberCategoryLabel(activeMemberCategory))}の予定はまだありません</div>
+            <div class="event-meta">スケジュール投稿後、この月とタブへ自動で振り分けます。</div>
+          </div>
         </div>
       `;
     }
@@ -2362,7 +2890,7 @@
           <div>
             <strong>${escapeHtml(item.title)}</strong>
             <div class="event-meta">${escapeHtml(normalizeDisplayMeta(item.meta) || "詳細未入力")}</div>
-            <div class="assignment-names"><span class="assignment-label">担当:</span> <span class="assignment-value">${escapeHtml(names.join("、"))}</span></div>
+            <div class="assignment-names"><span class="assignment-label">担当:</span> <span class="assignment-value">${escapeHtml(displayAssignmentNames(names).join("、"))}</span></div>
           </div>
           <span class="status">反映済み</span>
         </div>
@@ -2384,7 +2912,10 @@
       try {
         const payload = await callPortalAction("me", { token });
         if (!payload.ok) throw new Error(payload.message || "ログイン期限切れです");
-        userAssignments = new Set(toArray(payload.assignments));
+        userAssignments = hasStoredMemberAssignments(payload.user)
+          ? loadStoredMemberAssignments(payload.user)
+          : new Set(toArray(payload.assignments));
+        if (userAssignments.size) localStorage.setItem(getMemberAssignmentStorageKey(payload.user), JSON.stringify([...userAssignments]));
         applyMemberSession(payload.user);
         setMemberStatus("ログイン状態を復元しました。");
       } catch (error) {
@@ -2421,6 +2952,20 @@
         if (button.dataset.scrollTarget) {
           document.getElementById(button.dataset.scrollTarget)?.scrollIntoView({ behavior: "smooth", block: "start" });
         }
+        if (button.dataset.memberCategory) {
+          activeMemberCategory = button.dataset.memberCategory;
+          document.querySelectorAll("[data-member-category]").forEach((tab) => {
+            tab.classList.toggle("is-active", tab === button);
+          });
+          renderMemberScheduleList();
+        }
+        if (button.dataset.memberMonth) {
+          activeMemberMonth = Number(button.dataset.memberMonth);
+          document.querySelectorAll("[data-member-month]").forEach((tab) => {
+            tab.classList.toggle("is-active", tab === button);
+          });
+          renderMemberScheduleList();
+        }
       });
     });
 
@@ -2442,99 +2987,79 @@
       eventList.scrollIntoView({ behavior: "smooth", block: "nearest" });
     });
 
-    document.querySelector("#memberLoginForm")?.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      const email = document.querySelector("#loginEmail").value.trim();
-      const password = document.querySelector("#loginPassword").value;
-      setMemberStatus("ログイン確認中です。");
-      try {
-        const payload = await callPortalAction("login", { email, password });
-        if (!payload.ok) throw new Error(payload.message || "ログインできませんでした");
-        localStorage.setItem("wonderMemberToken", payload.token);
-        userAssignments = new Set(toArray(payload.assignments));
-        applyMemberSession(payload.user);
-        setMemberStatus("ログインしました。参加チェックを変更できます。");
-      } catch (error) {
-        setMemberStatus(error.message || "ログインできませんでした。");
-      }
-    });
-
-    document.querySelector("#memberRegisterForm")?.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      const name = document.querySelector("#registerName").value.trim();
-      const email = document.querySelector("#registerEmail").value.trim();
-      const phase = document.querySelector("#registerPhase").value;
-      const password = document.querySelector("#registerPassword").value;
-      setMemberStatus("アカウント申請中です。");
-      try {
-        const payload = await callPortalAction("register", { name, email, phase, password });
-        if (!payload.ok) throw new Error(payload.message || "申請できませんでした");
-        setMemberStatus(payload.message || "申請しました。管理者の承認後にログインできます。");
-      } catch (error) {
-        if (String(error.message || "").includes("JSONP")) {
-          await sendPortalActionWithoutReading("register", { name, email, phase, password });
-          setMemberStatus("申請を送信しました。管理者の承認後にログインしてください。");
-        } else {
-          setMemberStatus(error.message || "申請できませんでした。");
-        }
-      }
-    });
-
-    document.querySelector("#memberResetForm")?.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      const email = document.querySelector("#resetEmail").value.trim();
-      const password = document.querySelector("#resetPassword").value;
-      if (!email || !password) {
-        setMemberStatus("IDと新しいパスワードを入力してください。");
-        return;
-      }
-      setMemberStatus("パスワード再設定を申請中です。");
-      try {
-        const payload = await loadScheduleJsonp(buildPortalUrl("requestPasswordReset", { email, password, t: Date.now() }));
-        if (!payload.ok) throw new Error(payload.message || "再設定申請できませんでした");
-        document.querySelector("#resetPassword").value = "";
-        setMemberStatus(payload.message || "管理者へ承認メールを送信しました。承認後、新しいパスワードでログインできます。");
-      } catch (error) {
-        const message = String(error?.message || "");
-        if (message.includes("object is not iterable") || message.includes("JSONP") || message.includes("Failed to fetch")) {
-          setMemberStatus("通信が一時的に失敗しました。Ctrl+F5で再読み込みしてから、もう一度申請してください。");
-        } else {
-          setMemberStatus(message || "再設定申請できませんでした。");
-        }
-      }
-    });
-
-    document.querySelector("#memberLogout")?.addEventListener("click", () => {
-      localStorage.removeItem("wonderMemberToken");
-      userAssignments = new Set();
-      applyMemberSession(null);
-      setMemberStatus("ログアウトしました。");
-    });
-
-    memberScheduleList?.addEventListener("change", async (event) => {
+    memberScheduleList?.addEventListener("change", (event) => {
       const input = event.target.closest("input[type='checkbox'][data-event-id]");
       if (!input || !currentMember) return;
-      input.disabled = true;
-      setMemberStatus("参加チェックを保存中です。");
+      if (input.checked) {
+        pendingAssignments.add(input.dataset.eventId);
+      } else {
+        pendingAssignments.delete(input.dataset.eventId);
+      }
+      updateAssignmentSaveState();
+      setMemberStatus("チェック内容はまだ未反映です。参加チェックを更新してください。");
+    });
+
+    memberSaveAssignments?.addEventListener("click", async () => {
+      if (!currentMember) return;
+      const { added, removed } = getAssignmentDiff();
+      const changes = [
+        ...added.map((eventId) => ({ eventId, checked: "1" })),
+        ...removed.map((eventId) => ({ eventId, checked: "0" }))
+      ];
+      if (!changes.length) {
+        setMemberStatus("現在のチェックは反映済みです。");
+        updateAssignmentSaveState();
+        return;
+      }
+
+      memberSaveAssignments.disabled = true;
+      memberScheduleList?.querySelectorAll("input[type='checkbox']").forEach((input) => {
+        input.disabled = true;
+      });
+      setMemberStatus(`${changes.length}件の参加チェックを更新中です。`);
+
       try {
         const token = localStorage.getItem("wonderMemberToken");
-        const payload = await callPortalAction("toggleAssignment", {
-          token,
-          eventId: input.dataset.eventId,
-          title: input.dataset.title,
-          date: input.dataset.date,
-          checked: input.checked ? "1" : "0"
+        let latestPayload = null;
+        for (const change of changes) {
+          const details = getEventDetailsById(change.eventId);
+          latestPayload = await callPortalAction("toggleAssignment", {
+            token,
+            eventId: change.eventId,
+            title: details.title,
+            date: details.date,
+            checked: change.checked
+          });
+          if (!latestPayload.ok) throw new Error(latestPayload.message || "保存できませんでした");
+        }
+        const savedAssignments = new Set(pendingAssignments);
+        userAssignments = savedAssignments;
+        if (Array.isArray(latestPayload?.mine) && (latestPayload.mine.length || savedAssignments.size === 0)) {
+          userAssignments = new Set(toArray(latestPayload.mine));
+        }
+        if (latestPayload?.assignments) {
+          assignmentMap = latestPayload.assignments;
+        }
+        applyLocalAssignmentChanges(changes);
+        saveStoredMemberAssignments();
+        pendingAssignments = new Set(userAssignments);
+        changes.forEach((change) => {
+          addScheduleLog(`${displayFamilyName(getCurrentMemberAssignmentName())}: ${getCompactEventLabel(change.eventId)} ${change.checked === "1" ? "参加" : "解除"}`);
         });
-        if (!payload.ok) throw new Error(payload.message || "保存できませんでした");
-        userAssignments = new Set(toArray(payload.mine));
-        assignmentMap = payload.assignments || assignmentMap;
         renderSchedule(activeScheduleKey);
-        setMemberStatus("参加チェックを保存しました。");
+        renderMemberScheduleList();
+        renderOperatorAssignments();
+        setMemberStatus("参加チェックを更新しました。");
       } catch (error) {
-        input.checked = !input.checked;
+        pendingAssignments = new Set(userAssignments);
+        renderMemberScheduleList();
         setMemberStatus(error.message || "保存できませんでした。");
       } finally {
-        input.disabled = false;
+        memberScheduleList?.querySelectorAll("input[type='checkbox']").forEach((input) => {
+          input.disabled = false;
+        });
+        memberSaveAssignments.disabled = false;
+        updateAssignmentSaveState();
       }
     });
 
@@ -2560,6 +3085,36 @@
       }
     });
 
+    document.querySelectorAll("[data-guide-month]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const month = button.dataset.guideMonth;
+        document.querySelectorAll("[data-guide-month]").forEach((tab) => {
+          tab.classList.toggle("is-active", tab === button);
+        });
+        document.querySelectorAll("[data-guide-card-month]").forEach((card) => {
+          card.hidden = card.dataset.guideCardMonth !== month;
+        });
+      });
+    });
+
+    document.querySelectorAll("[data-copy-guide]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const card = button.closest(".event-guide-card");
+        const body = card?.querySelector(".event-guide-body")?.textContent?.trim() || "";
+        if (!body) return;
+        const original = button.textContent;
+        try {
+          await navigator.clipboard.writeText(body);
+          button.textContent = "コピー済み";
+        } catch (error) {
+          button.textContent = "コピー不可";
+        }
+        window.setTimeout(() => {
+          button.textContent = original;
+        }, 1800);
+      });
+    });
+
     document.querySelectorAll(".is-pending[href='#']").forEach((link) => {
       link.addEventListener("click", (event) => event.preventDefault());
     });
@@ -2581,13 +3136,12 @@
       "schedule-events": ["schedule"],
       operators: ["operator-list"],
       forms: ["shared-forms"],
+      member: ["member-portal"],
       lineworks: ["lineworks"],
       event: ["event-info"],
       "event-guides": ["event-guides"],
       media: ["media-share"],
       prepare: ["prepare"],
-      "prepare-next": ["prepare"],
-      "prepare-guide": ["prepare-guide"],
       mindset: ["mindset"],
       reports: ["reports"],
       minutes: ["minutes"],

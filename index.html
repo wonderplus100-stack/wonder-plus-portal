@@ -543,6 +543,22 @@
       padding: 10px 0 2px;
     }
 
+    .meeting-note {
+      display: none;
+      margin: 12px 0 0;
+      padding: 10px 12px;
+      border: 1px solid #f0c7c7;
+      border-radius: 8px;
+      background: #fff7f7;
+      color: #b24b4b;
+      font-weight: 800;
+      line-height: 1.55;
+    }
+
+    .meeting-note.is-visible {
+      display: block;
+    }
+
     .member-category-tabs {
       display: flex;
       flex-wrap: wrap;
@@ -1670,6 +1686,9 @@
               <button class="tab-button" type="button" data-schedule="julyRegular">7月 レギュラー</button>
               <button class="tab-button" type="button" data-schedule="augustWonder">8月 Wonder＋</button>
               <button class="tab-button" type="button" data-schedule="augustRegular">8月 レギュラー</button>
+              <button class="tab-button" type="button" data-schedule="juneMeeting">6月 ミーティング</button>
+              <button class="tab-button" type="button" data-schedule="julyMeeting">7月 ミーティング</button>
+              <button class="tab-button" type="button" data-schedule="augustMeeting">8月 ミーティング</button>
             </div>
             <div class="sync-callout">
               <div>
@@ -1733,7 +1752,9 @@
                   <button class="tab-button" type="button" data-member-category="regular">レギュラー</button>
                   <button class="tab-button" type="button" data-member-category="morning">朝活異業種交流会</button>
                   <button class="tab-button" type="button" data-member-category="miraiba">ミライバ</button>
+                  <button class="tab-button" type="button" data-member-category="meeting">ミーティング</button>
                 </div>
+                <div class="meeting-note" id="meetingNote">ミーティングに参加ができないときのみチェック<br>基本的に２期ミーティングは参加となります。</div>
                 <div class="member-savebar">
                   <span class="member-status" id="memberPendingStatus">チェック後に「参加チェックを更新」を押すと反映されます。</span>
                   <button class="member-button primary" id="memberSaveAssignments" type="button" disabled>参加チェックを更新</button>
@@ -2106,12 +2127,15 @@
     const emptySchedules = {
       juneWonder: { month: 6, label: "6月 Wonder＋", items: [] },
       juneRegular: { month: 6, label: "6月 レギュラー", items: [] },
+      juneMeeting: { month: 6, label: "6月 ミーティング", items: [] },
       julyWonder: { month: 7, label: "7月 Wonder＋", items: [] },
       julyRegular: { month: 7, label: "7月 レギュラー", items: [] },
+      julyMeeting: { month: 7, label: "7月 ミーティング", items: [] },
       augustWonder: { month: 8, label: "8月 Wonder＋", items: [] },
-      augustRegular: { month: 8, label: "8月 レギュラー", items: [] }
+      augustRegular: { month: 8, label: "8月 レギュラー", items: [] },
+      augustMeeting: { month: 8, label: "8月 ミーティング", items: [] }
     };
-    let schedules = structuredClone(emptySchedules);
+    let schedules = fillDefaultMeetingSchedules(structuredClone(emptySchedules));
     let activeScheduleKey = "juneWonder";
 
     const dows = ["月", "火", "水", "木", "金", "土", "日"];
@@ -2131,6 +2155,7 @@
     const memberPanelTitle = document.querySelector("#memberPanelTitle");
     const memberName = document.querySelector("#memberName");
     const memberRole = document.querySelector("#memberRole");
+    const meetingNote = document.querySelector("#meetingNote");
     const adminCard = document.querySelector("#adminCard");
     const adminUserList = document.querySelector("#adminUserList");
     const operatorAssignmentList = document.querySelector("#operator-list .minutes-list");
@@ -2192,6 +2217,31 @@
 
     function isArchivedScheduleGroup(group) {
       return Number(group?.month || 0) < currentScheduleMonth();
+    }
+
+    function defaultMeetingItems(month) {
+      return {
+        6: [
+          { day: 2, title: "2期ミーティング", meta: "不参加者のみチェック" },
+          { day: 9, title: "2期ミーティング", meta: "不参加者のみチェック" }
+        ],
+        7: [
+          { day: 7, title: "2期ミーティング", meta: "不参加者のみチェック" },
+          { day: 14, title: "2期ミーティング", meta: "不参加者のみチェック" }
+        ],
+        8: [
+          { day: 4, title: "2期ミーティング", meta: "不参加者のみチェック" },
+          { day: 11, title: "2期ミーティング", meta: "不参加者のみチェック" }
+        ]
+      }[Number(month)] || [];
+    }
+
+    function fillDefaultMeetingSchedules(target) {
+      Object.entries(target).forEach(([key, group]) => {
+        if (!/Meeting$/.test(key)) return;
+        if (!group.items.length) group.items = defaultMeetingItems(group.month);
+      });
+      return target;
     }
 
     function getScheduleEntries(options = {}) {
@@ -2290,6 +2340,33 @@
       return currentMember?.name || currentMember?.email || "メンバー";
     }
 
+    function rememberMemberProfile(user) {
+      if (!user) return;
+      const profile = {
+        email: user.email || user.id || "",
+        name: user.name || user.email || "メンバー",
+        phase: normalizePhase(user.phase) || user.phase || "2期",
+        role: user.role || "member"
+      };
+      localStorage.setItem("wonderMemberProfile", JSON.stringify(profile));
+    }
+
+    function getRememberedMemberProfile() {
+      try {
+        const profile = JSON.parse(localStorage.getItem("wonderMemberProfile") || "null");
+        if (profile?.name || profile?.email) return {
+          email: profile.email || profile.name,
+          name: profile.name || profile.email,
+          phase: normalizePhase(profile.phase) || profile.phase || "2期",
+          role: profile.role || "member",
+          remembered: true
+        };
+      } catch (error) {
+        return null;
+      }
+      return null;
+    }
+
     function applyLocalAssignmentChange(eventId, checked) {
       const name = getCurrentMemberAssignmentName();
       const currentNames = toArray(assignmentMap[eventId]);
@@ -2312,6 +2389,11 @@
     function getCompactEventLabel(eventId) {
       const details = getEventDetailsById(eventId);
       return `${details.date || ""} ${details.title || eventId}`.trim();
+    }
+
+    function isMeetingEventId(eventId) {
+      const entry = getAllScheduleEntries().find(({ group, item }) => getEventId(group, item) === eventId);
+      return entry ? getMemberScheduleCategory(entry.item) === "meeting" : /ミーティング|meeting|MTG/i.test(eventId);
     }
 
     function getMemberAssignmentStorageKey(user = currentMember) {
@@ -2445,6 +2527,7 @@
       const prefix = { 6: "june", 7: "july", 8: "august" }[Number(month)];
       if (!prefix) return null;
       const category = getMemberScheduleCategory(item);
+      if (category === "meeting") return `${prefix}Meeting`;
       return `${prefix}${category === "wonder" || category === "miraiba" ? "Wonder" : "Regular"}`;
     }
 
@@ -2479,7 +2562,7 @@
           .sort((a, b) => a.day - b.day || a.title.localeCompare(b.title, "ja"));
       });
       assignmentMap = payload?.assignments || assignmentMap || {};
-      return next;
+      return fillDefaultMeetingSchedules(next);
     }
 
     function isValidScheduleDisplayItem(item) {
@@ -2531,11 +2614,19 @@
       if (scheduleStatus) scheduleStatus.textContent = message;
     }
 
+    function getVisibleScheduleItems(group, filterDay = null) {
+      const baseItems = filterDay
+        ? group.items.filter((item) => item.day === filterDay)
+        : group.items;
+      if (!baseItems.length) return [];
+      const isMeetingGroup = baseItems.some((item) => getMemberScheduleCategory(item) === "meeting");
+      if (!isMeetingGroup) return baseItems;
+      return baseItems.filter((item) => displayAssignmentNames(assignmentMap[getEventId(group, item)]).length);
+    }
+
     function renderEventList(current, filterDay = null) {
       const month = current.month;
-      const items = filterDay
-        ? current.items.filter((item) => item.day === filterDay)
-        : current.items;
+      const items = getVisibleScheduleItems(current, filterDay);
 
       if (filterDay) {
         document.body.classList.add("has-day-selection");
@@ -2549,7 +2640,7 @@
           <div>
             <div class="event-title">${escapeHtml(item.title)}</div>
             <div class="event-meta">${escapeHtml(normalizeDisplayMeta(item.meta) || "詳細未入力")}</div>
-            ${renderAssignmentNames(getEventId(current, item))}
+            ${renderAssignmentNames(getEventId(current, item), getMemberScheduleCategory(item) === "meeting" ? "不参加" : "担当")}
           </div>
         </div>
       `).join("") : `
@@ -2557,16 +2648,16 @@
           <div class="datebox">${filterDay ? `${month}/${filterDay}` : "未反映"}</div>
           <div>
             <div class="event-title">${filterDay ? "この日の予定はありません" : "この区分の予定はまだ反映されていません"}</div>
-            <div class="event-meta">${filterDay ? "別の日付をクリックするか、月タブを押すと月全体の一覧へ戻ります。" : "スケジュール投稿後、Apps Scriptの反映データを読み込むとここに表示されます。"}</div>
+            <div class="event-meta">${current.label.includes("ミーティング") ? "ミーティング欄には、不参加チェックが入った人だけ表示されます。" : (filterDay ? "別の日付をクリックするか、月タブを押すと月全体の一覧へ戻ります。" : "スケジュール投稿後、Apps Scriptの反映データを読み込むとここに表示されます。")}</div>
           </div>
         </div>
       `;
     }
 
-    function renderAssignmentNames(eventId) {
+    function renderAssignmentNames(eventId, label = "担当") {
       const names = displayAssignmentNames(assignmentMap[eventId]);
       return names.length
-        ? `<div class="assignment-names"><span class="assignment-label">担当:</span> <span class="assignment-value">${escapeHtml(names.join("、"))}</span></div>`
+        ? `<div class="assignment-names"><span class="assignment-label">${escapeHtml(label)}:</span> <span class="assignment-value">${escapeHtml(names.join("、"))}</span></div>`
         : "";
     }
 
@@ -2618,6 +2709,7 @@
       const title = String(item?.title || "");
       const meta = String(item?.meta || "");
       const source = `${title} ${meta}`;
+      if (/ミーティング|MTG|meeting/i.test(source)) return "meeting";
       if (/ミライバ/i.test(source)) return "miraiba";
       if (/朝活/.test(source)) return "morning";
       if (/Wonder|W[＋+]/i.test(source)) return "wonder";
@@ -2629,7 +2721,8 @@
         wonder: "Wonder＋",
         regular: "レギュラー",
         morning: "朝活異業種交流会",
-        miraiba: "ミライバ"
+        miraiba: "ミライバ",
+        meeting: "ミーティング"
       }[category] || "スケジュール";
     }
 
@@ -2654,7 +2747,7 @@
         calendarGrid.appendChild(cell);
       }
 
-      const eventDays = new Set(current.items.map((item) => item.day));
+      const eventDays = new Set(getVisibleScheduleItems(current).map((item) => item.day));
       for (let day = 1; day <= daysInMonth(month); day += 1) {
         const cell = document.createElement("div");
         const classNames = ["day"];
@@ -2821,14 +2914,15 @@
     }
 
     function applyMemberSession(user) {
-      currentMember = user || null;
+      currentMember = user || getRememberedMemberProfile();
+      if (currentMember) rememberMemberProfile(currentMember);
       pendingAssignments = new Set(userAssignments);
       document.body.classList.toggle("is-member-logged-in", Boolean(currentMember));
       document.body.classList.toggle("auth-required", authRequired && !currentMember);
-      if (memberBadge) memberBadge.textContent = currentMember ? "更新可" : "ポータルログイン後";
+      if (memberBadge) memberBadge.textContent = currentMember ? "更新可" : "プロフィール未設定";
       if (memberPanelTitle) memberPanelTitle.textContent = "運営参加チェック";
       if (memberName) memberName.textContent = currentMember ? `${currentMember.name}さんの運営参加チェック` : "運営参加チェック";
-      if (memberRole) memberRole.textContent = currentMember ? `${normalizePhase(currentMember.phase) || "未設定"} / ${currentMember.role || "member"}` : "ポータルログイン後にチェックできます";
+      if (memberRole) memberRole.textContent = currentMember ? `${normalizePhase(currentMember.phase) || "未設定"} / ${currentMember.role || "member"}` : "保存済みプロフィールがないため、初回のみ個人ログインで識別してください";
       if (adminCard) adminCard.style.display = currentMember?.role === "admin" ? "" : "none";
       applyPortalAccessView();
       renderMemberScheduleList();
@@ -2838,6 +2932,7 @@
 
     function renderMemberScheduleList() {
       if (!memberScheduleList) return;
+      if (meetingNote) meetingNote.classList.toggle("is-visible", activeMemberCategory === "meeting");
       const entries = getScheduleEntries({ includeArchived: true })
         .filter(({ group, item }) => group.month === activeMemberMonth && getMemberScheduleCategory(item) === activeMemberCategory);
       if (!currentMember) {
@@ -2863,7 +2958,7 @@
             <div>
               <div class="event-title">${escapeHtml(item.title)}</div>
               <div class="event-meta">${escapeHtml(normalizeDisplayMeta(item.meta) || "詳細未入力")}</div>
-              ${renderAssignmentNames(eventId)}
+              ${renderAssignmentNames(eventId, activeMemberCategory === "meeting" ? "不参加" : "担当")}
             </div>
           </label>
         `;
@@ -2884,17 +2979,20 @@
         .map(({ group, item }) => ({ group, item, names: assignmentMap[getEventId(group, item)] || [] }))
         .filter((row) => row.names.length);
 
-      operatorAssignmentList.innerHTML = rows.length ? rows.map(({ group, item, names }) => `
+      operatorAssignmentList.innerHTML = rows.length ? rows.map(({ group, item, names }) => {
+        const label = getMemberScheduleCategory(item) === "meeting" ? "不参加" : "担当";
+        return `
         <div class="simple-row">
           <div class="datebox">${group.month}/${item.day}</div>
           <div>
             <strong>${escapeHtml(item.title)}</strong>
             <div class="event-meta">${escapeHtml(normalizeDisplayMeta(item.meta) || "詳細未入力")}</div>
-            <div class="assignment-names"><span class="assignment-label">担当:</span> <span class="assignment-value">${escapeHtml(displayAssignmentNames(names).join("、"))}</span></div>
+            <div class="assignment-names"><span class="assignment-label">${escapeHtml(label)}:</span> <span class="assignment-value">${escapeHtml(displayAssignmentNames(names).join("、"))}</span></div>
           </div>
           <span class="status">反映済み</span>
         </div>
-      `).join("") : `
+      `;
+      }).join("") : `
         <div class="simple-row">
           <div class="datebox">未反映</div>
           <div><strong>担当者チェックはまだありません</strong><div class="event-meta">個人ログイン後に運営参加チェックを入れると、ここに集約されます。</div></div>
@@ -2906,12 +3004,20 @@
     async function restoreMemberSession() {
       const token = localStorage.getItem("wonderMemberToken");
       if (!token) {
+        const remembered = getRememberedMemberProfile();
+        if (remembered) {
+          userAssignments = loadStoredMemberAssignments(remembered);
+          applyMemberSession(remembered);
+          setMemberStatus("保存済みプロフィールで運営参加チェックを表示しています。");
+          return;
+        }
         applyMemberSession(null);
         return;
       }
       try {
         const payload = await callPortalAction("me", { token });
         if (!payload.ok) throw new Error(payload.message || "ログイン期限切れです");
+        rememberMemberProfile(payload.user);
         userAssignments = hasStoredMemberAssignments(payload.user)
           ? loadStoredMemberAssignments(payload.user)
           : new Set(toArray(payload.assignments));
@@ -2920,6 +3026,13 @@
         setMemberStatus("ログイン状態を復元しました。");
       } catch (error) {
         localStorage.removeItem("wonderMemberToken");
+        const remembered = getRememberedMemberProfile();
+        if (remembered) {
+          userAssignments = loadStoredMemberAssignments(remembered);
+          applyMemberSession(remembered);
+          setMemberStatus("保存済みプロフィールで運営参加チェックを表示しています。");
+          return;
+        }
         applyMemberSession(null);
       }
     }
@@ -2996,7 +3109,7 @@
         pendingAssignments.delete(input.dataset.eventId);
       }
       updateAssignmentSaveState();
-      setMemberStatus("チェック内容はまだ未反映です。参加チェックを更新してください。");
+      setMemberStatus(activeMemberCategory === "meeting" ? "ミーティング不参加チェックはまだ未反映です。更新してください。" : "チェック内容はまだ未反映です。参加チェックを更新してください。");
     });
 
     memberSaveAssignments?.addEventListener("click", async () => {
@@ -3044,7 +3157,10 @@
         saveStoredMemberAssignments();
         pendingAssignments = new Set(userAssignments);
         changes.forEach((change) => {
-          addScheduleLog(`${displayFamilyName(getCurrentMemberAssignmentName())}: ${getCompactEventLabel(change.eventId)} ${change.checked === "1" ? "参加" : "解除"}`);
+          const actionLabel = isMeetingEventId(change.eventId)
+            ? (change.checked === "1" ? "不参加" : "不参加解除")
+            : (change.checked === "1" ? "参加" : "解除");
+          addScheduleLog(`${displayFamilyName(getCurrentMemberAssignmentName())}: ${getCompactEventLabel(change.eventId)} ${actionLabel}`);
         });
         renderSchedule(activeScheduleKey);
         renderMemberScheduleList();

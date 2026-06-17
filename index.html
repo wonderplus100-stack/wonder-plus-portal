@@ -2090,9 +2090,9 @@
               <span class="badge">LINE WORKSへ移動</span>
             </div>
             <div class="link-grid">
-              <a class="link-card" href="#" data-phase-scope="1期">
+              <a class="link-card" href="https://talk.worksmobile.com/#/400720233/openapi/chatRoomOnly/421092089" target="_blank" rel="noreferrer" data-phase-scope="1期" data-channel-key="421092089">
                 <strong>1期専用LINEトーク</strong>
-                <span>LINEのグループチャットURL登録待ちです。URL共有後に直接リンクへ差し替えます。</span>
+                <span>LINE WORKSトークを開きます。内部キー: 421092089 / 全国Wonder+100大型異業種交流会partner1</span>
               </a>
               <a class="link-card" href="https://talk.worksmobile.com/#/400720233/openapi/chatRoomOnly/352119290" target="_blank" rel="noreferrer" data-phase-scope="2期" data-room-id="86be568e-ca15-b86a-3623-fbcbabe68431" data-channel-key="352119290">
                 <strong>2期パートナー参加トーク</strong>
@@ -3234,8 +3234,8 @@
       }
     }
 
-    function applyMemberSession(user) {
-      currentMember = user || getRememberedMemberProfile();
+    function applyMemberSession(user, options = {}) {
+      currentMember = options.useRemembered === false ? user : (user || getRememberedMemberProfile());
       if (currentMember) rememberMemberProfile(currentMember);
       pendingAssignments = new Set(userAssignments);
       document.body.classList.toggle("is-member-logged-in", Boolean(currentMember));
@@ -3340,6 +3340,10 @@
       return value;
     }
 
+    function getPortalHomeUrl() {
+      return `${window.location.origin}${window.location.pathname}?v=member-login-${Date.now()}#member-portal`;
+    }
+
     async function handleLogin() {
       try {
         setButtonBusy(loginButton, true, "ログイン中");
@@ -3355,6 +3359,10 @@
         saveStoredMemberAssignments();
         await loadAssignments();
         setMemberStatus("ログインしました。ポータル画面で参加チェックを更新できます。");
+        if (authRequired || forceLogin) {
+          window.location.replace(getPortalHomeUrl());
+          return;
+        }
       } catch (error) {
         setMemberStatus(error.message || "ログインできませんでした。");
       } finally {
@@ -3396,7 +3404,7 @@
 
     async function restoreMemberSession() {
       if (forceLogin) {
-        applyMemberSession(null);
+        applyMemberSession(null, { useRemembered: false });
         setMemberStatus("個別ページにログインしてください。");
         return;
       }

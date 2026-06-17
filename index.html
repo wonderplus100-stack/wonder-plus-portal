@@ -600,6 +600,7 @@
     body.auth-required:not(.is-member-logged-in) #schedule,
     body.auth-required:not(.is-member-logged-in) #operator-list,
     body.auth-required:not(.is-member-logged-in) #shared-forms,
+    body.auth-required:not(.is-member-logged-in) #shared-board,
     body.auth-required:not(.is-member-logged-in) #lineworks,
     body.auth-required:not(.is-member-logged-in) #event-info,
     body.auth-required:not(.is-member-logged-in) #media-share,
@@ -621,6 +622,71 @@
     body.auth-required:not(.is-member-logged-in) #member-portal {
       max-width: 860px;
       margin: 28px auto;
+    }
+
+    body.auth-required:not(.is-member-logged-in) #member-portal .member-session {
+      display: none !important;
+    }
+
+    body.auth-required:not(.is-member-logged-in) #member-portal .member-grid {
+      grid-template-columns: minmax(0, 560px);
+      justify-content: center;
+    }
+
+    body.auth-required:not(.is-member-logged-in) #member-portal .member-auth {
+      display: grid;
+    }
+
+    .member-auth {
+      display: none;
+    }
+
+    .auth-card {
+      gap: 12px;
+      padding: 18px;
+    }
+
+    .auth-card h2 {
+      margin: 0;
+      font-size: 20px;
+      letter-spacing: 0;
+    }
+
+    .auth-card label {
+      display: grid;
+      gap: 5px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .auth-card input,
+    .auth-card select {
+      min-height: 40px;
+      border: 1px solid #bfccd7;
+      border-radius: 8px;
+      padding: 8px 10px;
+      color: var(--ink);
+      font: inherit;
+      font-weight: 700;
+      background: #fff;
+    }
+
+    .auth-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .auth-toggle-panel {
+      display: none;
+      gap: 10px;
+      padding-top: 4px;
+    }
+
+    .auth-toggle-panel.is-open {
+      display: grid;
     }
 
     .personal-schedule-prompt {
@@ -842,6 +908,66 @@
       color: var(--muted);
     }
 
+    .board-file-input {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+
+    .board-file-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: fit-content;
+      min-height: 36px;
+      padding: 8px 12px;
+      border: 1px solid #bfccd7;
+      border-radius: 999px;
+      background: #fff;
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .board-preview {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+      gap: 8px;
+    }
+
+    .board-preview figure,
+    .board-attachments figure {
+      margin: 0;
+      display: grid;
+      gap: 5px;
+    }
+
+    .board-preview img,
+    .board-preview video,
+    .board-attachments img,
+    .board-attachments video {
+      width: 100%;
+      max-height: 150px;
+      object-fit: cover;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #f8fafb;
+    }
+
+    .board-preview figcaption,
+    .board-attachments figcaption {
+      color: var(--muted);
+      font-size: 11px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
     .board-actions {
       display: flex;
       flex-wrap: wrap;
@@ -879,6 +1005,13 @@
       gap: 8px;
       color: var(--muted);
       font-size: 12px;
+    }
+
+    .board-attachments {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 8px;
+      margin-top: 4px;
     }
 
     .minutes-tabs {
@@ -1680,7 +1813,7 @@
         </label>
       </header>
 
-      <a class="open-direct" href="https://wonderplus100-stack.github.io/wonder-plus-portal/?view=member" target="_blank" rel="noreferrer">全画面で開く</a>
+      <a class="open-direct" href="https://wonderplus100-stack.github.io/wonder-plus-portal/?view=member&login=1" target="_blank" rel="noreferrer">個別ページにログイン</a>
 
       <section class="panel" id="quick" aria-label="すぐ使う">
         <div class="panel-head">
@@ -1813,6 +1946,53 @@
               <span class="badge" id="memberBadge">カテゴリ別</span>
             </div>
             <div class="member-grid">
+              <div class="member-card member-auth auth-card">
+                <div>
+                  <h2>個別ページにログイン</h2>
+                  <div class="event-meta">承認済みアカウントでログインすると、ポータル画面で運営参加チェックを更新できます。</div>
+                </div>
+                <label>ID
+                  <input id="loginEmail" type="text" autocomplete="username" placeholder="登録したID">
+                </label>
+                <label>パスワード
+                  <input id="loginPassword" type="password" autocomplete="current-password" placeholder="パスワード">
+                </label>
+                <div class="auth-actions">
+                  <button class="member-button primary" id="loginButton" type="button">ログイン</button>
+                  <button class="member-button" type="button" data-auth-toggle="registerPanel">新規作成</button>
+                  <button class="member-button" type="button" data-auth-toggle="resetPanel">再発行</button>
+                </div>
+                <div class="auth-toggle-panel" id="registerPanel">
+                  <label>名前フルネーム
+                    <input id="registerName" type="text" placeholder="例: 大西正人">
+                  </label>
+                  <label>ID
+                    <input id="registerEmail" type="text" autocomplete="username" placeholder="ログインに使うID">
+                  </label>
+                  <label>期
+                    <select id="registerPhase">
+                      <option>1期</option>
+                      <option selected>2期</option>
+                      <option>3期</option>
+                    </select>
+                  </label>
+                  <label>パスワード
+                    <input id="registerPassword" type="password" autocomplete="new-password" placeholder="パスワード">
+                  </label>
+                  <button class="member-button primary" id="registerButton" type="button">新規アカウント作成</button>
+                </div>
+                <div class="auth-toggle-panel" id="resetPanel">
+                  <label>パスワード再設定 ID
+                    <input id="resetEmail" type="text" placeholder="登録したID">
+                  </label>
+                  <label>新しいパスワード
+                    <input id="resetPassword" type="password" autocomplete="new-password" placeholder="新しいパスワード">
+                  </label>
+                  <button class="member-button primary" id="resetButton" type="button">パスワード再設定申請</button>
+                </div>
+                <div class="member-status" id="memberAuthStatus">IDとパスワードを入力してください。</div>
+              </div>
+
               <div class="member-card member-session is-primary">
                 <div class="member-actions">
                   <div>
@@ -1878,10 +2058,15 @@
             </div>
             <div class="board-compose">
               <textarea id="boardMessage" placeholder="共有したい内容を入力"></textarea>
-              <input id="boardFiles" type="file" accept="image/*,video/*" multiple>
+              <label class="board-file-button" for="boardFiles">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 8h.01"></path><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 15 5-5 4 4 2-2 7 7"></path></svg>
+                画像・動画を追加
+              </label>
+              <input class="board-file-input" id="boardFiles" type="file" accept="image/*,video/*" multiple>
+              <div class="board-preview" id="boardPreview" aria-live="polite"></div>
               <div class="board-actions">
                 <div class="board-note">画像・動画はポータル本体ではなくGoogle Driveに保存し、掲示板にはDriveリンクを表示する設計が安全です。</div>
-                <button class="member-button" type="button" id="boardSubmit" disabled>投稿連携準備中</button>
+                <button class="member-button primary" type="button" id="boardSubmit">共有掲示板に投稿</button>
               </div>
             </div>
             <div class="board-feed" id="boardFeed">
@@ -2270,6 +2455,17 @@
     const memberActionStatus = document.querySelector("#memberActionStatus");
     const memberPendingStatus = document.querySelector("#memberPendingStatus");
     const memberSaveAssignments = document.querySelector("#memberSaveAssignments");
+    const loginEmail = document.querySelector("#loginEmail");
+    const loginPassword = document.querySelector("#loginPassword");
+    const loginButton = document.querySelector("#loginButton");
+    const registerName = document.querySelector("#registerName");
+    const registerEmail = document.querySelector("#registerEmail");
+    const registerPhase = document.querySelector("#registerPhase");
+    const registerPassword = document.querySelector("#registerPassword");
+    const registerButton = document.querySelector("#registerButton");
+    const resetEmail = document.querySelector("#resetEmail");
+    const resetPassword = document.querySelector("#resetPassword");
+    const resetButton = document.querySelector("#resetButton");
     const memberBadge = document.querySelector("#memberBadge");
     const memberPanelTitle = document.querySelector("#memberPanelTitle");
     const memberName = document.querySelector("#memberName");
@@ -2282,8 +2478,14 @@
     const portalSub = document.querySelector("#portalSub");
     const personalSchedulePrompt = document.querySelector("#personalSchedulePrompt");
     const personalScheduleText = document.querySelector("#personalScheduleText");
+    const boardMessage = document.querySelector("#boardMessage");
+    const boardFiles = document.querySelector("#boardFiles");
+    const boardPreview = document.querySelector("#boardPreview");
+    const boardSubmit = document.querySelector("#boardSubmit");
+    const boardFeed = document.querySelector("#boardFeed");
     const queryParams = new URLSearchParams(window.location.search);
     const authRequired = queryParams.get("view") === "member";
+    const forceLogin = queryParams.get("login") === "1";
     if (authRequired) document.body.classList.add("auth-required");
     let selectedScheduleDay = null;
     let assignmentMap = {};
@@ -3120,7 +3322,84 @@
       `;
     }
 
+    function setButtonBusy(button, busy, label) {
+      if (!button) return;
+      if (busy) {
+        button.dataset.originalText = button.textContent;
+        button.textContent = label || "処理中";
+        button.disabled = true;
+      } else {
+        button.textContent = button.dataset.originalText || button.textContent;
+        button.disabled = false;
+      }
+    }
+
+    function requireInput(element, message) {
+      const value = element?.value?.trim() || "";
+      if (!value) throw new Error(message);
+      return value;
+    }
+
+    async function handleLogin() {
+      try {
+        setButtonBusy(loginButton, true, "ログイン中");
+        const email = requireInput(loginEmail, "IDを入力してください。");
+        const password = requireInput(loginPassword, "パスワードを入力してください。");
+        const payload = await callPortalAction("login", { email, password });
+        if (!payload.ok) throw new Error(payload.message || "IDまたはパスワードが違います。");
+        if (payload.token) localStorage.setItem("wonderMemberToken", payload.token);
+        const user = payload.user || { email, name: payload.name || email, phase: payload.phase || "2期", role: payload.role || "member" };
+        rememberMemberProfile(user);
+        userAssignments = new Set(toArray(payload.assignments));
+        applyMemberSession(user);
+        saveStoredMemberAssignments();
+        await loadAssignments();
+        setMemberStatus("ログインしました。ポータル画面で参加チェックを更新できます。");
+      } catch (error) {
+        setMemberStatus(error.message || "ログインできませんでした。");
+      } finally {
+        setButtonBusy(loginButton, false);
+      }
+    }
+
+    async function handleRegister() {
+      try {
+        setButtonBusy(registerButton, true, "申請中");
+        const name = requireInput(registerName, "名前フルネームを入力してください。");
+        const email = requireInput(registerEmail, "IDを入力してください。");
+        const phase = registerPhase?.value || "2期";
+        const password = requireInput(registerPassword, "パスワードを入力してください。");
+        const payload = await callPortalAction("register", { name, email, phase, password });
+        if (!payload.ok) throw new Error(payload.message || "申請できませんでした。");
+        setMemberStatus("新規アカウント申請を送信しました。承認後にログインできます。");
+      } catch (error) {
+        setMemberStatus(error.message || "申請できませんでした。");
+      } finally {
+        setButtonBusy(registerButton, false);
+      }
+    }
+
+    async function handlePasswordReset() {
+      try {
+        setButtonBusy(resetButton, true, "申請中");
+        const email = requireInput(resetEmail, "IDを入力してください。");
+        const password = requireInput(resetPassword, "新しいパスワードを入力してください。");
+        const payload = await callPortalAction("resetPassword", { email, password });
+        if (!payload.ok) throw new Error(payload.message || "再設定申請ができませんでした。");
+        setMemberStatus("パスワード再設定申請を送信しました。管理者承認後に新しいパスワードを使えます。");
+      } catch (error) {
+        setMemberStatus(error.message || "再設定申請ができませんでした。");
+      } finally {
+        setButtonBusy(resetButton, false);
+      }
+    }
+
     async function restoreMemberSession() {
+      if (forceLogin) {
+        applyMemberSession(null);
+        setMemberStatus("個別ページにログインしてください。");
+        return;
+      }
       const token = localStorage.getItem("wonderMemberToken");
       if (!token) {
         const remembered = getRememberedMemberProfile();
@@ -3350,6 +3629,119 @@
       });
     });
 
+    function getStoredBoardPosts() {
+      try {
+        return JSON.parse(localStorage.getItem("wonderBoardPosts") || "[]");
+      } catch (error) {
+        return [];
+      }
+    }
+
+    function saveStoredBoardPosts(posts) {
+      localStorage.setItem("wonderBoardPosts", JSON.stringify(posts.slice(0, 30)));
+    }
+
+    function renderBoardPosts() {
+      if (!boardFeed) return;
+      const posts = getStoredBoardPosts();
+      const sampleRows = `
+        <div class="board-row">
+          <div class="board-meta"><strong>運営</strong><span>サンプル</span></div>
+          <div>共有掲示板はApps Script WebアプリURLを設定後、Drive保存・複数端末共有に切り替えできます。</div>
+        </div>
+        <div class="board-row">
+          <div class="board-meta"><strong>素材共有</strong><span>Drive保存推奨</span></div>
+          <div>動画ファイルはサイズが大きくなりやすいため、Driveに保存してリンクを掲示板に表示する運用が無料枠では安全です。</div>
+        </div>
+      `;
+      boardFeed.innerHTML = posts.length ? posts.map((post) => `
+        <div class="board-row">
+          <div class="board-meta">
+            <strong>${escapeHtml(post.name || "投稿者")}</strong>
+            <span>${escapeHtml(post.createdAt || "")}</span>
+          </div>
+          <div>${escapeHtml(post.message || "").replace(/\n/g, "<br>")}</div>
+          ${renderBoardAttachments(post.files || [])}
+        </div>
+      `).join("") : sampleRows;
+    }
+
+    function renderBoardAttachments(files) {
+      if (!files.length) return "";
+      return `<div class="board-attachments">${files.map((file) => {
+        const caption = `<figcaption>${escapeHtml(file.name || "添付")}</figcaption>`;
+        if (String(file.type || "").startsWith("image/")) {
+          return `<figure><img src="${escapeHtml(file.url)}" alt="${escapeHtml(file.name || "添付画像")}">${caption}</figure>`;
+        }
+        if (String(file.type || "").startsWith("video/")) {
+          return `<figure><video src="${escapeHtml(file.url)}" controls playsinline></video>${caption}</figure>`;
+        }
+        return `<figure><a class="share-link" href="${escapeHtml(file.url)}" target="_blank" rel="noreferrer">${escapeHtml(file.name || "添付ファイル")}</a></figure>`;
+      }).join("")}</div>`;
+    }
+
+    function fileToBoardAttachment(file) {
+      return new Promise((resolve, reject) => {
+        if (file.size > 8 * 1024 * 1024) {
+          reject(new Error(`${file.name} は8MBを超えるため、Drive保存にしてください。`));
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = () => resolve({ name: file.name, type: file.type, url: reader.result });
+        reader.onerror = () => reject(new Error(`${file.name} を読み込めませんでした。`));
+        reader.readAsDataURL(file);
+      });
+    }
+
+    async function getSelectedBoardAttachments() {
+      const files = [...(boardFiles?.files || [])];
+      const attachments = [];
+      for (const file of files.slice(0, 6)) {
+        attachments.push(await fileToBoardAttachment(file));
+      }
+      return attachments;
+    }
+
+    async function renderBoardPreview() {
+      if (!boardPreview) return;
+      try {
+        const attachments = await getSelectedBoardAttachments();
+        boardPreview.innerHTML = renderBoardAttachments(attachments).replace("board-attachments", "board-preview");
+      } catch (error) {
+        boardPreview.innerHTML = `<div class="member-status">${escapeHtml(error.message)}</div>`;
+      }
+    }
+
+    async function handleBoardSubmit() {
+      if (!boardMessage || !boardSubmit) return;
+      const message = boardMessage.value.trim();
+      if (!message && !(boardFiles?.files || []).length) {
+        boardSubmit.textContent = "内容を入力してください";
+        window.setTimeout(() => { boardSubmit.textContent = "共有掲示板に投稿"; }, 1600);
+        return;
+      }
+      try {
+        setButtonBusy(boardSubmit, true, "投稿中");
+        const files = await getSelectedBoardAttachments();
+        const posts = getStoredBoardPosts();
+        posts.unshift({
+          name: currentMember?.name || "ポータル利用者",
+          message,
+          files,
+          createdAt: new Date().toLocaleString("ja-JP", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" })
+        });
+        saveStoredBoardPosts(posts);
+        boardMessage.value = "";
+        if (boardFiles) boardFiles.value = "";
+        if (boardPreview) boardPreview.innerHTML = "";
+        renderBoardPosts();
+      } catch (error) {
+        if (boardPreview) boardPreview.innerHTML = `<div class="member-status">${escapeHtml(error.message)}</div>`;
+      } finally {
+        setButtonBusy(boardSubmit, false);
+      }
+    }
+
     document.querySelectorAll("[data-minutes-filter]").forEach((button) => {
       button.addEventListener("click", () => {
         const filter = button.dataset.minutesFilter;
@@ -3362,12 +3754,25 @@
       });
     });
 
-    const boardSubmit = document.querySelector("#boardSubmit");
-    if (boardSubmit) {
-      boardSubmit.addEventListener("click", () => {
-        boardSubmit.textContent = "Apps Script URL設定待ち";
+    document.querySelectorAll("[data-auth-toggle]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const panel = document.getElementById(button.dataset.authToggle);
+        if (!panel) return;
+        const willOpen = !panel.classList.contains("is-open");
+        document.querySelectorAll(".auth-toggle-panel").forEach((target) => target.classList.remove("is-open"));
+        panel.classList.toggle("is-open", willOpen);
       });
-    }
+    });
+
+    loginButton?.addEventListener("click", handleLogin);
+    loginPassword?.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") handleLogin();
+    });
+    registerButton?.addEventListener("click", handleRegister);
+    resetButton?.addEventListener("click", handlePasswordReset);
+    boardFiles?.addEventListener("change", renderBoardPreview);
+    boardSubmit?.addEventListener("click", handleBoardSubmit);
+    renderBoardPosts();
 
     document.querySelectorAll(".is-pending[href='#']").forEach((link) => {
       link.addEventListener("click", (event) => event.preventDefault());

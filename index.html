@@ -813,6 +813,81 @@
       cursor: default;
     }
 
+    .board-compose {
+      display: grid;
+      gap: 10px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .board-compose textarea,
+    .board-compose input[type="file"] {
+      width: 100%;
+      border: 1px solid #bfccd7;
+      border-radius: 8px;
+      background: #fff;
+      color: var(--ink);
+      font: inherit;
+    }
+
+    .board-compose textarea {
+      min-height: 92px;
+      padding: 10px 12px;
+      resize: vertical;
+      line-height: 1.55;
+    }
+
+    .board-compose input[type="file"] {
+      padding: 9px 10px;
+      color: var(--muted);
+    }
+
+    .board-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .board-note {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .board-feed {
+      max-height: 226px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+    }
+
+    .board-row {
+      display: grid;
+      gap: 5px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .board-row:last-child { border-bottom: 0; }
+
+    .board-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .minutes-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 12px 14px 0;
+    }
+
     .form-list,
     .minutes-list,
     .task-list {
@@ -1628,6 +1703,10 @@
             <span class="icon cyan"><svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 0 1-10 10H4l2.4-4.1A10 10 0 1 1 22 12Z"></path></svg></span>
             <span><strong>LINE WORKS</strong><span>トーク・掲示板へ移動</span></span>
           </a>
+          <a class="tile" href="#shared-board">
+            <span class="icon cyan"><svg viewBox="0 0 24 24"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z"></path><path d="M8 9h8"></path><path d="M8 13h5"></path></svg></span>
+            <span><strong>共有掲示板</strong><span>メッセージ・画像動画共有</span></span>
+          </a>
           <a class="tile" href="#reports">
             <span class="icon red"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"></path><path d="M14 2v6h6"></path></svg></span>
             <span><strong>報告関係</strong><span>活動状況・BO提出</span></span>
@@ -1786,6 +1865,34 @@
                 <strong>イベント案内共有フォーム</strong>
                 <span>案内文章と素材情報を投稿し、案内文章一覧へ反映します。</span>
               </a>
+            </div>
+          </section>
+
+          <section class="panel" id="shared-board" aria-label="共有掲示板">
+            <div class="panel-head">
+              <div class="panel-title">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z"></path><path d="M8 9h8"></path><path d="M8 13h5"></path></svg>
+                共有掲示板
+              </div>
+              <span class="badge">Apps Script連携用</span>
+            </div>
+            <div class="board-compose">
+              <textarea id="boardMessage" placeholder="共有したい内容を入力"></textarea>
+              <input id="boardFiles" type="file" accept="image/*,video/*" multiple>
+              <div class="board-actions">
+                <div class="board-note">画像・動画はポータル本体ではなくGoogle Driveに保存し、掲示板にはDriveリンクを表示する設計が安全です。</div>
+                <button class="member-button" type="button" id="boardSubmit" disabled>投稿連携準備中</button>
+              </div>
+            </div>
+            <div class="board-feed" id="boardFeed">
+              <div class="board-row">
+                <div class="board-meta"><strong>運営</strong><span>サンプル</span></div>
+                <div>共有掲示板はApps Script WebアプリURLを設定後、メッセージ投稿・Drive添付・一覧取得が可能になります。</div>
+              </div>
+              <div class="board-row">
+                <div class="board-meta"><strong>素材共有</strong><span>Drive保存</span></div>
+                <div>動画ファイルはサイズが大きくなりやすいため、フォーム/Apps ScriptからDriveへ保存し、ここではタイトルとリンクだけを読み込みます。</div>
+              </div>
             </div>
           </section>
 
@@ -2084,21 +2191,33 @@
               </div>
               <a class="share-link primary" href="https://forms.gle/ALC4KgoKgJB9tQWW9" target="_blank" rel="noreferrer">議事録共有フォーム</a>
             </div>
-            <div class="minutes-list">
-              <div class="simple-row">
+            <div class="minutes-tabs" aria-label="議事録カテゴリ">
+              <button class="tab-button is-active" type="button" data-minutes-filter="all">全体</button>
+              <button class="tab-button" type="button" data-minutes-filter="marketing">マーケ</button>
+              <button class="tab-button" type="button" data-minutes-filter="planning">企画</button>
+              <button class="tab-button" type="button" data-minutes-filter="operation">運営</button>
+              <button class="tab-button" type="button" data-minutes-filter="wonder">Wonder+</button>
+            </div>
+            <div class="minutes-list" id="minutesList">
+              <div class="simple-row" data-minutes-category="operation">
                 <div class="datebox">6/09</div>
                 <div><strong>第2期イベント運営MTG</strong><div class="event-meta">LINE WORKS投稿分を転記する想定</div></div>
                 <span class="status done">最新</span>
               </div>
-              <div class="simple-row">
+              <div class="simple-row" data-minutes-category="planning">
                 <div class="datebox">6/02</div>
                 <div><strong>6月準備進捗確認</strong><div class="event-meta">役割分担と告知文の確認</div></div>
                 <span class="status">確認</span>
               </div>
-              <div class="simple-row">
+              <div class="simple-row" data-minutes-category="marketing">
                 <div class="datebox">5/28</div>
                 <div><strong>申込導線確認</strong><div class="event-meta">フォームとDrive資料の整理</div></div>
                 <span class="status">記録</span>
+              </div>
+              <div class="simple-row" data-minutes-category="wonder">
+                <div class="datebox">--/--</div>
+                <div><strong>Wonder+議事録</strong><div class="event-meta">議事録共有フォームのカテゴリでWonder+を選ぶとここに表示されます。</div></div>
+                <span class="status">連携待ち</span>
               </div>
             </div>
           </section>
@@ -2887,7 +3006,7 @@
       if (isLimitedPhase) {
         document.querySelectorAll("#quickGrid .tile").forEach((tile) => {
           const target = tile.getAttribute("href");
-          const allowedTargets = new Set(["#prepare", "#event-info", "#mindset", "#media-share"]);
+          const allowedTargets = new Set(["#prepare", "#event-info", "#mindset", "#media-share", "#shared-board"]);
           setManagedVisibility(tile, allowedTargets.has(target));
         });
 
@@ -3231,6 +3350,25 @@
       });
     });
 
+    document.querySelectorAll("[data-minutes-filter]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const filter = button.dataset.minutesFilter;
+        document.querySelectorAll("[data-minutes-filter]").forEach((tab) => {
+          tab.classList.toggle("is-active", tab === button);
+        });
+        document.querySelectorAll("[data-minutes-category]").forEach((row) => {
+          row.hidden = filter !== "all" && row.dataset.minutesCategory !== filter;
+        });
+      });
+    });
+
+    const boardSubmit = document.querySelector("#boardSubmit");
+    if (boardSubmit) {
+      boardSubmit.addEventListener("click", () => {
+        boardSubmit.textContent = "Apps Script URL設定待ち";
+      });
+    }
+
     document.querySelectorAll(".is-pending[href='#']").forEach((link) => {
       link.addEventListener("click", (event) => event.preventDefault());
     });
@@ -3256,6 +3394,7 @@
       lineworks: ["lineworks"],
       event: ["event-info"],
       "event-guides": ["event-guides"],
+      board: ["shared-board"],
       media: ["media-share"],
       prepare: ["prepare"],
       mindset: ["mindset"],

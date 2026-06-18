@@ -2135,22 +2135,6 @@
             </div>
           </section>
 
-          <section class="panel" id="shared-forms" aria-label="共有フォーム">
-            <div class="panel-head">
-              <div class="panel-title">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2h6"></path><path d="M9 22h6"></path><path d="M5 5h14v14H5z"></path><path d="M8 9h8"></path><path d="M8 13h8"></path></svg>
-                共有フォーム
-              </div>
-              <span class="badge">1フォーム</span>
-            </div>
-            <div class="link-grid">
-              <a class="link-card" href="https://forms.gle/rBzVgad5FXEM4dcm9" target="_blank" rel="noreferrer">
-                <strong>イベント案内共有フォーム</strong>
-                <span>案内文章と素材情報を投稿し、案内文章一覧へ反映します。</span>
-              </a>
-            </div>
-          </section>
-
           <section class="panel" id="shared-board" aria-label="共有掲示板">
             <div class="panel-head">
               <div class="panel-title">
@@ -2227,9 +2211,6 @@
             <div class="event-guide-controls">
               <div class="event-guide-brand-grid" aria-label="イベントブランド一覧">
                 <button class="event-guide-brand is-active" type="button" data-guide-brand="wonder">Wonder＋</button>
-                <button class="event-guide-brand" type="button" data-guide-brand="regular">レギュラー異業種交流会</button>
-                <button class="event-guide-brand" type="button" data-guide-brand="morning">朝活異業種交流会</button>
-                <button class="event-guide-brand" type="button" data-guide-brand="miraiba">ミライバ</button>
               </div>
               <div class="event-guide-tabs" role="tablist" aria-label="案内文章の月別タブ" id="eventGuideMonthTabs">
                 <button class="tab-button is-active" type="button" data-guide-month="6">6月</button>
@@ -2237,10 +2218,16 @@
                 <button class="tab-button" type="button" data-guide-month="8">8月</button>
               </div>
               <div class="event-guide-picker">
-                <label>異業種交流会を選択
+                <label>イベントを選択
                   <select id="eventGuideSelect"></select>
                 </label>
                 <button class="member-button primary" type="button" id="eventGuideShow">案内を表示</button>
+              </div>
+              <div class="link-grid">
+                <a class="link-card" data-event-guide-main href="https://forms.gle/rBzVgad5FXEM4dcm9" target="_blank" rel="noreferrer">
+                  <strong>イベント案内共有フォーム</strong>
+                  <span>案内文章と素材情報を投稿し、このイベント情報に反映します。</span>
+                </a>
               </div>
             </div>
             <div class="event-guide-list" id="eventGuideList">
@@ -2562,7 +2549,16 @@
     let activeMemberMonth = 6;
     let activeGuideMonth = 6;
     let activeGuideBrand = "wonder";
-    let eventGuideDocuments = [];
+    const defaultEventGuideDocuments = [
+      {
+        title: "Wonder＋Finance",
+        eventName: "Wonder＋Finance",
+        category: "wonder",
+        url: "https://docs.google.com/document/d/1cDSFpr6IuGr8eN0IWq3Y_l7GY3-6NcMU/edit?usp=drive_link&ouid=118412994467939369915&rtpof=true&sd=true",
+        body: "Wonder＋Financeの案内文章は、紐づけ済みのGoogleドキュメントから確認できます。Drive本文抽出連携後は、この欄に本文が自動表示されます。"
+      }
+    ];
+    let eventGuideDocuments = [...defaultEventGuideDocuments];
     let scheduleLogs = [];
     try {
       scheduleLogs = JSON.parse(localStorage.getItem("wonderScheduleLogs") || "[]");
@@ -2949,13 +2945,14 @@
 
     function normalizeSchedules(payload) {
       const next = structuredClone(emptySchedules);
-      eventGuideDocuments = Array.isArray(payload?.eventGuides)
+      const payloadGuideDocuments = Array.isArray(payload?.eventGuides)
         ? payload.eventGuides
         : (Array.isArray(payload?.eventGuideDocuments)
           ? payload.eventGuideDocuments
           : (Array.isArray(payload?.eventInfoGuides)
             ? payload.eventInfoGuides
-            : (Array.isArray(payload?.guides) ? payload.guides : eventGuideDocuments)));
+            : (Array.isArray(payload?.guides) ? payload.guides : [])));
+      eventGuideDocuments = mergeEventGuideDocuments(defaultEventGuideDocuments, payloadGuideDocuments);
       Object.entries(payload?.schedules || {}).forEach(([key, value]) => {
         if (!next[key]) return;
         const items = Array.isArray(value.items) ? value.items : [];
@@ -3331,7 +3328,7 @@
         showElement("#ai", false);
         showElement("#adminCard", false);
 
-        document.querySelectorAll("[data-scroll-target='operator-list'], [data-scroll-target='shared-forms']").forEach((button) => {
+        document.querySelectorAll("[data-scroll-target='operator-list']").forEach((button) => {
           setManagedVisibility(button, false);
         });
       }
@@ -3782,6 +3779,17 @@
         .toLowerCase();
     }
 
+    function mergeEventGuideDocuments(...groups) {
+      const seen = new Set();
+      return groups.flat().filter((guide) => {
+        if (!guide || typeof guide !== "object") return false;
+        const key = normalizeGuideMatchText(guide.url || guide.fileUrl || guide.title || guide.eventName || guide.name || guide.fileName);
+        if (!key || seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
+    }
+
     function findDriveEventGuide(group, item) {
       const title = normalizeGuideMatchText(item.title);
       const month = Number(group.month);
@@ -4043,7 +4051,7 @@ https://drive.google.com/drive/folders/1HQpyzjkAMPFJKCc8WjosxWVqH2KSukJD?usp=sha
       schedule: ["schedule"],
       "schedule-events": ["schedule"],
       operators: ["operator-list"],
-      forms: ["shared-forms"],
+      forms: ["event-info"],
       member: ["member-portal"],
       lineworks: ["lineworks"],
       event: ["event-info"],

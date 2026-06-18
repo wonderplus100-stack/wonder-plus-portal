@@ -1234,7 +1234,7 @@
 
     .event-guide-brand-grid {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: minmax(120px, 180px) minmax(220px, 1fr);
       gap: 8px;
     }
 
@@ -1253,6 +1253,21 @@
       border-color: #a6c8df;
       background: #eef7fd;
       color: var(--blue);
+    }
+
+    .event-guide-form-button {
+      min-height: 42px;
+      border: 1px solid #a6c8df;
+      border-radius: 8px;
+      background: var(--blue);
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 14px;
+      font-weight: 900;
+      text-decoration: none;
+      text-align: center;
     }
 
     .event-guide-picker {
@@ -2211,6 +2226,7 @@
             <div class="event-guide-controls">
               <div class="event-guide-brand-grid" aria-label="イベントブランド一覧">
                 <button class="event-guide-brand is-active" type="button" data-guide-brand="wonder">Wonder＋</button>
+                <a class="event-guide-form-button" data-event-guide-main href="https://forms.gle/rBzVgad5FXEM4dcm9" target="_blank" rel="noreferrer">イベント案内共有フォーム</a>
               </div>
               <div class="event-guide-tabs" role="tablist" aria-label="案内文章の月別タブ" id="eventGuideMonthTabs">
                 <button class="tab-button is-active" type="button" data-guide-month="6">6月</button>
@@ -2222,12 +2238,6 @@
                   <select id="eventGuideSelect"></select>
                 </label>
                 <button class="member-button primary" type="button" id="eventGuideShow">案内を表示</button>
-              </div>
-              <div class="link-grid">
-                <a class="link-card" data-event-guide-main href="https://forms.gle/rBzVgad5FXEM4dcm9" target="_blank" rel="noreferrer">
-                  <strong>イベント案内共有フォーム</strong>
-                  <span>案内文章と素材情報を投稿し、このイベント情報に反映します。</span>
-                </a>
               </div>
             </div>
             <div class="event-guide-list" id="eventGuideList">
@@ -2554,8 +2564,7 @@
         title: "Wonder＋Finance",
         eventName: "Wonder＋Finance",
         category: "wonder",
-        url: "https://docs.google.com/document/d/1cDSFpr6IuGr8eN0IWq3Y_l7GY3-6NcMU/edit?usp=drive_link&ouid=118412994467939369915&rtpof=true&sd=true",
-        body: "Wonder＋Financeの案内文章は、紐づけ済みのGoogleドキュメントから確認できます。Drive本文抽出連携後は、この欄に本文が自動表示されます。"
+        url: "https://docs.google.com/document/d/1cDSFpr6IuGr8eN0IWq3Y_l7GY3-6NcMU/edit?usp=drive_link&ouid=118412994467939369915&rtpof=true&sd=true"
       }
     ];
     let eventGuideDocuments = [...defaultEventGuideDocuments];
@@ -3804,14 +3813,42 @@
       });
     }
 
+    function getGuideBodyText(guide) {
+      return String(
+        guide?.body ||
+        guide?.text ||
+        guide?.content ||
+        guide?.description ||
+        guide?.guideText ||
+        guide?.message ||
+        guide?.["案内文"] ||
+        guide?.["本文"] ||
+        ""
+      ).trim();
+    }
+
+    function getGuideMaterialUrl(guide) {
+      return String(
+        guide?.materialUrl ||
+        guide?.driveUrl ||
+        guide?.fileUrl ||
+        guide?.documentUrl ||
+        guide?.docUrl ||
+        guide?.url ||
+        guide?.["素材URL"] ||
+        guide?.["URL"] ||
+        ""
+      ).trim();
+    }
+
     function buildDriveEventGuideBody(guide, group, item) {
-      const body = guide.body || guide.text || guide.content || guide.description || "";
-      const materialUrl = guide.materialUrl || guide.driveUrl || guide.fileUrl || guide.url || "";
+      const body = getGuideBodyText(guide);
+      const materialUrl = getGuideMaterialUrl(guide);
       const dateLine = `${group.month}月${item.day}日 ${normalizeDisplayMeta(item.meta) || "詳細未入力"}`;
       return `【イベント名】${guide.title || guide.eventName || item.title}
 【開催日時】${dateLine}
 【案内文】
-${body || "Driveから案内文章を抽出しましたが、本文フィールドが空です。"}
+${body || "このイベントに紐づくDriveファイルは見つかっていますが、本文はまだ取得できていません。Googleフォームに案内本文を入力して返す、またはApps ScriptでGoogleドキュメント本文を抽出して eventGuides の本文フィールドに入れると、ここに全文が表示されます。"}
 
 【素材】
 ${materialUrl || "素材URLはDrive抽出データに未登録です。"}`;
@@ -3843,8 +3880,9 @@ https://drive.google.com/drive/folders/1HQpyzjkAMPFJKCc8WjosxWVqH2KSukJD?usp=sha
       }
       eventGuideTitle.textContent = `${entry.group.month}/${entry.item.day} ${entry.item.title}`;
       const driveGuide = findDriveEventGuide(entry.group, entry.item);
+      const hasGuideBody = Boolean(getGuideBodyText(driveGuide));
       eventGuideMeta.textContent = driveGuide
-        ? `${getGuideBrandLabel()} / Drive案内文を表示中`
+        ? `${getGuideBrandLabel()} / ${hasGuideBody ? "Drive案内文を表示中" : "Driveファイル紐づけ済み・本文抽出待ち"}`
         : `${getGuideBrandLabel()} / Drive連携待ち`;
       eventGuideBody.textContent = driveGuide
         ? buildDriveEventGuideBody(driveGuide, entry.group, entry.item)

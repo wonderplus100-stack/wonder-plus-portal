@@ -2961,7 +2961,7 @@
           : (Array.isArray(payload?.eventInfoGuides)
             ? payload.eventInfoGuides
             : (Array.isArray(payload?.guides) ? payload.guides : [])));
-      eventGuideDocuments = mergeEventGuideDocuments(defaultEventGuideDocuments, payloadGuideDocuments);
+      eventGuideDocuments = mergeEventGuideDocuments(payloadGuideDocuments, defaultEventGuideDocuments);
       Object.entries(payload?.schedules || {}).forEach(([key, value]) => {
         if (!next[key]) return;
         const items = Array.isArray(value.items) ? value.items : [];

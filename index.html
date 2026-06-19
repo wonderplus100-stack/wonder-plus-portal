@@ -1330,7 +1330,87 @@
       color: #2f4150;
       font-size: 13px;
       line-height: 1.65;
+      max-height: 210px;
+      overflow-y: auto;
+      scrollbar-width: thin;
       white-space: pre-wrap;
+    }
+
+    .event-guide-assets {
+      display: grid;
+      gap: 10px;
+      padding: 10px;
+      border: 1px solid #d9e5ee;
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .event-guide-assets[hidden] {
+      display: none !important;
+    }
+
+    .event-guide-assets-title {
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .event-guide-asset-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+      gap: 10px;
+    }
+
+    .event-guide-asset {
+      display: grid;
+      gap: 7px;
+      min-width: 0;
+      padding: 8px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #f8fafb;
+    }
+
+    .event-guide-asset img,
+    .event-guide-asset video {
+      width: 100%;
+      max-height: 132px;
+      object-fit: cover;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: #fff;
+    }
+
+    .event-guide-asset-name {
+      min-width: 0;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.35;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .event-guide-asset-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .event-guide-asset-actions a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 28px;
+      padding: 5px 8px;
+      border: 1px solid #bfd0dd;
+      border-radius: 999px;
+      background: #fff;
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 800;
+      text-decoration: none;
+      white-space: nowrap;
     }
 
     .copy-guide-button {
@@ -2250,6 +2330,7 @@
                   <button class="copy-guide-button" type="button" data-copy-guide>コピー</button>
                 </div>
                 <div class="event-guide-body" id="eventGuideBody">案内文章はここに表示されます。Drive抽出データが連携されると、選択したイベントに紐づく案内文章を表示します。</div>
+                <div class="event-guide-assets" id="eventGuideAssets" hidden></div>
               </article>
               <div class="simple-row">
                 <div class="datebox">Drive</div>
@@ -2546,6 +2627,7 @@
     const eventGuideTitle = document.querySelector("#eventGuideTitle");
     const eventGuideMeta = document.querySelector("#eventGuideMeta");
     const eventGuideBody = document.querySelector("#eventGuideBody");
+    const eventGuideAssets = document.querySelector("#eventGuideAssets");
     const queryParams = new URLSearchParams(window.location.search);
     const authRequired = queryParams.get("view") === "member";
     const forceLogin = queryParams.get("login") === "1";
@@ -3841,6 +3923,147 @@
       ).trim();
     }
 
+    function splitGuideUrlValue(value) {
+      if (Array.isArray(value)) return value.flatMap(splitGuideUrlValue);
+      if (value && typeof value === "object") {
+        return [value.url || value.fileUrl || value.downloadUrl || value.webViewLink || value.thumbnailUrl || ""].filter(Boolean);
+      }
+      return String(value || "")
+        .split(/[\n,、\s]+/)
+        .map((url) => url.trim())
+        .filter(Boolean)
+        .map((url) => /^https?:\/\//i.test(url) ? url : driveIdToOpenUrl(url))
+        .filter(Boolean);
+    }
+
+    function getGuideAttachmentFiles(guide) {
+      if (!guide) return [];
+      const rawValues = [
+        guide.attachments,
+        guide.attachmentUrls,
+        guide.files,
+        guide.fileUrls,
+        guide.imageUrls,
+        guide.images,
+        guide.mediaUrls,
+        guide.materialFiles,
+        guide["添付ファイルURL"],
+        guide["添付ファイル"],
+        guide["画像URL"],
+        guide["画像"],
+        guide["素材ファイル"]
+      ];
+      const materialUrl = getGuideMaterialUrl(guide);
+      if (materialUrl) rawValues.push(materialUrl);
+      const files = [];
+      rawValues.forEach((value) => {
+        if (Array.isArray(value)) {
+          value.forEach((item) => files.push(normalizeGuideAttachment(item)));
+          return;
+        }
+        if (value && typeof value === "object") {
+          files.push(normalizeGuideAttachment(value));
+          return;
+        }
+        splitGuideUrlValue(value).forEach((url) => files.push(normalizeGuideAttachment({ url })));
+      });
+      const seen = new Set();
+      return files.filter((file) => {
+        if (!file.url || seen.has(file.url)) return false;
+        seen.add(file.url);
+        return true;
+      });
+    }
+
+    function normalizeGuideAttachment(file) {
+      const url = String(file?.url || file?.fileUrl || file?.downloadUrl || file?.webViewLink || file || "").trim();
+      const name = String(file?.name || file?.fileName || inferFileNameFromUrl(url) || "添付ファイル").trim();
+      const mimeType = String(file?.mimeType || file?.type || "").toLowerCase();
+      return {
+        url,
+        name,
+        mimeType,
+        previewUrl: file?.thumbnailUrl || getDrivePreviewUrl(url) || url,
+        downloadUrl: file?.downloadUrl || getDriveDownloadUrl(url) || url
+      };
+    }
+
+    function getDriveFileId(url) {
+      const text = String(url || "");
+      return text.match(/\/d\/([a-zA-Z0-9_-]+)/)?.[1] ||
+        text.match(/[?&]id=([a-zA-Z0-9_-]+)/)?.[1] ||
+        text.match(/^([a-zA-Z0-9_-]{20,})$/)?.[1] ||
+        "";
+    }
+
+    function driveIdToOpenUrl(value) {
+      const id = String(value || "").trim().match(/^([a-zA-Z0-9_-]{20,})$/)?.[1] || "";
+      return id ? `https://drive.google.com/open?id=${id}` : "";
+    }
+
+    function getDrivePreviewUrl(url) {
+      const id = getDriveFileId(url);
+      return id ? `https://drive.google.com/thumbnail?id=${id}&sz=w1000` : "";
+    }
+
+    function getDriveDownloadUrl(url) {
+      const id = getDriveFileId(url);
+      return id ? `https://drive.google.com/uc?export=download&id=${id}` : "";
+    }
+
+    function inferFileNameFromUrl(url) {
+      try {
+        const parsed = new URL(url);
+        const last = parsed.pathname.split("/").filter(Boolean).pop() || "";
+        return decodeURIComponent(last).replace(/\.[a-z0-9]+$/i, "") || "添付ファイル";
+      } catch (error) {
+        return "添付ファイル";
+      }
+    }
+
+    function isGuideImage(file) {
+      return /^image\//.test(file.mimeType) ||
+        /\.(png|jpe?g|gif|webp|bmp|svg)(?:[?#].*)?$/i.test(file.url) ||
+        Boolean(getDriveFileId(file.url) && !/document|spreadsheets|presentation/i.test(file.url));
+    }
+
+    function isGuideVideo(file) {
+      return /^video\//.test(file.mimeType) || /\.(mp4|webm|mov|m4v)(?:[?#].*)?$/i.test(file.url);
+    }
+
+    function renderEventGuideAssets(guide) {
+      if (!eventGuideAssets) return;
+      const files = getGuideAttachmentFiles(guide);
+      if (!files.length) {
+        eventGuideAssets.hidden = true;
+        eventGuideAssets.innerHTML = "";
+        return;
+      }
+      eventGuideAssets.hidden = false;
+      eventGuideAssets.innerHTML = `
+        <div class="event-guide-assets-title">投稿素材・添付ファイル</div>
+        <div class="event-guide-asset-grid">
+          ${files.map((file) => {
+            const preview = isGuideVideo(file)
+              ? `<video src="${escapeHtml(file.previewUrl)}" controls muted playsinline></video>`
+              : (isGuideImage(file)
+                ? `<img src="${escapeHtml(file.previewUrl)}" alt="${escapeHtml(file.name)}" loading="lazy">`
+                : `<div class="datebox">File</div>`);
+            return `
+              <figure class="event-guide-asset">
+                ${preview}
+                <figcaption class="event-guide-asset-name">${escapeHtml(file.name)}</figcaption>
+                <div class="event-guide-asset-actions">
+                  <a href="${escapeHtml(file.url)}" target="_blank" rel="noreferrer">開く</a>
+                  <a href="${escapeHtml(file.downloadUrl)}" target="_blank" rel="noreferrer" download>ダウンロード</a>
+                </div>
+              </figure>
+            `;
+          }).join("")}
+        </div>
+      `;
+    }
+
     function buildDriveEventGuideBody(guide, group, item) {
       const body = getGuideBodyText(guide);
       const materialUrl = getGuideMaterialUrl(guide);
@@ -3876,6 +4099,7 @@ https://drive.google.com/drive/folders/1HQpyzjkAMPFJKCc8WjosxWVqH2KSukJD?usp=sha
         eventGuideTitle.textContent = `${activeGuideMonth}月 ${getGuideBrandLabel()}`;
         eventGuideMeta.textContent = "スケジュール投稿後、ここからイベントを選択できます。";
         eventGuideBody.textContent = "対象月のスケジュールが未反映です。スケジュール投稿フォームから月間スケジュールを送信すると、この一覧に候補が表示されます。";
+        renderEventGuideAssets(null);
         return;
       }
       eventGuideTitle.textContent = `${entry.group.month}/${entry.item.day} ${entry.item.title}`;
@@ -3887,6 +4111,7 @@ https://drive.google.com/drive/folders/1HQpyzjkAMPFJKCc8WjosxWVqH2KSukJD?usp=sha
       eventGuideBody.textContent = driveGuide
         ? buildDriveEventGuideBody(driveGuide, entry.group, entry.item)
         : buildEventGuideBody(entry.group, entry.item);
+      renderEventGuideAssets(driveGuide);
     }
 
     document.querySelectorAll("[data-guide-month]").forEach((button) => {

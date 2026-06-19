@@ -1342,8 +1342,8 @@
 
     .event-guide-assets {
       display: grid;
-      gap: 10px;
-      padding: 10px;
+      gap: 12px;
+      padding: 12px;
       border: 1px solid #d9e5ee;
       border-radius: 8px;
       background: #fff;
@@ -1359,26 +1359,103 @@
       font-weight: 900;
     }
 
-    .event-guide-asset-grid {
+    .event-guide-asset-viewer {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
       gap: 10px;
     }
 
-    .event-guide-asset {
+    .event-guide-asset-main {
       display: grid;
-      gap: 7px;
-      min-width: 0;
-      padding: 8px;
+      place-items: center;
+      min-height: 260px;
+      max-height: 420px;
       border: 1px solid var(--line);
       border-radius: 8px;
       background: #f8fafb;
+      overflow: hidden;
     }
 
-    .event-guide-asset img,
-    .event-guide-asset video {
+    .event-guide-asset-main img,
+    .event-guide-asset-main video {
       width: 100%;
-      max-height: 132px;
+      max-height: 420px;
+      object-fit: contain;
+      background: #fff;
+    }
+
+    .event-guide-asset-main .datebox {
+      width: 96px;
+      min-height: 72px;
+    }
+
+    .event-guide-asset-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .event-guide-asset-selected-name {
+      min-width: 0;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.45;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .event-guide-download {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 32px;
+      padding: 6px 12px;
+      border: 1px solid #bfd0dd;
+      border-radius: 999px;
+      background: #fff;
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 900;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .event-guide-asset-strip {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 2px 2px 8px;
+      scrollbar-width: thin;
+    }
+
+    .event-guide-asset-thumb {
+      display: grid;
+      grid-template-rows: 76px auto;
+      gap: 6px;
+      flex: 0 0 112px;
+      min-width: 112px;
+      padding: 7px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #f8fafb;
+      color: var(--ink);
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .event-guide-asset-thumb.is-active {
+      border-color: #8fb3cc;
+      background: #edf6fc;
+      box-shadow: 0 0 0 2px rgba(31, 111, 164, .12);
+    }
+
+    .event-guide-asset-thumb img,
+    .event-guide-asset-thumb video {
+      width: 100%;
+      height: 76px;
       object-fit: cover;
       border: 1px solid var(--line);
       border-radius: 7px;
@@ -1392,28 +1469,6 @@
       line-height: 1.35;
       overflow: hidden;
       text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .event-guide-asset-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .event-guide-asset-actions a {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 28px;
-      padding: 5px 8px;
-      border: 1px solid #bfd0dd;
-      border-radius: 999px;
-      background: #fff;
-      color: var(--blue);
-      font-size: 11px;
-      font-weight: 800;
-      text-decoration: none;
       white-space: nowrap;
     }
 
@@ -1576,6 +1631,21 @@
 
       .event-guide-head {
         display: grid;
+      }
+
+      .event-guide-asset-main {
+        min-height: 220px;
+        max-height: 320px;
+      }
+
+      .event-guide-asset-main img,
+      .event-guide-asset-main video {
+        max-height: 320px;
+      }
+
+      .event-guide-asset-thumb {
+        flex-basis: 96px;
+        min-width: 96px;
       }
 
       .calendar-wrap {
@@ -2291,10 +2361,6 @@
               <a class="link-card" href="https://line.worksmobile.com/message/send?version=26&channelId=6d9bbe51-c4fd-f680-092c-4778e3673c34" target="_blank" rel="noreferrer" data-phase-scope="2期" data-room-id="6d9bbe51-c4fd-f680-092c-4778e3673c34" data-channel-key="6d9bbe51-c4fd-f680-092c-4778e3673c34">
                 <strong>参加スケジュール共有トーク</strong>
                 <span>LINE WORKSトークを開きます。channelId: 6d9bbe51-c4fd-f680-092c-4778e3673c34</span>
-              </a>
-              <a class="link-card" href="https://board.worksmobile.com" target="_blank" rel="noreferrer" data-phase-scope="2期">
-                <strong>情報共有掲示板</strong>
-                <span>掲示板を開きます。簡易投稿・閲覧の専用ページはApps Script Webアプリで追加できます。</span>
               </a>
             </div>
           </section>
@@ -4044,26 +4110,45 @@
         return;
       }
       eventGuideAssets.hidden = false;
+      const selected = files[0];
+      const renderPreview = (file) => {
+        if (isGuideVideo(file)) {
+          return `<video src="${escapeHtml(file.previewUrl)}" controls playsinline></video>`;
+        }
+        if (isGuideImage(file)) {
+          return `<img src="${escapeHtml(file.previewUrl)}" alt="${escapeHtml(file.name)}" loading="lazy">`;
+        }
+        return `<div class="datebox">File</div>`;
+      };
+      const renderThumb = (file, index) => {
+        const media = isGuideVideo(file)
+          ? `<video src="${escapeHtml(file.previewUrl)}" muted playsinline></video>`
+          : (isGuideImage(file)
+            ? `<img src="${escapeHtml(file.previewUrl)}" alt="${escapeHtml(file.name)}" loading="lazy">`
+            : `<div class="datebox">File</div>`);
+        return `
+          <button class="event-guide-asset-thumb ${index === 0 ? "is-active" : ""}" type="button"
+            data-guide-asset-thumb
+            data-preview-url="${escapeHtml(file.previewUrl)}"
+            data-download-url="${escapeHtml(file.downloadUrl)}"
+            data-name="${escapeHtml(file.name)}"
+            data-kind="${isGuideVideo(file) ? "video" : (isGuideImage(file) ? "image" : "file")}">
+            ${media}
+            <span class="event-guide-asset-name">${escapeHtml(file.name)}</span>
+          </button>
+        `;
+      };
       eventGuideAssets.innerHTML = `
         <div class="event-guide-assets-title">投稿素材・添付ファイル</div>
-        <div class="event-guide-asset-grid">
-          ${files.map((file) => {
-            const preview = isGuideVideo(file)
-              ? `<video src="${escapeHtml(file.previewUrl)}" controls muted playsinline></video>`
-              : (isGuideImage(file)
-                ? `<img src="${escapeHtml(file.previewUrl)}" alt="${escapeHtml(file.name)}" loading="lazy">`
-                : `<div class="datebox">File</div>`);
-            return `
-              <figure class="event-guide-asset">
-                ${preview}
-                <figcaption class="event-guide-asset-name">${escapeHtml(file.name)}</figcaption>
-                <div class="event-guide-asset-actions">
-                  <a href="${escapeHtml(file.url)}" target="_blank" rel="noreferrer">開く</a>
-                  <a href="${escapeHtml(file.downloadUrl)}" target="_blank" rel="noreferrer" download>ダウンロード</a>
-                </div>
-              </figure>
-            `;
-          }).join("")}
+        <div class="event-guide-asset-viewer">
+          <div class="event-guide-asset-main" data-guide-asset-main>${renderPreview(selected)}</div>
+          <div class="event-guide-asset-toolbar">
+            <div class="event-guide-asset-selected-name" data-guide-asset-name>${escapeHtml(selected.name)}</div>
+            <a class="event-guide-download" data-guide-asset-download href="${escapeHtml(selected.downloadUrl)}" target="_blank" rel="noreferrer" download>ダウンロード</a>
+          </div>
+          <div class="event-guide-asset-strip" aria-label="素材画像を選択">
+            ${files.map(renderThumb).join("")}
+          </div>
         </div>
       `;
     }
@@ -4134,6 +4219,30 @@ https://drive.google.com/drive/folders/1HQpyzjkAMPFJKCc8WjosxWVqH2KSukJD?usp=sha
 
     eventGuideShow?.addEventListener("click", renderSelectedEventGuide);
     eventGuideSelect?.addEventListener("change", renderSelectedEventGuide);
+
+    eventGuideAssets?.addEventListener("click", (event) => {
+      const thumb = event.target.closest("[data-guide-asset-thumb]");
+      if (!thumb) return;
+      const main = eventGuideAssets.querySelector("[data-guide-asset-main]");
+      const name = eventGuideAssets.querySelector("[data-guide-asset-name]");
+      const download = eventGuideAssets.querySelector("[data-guide-asset-download]");
+      const previewUrl = thumb.dataset.previewUrl || "";
+      const downloadUrl = thumb.dataset.downloadUrl || previewUrl;
+      const fileName = thumb.dataset.name || "";
+      const kind = thumb.dataset.kind || "image";
+      if (main) {
+        main.innerHTML = kind === "video"
+          ? `<video src="${escapeHtml(previewUrl)}" controls playsinline></video>`
+          : (kind === "image"
+            ? `<img src="${escapeHtml(previewUrl)}" alt="${escapeHtml(fileName)}">`
+            : `<div class="datebox">File</div>`);
+      }
+      if (name) name.textContent = fileName;
+      if (download) download.href = downloadUrl;
+      eventGuideAssets.querySelectorAll("[data-guide-asset-thumb]").forEach((button) => {
+        button.classList.toggle("is-active", button === thumb);
+      });
+    });
 
     document.querySelectorAll("[data-copy-guide]").forEach((button) => {
       button.addEventListener("click", async () => {

@@ -257,6 +257,7 @@
       display: grid;
       grid-template-columns: minmax(0, 1fr) minmax(220px, .55fr);
       gap: 12px;
+      align-items: start;
       padding: 14px;
     }
 
@@ -363,6 +364,7 @@
       border: 1px solid var(--line);
       border-radius: 8px;
       overflow: hidden;
+      align-self: start;
     }
 
     .cal-grid {
@@ -433,11 +435,12 @@
     .event-list {
       border: 1px solid var(--line);
       border-radius: 8px;
-      max-height: 560px;
+      max-height: 376px;
       overflow-y: auto;
       overscroll-behavior: contain;
       scrollbar-width: thin;
       background: #fff;
+      box-shadow: inset 0 -12px 18px -18px rgba(15, 23, 42, .45);
     }
 
     .event-list::-webkit-scrollbar,
@@ -455,12 +458,13 @@
 
     .event-row {
       display: grid;
-      grid-template-columns: 64px 1fr;
-      gap: 10px;
-      padding: 10px;
+      grid-template-columns: 68px minmax(0, 1fr);
+      gap: 12px;
+      align-items: center;
+      padding: 12px 10px;
       border-bottom: 1px solid var(--line);
       font-size: 13px;
-      min-height: 58px;
+      min-height: 82px;
     }
 
     .event-row:last-child { border-bottom: 0; }
@@ -1580,7 +1584,7 @@
       }
 
       .event-list {
-        max-height: 360px;
+        max-height: 332px;
       }
 
       .member-grid {

@@ -2183,6 +2183,67 @@
             <div class="archive-list" id="scheduleArchiveList" aria-label="過去のスケジュール"></div>
           </section>
 
+          <section class="panel" id="shared-board" aria-label="共有掲示板">
+            <div class="panel-head">
+              <div class="panel-title">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z"></path><path d="M8 9h8"></path><path d="M8 13h5"></path></svg>
+                共有掲示板
+              </div>
+              <span class="badge">Apps Script連携用</span>
+            </div>
+            <div class="board-compose">
+              <textarea id="boardMessage" placeholder="共有したい内容を入力"></textarea>
+              <label class="board-file-button" for="boardFiles">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 8h.01"></path><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 15 5-5 4 4 2-2 7 7"></path></svg>
+                画像・動画を追加
+              </label>
+              <input class="board-file-input" id="boardFiles" type="file" accept="image/*,video/*" multiple>
+              <div class="board-preview" id="boardPreview" aria-live="polite"></div>
+              <div class="board-actions">
+                <div class="board-note">画像・動画はポータル本体ではなくGoogle Driveに保存し、掲示板にはDriveリンクを表示する設計が安全です。</div>
+                <button class="member-button primary" type="button" id="boardSubmit">共有掲示板に投稿</button>
+              </div>
+            </div>
+            <div class="board-feed" id="boardFeed">
+              <div class="board-row">
+                <div class="board-meta"><strong>運営</strong><span>サンプル</span></div>
+                <div>共有掲示板はApps Script WebアプリURLを設定後、メッセージ投稿・Drive添付・一覧取得が可能になります。</div>
+              </div>
+              <div class="board-row">
+                <div class="board-meta"><strong>素材共有</strong><span>Drive保存</span></div>
+                <div>動画ファイルはサイズが大きくなりやすいため、フォーム/Apps ScriptからDriveへ保存し、ここではタイトルとリンクだけを読み込みます。</div>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel" id="lineworks" aria-label="LINE WORKS">
+            <div class="panel-head">
+              <div class="panel-title">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12a10 10 0 0 1-10 10H4l2.4-4.1A10 10 0 1 1 22 12Z"></path></svg>
+                LINE WORKSリンク
+              </div>
+              <span class="badge">LINE WORKSへ移動</span>
+            </div>
+            <div class="link-grid">
+              <a class="link-card" href="https://line.worksmobile.com/message/send?version=26&channelId=b0c28afd-26dc-55c3-531d-564ee5088d56" target="_blank" rel="noreferrer" data-phase-scope="1期" data-room-id="b0c28afd-26dc-55c3-531d-564ee5088d56" data-channel-key="b0c28afd-26dc-55c3-531d-564ee5088d56">
+                <strong>全国Wonder+100大型異業種交流会partner1</strong>
+                <span>LINE WORKSトークを開きます。channelId: b0c28afd-26dc-55c3-531d-564ee5088d56</span>
+              </a>
+              <a class="link-card" href="https://line.worksmobile.com/message/send?version=26&channelId=86be568e-ca15-b86a-3623-fbcbabe68431" target="_blank" rel="noreferrer" data-phase-scope="2期" data-room-id="86be568e-ca15-b86a-3623-fbcbabe68431" data-channel-key="86be568e-ca15-b86a-3623-fbcbabe68431">
+                <strong>2期パートナー参加トーク</strong>
+                <span>LINE WORKSトークを開きます。channelId: 86be568e-ca15-b86a-3623-fbcbabe68431</span>
+              </a>
+              <a class="link-card" href="https://line.worksmobile.com/message/send?version=26&channelId=4bec9198-ca7b-346c-092f-7d1e2d87eaf8" target="_blank" rel="noreferrer" data-phase-scope="2期 3期" data-room-id="4bec9198-ca7b-346c-092f-7d1e2d87eaf8" data-channel-key="4bec9198-ca7b-346c-092f-7d1e2d87eaf8">
+                <strong>2&3期パートナー参加トーク</strong>
+                <span>LINE WORKSトークを開きます。channelId: 4bec9198-ca7b-346c-092f-7d1e2d87eaf8</span>
+              </a>
+              <a class="link-card" href="https://line.worksmobile.com/message/send?version=26&channelId=6d9bbe51-c4fd-f680-092c-4778e3673c34" target="_blank" rel="noreferrer" data-phase-scope="2期" data-room-id="6d9bbe51-c4fd-f680-092c-4778e3673c34" data-channel-key="6d9bbe51-c4fd-f680-092c-4778e3673c34">
+                <strong>参加スケジュール共有トーク</strong>
+                <span>LINE WORKSトークを開きます。channelId: 6d9bbe51-c4fd-f680-092c-4778e3673c34</span>
+              </a>
+            </div>
+          </section>
+
           <section class="panel" id="operator-list" aria-label="各会運営者担当一覧">
             <div class="panel-head">
               <div class="panel-title">
@@ -2304,67 +2365,32 @@
             </div>
           </section>
 
-          <section class="panel" id="shared-board" aria-label="共有掲示板">
-            <div class="panel-head">
-              <div class="panel-title">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z"></path><path d="M8 9h8"></path><path d="M8 13h5"></path></svg>
-                共有掲示板
-              </div>
-              <span class="badge">Apps Script連携用</span>
-            </div>
-            <div class="board-compose">
-              <textarea id="boardMessage" placeholder="共有したい内容を入力"></textarea>
-              <label class="board-file-button" for="boardFiles">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 8h.01"></path><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 15 5-5 4 4 2-2 7 7"></path></svg>
-                画像・動画を追加
-              </label>
-              <input class="board-file-input" id="boardFiles" type="file" accept="image/*,video/*" multiple>
-              <div class="board-preview" id="boardPreview" aria-live="polite"></div>
-              <div class="board-actions">
-                <div class="board-note">画像・動画はポータル本体ではなくGoogle Driveに保存し、掲示板にはDriveリンクを表示する設計が安全です。</div>
-                <button class="member-button primary" type="button" id="boardSubmit">共有掲示板に投稿</button>
-              </div>
-            </div>
-            <div class="board-feed" id="boardFeed">
-              <div class="board-row">
-                <div class="board-meta"><strong>運営</strong><span>サンプル</span></div>
-                <div>共有掲示板はApps Script WebアプリURLを設定後、メッセージ投稿・Drive添付・一覧取得が可能になります。</div>
-              </div>
-              <div class="board-row">
-                <div class="board-meta"><strong>素材共有</strong><span>Drive保存</span></div>
-                <div>動画ファイルはサイズが大きくなりやすいため、フォーム/Apps ScriptからDriveへ保存し、ここではタイトルとリンクだけを読み込みます。</div>
-              </div>
-            </div>
-          </section>
 
-          <section class="panel" id="lineworks" aria-label="LINE WORKS">
+
+
+          <section class="panel" id="media-share" aria-label="画像・動画共有ポスト">
             <div class="panel-head">
               <div class="panel-title">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12a10 10 0 0 1-10 10H4l2.4-4.1A10 10 0 1 1 22 12Z"></path></svg>
-                LINE WORKSリンク
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m10 10 5 3-5 3v-6Z"></path><path d="M7 19l-2 3"></path><path d="M17 19l2 3"></path></svg>
+                画像・動画共有ポスト
               </div>
-              <span class="badge">LINE WORKSへ移動</span>
+              <span class="badge">Drive保存</span>
             </div>
             <div class="link-grid">
-              <a class="link-card" href="https://line.worksmobile.com/message/send?version=26&channelId=b0c28afd-26dc-55c3-531d-564ee5088d56" target="_blank" rel="noreferrer" data-phase-scope="1期" data-room-id="b0c28afd-26dc-55c3-531d-564ee5088d56" data-channel-key="b0c28afd-26dc-55c3-531d-564ee5088d56">
-                <strong>全国Wonder+100大型異業種交流会partner1</strong>
-                <span>LINE WORKSトークを開きます。channelId: b0c28afd-26dc-55c3-531d-564ee5088d56</span>
+              <a class="link-card" href="#" target="_blank" rel="noreferrer">
+                <strong>保存用ドライブ</strong>
+                <span>イベント写真・動画の保存先。ここにGoogle Driveの共有URLを設定します。</span>
               </a>
-              <a class="link-card" href="https://line.worksmobile.com/message/send?version=26&channelId=86be568e-ca15-b86a-3623-fbcbabe68431" target="_blank" rel="noreferrer" data-phase-scope="2期" data-room-id="86be568e-ca15-b86a-3623-fbcbabe68431" data-channel-key="86be568e-ca15-b86a-3623-fbcbabe68431">
-                <strong>2期パートナー参加トーク</strong>
-                <span>LINE WORKSトークを開きます。channelId: 86be568e-ca15-b86a-3623-fbcbabe68431</span>
-              </a>
-              <a class="link-card" href="https://line.worksmobile.com/message/send?version=26&channelId=4bec9198-ca7b-346c-092f-7d1e2d87eaf8" target="_blank" rel="noreferrer" data-phase-scope="2期 3期" data-room-id="4bec9198-ca7b-346c-092f-7d1e2d87eaf8" data-channel-key="4bec9198-ca7b-346c-092f-7d1e2d87eaf8">
-                <strong>2&3期パートナー参加トーク</strong>
-                <span>LINE WORKSトークを開きます。channelId: 4bec9198-ca7b-346c-092f-7d1e2d87eaf8</span>
-              </a>
-              <a class="link-card" href="https://line.worksmobile.com/message/send?version=26&channelId=6d9bbe51-c4fd-f680-092c-4778e3673c34" target="_blank" rel="noreferrer" data-phase-scope="2期" data-room-id="6d9bbe51-c4fd-f680-092c-4778e3673c34" data-channel-key="6d9bbe51-c4fd-f680-092c-4778e3673c34">
-                <strong>参加スケジュール共有トーク</strong>
-                <span>LINE WORKSトークを開きます。channelId: 6d9bbe51-c4fd-f680-092c-4778e3673c34</span>
+              <a class="link-card" href="#" target="_blank" rel="noreferrer">
+                <strong>投稿ルール</strong>
+                <span>ファイル名は「日付_イベント名_担当者」。人物が写る素材は公開可否を確認してから共有。</span>
               </a>
             </div>
           </section>
 
+        </div>
+
+        <aside class="stack">
           <section class="panel" id="event-info" aria-label="イベント情報">
             <div class="panel-head">
               <div class="panel-title">
@@ -2405,29 +2431,6 @@
             </div>
           </section>
 
-          <section class="panel" id="media-share" aria-label="画像・動画共有ポスト">
-            <div class="panel-head">
-              <div class="panel-title">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m10 10 5 3-5 3v-6Z"></path><path d="M7 19l-2 3"></path><path d="M17 19l2 3"></path></svg>
-                画像・動画共有ポスト
-              </div>
-              <span class="badge">Drive保存</span>
-            </div>
-            <div class="link-grid">
-              <a class="link-card" href="#" target="_blank" rel="noreferrer">
-                <strong>保存用ドライブ</strong>
-                <span>イベント写真・動画の保存先。ここにGoogle Driveの共有URLを設定します。</span>
-              </a>
-              <a class="link-card" href="#" target="_blank" rel="noreferrer">
-                <strong>投稿ルール</strong>
-                <span>ファイル名は「日付_イベント名_担当者」。人物が写る素材は公開可否を確認してから共有。</span>
-              </a>
-            </div>
-          </section>
-
-        </div>
-
-        <aside class="stack">
           <section class="panel" id="prepare" aria-label="イベントの準備タスク">
             <div class="panel-head">
               <div class="panel-title">

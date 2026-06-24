@@ -3210,10 +3210,7 @@
       const baseItems = filterDay
         ? group.items.filter((item) => item.day === filterDay)
         : group.items;
-      if (!baseItems.length) return [];
-      const isMeetingGroup = baseItems.some((item) => getMemberScheduleCategory(item) === "meeting");
-      if (!isMeetingGroup) return baseItems;
-      return baseItems.filter((item) => displayAssignmentNames(assignmentMap[getEventId(group, item)]).length);
+      return baseItems;
     }
 
     function renderEventList(current, filterDay = null) {
@@ -3240,7 +3237,7 @@
           <div class="datebox">${filterDay ? `${month}/${filterDay}` : "未反映"}</div>
           <div>
             <div class="event-title">${filterDay ? "この日の予定はありません" : "この区分の予定はまだ反映されていません"}</div>
-            <div class="event-meta">${current.label.includes("ミーティング") ? "ミーティング欄には、不参加チェックが入った人だけ表示されます。" : (filterDay ? "別の日付をクリックするか、月タブを押すと月全体の一覧へ戻ります。" : "スケジュール投稿後、Apps Scriptの反映データを読み込むとここに表示されます。")}</div>
+            <div class="event-meta">${current.label.includes("ミーティング") ? "ミーティング予定が未反映です。不参加者名はチェックが入った場合のみ表示されます。" : (filterDay ? "別の日付をクリックするか、月タブを押すと月全体の一覧へ戻ります。" : "スケジュール投稿後、Apps Scriptの反映データを読み込むとここに表示されます。")}</div>
           </div>
         </div>
       `;

@@ -414,6 +414,64 @@
       flex-wrap: wrap;
     }
 
+    .schedule-tabs {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+    }
+
+    .schedule-tabs-row,
+    .schedule-month-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .schedule-month-nav {
+      justify-content: center;
+      padding: 8px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #f8fbfd;
+    }
+
+    .month-arrow {
+      display: inline-flex;
+      min-width: 96px;
+      min-height: 34px;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--blue);
+      font: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .month-arrow:disabled {
+      color: var(--muted);
+      opacity: .45;
+      cursor: default;
+    }
+
+    .current-schedule-month {
+      min-width: 72px;
+      text-align: center;
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .arrow-symbol {
+      font-size: 16px;
+      line-height: 1;
+    }
+
     .tab-button {
       border: 1px solid var(--line);
       border-radius: 8px;
@@ -1688,6 +1746,16 @@
         scrollbar-width: none;
       }
 
+      .schedule-tabs {
+        flex-wrap: wrap;
+        overflow-x: visible;
+      }
+
+      .schedule-tabs-row,
+      .schedule-month-nav {
+        flex-wrap: wrap;
+      }
+
       .month-tabs::-webkit-scrollbar {
         display: none;
       }
@@ -2159,16 +2227,24 @@
               <div class="event-list" id="eventList" aria-live="polite"></div>
             </div>
             <div class="sample-label" id="scheduleStatus">スケジュール読込中</div>
-            <div class="month-tabs">
-              <button class="tab-button is-active" type="button" data-schedule="juneWonder">6月 Wonder＋</button>
-              <button class="tab-button" type="button" data-schedule="juneRegular">6月 レギュラー</button>
-              <button class="tab-button" type="button" data-schedule="julyWonder">7月 Wonder＋</button>
-              <button class="tab-button" type="button" data-schedule="julyRegular">7月 レギュラー</button>
-              <button class="tab-button" type="button" data-schedule="augustWonder">8月 Wonder＋</button>
-              <button class="tab-button" type="button" data-schedule="augustRegular">8月 レギュラー</button>
-              <button class="tab-button" type="button" data-schedule="juneMeeting">6月 ミーティング</button>
-              <button class="tab-button" type="button" data-schedule="julyMeeting">7月 ミーティング</button>
-              <button class="tab-button" type="button" data-schedule="augustMeeting">8月 ミーティング</button>
+            <div class="month-tabs schedule-tabs">
+              <div class="schedule-tabs-row" aria-label="スケジュール分類">
+                <button class="tab-button is-active" type="button" data-schedule-category="wonder">Wonder＋</button>
+                <button class="tab-button" type="button" data-schedule-category="regular">レギュラー</button>
+                <button class="tab-button" type="button" data-schedule-category="miraiba">ミライバ</button>
+                <button class="tab-button" type="button" data-schedule-category="meeting">ミーティング</button>
+              </div>
+              <div class="schedule-month-nav" aria-label="スケジュール月移動">
+                <button class="month-arrow" type="button" data-schedule-month-step="-1">
+                  <span class="arrow-symbol">←</span>
+                  <span id="prevScheduleMonthLabel">6月</span>
+                </button>
+                <span class="current-schedule-month" id="currentScheduleMonthLabel">7月</span>
+                <button class="month-arrow" type="button" data-schedule-month-step="1">
+                  <span id="nextScheduleMonthLabel">8月</span>
+                  <span class="arrow-symbol">→</span>
+                </button>
+              </div>
             </div>
             <div class="sync-callout">
               <div>
@@ -2650,16 +2726,21 @@
     const emptySchedules = {
       juneWonder: { month: 6, label: "6月 Wonder＋", items: [] },
       juneRegular: { month: 6, label: "6月 レギュラー", items: [] },
+      juneMiraiba: { month: 6, label: "6月 ミライバ", items: [] },
       juneMeeting: { month: 6, label: "6月 ミーティング", items: [] },
       julyWonder: { month: 7, label: "7月 Wonder＋", items: [] },
       julyRegular: { month: 7, label: "7月 レギュラー", items: [] },
+      julyMiraiba: { month: 7, label: "7月 ミライバ", items: [] },
       julyMeeting: { month: 7, label: "7月 ミーティング", items: [] },
       augustWonder: { month: 8, label: "8月 Wonder＋", items: [] },
       augustRegular: { month: 8, label: "8月 レギュラー", items: [] },
+      augustMiraiba: { month: 8, label: "8月 ミライバ", items: [] },
       augustMeeting: { month: 8, label: "8月 ミーティング", items: [] }
     };
-    let schedules = fillDefaultMeetingSchedules(structuredClone(emptySchedules));
-    let activeScheduleKey = "juneWonder";
+    let schedules = fillDefaultSchedules(structuredClone(emptySchedules));
+    let activeScheduleMonth = Math.min(8, Math.max(6, currentScheduleMonth()));
+    let activeScheduleCategory = "wonder";
+    let activeScheduleKey = getScheduleKey(activeScheduleMonth, activeScheduleCategory) || "juneWonder";
 
     const dows = ["月", "火", "水", "木", "金", "土", "日"];
 
@@ -2669,6 +2750,9 @@
     const scheduleStatus = document.querySelector("#scheduleStatus");
     const scheduleUpdateLog = document.querySelector("#scheduleUpdateLog");
     const scheduleArchiveList = document.querySelector("#scheduleArchiveList");
+    const currentScheduleMonthLabel = document.querySelector("#currentScheduleMonthLabel");
+    const prevScheduleMonthLabel = document.querySelector("#prevScheduleMonthLabel");
+    const nextScheduleMonthLabel = document.querySelector("#nextScheduleMonthLabel");
     const memberScheduleList = document.querySelector("#memberScheduleList");
     const memberAuthStatus = document.querySelector("#memberAuthStatus");
     const memberActionStatus = document.querySelector("#memberActionStatus");
@@ -2794,12 +2878,33 @@
       }[Number(month)] || [];
     }
 
-    function fillDefaultMeetingSchedules(target) {
+    function defaultMiraibaItems(month) {
+      const items = [];
+      for (let day = 1; day <= daysInMonth(month); day += 1) {
+        if (new Date(SCHEDULE_YEAR, Number(month) - 1, day).getDay() === 4) {
+          items.push({ day, title: "ミライバ", meta: "20:00 / 20:00-21:00" });
+        }
+      }
+      return items;
+    }
+
+    function fillDefaultSchedules(target) {
       Object.entries(target).forEach(([key, group]) => {
-        if (!/Meeting$/.test(key)) return;
-        if (!group.items.length) group.items = defaultMeetingItems(group.month);
+        if (/Meeting$/.test(key) && !group.items.length) group.items = defaultMeetingItems(group.month);
+        if (/Miraiba$/.test(key) && !group.items.length) group.items = defaultMiraibaItems(group.month);
       });
       return target;
+    }
+
+    function getScheduleKey(month, category) {
+      const prefix = { 6: "june", 7: "july", 8: "august" }[Number(month)];
+      const suffix = {
+        wonder: "Wonder",
+        regular: "Regular",
+        miraiba: "Miraiba",
+        meeting: "Meeting"
+      }[category];
+      return prefix && suffix ? `${prefix}${suffix}` : "";
     }
 
     function getScheduleEntries(options = {}) {
@@ -3112,7 +3217,8 @@
       if (!prefix) return null;
       const category = getMemberScheduleCategory(item);
       if (category === "meeting") return `${prefix}Meeting`;
-      return `${prefix}${category === "wonder" || category === "miraiba" ? "Wonder" : "Regular"}`;
+      if (category === "miraiba") return `${prefix}Miraiba`;
+      return `${prefix}${category === "wonder" ? "Wonder" : "Regular"}`;
     }
 
     function normalizeSchedules(payload) {
@@ -3154,7 +3260,7 @@
           .sort((a, b) => a.day - b.day || a.title.localeCompare(b.title, "ja"));
       });
       assignmentMap = payload?.assignments || assignmentMap || {};
-      return fillDefaultMeetingSchedules(next);
+      return fillDefaultSchedules(next);
     }
 
     function isValidScheduleDisplayItem(item) {
@@ -3272,16 +3378,44 @@
     }
 
     function updateScheduleTabVisibility() {
-      const tabs = [...document.querySelectorAll("[data-schedule]")];
-      tabs.forEach((tab) => {
-        const group = schedules[tab.dataset.schedule] || emptySchedules[tab.dataset.schedule];
-        tab.hidden = Boolean(group && isArchivedScheduleGroup(group));
+      document.querySelectorAll("[data-schedule-category]").forEach((tab) => {
+        tab.classList.toggle("is-active", tab.dataset.scheduleCategory === activeScheduleCategory);
       });
-      if (tabs.some((tab) => tab.dataset.schedule === activeScheduleKey && tab.hidden)) {
-        const nextTab = tabs.find((tab) => !tab.hidden);
-        if (nextTab) activeScheduleKey = nextTab.dataset.schedule;
-      }
-      tabs.forEach((tab) => tab.classList.toggle("is-active", tab.dataset.schedule === activeScheduleKey));
+      if (currentScheduleMonthLabel) currentScheduleMonthLabel.textContent = `${activeScheduleMonth}月`;
+      if (prevScheduleMonthLabel) prevScheduleMonthLabel.textContent = activeScheduleMonth > 6 ? `${activeScheduleMonth - 1}月` : "";
+      if (nextScheduleMonthLabel) nextScheduleMonthLabel.textContent = activeScheduleMonth < 8 ? `${activeScheduleMonth + 1}月` : "";
+      document.querySelectorAll("[data-schedule-month-step]").forEach((button) => {
+        const step = Number(button.dataset.scheduleMonthStep || 0);
+        const targetMonth = activeScheduleMonth + step;
+        button.disabled = targetMonth < 6 || targetMonth > 8;
+      });
+    }
+
+    function getScheduleStateFromKey(key) {
+      const month = key?.startsWith("june") ? 6 : key?.startsWith("july") ? 7 : key?.startsWith("august") ? 8 : activeScheduleMonth;
+      const category = key?.endsWith("Meeting") ? "meeting"
+        : key?.endsWith("Miraiba") ? "miraiba"
+          : key?.endsWith("Regular") ? "regular"
+            : "wonder";
+      return { month, category };
+    }
+
+    function syncActiveScheduleFromState(month = activeScheduleMonth, category = activeScheduleCategory) {
+      activeScheduleMonth = Math.min(8, Math.max(6, Number(month) || activeScheduleMonth || 6));
+      activeScheduleCategory = category || activeScheduleCategory || "wonder";
+      activeScheduleKey = getScheduleKey(activeScheduleMonth, activeScheduleCategory) || activeScheduleKey || "juneWonder";
+      return activeScheduleKey;
+    }
+
+    function switchSchedule(month, category) {
+      selectedScheduleDay = null;
+      renderSchedule(syncActiveScheduleFromState(month, category));
+    }
+
+    function normalizeSelectedScheduleDay(group) {
+      if (!selectedScheduleDay) return;
+      const hasDay = group.items.some((item) => item.day === selectedScheduleDay);
+      if (!hasDay) selectedScheduleDay = null;
     }
 
     function normalizeDisplayMeta(meta) {
@@ -3315,10 +3449,12 @@
       }[category] || "スケジュール";
     }
 
-    function renderSchedule(key) {
-      const current = schedules[key];
+    function renderSchedule(key = activeScheduleKey) {
+      const state = getScheduleStateFromKey(key);
+      syncActiveScheduleFromState(state.month, state.category);
+      const current = schedules[activeScheduleKey];
       if (!current) return;
-      activeScheduleKey = key;
+      normalizeSelectedScheduleDay(current);
       updateScheduleTabVisibility();
       const month = current.month;
       monthBadge.textContent = current.label;
@@ -3358,10 +3494,6 @@
       renderArchiveSchedule();
       renderScheduleLogs();
       renderEventGuidePicker();
-
-      document.querySelectorAll("[data-schedule]").forEach((button) => {
-        button.classList.toggle("is-active", button.dataset.schedule === key);
-      });
     }
 
     async function loadSchedules() {
@@ -3756,9 +3888,8 @@
 
     document.querySelectorAll(".tab-button").forEach((button) => {
       button.addEventListener("click", () => {
-        if (button.dataset.schedule) {
-          selectedScheduleDay = null;
-          renderSchedule(button.dataset.schedule);
+        if (button.dataset.scheduleCategory) {
+          switchSchedule(activeScheduleMonth, button.dataset.scheduleCategory);
         }
         if (button.dataset.scrollTarget) {
           document.getElementById(button.dataset.scrollTarget)?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -3777,6 +3908,13 @@
           });
           renderMemberScheduleList();
         }
+      });
+    });
+
+    document.querySelectorAll("[data-schedule-month-step]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const step = Number(button.dataset.scheduleMonthStep || 0);
+        switchSchedule(activeScheduleMonth + step, activeScheduleCategory);
       });
     });
 

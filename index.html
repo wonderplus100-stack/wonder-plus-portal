@@ -3803,7 +3803,7 @@
         const password = requireInput(registerPassword, "パスワードを入力してください。");
         const payload = await callPortalAction("register", { name, email, phase, password });
         if (!payload.ok) throw new Error(payload.message || "申請できませんでした。");
-        setMemberStatus("新規アカウント申請を送信しました。承認後にログインできます。");
+        setMemberStatus(payload.message || "新規アカウント申請を送信しました。承認後にログインできます。");
       } catch (error) {
         setMemberStatus(error.message || "申請できませんでした。");
       } finally {
@@ -3816,7 +3816,7 @@
         setButtonBusy(resetButton, true, "申請中");
         const email = requireInput(resetEmail, "IDを入力してください。");
         const password = requireInput(resetPassword, "新しいパスワードを入力してください。");
-        const payload = await callPortalAction("resetPassword", { email, password });
+        const payload = await callPortalAction("requestPasswordReset", { email, password });
         if (!payload.ok) throw new Error(payload.message || "再設定申請ができませんでした。");
         setMemberStatus("パスワード再設定申請を送信しました。管理者承認後に新しいパスワードを使えます。");
       } catch (error) {

@@ -768,6 +768,48 @@
       background: #fff;
     }
 
+    .password-field {
+      position: relative;
+      display: grid;
+    }
+
+    .password-field input {
+      padding-right: 44px;
+    }
+
+    .password-toggle {
+      position: absolute;
+      top: 50%;
+      right: 8px;
+      width: 30px;
+      height: 30px;
+      border: 0;
+      border-radius: 8px;
+      background: transparent;
+      color: #4f6b82;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+    }
+
+    .password-toggle:hover,
+    .password-toggle:focus-visible {
+      background: #eaf3fa;
+      color: var(--blue);
+      outline: none;
+    }
+
+    .password-toggle svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      pointer-events: none;
+    }
+
     .auth-actions {
       display: flex;
       flex-wrap: wrap;
@@ -2302,7 +2344,12 @@
                   <input id="loginEmail" type="text" autocomplete="username" placeholder="登録したID">
                 </label>
                 <label>パスワード
-                  <input id="loginPassword" type="password" autocomplete="current-password" placeholder="パスワード">
+                  <span class="password-field">
+                    <input id="loginPassword" type="password" autocomplete="current-password" placeholder="パスワード">
+                    <button class="password-toggle" type="button" data-password-toggle="loginPassword" aria-label="パスワードを表示">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                    </button>
+                  </span>
                 </label>
                 <label class="remember-login">
                   <input id="rememberLogin" type="checkbox">
@@ -2328,7 +2375,12 @@
                     </select>
                   </label>
                   <label>パスワード
-                    <input id="registerPassword" type="password" autocomplete="new-password" placeholder="パスワード">
+                    <span class="password-field">
+                      <input id="registerPassword" type="password" autocomplete="new-password" placeholder="パスワード">
+                      <button class="password-toggle" type="button" data-password-toggle="registerPassword" aria-label="パスワードを表示">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                      </button>
+                    </span>
                   </label>
                   <button class="member-button primary" id="registerButton" type="button">新規アカウント作成</button>
                 </div>
@@ -2337,7 +2389,12 @@
                     <input id="resetEmail" type="text" placeholder="登録したID">
                   </label>
                   <label>新しいパスワード
-                    <input id="resetPassword" type="password" autocomplete="new-password" placeholder="新しいパスワード">
+                    <span class="password-field">
+                      <input id="resetPassword" type="password" autocomplete="new-password" placeholder="新しいパスワード">
+                      <button class="password-toggle" type="button" data-password-toggle="resetPassword" aria-label="パスワードを表示">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                      </button>
+                    </span>
                   </label>
                   <button class="member-button primary" id="resetButton" type="button">パスワード再設定申請</button>
                 </div>
@@ -4540,6 +4597,16 @@ https://drive.google.com/drive/folders/1HQpyzjkAMPFJKCc8WjosxWVqH2KSukJD?usp=sha
         const willOpen = !panel.classList.contains("is-open");
         document.querySelectorAll(".auth-toggle-panel").forEach((target) => target.classList.remove("is-open"));
         panel.classList.toggle("is-open", willOpen);
+      });
+    });
+
+    document.querySelectorAll("[data-password-toggle]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const input = document.getElementById(button.dataset.passwordToggle);
+        if (!input) return;
+        const visible = input.type === "text";
+        input.type = visible ? "password" : "text";
+        button.setAttribute("aria-label", visible ? "パスワードを表示" : "パスワードを非表示");
       });
     });
 

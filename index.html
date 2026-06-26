@@ -2972,6 +2972,87 @@
         .toLowerCase();
     }
 
+    function compactScheduleTitle(title) {
+      return String(title || "")
+        .replace(/[＋]/g, "+")
+        .replace(/\s+/g, "")
+        .replace(/[‐‑‒–—―ー－-]/g, "")
+        .replace(/[／/]/g, "")
+        .toLowerCase();
+    }
+
+    function extractScheduleTitleTraits(title) {
+      const compact = compactScheduleTitle(title);
+      const venues = [
+        "銀座", "新宿", "名古屋", "大阪", "福岡", "博多", "北九州", "小倉", "熊本", "岡山", "広島",
+        "船橋", "横浜", "高崎", "前橋", "静岡", "札幌", "京都", "神戸", "浜松", "久留米", "仙台", "郡山", "新潟"
+      ].filter((name) => compact.includes(name.toLowerCase()));
+      const aliases = [
+        ["story", ["story"]],
+        ["leaders", ["leaders", "leader"]],
+        ["ladies", ["ladies", "lady"]],
+        ["finance", ["finance"]],
+        ["gravity", ["gravity"]],
+        ["executive", ["executive"]],
+        ["entertainment", ["entertainment"]],
+        ["beauty", ["beauty"]],
+        ["cxo", ["cxo"]],
+        ["100", ["100"]]
+      ];
+      const brands = aliases
+        .filter(([, values]) => values.some((value) => compact.includes(value)))
+        .map(([label]) => label);
+      return { compact, venues, brands };
+    }
+
+    function parseEventIdForMatching(eventId) {
+      const text = String(eventId || "");
+      if (text.includes("|")) {
+        const [year, month, day, category, title = "", time = ""] = text.split("|");
+        return {
+          year: Number(year),
+          month: Number(month),
+          day: Number(day),
+          category,
+          title,
+          time
+        };
+      }
+      const match = text.match(/^(\d{4})-(\d{1,2})-(\d{1,2})-(.+)$/);
+      if (!match) return null;
+      const title = match[4] || "";
+      return {
+        year: Number(match[1]),
+        month: Number(match[2]),
+        day: Number(match[3]),
+        category: getMemberScheduleCategory({ title, meta: "" }),
+        title,
+        time: ""
+      };
+    }
+
+    function scheduleMatchesAssignmentId(group, item, eventId) {
+      const parsed = parseEventIdForMatching(eventId);
+      if (!parsed) return false;
+      const category = getMemberScheduleCategory(item);
+      if (parsed.year && parsed.year !== SCHEDULE_YEAR) return false;
+      if (parsed.month !== Number(group.month) || parsed.day !== Number(item.day)) return false;
+      if (parsed.category !== category) return false;
+      if (category !== "wonder") return true;
+
+      const currentTraits = extractScheduleTitleTraits(item.title);
+      const savedTraits = extractScheduleTitleTraits(parsed.title);
+      const sharedVenue = currentTraits.venues.some((venue) => savedTraits.venues.includes(venue));
+      const sharedBrand = currentTraits.brands.some((brand) => savedTraits.brands.includes(brand));
+      const currentBaseWonder = /wonder|w\+/i.test(currentTraits.compact);
+      const savedBaseWonder = /wonder|w\+/i.test(savedTraits.compact);
+      return sharedVenue || sharedBrand || (currentBaseWonder && savedBaseWonder && currentTraits.compact === savedTraits.compact);
+    }
+
+    function getMatchingAssignmentIds(group, item) {
+      return Object.keys(assignmentMap || {}).filter((eventId) => scheduleMatchesAssignmentId(group, item, eventId));
+    }
+
     function getEventId(group, item) {
       const category = getMemberScheduleCategory(item);
       const time = normalizeScheduleTime(item.meta);
@@ -2988,7 +3069,7 @@
     }
 
     function getEventIdCandidates(group, item) {
-      return [...new Set([getEventId(group, item), ...getLegacyEventIds(group, item)].filter(Boolean))];
+      return [...new Set([getEventId(group, item), ...getLegacyEventIds(group, item), ...getMatchingAssignmentIds(group, item)].filter(Boolean))];
     }
 
     function getEventDetailsById(eventId) {

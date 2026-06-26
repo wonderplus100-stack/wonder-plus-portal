@@ -694,7 +694,6 @@
     body.auth-required:not(.is-member-logged-in) .open-direct,
     body.auth-required:not(.is-member-logged-in) #quick,
     body.auth-required:not(.is-member-logged-in) #schedule,
-    body.auth-required:not(.is-member-logged-in) #operator-list,
     body.auth-required:not(.is-member-logged-in) #shared-forms,
     body.auth-required:not(.is-member-logged-in) #shared-board,
     body.auth-required:not(.is-member-logged-in) #lineworks,
@@ -2303,29 +2302,6 @@
 
 
 
-<section class="panel" id="operator-list" aria-label="各会運営者担当一覧">
-            <div class="panel-head">
-              <div class="panel-title">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                各会運営者担当一覧
-              </div>
-              <span class="badge">参加スケジュール集約</span>
-            </div>
-            <div class="minutes-list operator-assignment-list">
-              <div class="simple-row">
-                <div class="datebox">集約</div>
-                <div><strong>個人の参加可能日を自動集計</strong><div class="event-meta">ログインIDごとの参加チェックを集約し、開催日ごとに担当候補を表示します。</div></div>
-                <span class="status todo">設計中</span>
-              </div>
-              <div class="simple-row">
-                <div class="datebox">更新</div>
-                <div><strong>個人ページから変更</strong><div class="event-meta">本人が参加可否を変更すると、全体一覧とNotion参加者一覧を更新します。</div></div>
-                <span class="status">自動</span>
-              </div>
-            </div>
-          </section>
-
-
 <section class="panel" id="member-portal" aria-label="運営参加チェック">
             <div class="panel-head">
               <div class="panel-title">
@@ -2834,7 +2810,6 @@
     const meetingNote = document.querySelector("#meetingNote");
     const adminCard = document.querySelector("#adminCard");
     const adminUserList = document.querySelector("#adminUserList");
-    const operatorAssignmentList = document.querySelector("#operator-list .minutes-list");
     const portalTitle = document.querySelector("#portalTitle");
     const portalSub = document.querySelector("#portalSub");
     const personalSchedulePrompt = document.querySelector("#personalSchedulePrompt");
@@ -2939,7 +2914,7 @@
       const items = [];
       for (let day = 1; day <= daysInMonth(month); day += 1) {
         if (new Date(SCHEDULE_YEAR, Number(month) - 1, day).getDay() === 4) {
-          items.push({ day, title: "ミライバ", meta: "20:00 / 20:00-21:00" });
+          items.push({ day, title: "ミライバ", meta: "20:00-21:00" });
         }
       }
       return items;
@@ -2979,12 +2954,45 @@
       ));
     }
 
+    function normalizeScheduleTime(meta) {
+      let text = normalizeDisplayMeta(meta);
+      const duplicatedRange = text.match(/(\d{1,2}:\d{2})\s*\/\s*\1\s*[-〜~]\s*(\d{1,2}:\d{2})/);
+      if (duplicatedRange) return `${duplicatedRange[1]}-${duplicatedRange[2]}`;
+      const range = text.match(/(\d{1,2}:\d{2})\s*[-〜~]\s*(\d{1,2}:\d{2})/);
+      if (range) return `${range[1]}-${range[2]}`;
+      const single = text.match(/\d{1,2}:\d{2}/);
+      return single ? single[0] : "";
+    }
+
+    function normalizeScheduleTitleKey(title) {
+      return normalizeEventTitle(title)
+        .replace(/\s+/g, "")
+        .replace(/[＋]/g, "+")
+        .replace(/-/g, "")
+        .toLowerCase();
+    }
+
     function getEventId(group, item) {
-      return `${SCHEDULE_YEAR}-${group.month}-${item.day}-${item.title}`;
+      const category = getMemberScheduleCategory(item);
+      const time = normalizeScheduleTime(item.meta);
+      return [SCHEDULE_YEAR, group.month, item.day, category, normalizeScheduleTitleKey(item.title), time].filter(Boolean).join("|");
+    }
+
+    function getLegacyEventIds(group, item) {
+      const title = normalizeEventTitle(item.title);
+      const rawTitle = String(item.title || "予定").trim();
+      return [
+        `${SCHEDULE_YEAR}-${group.month}-${item.day}-${title}`,
+        `${SCHEDULE_YEAR}-${group.month}-${item.day}-${rawTitle}`
+      ];
+    }
+
+    function getEventIdCandidates(group, item) {
+      return [...new Set([getEventId(group, item), ...getLegacyEventIds(group, item)].filter(Boolean))];
     }
 
     function getEventDetailsById(eventId) {
-      const entry = getAllScheduleEntries().find(({ group, item }) => getEventId(group, item) === eventId);
+      const entry = getAllScheduleEntries().find(({ group, item }) => getEventIdCandidates(group, item).includes(eventId));
       if (!entry) return { title: eventId, date: "" };
       return {
         title: entry.item.title,
@@ -3056,13 +3064,12 @@
       const family = displayFamilyName(name);
       if (!name && !family) return new Set();
       return new Set(getAllScheduleEntries().flatMap(({ group, item }) => {
-        const eventId = getEventId(group, item);
-        const names = toArray(assignmentMap[eventId]);
+        const names = getAssignmentNamesForSchedule(group, item);
         const matched = names.some((entry) => {
           const value = String(entry || "").trim();
           return value === name || (family && displayFamilyName(value) === family);
         });
-        return matched ? [eventId] : [];
+        return matched ? [getEventId(group, item)] : [];
       }));
     }
 
@@ -3138,7 +3145,7 @@
     }
 
     function isMeetingEventId(eventId) {
-      const entry = getAllScheduleEntries().find(({ group, item }) => getEventId(group, item) === eventId);
+      const entry = getAllScheduleEntries().find(({ group, item }) => getEventIdCandidates(group, item).includes(eventId));
       return entry ? getMemberScheduleCategory(entry.item) === "meeting" : /ミーティング|meeting|MTG/i.test(eventId);
     }
 
@@ -3177,6 +3184,21 @@
           ? `${count}件の変更があります。参加チェックを更新すると反映されます。`
           : "現在のチェックは反映済みです。変更したら再度更新できます。";
       }
+    }
+
+    function parseEncodedIdList(value) {
+      if (!value) return [];
+      return String(value)
+        .split(",")
+        .map((item) => item.trim())
+        .filter(Boolean)
+        .map((item) => {
+          try {
+            return decodeURIComponent(item);
+          } catch (error) {
+            return item;
+          }
+        });
     }
 
     function buildPortalUrl(action, params = {}) {
@@ -3392,7 +3414,7 @@
           <div>
             <div class="event-title">${escapeHtml(item.title)}</div>
             <div class="event-meta">${escapeHtml(normalizeDisplayMeta(item.meta) || "詳細未入力")}</div>
-            ${renderAssignmentNames(getEventId(current, item), getMemberScheduleCategory(item) === "meeting" ? "不参加" : "担当")}
+            ${renderAssignmentNamesForSchedule(current, item, getMemberScheduleCategory(item) === "meeting" ? "不参加" : "担当")}
           </div>
         </div>
       `).join("") : `
@@ -3408,6 +3430,17 @@
 
     function renderAssignmentNames(eventId, label = "担当") {
       const names = displayAssignmentNames(assignmentMap[eventId]);
+      return names.length
+        ? `<div class="assignment-names"><span class="assignment-label">${escapeHtml(label)}:</span> <span class="assignment-value">${escapeHtml(names.join("、"))}</span></div>`
+        : "";
+    }
+
+    function getAssignmentNamesForSchedule(group, item) {
+      return getEventIdCandidates(group, item).flatMap((eventId) => toArray(assignmentMap[eventId]));
+    }
+
+    function renderAssignmentNamesForSchedule(group, item, label = "担当") {
+      const names = displayAssignmentNames(getAssignmentNamesForSchedule(group, item));
       return names.length
         ? `<div class="assignment-names"><span class="assignment-label">${escapeHtml(label)}:</span> <span class="assignment-value">${escapeHtml(names.join("、"))}</span></div>`
         : "";
@@ -3476,12 +3509,19 @@
     }
 
     function normalizeDisplayMeta(meta) {
-      const text = String(meta || "").trim();
+      let text = String(meta || "").trim();
       if (!text) return "";
+      const duplicatedRange = text.match(/(\d{1,2}:\d{2})\s*\/\s*\1\s*[-〜~]\s*(\d{1,2}:\d{2})/);
+      if (duplicatedRange) return `${duplicatedRange[1]}-${duplicatedRange[2]}`;
+      text = text
+        .replace(/\s*[\/|｜・]\s*(?:合計)?\d+\s*名(?:様)?/gu, "")
+        .replace(/(?:合計)?\d+\s*名(?:様)?/gu, "")
+        .replace(/\s*[\/|｜・]\s*(\d{1,2}:\d{2}\s*[-〜~]\s*\d{1,2}:\d{2})/u, " / $1");
       return text
         .replace(/\s*[\/|｜・]\s*担当[:：].*$/u, "")
         .replace(/\s*担当[:：].*$/u, "")
         .replace(/\s*[\/|｜・]\s*$/u, "")
+        .replace(/\s{2,}/g, " ")
         .trim();
     }
 
@@ -3547,7 +3587,6 @@
 
       renderEventList(current, selectedScheduleDay);
       renderMemberScheduleList();
-      renderOperatorAssignments();
       renderArchiveSchedule();
       renderScheduleLogs();
       renderEventGuidePicker();
@@ -3596,7 +3635,6 @@
           const apiAssignments = Array.isArray(payload.mine) ? new Set(toArray(payload.mine)) : new Set();
           syncMemberAssignmentsFromSources(apiAssignments);
           renderMemberScheduleList();
-          renderOperatorAssignments();
           renderEventList(schedules[activeScheduleKey], selectedScheduleDay);
         }
       } catch (error) {
@@ -3679,16 +3717,12 @@
           setManagedVisibility(card, Boolean(card.dataset.eventGuideMain !== undefined));
         });
 
-        showElement("#operator-list", false);
         showElement("#shared-forms", false);
         showElement("#reports", false);
         showElement("#minutes", false);
         showElement("#ai", false);
         showElement("#adminCard", false);
 
-        document.querySelectorAll("[data-scroll-target='operator-list']").forEach((button) => {
-          setManagedVisibility(button, false);
-        });
       }
     }
 
@@ -3729,15 +3763,17 @@
 
       memberScheduleList.innerHTML = entries.length ? entries.map(({ group, item }) => {
         const eventId = getEventId(group, item);
-        const checked = pendingAssignments.has(eventId);
+        const candidateIds = getEventIdCandidates(group, item);
+        const legacyIds = candidateIds.filter((id) => id !== eventId);
+        const checked = candidateIds.some((id) => pendingAssignments.has(id));
         return `
           <label class="check-row">
-            <input type="checkbox" data-event-id="${escapeHtml(eventId)}" data-title="${escapeHtml(item.title)}" data-date="${group.month}/${item.day}" ${checked ? "checked" : ""}>
+            <input type="checkbox" data-event-id="${escapeHtml(eventId)}" data-candidate-ids="${escapeHtml(candidateIds.map(encodeURIComponent).join(","))}" data-legacy-ids="${escapeHtml(legacyIds.map(encodeURIComponent).join(","))}" data-title="${escapeHtml(item.title)}" data-date="${group.month}/${item.day}" ${checked ? "checked" : ""}>
             <div class="datebox">${group.month}/${item.day}</div>
             <div>
               <div class="event-title">${escapeHtml(item.title)}</div>
               <div class="event-meta">${escapeHtml(normalizeDisplayMeta(item.meta) || "詳細未入力")}</div>
-              ${renderAssignmentNames(eventId, activeMemberCategory === "meeting" ? "不参加" : "担当")}
+              ${renderAssignmentNamesForSchedule(group, item, activeMemberCategory === "meeting" ? "不参加" : "担当")}
             </div>
           </label>
         `;
@@ -3748,34 +3784,6 @@
             <div class="event-title">${activeMemberMonth}月 ${escapeHtml(getMemberCategoryLabel(activeMemberCategory))}の予定はまだありません</div>
             <div class="event-meta">スケジュール投稿後、この月とタブへ自動で振り分けます。</div>
           </div>
-        </div>
-      `;
-    }
-
-    function renderOperatorAssignments() {
-      if (!operatorAssignmentList) return;
-      const rows = getScheduleEntries()
-        .map(({ group, item }) => ({ group, item, names: assignmentMap[getEventId(group, item)] || [] }))
-        .filter((row) => row.names.length);
-
-      operatorAssignmentList.innerHTML = rows.length ? rows.map(({ group, item, names }) => {
-        const label = getMemberScheduleCategory(item) === "meeting" ? "不参加" : "担当";
-        return `
-        <div class="simple-row">
-          <div class="datebox">${group.month}/${item.day}</div>
-          <div>
-            <strong>${escapeHtml(item.title)}</strong>
-            <div class="event-meta">${escapeHtml(normalizeDisplayMeta(item.meta) || "詳細未入力")}</div>
-            <div class="assignment-names"><span class="assignment-label">${escapeHtml(label)}:</span> <span class="assignment-value">${escapeHtml(displayAssignmentNames(names).join("、"))}</span></div>
-          </div>
-          <span class="status">反映済み</span>
-        </div>
-      `;
-      }).join("") : `
-        <div class="simple-row">
-          <div class="datebox">未反映</div>
-          <div><strong>担当者チェックはまだありません</strong><div class="event-meta">個人ログイン後に運営参加チェックを入れると、ここに集約されます。</div></div>
-          <span class="status todo">待機</span>
         </div>
       `;
     }
@@ -3996,10 +4004,13 @@
     memberScheduleList?.addEventListener("change", (event) => {
       const input = event.target.closest("input[type='checkbox'][data-event-id]");
       if (!input || !currentMember) return;
+      const candidateIds = parseEncodedIdList(input.dataset.candidateIds);
+      const legacyIds = parseEncodedIdList(input.dataset.legacyIds);
       if (input.checked) {
         pendingAssignments.add(input.dataset.eventId);
+        legacyIds.forEach((eventId) => pendingAssignments.delete(eventId));
       } else {
-        pendingAssignments.delete(input.dataset.eventId);
+        candidateIds.forEach((eventId) => pendingAssignments.delete(eventId));
       }
       updateAssignmentSaveState();
       setMemberStatus(activeMemberCategory === "meeting" ? "ミーティング不参加チェックはまだ未反映です。更新してください。" : "チェック内容はまだ未反映です。参加チェックを更新してください。");
@@ -4057,7 +4068,6 @@
         });
         renderSchedule(activeScheduleKey);
         renderMemberScheduleList();
-        renderOperatorAssignments();
         setMemberStatus("参加チェックを更新しました。");
       } catch (error) {
         pendingAssignments = new Set(userAssignments);
@@ -4737,7 +4747,6 @@ https://drive.google.com/drive/folders/1HQpyzjkAMPFJKCc8WjosxWVqH2KSukJD?usp=sha
       "quick-more": ["quick"],
       schedule: ["schedule"],
       "schedule-events": ["schedule"],
-      operators: ["operator-list"],
       forms: ["event-info"],
       member: ["member-portal"],
       lineworks: ["lineworks"],

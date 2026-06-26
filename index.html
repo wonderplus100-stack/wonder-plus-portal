@@ -4190,6 +4190,12 @@
       return [...scheduleTokens].some((token) => token.length > 1 && guideTokens.has(token));
     }
 
+    function getGuideUpdatedTime(guide) {
+      const value = guide?.updatedAt || guide?.createdAt || guide?.timestamp || guide?.["タイムスタンプ"] || "";
+      const time = Date.parse(String(value || ""));
+      return Number.isNaN(time) ? 0 : time;
+    }
+
     function mergeEventGuideDocuments(...groups) {
       const seen = new Set();
       return groups.flat().filter((guide) => {
@@ -4205,14 +4211,16 @@
       const title = item.title;
       const month = Number(group.month);
       const category = getMemberScheduleCategory(item);
-      return eventGuideDocuments.find((guide) => {
+      return eventGuideDocuments
+        .filter((guide) => {
         const guideTitle = guide.title || guide.eventName || guide.name || guide.fileName;
         const guideMonth = Number(guide.month || guide.eventMonth || 0);
         const guideCategory = String(guide.category || guide.brand || "").toLowerCase();
         const monthMatches = !guideMonth || guideMonth === month;
         const categoryMatches = !guideCategory || guideCategory.includes(category) || guideCategory.includes(activeGuideBrand.toLowerCase());
         return monthMatches && categoryMatches && guideTitleMatchesSchedule(title, guideTitle);
-      });
+      })
+        .sort((a, b) => getGuideUpdatedTime(b) - getGuideUpdatedTime(a))[0];
     }
 
     function getGuideBodyText(guide) {

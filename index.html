@@ -4143,6 +4143,53 @@
         .toLowerCase();
     }
 
+    const guideTitleAliasGroups = [
+      ["北九州", "小倉", "kitakyusyu", "kitakyushu", "kokura"],
+      ["福岡", "博多", "fukuoka", "hakata"],
+      ["熊本", "kumamoto"],
+      ["銀座", "ginza"],
+      ["新宿", "shinjuku"],
+      ["名古屋", "nagoya"],
+      ["大阪", "osaka"],
+      ["広島", "hiroshima"],
+      ["京都", "kyoto"],
+      ["神戸", "kobe"],
+      ["横浜", "yokohama"],
+      ["船橋", "funabashi"],
+      ["仙台", "sendai"],
+      ["郡山", "koriyama"],
+      ["新潟", "niigata"],
+      ["浜松", "hamamatsu"],
+      ["久留米", "kurume"],
+      ["前橋", "maebashi"],
+      ["高崎", "takasaki"],
+      ["静岡", "shizuoka"],
+      ["札幌", "sapporo"]
+    ];
+
+    function getGuideTitleAliasTokens(value) {
+      const normalized = normalizeGuideMatchText(value);
+      const tokens = new Set([normalized]);
+      guideTitleAliasGroups.forEach((group) => {
+        const normalizedGroup = group.map(normalizeGuideMatchText);
+        if (normalizedGroup.some((token) => token && normalized.includes(token))) {
+          normalizedGroup.forEach((token) => tokens.add(token));
+        }
+      });
+      return tokens;
+    }
+
+    function guideTitleMatchesSchedule(scheduleTitle, guideTitle) {
+      const scheduleKey = normalizeGuideMatchText(scheduleTitle);
+      const guideKey = normalizeGuideMatchText(guideTitle);
+      if (!scheduleKey || !guideKey) return false;
+      if (guideKey.includes(scheduleKey) || scheduleKey.includes(guideKey)) return true;
+
+      const scheduleTokens = getGuideTitleAliasTokens(scheduleTitle);
+      const guideTokens = getGuideTitleAliasTokens(guideTitle);
+      return [...scheduleTokens].some((token) => token.length > 1 && guideTokens.has(token));
+    }
+
     function mergeEventGuideDocuments(...groups) {
       const seen = new Set();
       return groups.flat().filter((guide) => {
@@ -4155,16 +4202,16 @@
     }
 
     function findDriveEventGuide(group, item) {
-      const title = normalizeGuideMatchText(item.title);
+      const title = item.title;
       const month = Number(group.month);
       const category = getMemberScheduleCategory(item);
       return eventGuideDocuments.find((guide) => {
-        const guideTitle = normalizeGuideMatchText(guide.title || guide.eventName || guide.name || guide.fileName);
+        const guideTitle = guide.title || guide.eventName || guide.name || guide.fileName;
         const guideMonth = Number(guide.month || guide.eventMonth || 0);
         const guideCategory = String(guide.category || guide.brand || "").toLowerCase();
         const monthMatches = !guideMonth || guideMonth === month;
         const categoryMatches = !guideCategory || guideCategory.includes(category) || guideCategory.includes(activeGuideBrand.toLowerCase());
-        return monthMatches && categoryMatches && (guideTitle.includes(title) || title.includes(guideTitle));
+        return monthMatches && categoryMatches && guideTitleMatchesSchedule(title, guideTitle);
       });
     }
 

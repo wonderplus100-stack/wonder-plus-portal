@@ -4587,6 +4587,7 @@ https://drive.google.com/drive/folders/1HQpyzjkAMPFJKCc8WjosxWVqH2KSukJD?usp=sha
         message
       });
       if (!payload?.ok) throw new Error(payload?.message || "共有掲示板へ投稿できませんでした。");
+      if (!payload.post) throw new Error("共有掲示板APIがまだ更新されていません。");
       return payload.post ? normalizeBoardPost(payload.post) : null;
     }
 

@@ -2744,7 +2744,7 @@
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z"></path><path d="M8 9h8"></path><path d="M8 13h5"></path></svg>
                 共有掲示板
               </div>
-              <span class="badge">Apps Script連携用</span>
+              <span class="badge">全体共有</span>
             </div>
             <div class="board-compose">
               <textarea id="boardMessage" placeholder="共有したい内容を入力"></textarea>
@@ -2755,7 +2755,7 @@
               <input class="board-file-input" id="boardFiles" type="file" accept="image/*,video/*" multiple>
               <div class="board-preview" id="boardPreview" aria-live="polite"></div>
               <div class="board-actions">
-                <div class="board-note">画像・動画はポータル本体ではなくGoogle Driveに保存し、掲示板にはDriveリンクを表示する設計が安全です。</div>
+                <div class="board-note">投稿本文は全体共有されます。画像・動画は無料枠を安定させるため、Driveリンクで共有してください。</div>
                 <button class="member-button primary" type="button" id="boardSubmit">共有掲示板に投稿</button>
               </div>
             </div>
@@ -4532,20 +4532,31 @@ https://drive.google.com/drive/folders/1HQpyzjkAMPFJKCc8WjosxWVqH2KSukJD?usp=sha
       localStorage.setItem("wonderBoardPosts", JSON.stringify(posts.slice(0, 30)));
     }
 
-    function renderBoardPosts() {
+    let boardPostsCache = [];
+
+    function normalizeBoardPost(post) {
+      return {
+        name: post?.name || "投稿者",
+        message: post?.message || "",
+        files: Array.isArray(post?.files) ? post.files : [],
+        createdAt: post?.createdAt || ""
+      };
+    }
+
+    function renderBoardPosts(posts = boardPostsCache) {
       if (!boardFeed) return;
-      const posts = getStoredBoardPosts();
-      const sampleRows = `
+      const visiblePosts = posts.length ? posts : getStoredBoardPosts();
+      const emptyRows = `
         <div class="board-row">
-          <div class="board-meta"><strong>運営</strong><span>サンプル</span></div>
-          <div>共有掲示板はApps Script WebアプリURLを設定後、Drive保存・複数端末共有に切り替えできます。</div>
+          <div class="board-meta"><strong>共有掲示板</strong><span>投稿待ち</span></div>
+          <div>まだ投稿はありません。メッセージを投稿すると、他の承認済みアカウントにも表示されます。</div>
         </div>
         <div class="board-row">
-          <div class="board-meta"><strong>素材共有</strong><span>Drive保存推奨</span></div>
-          <div>動画ファイルはサイズが大きくなりやすいため、Driveに保存してリンクを掲示板に表示する運用が無料枠では安全です。</div>
+          <div class="board-meta"><strong>画像・動画</strong><span>Drive推奨</span></div>
+          <div>画像や動画はGoogle Driveへ保存し、本文に共有リンクを貼る運用が無料枠では安定します。</div>
         </div>
       `;
-      boardFeed.innerHTML = posts.length ? posts.map((post) => `
+      boardFeed.innerHTML = visiblePosts.length ? visiblePosts.map((post) => `
         <div class="board-row">
           <div class="board-meta">
             <strong>${escapeHtml(post.name || "投稿者")}</strong>
@@ -4554,7 +4565,29 @@ https://drive.google.com/drive/folders/1HQpyzjkAMPFJKCc8WjosxWVqH2KSukJD?usp=sha
           <div>${escapeHtml(post.message || "").replace(/\n/g, "<br>")}</div>
           ${renderBoardAttachments(post.files || [])}
         </div>
-      `).join("") : sampleRows;
+      `).join("") : emptyRows;
+    }
+
+    async function loadSharedBoardPosts() {
+      if (!boardFeed) return;
+      try {
+        const payload = await callPortalAction("boardPosts");
+        if (!payload?.ok || !Array.isArray(payload.posts)) throw new Error(payload?.message || "掲示板を読み込めませんでした。");
+        boardPostsCache = payload.posts.map(normalizeBoardPost);
+        renderBoardPosts(boardPostsCache);
+      } catch (error) {
+        renderBoardPosts(getStoredBoardPosts());
+      }
+    }
+
+    async function createSharedBoardPost(message) {
+      const payload = await callPortalAction("createBoardPost", {
+        token: localStorage.getItem("wonderMemberToken") || "",
+        name: currentMember?.name || "",
+        message
+      });
+      if (!payload?.ok) throw new Error(payload?.message || "共有掲示板へ投稿できませんでした。");
+      return payload.post ? normalizeBoardPost(payload.post) : null;
     }
 
     function renderBoardAttachments(files) {
@@ -4614,18 +4647,27 @@ https://drive.google.com/drive/folders/1HQpyzjkAMPFJKCc8WjosxWVqH2KSukJD?usp=sha
       try {
         setButtonBusy(boardSubmit, true, "投稿中");
         const files = await getSelectedBoardAttachments();
-        const posts = getStoredBoardPosts();
-        posts.unshift({
-          name: currentMember?.name || "ポータル利用者",
-          message,
-          files,
-          createdAt: new Date().toLocaleString("ja-JP", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" })
-        });
-        saveStoredBoardPosts(posts);
+        if (files.length && boardPreview) {
+          boardPreview.innerHTML = `<div class="member-status">画像・動画はDriveリンクを本文に貼る形で共有してください。今回は本文を全体共有します。</div>`;
+        }
+        try {
+          const post = await createSharedBoardPost(message || "画像・動画を共有しました。Driveリンクを追記してください。");
+          if (post) boardPostsCache.unshift(post);
+          await loadSharedBoardPosts();
+        } catch (sharedError) {
+          const posts = getStoredBoardPosts();
+          posts.unshift({
+            name: currentMember?.name || "ポータル利用者",
+            message,
+            files,
+            createdAt: new Date().toLocaleString("ja-JP", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" })
+          });
+          saveStoredBoardPosts(posts);
+          renderBoardPosts(posts);
+          if (boardPreview) boardPreview.innerHTML = `<div class="member-status">共有API未反映のため、この端末内に一時保存しました。Apps Script更新後に全体共有されます。</div>`;
+        }
         boardMessage.value = "";
         if (boardFiles) boardFiles.value = "";
-        if (boardPreview) boardPreview.innerHTML = "";
-        renderBoardPosts();
       } catch (error) {
         if (boardPreview) boardPreview.innerHTML = `<div class="member-status">${escapeHtml(error.message)}</div>`;
       } finally {
@@ -4673,7 +4715,7 @@ https://drive.google.com/drive/folders/1HQpyzjkAMPFJKCc8WjosxWVqH2KSukJD?usp=sha
     resetButton?.addEventListener("click", handlePasswordReset);
     boardFiles?.addEventListener("change", renderBoardPreview);
     boardSubmit?.addEventListener("click", handleBoardSubmit);
-    renderBoardPosts();
+    loadSharedBoardPosts();
 
     document.querySelectorAll(".is-pending[href='#']").forEach((link) => {
       link.addEventListener("click", (event) => event.preventDefault());

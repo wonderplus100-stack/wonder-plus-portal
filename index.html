@@ -3760,6 +3760,12 @@
       return "";
     }
 
+    function getWonderDefaultDurationMinutes(item) {
+      const source = `${item?.title || ""} ${item?.meta || ""}`.normalize("NFKC");
+      if (/story/i.test(source)) return 120;
+      return 90;
+    }
+
     function formatScheduleDisplayMeta(item, group = null) {
       const explicitRange = [
         item?.timeRange,
@@ -3784,7 +3790,7 @@
       if (!start) return normalized;
       const guideRange = findGuideTimeRangeForSchedule(group, item);
       if (guideRange && guideRange.startsWith(start[1])) return guideRange;
-      const end = addMinutesToClock(start[1], 90);
+      const end = addMinutesToClock(start[1], getWonderDefaultDurationMinutes(item));
       const suffix = String(start[2] || "").trim();
       return `${start[1]}-${end}${suffix ? ` ${suffix}` : ""}`;
     }

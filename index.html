@@ -3588,7 +3588,7 @@
           <div class="datebox">${month}/${item.day}</div>
           <div>
             <div class="event-title">${escapeHtml(item.title)}</div>
-            <div class="event-meta">${escapeHtml(formatScheduleDisplayMeta(item) || "詳細未入力")}</div>
+            <div class="event-meta">${escapeHtml(formatScheduleDisplayMeta(item, current) || "詳細未入力")}</div>
             ${renderAssignmentNamesForSchedule(current, item, getMemberScheduleCategory(item) === "meeting" ? "不参加" : "担当", { showEmpty: true })}
           </div>
         </div>
@@ -3633,7 +3633,7 @@
           ${rows.map(({ group, item }) => `
             <div class="schedule-log-row">
               <time>${group.month}/${item.day}</time>
-              <div><strong>${escapeHtml(item.title)}</strong><br>${escapeHtml(formatScheduleDisplayMeta(item) || "詳細未入力")}</div>
+              <div><strong>${escapeHtml(item.title)}</strong><br>${escapeHtml(formatScheduleDisplayMeta(item, group) || "詳細未入力")}</div>
             </div>
           `).join("")}
         </details>
@@ -3720,7 +3720,60 @@
         .trim();
     }
 
-    function formatScheduleDisplayMeta(item) {
+    function normalizeTimeRangeText(value) {
+      const text = String(value || "");
+      const range = text.match(/(\d{1,2}:\d{2})\s*[-〜~ー－–—]\s*(\d{1,2}:\d{2})/);
+      if (range) return `${range[1]}-${range[2]}`;
+      const fromTo = text.match(/(\d{1,2}:\d{2})\s*(?:から|より|〜|～)\s*(\d{1,2}:\d{2})/);
+      if (fromTo) return `${fromTo[1]}-${fromTo[2]}`;
+      return "";
+    }
+
+    function findGuideTimeRangeForSchedule(group, item) {
+      if (!group || !item || !Array.isArray(eventGuideDocuments)) return "";
+      const month = Number(group.month);
+      const category = getMemberScheduleCategory(item);
+      const matchingGuides = eventGuideDocuments.filter((guide) => {
+        const guideTitle = guide.title || guide.eventName || guide.name || guide.fileName;
+        const guideMonth = Number(guide.month || guide.eventMonth || 0);
+        const guideCategory = String(guide.category || guide.brand || "").toLowerCase();
+        const monthMatches = !guideMonth || guideMonth === month;
+        const categoryMatches = !guideCategory || guideCategory.includes(category);
+        return monthMatches && categoryMatches && guideTitleMatchesSchedule(item.title, guideTitle);
+      });
+      for (const guide of matchingGuides) {
+        const candidates = [
+          guide.timeRange,
+          guide.eventTime,
+          guide.startEndTime,
+          guide.dateTime,
+          guide.eventDateTime,
+          guide.datetime,
+          guide["開催日時"],
+          guide["日時"],
+          guide["時間"],
+          getGuideBodyText(guide)
+        ];
+        const range = candidates.map(normalizeTimeRangeText).find(Boolean);
+        if (range) return range;
+      }
+      return "";
+    }
+
+    function formatScheduleDisplayMeta(item, group = null) {
+      const explicitRange = [
+        item?.timeRange,
+        item?.eventTime,
+        item?.startEndTime,
+        item?.dateTime,
+        item?.eventDateTime,
+        item?.datetime,
+        item?.["開催日時"],
+        item?.["日時"],
+        item?.["時間"]
+      ].map(normalizeTimeRangeText).find(Boolean);
+      if (explicitRange) return explicitRange;
+      if (item?.startTime && item?.endTime) return `${item.startTime}-${item.endTime}`;
       const normalized = stripScheduleCapacity(normalizeDisplayMeta(item?.meta));
       if (!normalized) return "";
       if (/\d{1,2}:\d{2}\s*[-〜~]\s*\d{1,2}:\d{2}/.test(normalized)) {
@@ -3729,6 +3782,8 @@
       if (getMemberScheduleCategory(item) !== "wonder") return normalized;
       const start = normalized.match(/^(\d{1,2}:\d{2})(.*)$/);
       if (!start) return normalized;
+      const guideRange = findGuideTimeRangeForSchedule(group, item);
+      if (guideRange && guideRange.startsWith(start[1])) return guideRange;
       const end = addMinutesToClock(start[1], 90);
       const suffix = String(start[2] || "").trim();
       return `${start[1]}-${end}${suffix ? ` ${suffix}` : ""}`;
@@ -3981,7 +4036,7 @@
             <div class="datebox">${group.month}/${item.day}</div>
             <div>
               <div class="event-title">${escapeHtml(item.title)}</div>
-              <div class="event-meta">${escapeHtml(formatScheduleDisplayMeta(item) || "詳細未入力")}</div>
+              <div class="event-meta">${escapeHtml(formatScheduleDisplayMeta(item, group) || "詳細未入力")}</div>
               ${renderAssignmentNamesForSchedule(group, item, activeMemberCategory === "meeting" ? "不参加" : "担当")}
             </div>
           </label>
@@ -4743,7 +4798,7 @@
     function buildDriveEventGuideBody(guide, group, item) {
       const body = getGuideBodyText(guide);
       const materialUrl = getGuideMaterialUrl(guide);
-      const dateLine = `${group.month}月${item.day}日 ${formatScheduleDisplayMeta(item) || "詳細未入力"}`;
+      const dateLine = `${group.month}月${item.day}日 ${formatScheduleDisplayMeta(item, group) || "詳細未入力"}`;
       return `【イベント名】${guide.title || guide.eventName || item.title}
 【開催日時】${dateLine}
 【案内文】
@@ -4755,7 +4810,7 @@ ${materialUrl || "素材URLはDrive抽出データに未登録です。"}`;
 
     function buildEventGuideBody(group, item) {
       const date = `${group.month}月${item.day}日`;
-      const detail = formatScheduleDisplayMeta(item) || "詳細未入力";
+      const detail = formatScheduleDisplayMeta(item, group) || "詳細未入力";
       return `【イベント名】${item.title}
 【開催日時】${date} ${detail}
 【案内文】

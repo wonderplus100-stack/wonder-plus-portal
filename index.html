@@ -5168,6 +5168,78 @@ https://drive.google.com/drive/folders/1HQpyzjkAMPFJKCc8WjosxWVqH2KSukJD?usp=sha
       }).filter((row) => row.body || row.title);
     }
 
+    function buildMinutesDetailHtml(row) {
+      const title = escapeHtml(row?.title || "議事録");
+      const dateLabel = escapeHtml(row?.dateLabel || "");
+      const categoryLabel = escapeHtml(row?.categoryLabel || "");
+      const body = escapeHtml(row?.body || "本文未入力");
+      return `<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${title}</title>
+  <style>
+    :root{--bg:#eef4f8;--panel:#fff;--line:#dfe8f0;--text:#172536;--muted:#627487;--blue:#1f6f9f;--blue-soft:#e8f4fb}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",sans-serif;line-height:1.8;color:var(--text);background:var(--bg)}
+    .page{width:min(960px,calc(100% - 32px));margin:0 auto;padding:28px 0 40px}
+    .hero{border:1px solid var(--line);border-radius:8px;background:linear-gradient(135deg,#fff 0%,#f5fbff 100%);padding:20px;margin-bottom:14px}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--blue);background:var(--blue-soft);border:1px solid #cfe5f4;border-radius:999px;padding:4px 10px;font-size:13px;font-weight:700;margin-bottom:12px}
+    h1{margin:0;font-size:clamp(22px,3.8vw,34px);line-height:1.35;letter-spacing:0}
+    .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;color:var(--muted);font-size:14px}
+    .pill{border:1px solid var(--line);border-radius:999px;background:#fff;padding:4px 10px}
+    .panel{border:1px solid var(--line);border-radius:8px;background:var(--panel);overflow:hidden;box-shadow:0 16px 32px rgba(31,55,74,.08)}
+    .panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line);background:#fbfdff;font-weight:800}
+    .content{white-space:pre-wrap;padding:18px;font-size:15px;overflow-wrap:anywhere}
+    .actions{display:flex;justify-content:flex-end;gap:10px;margin-top:14px}
+    button{border:1px solid #bdd8ea;border-radius:8px;background:var(--blue);color:#fff;font:inherit;font-weight:800;padding:10px 14px;cursor:pointer}
+    button.secondary{background:#fff;color:var(--blue)}
+    @media (max-width:640px){.page{width:min(100% - 20px,960px);padding-top:12px}.hero,.content{padding:14px}.panel-head,.actions{align-items:stretch;flex-direction:column}button{width:100%}}
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="eyebrow">Wonder+ Portal / 議事録</div>
+      <h1>${title}</h1>
+      <div class="meta"><span class="pill">${dateLabel || "日付未入力"}</span><span class="pill">${categoryLabel || "カテゴリ未設定"}</span></div>
+    </section>
+    <section class="panel">
+      <div class="panel-head"><span>議事録本文</span><span>${dateLabel}</span></div>
+      <div class="content" id="minutesBody">${body}</div>
+    </section>
+    <div class="actions">
+      <button class="secondary" type="button" onclick="window.print()">印刷</button>
+      <button type="button" onclick="navigator.clipboard&&navigator.clipboard.writeText(document.getElementById('minutesBody').innerText)">本文をコピー</button>
+    </div>
+  </main>
+</body>
+</html>`;
+    }
+
+    async function renderMinutesDetailPage() {
+      document.body.innerHTML = '<main class="page-shell"><section class="section-card"><div class="section-head"><h2>議事録を読み込み中</h2></div><div class="simple-row"><div class="datebox">...</div><div><strong>議事録データを取得しています</strong><div class="event-meta">少し待ってから表示されます。</div></div></div></section></main>';
+      try {
+        const payload = await callPortalAction("minutes");
+        const rows = normalizeMinutesRows(payload);
+        const id = queryParams.get("id") || "";
+        const row = rows.find((item) => String(item.id) === id) || rows[0];
+        document.open();
+        document.write(buildMinutesDetailHtml(row));
+        document.close();
+      } catch (error) {
+        document.open();
+        document.write(buildMinutesDetailHtml({
+          title: "議事録を表示できませんでした",
+          dateLabel: "",
+          categoryLabel: "読み込みエラー",
+          body: `議事録データの取得に失敗しました。\n\n${error.message || error}`
+        }));
+        document.close();
+      }
+    }
+
     function renderMinutesRows(rows) {
       const list = document.querySelector("#minutesList");
       if (!list) return;
@@ -5197,10 +5269,11 @@ https://drive.google.com/drive/folders/1HQpyzjkAMPFJKCc8WjosxWVqH2KSukJD?usp=sha
             window.open(row.url, "_blank", "noopener,noreferrer");
             return;
           }
-          const detail = window.open("", "_blank", "noopener,noreferrer");
-          if (!detail) return;
-          detail.document.write(`<!doctype html><html lang="ja"><head><meta charset="utf-8"><title>${escapeHtml(row.title)}</title><style>body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.8;color:#182433;padding:28px;max-width:860px;margin:auto}pre{white-space:pre-wrap;background:#f6f8fb;border:1px solid #dce5ee;border-radius:10px;padding:18px}.meta{color:#617184;margin-bottom:16px}</style></head><body><h1>${escapeHtml(row.title)}</h1><div class="meta">${escapeHtml(row.dateLabel)} / ${escapeHtml(row.categoryLabel)}</div><pre>${escapeHtml(row.body || "本文未入力")}</pre></body></html>`);
-          detail.document.close();
+          const detailParams = new URLSearchParams(window.location.search);
+          detailParams.set("view", "minutes-detail");
+          detailParams.set("id", row.id);
+          detailParams.delete("login");
+          window.open(`${window.location.pathname}?${detailParams.toString()}`, "_blank", "noopener,noreferrer");
         });
       });
     }
@@ -5254,60 +5327,64 @@ https://drive.google.com/drive/folders/1HQpyzjkAMPFJKCc8WjosxWVqH2KSukJD?usp=sha
     resetButton?.addEventListener("click", handlePasswordReset);
     boardFiles?.addEventListener("change", renderBoardPreview);
     boardSubmit?.addEventListener("click", handleBoardSubmit);
-    loadSharedBoardPosts();
-    loadMinutesRows();
+    if (queryParams.get("view") === "minutes-detail") {
+      renderMinutesDetailPage();
+    } else {
+      loadSharedBoardPosts();
+      loadMinutesRows();
 
-    document.querySelectorAll(".is-pending[href='#']").forEach((link) => {
-      link.addEventListener("click", (event) => event.preventDefault());
-    });
-
-    const filter = document.querySelector("#filter");
-    const quickTiles = [...document.querySelectorAll("#quickGrid .tile")];
-    filter.addEventListener("input", () => {
-      const q = filter.value.trim().toLowerCase();
-      quickTiles.forEach((tile) => {
-        tile.classList.toggle("hidden", q && !tile.textContent.toLowerCase().includes(q));
+      document.querySelectorAll(".is-pending[href='#']").forEach((link) => {
+        link.addEventListener("click", (event) => event.preventDefault());
       });
-    });
 
-    const splitViews = {
-      launch: [],
-      quick: ["quick"],
-      "quick-more": ["quick"],
-      schedule: ["schedule"],
-      "schedule-events": ["schedule"],
-      forms: ["event-info"],
-      member: ["member-portal"],
-      lineworks: ["lineworks"],
-      event: ["event-info"],
-      "event-guides": ["event-info"],
-      board: ["shared-board"],
-      media: ["media-share"],
-      prepare: ["prepare"],
-      mindset: ["mindset"],
-      reports: ["reports"],
-      minutes: ["minutes"],
-      "minutes-more": ["minutes"],
-      ai: ["ai"]
-    };
-
-    function applySplitView() {
-      const view = new URLSearchParams(window.location.search).get("view");
-      const ids = splitViews[view];
-      if (!ids) return;
-      document.body.classList.add("split-mode");
-      document.body.classList.add(`view-${view}`);
-      if (view === "launch") document.body.classList.add("launch-mode");
-      document.querySelectorAll(".panel").forEach((panel) => {
-        panel.classList.toggle("is-split-visible", ids.includes(panel.id));
+      const filter = document.querySelector("#filter");
+      const quickTiles = [...document.querySelectorAll("#quickGrid .tile")];
+      filter.addEventListener("input", () => {
+        const q = filter.value.trim().toLowerCase();
+        quickTiles.forEach((tile) => {
+          tile.classList.toggle("hidden", q && !tile.textContent.toLowerCase().includes(q));
+        });
       });
+
+      const splitViews = {
+        launch: [],
+        quick: ["quick"],
+        "quick-more": ["quick"],
+        schedule: ["schedule"],
+        "schedule-events": ["schedule"],
+        forms: ["event-info"],
+        member: ["member-portal"],
+        lineworks: ["lineworks"],
+        event: ["event-info"],
+        "event-guides": ["event-info"],
+        board: ["shared-board"],
+        media: ["media-share"],
+        prepare: ["prepare"],
+        mindset: ["mindset"],
+        reports: ["reports"],
+        minutes: ["minutes"],
+        "minutes-more": ["minutes"],
+        ai: ["ai"]
+      };
+
+      function applySplitView() {
+        const view = new URLSearchParams(window.location.search).get("view");
+        const ids = splitViews[view];
+        if (!ids) return;
+        document.body.classList.add("split-mode");
+        document.body.classList.add(`view-${view}`);
+        if (view === "launch") document.body.classList.add("launch-mode");
+        document.querySelectorAll(".panel").forEach((panel) => {
+          panel.classList.toggle("is-split-visible", ids.includes(panel.id));
+        });
+      }
+
+      loadRememberedLoginFields();
+      loadSchedules();
+      restoreMemberSession();
+      window.setInterval(loadSchedules, 5 * 60 * 1000);
+      applySplitView();
     }
-
-    loadRememberedLoginFields();
-    loadSchedules();
-    restoreMemberSession();
-    window.setInterval(loadSchedules, 5 * 60 * 1000);
-    applySplitView();
     </script>
     <script>
       (function () {

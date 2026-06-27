@@ -3516,7 +3516,7 @@
           <div class="datebox">${month}/${item.day}</div>
           <div>
             <div class="event-title">${escapeHtml(item.title)}</div>
-            <div class="event-meta">${escapeHtml(normalizeDisplayMeta(item.meta) || "詳細未入力")}</div>
+            <div class="event-meta">${escapeHtml(formatScheduleDisplayMeta(item) || "詳細未入力")}</div>
             ${renderAssignmentNamesForSchedule(current, item, getMemberScheduleCategory(item) === "meeting" ? "不参加" : "担当", { showEmpty: true })}
           </div>
         </div>
@@ -3561,7 +3561,7 @@
           ${rows.map(({ group, item }) => `
             <div class="schedule-log-row">
               <time>${group.month}/${item.day}</time>
-              <div><strong>${escapeHtml(item.title)}</strong><br>${escapeHtml(normalizeDisplayMeta(item.meta) || "詳細未入力")}</div>
+              <div><strong>${escapeHtml(item.title)}</strong><br>${escapeHtml(formatScheduleDisplayMeta(item) || "詳細未入力")}</div>
             </div>
           `).join("")}
         </details>
@@ -3629,6 +3629,37 @@
         .replace(/\s*[\/|｜・]\s*$/u, "")
         .replace(/\s{2,}/g, " ")
         .trim();
+    }
+
+    function addMinutesToClock(time, minutes) {
+      const match = String(time || "").match(/^(\d{1,2}):(\d{2})$/);
+      if (!match) return "";
+      const total = Number(match[1]) * 60 + Number(match[2]) + minutes;
+      const hour = Math.floor((total % (24 * 60)) / 60);
+      const minute = total % 60;
+      return `${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}`;
+    }
+
+    function stripScheduleCapacity(text) {
+      return String(text || "")
+        .replace(/\s*[\/|,、]\s*(?:合計)?\d+\s*(?:名|人|席|枠|\?)+\s*(?:様)?/gu, "")
+        .replace(/\s*(?:合計)?\d+\s*(?:名|人|席|枠|\?)+\s*(?:様)?/gu, "")
+        .replace(/\s*[\/|,、]\s*$/u, "")
+        .trim();
+    }
+
+    function formatScheduleDisplayMeta(item) {
+      const normalized = stripScheduleCapacity(normalizeDisplayMeta(item?.meta));
+      if (!normalized) return "";
+      if (/\d{1,2}:\d{2}\s*[-〜~]\s*\d{1,2}:\d{2}/.test(normalized)) {
+        return normalized.replace(/[〜~]/g, "-");
+      }
+      if (getMemberScheduleCategory(item) !== "wonder") return normalized;
+      const start = normalized.match(/^(\d{1,2}:\d{2})(.*)$/);
+      if (!start) return normalized;
+      const end = addMinutesToClock(start[1], 90);
+      const suffix = String(start[2] || "").trim();
+      return `${start[1]}-${end}${suffix ? ` ${suffix}` : ""}`;
     }
 
     function getMemberScheduleCategory(item) {
@@ -3878,7 +3909,7 @@
             <div class="datebox">${group.month}/${item.day}</div>
             <div>
               <div class="event-title">${escapeHtml(item.title)}</div>
-              <div class="event-meta">${escapeHtml(normalizeDisplayMeta(item.meta) || "詳細未入力")}</div>
+              <div class="event-meta">${escapeHtml(formatScheduleDisplayMeta(item) || "詳細未入力")}</div>
               ${renderAssignmentNamesForSchedule(group, item, activeMemberCategory === "meeting" ? "不参加" : "担当")}
             </div>
           </label>
@@ -4530,7 +4561,7 @@
     function buildDriveEventGuideBody(guide, group, item) {
       const body = getGuideBodyText(guide);
       const materialUrl = getGuideMaterialUrl(guide);
-      const dateLine = `${group.month}月${item.day}日 ${normalizeDisplayMeta(item.meta) || "詳細未入力"}`;
+      const dateLine = `${group.month}月${item.day}日 ${formatScheduleDisplayMeta(item) || "詳細未入力"}`;
       return `【イベント名】${guide.title || guide.eventName || item.title}
 【開催日時】${dateLine}
 【案内文】
@@ -4542,7 +4573,7 @@ ${materialUrl || "素材URLはDrive抽出データに未登録です。"}`;
 
     function buildEventGuideBody(group, item) {
       const date = `${group.month}月${item.day}日`;
-      const detail = normalizeDisplayMeta(item.meta) || "詳細未入力";
+      const detail = formatScheduleDisplayMeta(item) || "詳細未入力";
       return `【イベント名】${item.title}
 【開催日時】${date} ${detail}
 【案内文】

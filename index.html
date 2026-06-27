@@ -1461,6 +1461,32 @@
       white-space: pre-wrap;
     }
 
+    .venue-address-list {
+      display: grid;
+      gap: 10px;
+      white-space: normal;
+    }
+
+    .venue-address-card {
+      display: grid;
+      gap: 4px;
+      padding: 12px;
+      border: 1px solid #d9e5ee;
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .venue-address-card strong {
+      color: var(--ink);
+      font-size: 14px;
+    }
+
+    .venue-address-card span {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
     .event-guide-assets {
       display: grid;
       gap: 12px;
@@ -2483,6 +2509,7 @@
                 <button class="tab-button is-active" type="button" data-guide-month="6">6月</button>
                 <button class="tab-button" type="button" data-guide-month="7">7月</button>
                 <button class="tab-button" type="button" data-guide-month="8">8月</button>
+                <button class="tab-button" type="button" data-guide-venues>会場住所一覧</button>
               </div>
               <div class="event-guide-picker">
                 <label>イベントを選択
@@ -2847,6 +2874,7 @@
     const eventGuideMeta = document.querySelector("#eventGuideMeta");
     const eventGuideBody = document.querySelector("#eventGuideBody");
     const eventGuideAssets = document.querySelector("#eventGuideAssets");
+    const eventGuidePicker = document.querySelector(".event-guide-picker");
     const queryParams = new URLSearchParams(window.location.search);
     const authRequired = queryParams.get("view") === "member";
     const forceLogin = queryParams.get("login") === "1";
@@ -2860,6 +2888,24 @@
     let activeMemberMonth = 6;
     let activeGuideMonth = 6;
     let activeGuideBrand = "wonder";
+    let activeGuideMode = "guide";
+    const venueAddresses = [
+      { area: "東京都 / 新宿会場", address: "新宿区西新宿1-19-5 新宿幸容ビル4階", venue: "コンファレンス東京" },
+      { area: "東京都 / 有楽町会場", address: "千代田区有楽町1-2-14 紫ビル8階", venue: "ホワイトキー銀座" },
+      { area: "神奈川県 / 横浜会場", address: "横浜市西区南幸2-8-9 ブライト横浜ビル8階", venue: "横浜コンファレンスホール" },
+      { area: "群馬県 / 高崎・前橋会場", address: "前橋市表町2丁目30-8", venue: "アエルレンタル会議室" },
+      { area: "千葉県 / 船橋会場", address: "船橋市本町4-41-25 STAGE船橋 地下1階", venue: "CourCafe +（クォカフェプラス）" },
+      { area: "静岡県 / 静岡会場", address: "静岡市葵区七間町11-1", venue: "KOKO HOTEL 2階カンファレンスルーム" },
+      { area: "静岡県 / 浜松会場", address: "浜松市中央区旭町 えんてつ百貨店新館13階", venue: "えんてつレンタル会議室8" },
+      { area: "愛知県 / 名古屋会場", address: "名古屋市中村区名駅3丁目18-5 モンマート4階", venue: "名古屋コンファレンスホール名駅" },
+      { area: "大阪府 / 大阪会場", address: "大阪市北区梅田1丁目3-1 大阪駅前第一ビル9階", venue: "Hikari Lounge（ヒカリラウンジ）" },
+      { area: "岡山県 / 岡山会場", address: "岡山県岡山市北区柳町1丁目4-8", venue: "ヒカリホールディングス会議室E室" },
+      { area: "広島県 / 広島会場", address: "広島市中区幟町14-7", venue: "チサンホテル広島2Fカンファレンスホール" },
+      { area: "北海道 / 札幌会場", address: "北海道札幌市中央区南3条西2-6 KT三条ビル2階", venue: "札幌コンファレンスホール" },
+      { area: "福岡県 / 小倉会場", address: "福岡県北九州市小倉北区鍛治町1-9-8", venue: "ホテルテトラ北九州11階 カトレア" },
+      { area: "福岡県 / 博多会場", address: "福岡県福岡市博多区博多駅中央街5-12 博多東ビル7階", venue: "ふれあい会議室 博多（RoomNo.124）" },
+      { area: "熊本県 / 熊本会場", address: "熊本県熊本市中央区下通1-6-27 タカハマビル5階", venue: "イベントスペースStylus〈スタイラス〉" }
+    ];
     const defaultEventGuideDocuments = [
       {
         title: "Wonder＋Finance",
@@ -4261,13 +4307,31 @@
         const month = Number(tab.dataset.guideMonth);
         const hasMonthSchedule = getAllScheduleEntries().some(({ group }) => group.month === month);
         tab.hidden = !hasMonthSchedule;
-        tab.classList.toggle("is-active", month === activeGuideMonth);
+        tab.classList.toggle("is-active", activeGuideMode === "guide" && month === activeGuideMonth);
       });
+      document.querySelector("[data-guide-venues]")?.classList.toggle("is-active", activeGuideMode === "venues");
       const activeTab = document.querySelector(`[data-guide-month="${activeGuideMonth}"]:not([hidden])`);
-      if (!activeTab) {
+      if (activeGuideMode === "guide" && !activeTab) {
         const nextTab = document.querySelector("[data-guide-month]:not([hidden])");
         if (nextTab) activeGuideMonth = Number(nextTab.dataset.guideMonth);
       }
+    }
+
+    function renderVenueAddressList() {
+      if (!eventGuideTitle || !eventGuideMeta || !eventGuideBody) return;
+      eventGuideTitle.textContent = "会場住所一覧";
+      eventGuideMeta.textContent = "Wonder＋で使用する各会場の住所と会場名を一覧で確認できます。";
+      eventGuideBody.innerHTML = `
+        <div class="venue-address-list">
+          ${venueAddresses.map((item) => `
+            <div class="venue-address-card">
+              <strong>${escapeHtml(item.area)}</strong>
+              <span>${escapeHtml(item.address)}「${escapeHtml(item.venue)}」</span>
+            </div>
+          `).join("")}
+        </div>
+      `;
+      renderEventGuideAssets(null);
     }
 
     function renderEventGuidePicker() {
@@ -4276,6 +4340,13 @@
       document.querySelectorAll("[data-guide-brand]").forEach((button) => {
         button.classList.toggle("is-active", button.dataset.guideBrand === activeGuideBrand);
       });
+      if (activeGuideMode === "venues") {
+        if (eventGuidePicker) eventGuidePicker.hidden = true;
+        eventGuideSelect.innerHTML = "";
+        renderVenueAddressList();
+        return;
+      }
+      if (eventGuidePicker) eventGuidePicker.hidden = false;
       const entries = getGuideEntries();
       eventGuideSelect.innerHTML = entries.length
         ? entries.map(({ group, item }) => `<option value="${escapeHtml(getEventId(group, item))}">${group.month}/${item.day} ${escapeHtml(item.title)}</option>`).join("")
@@ -4610,13 +4681,20 @@ https://drive.google.com/drive/folders/1HQpyzjkAMPFJKCc8WjosxWVqH2KSukJD?usp=sha
 
     document.querySelectorAll("[data-guide-month]").forEach((button) => {
       button.addEventListener("click", () => {
+        activeGuideMode = "guide";
         activeGuideMonth = Number(button.dataset.guideMonth);
         renderEventGuidePicker();
       });
     });
 
+    document.querySelector("[data-guide-venues]")?.addEventListener("click", () => {
+      activeGuideMode = "venues";
+      renderEventGuidePicker();
+    });
+
     document.querySelectorAll("[data-guide-brand]").forEach((button) => {
       button.addEventListener("click", () => {
+        activeGuideMode = "guide";
         activeGuideBrand = button.dataset.guideBrand || "wonder";
         renderEventGuidePicker();
       });

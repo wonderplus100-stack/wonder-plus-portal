@@ -1469,11 +1469,18 @@
 
     .venue-address-card {
       display: grid;
-      gap: 4px;
+      gap: 8px;
       padding: 12px;
       border: 1px solid #d9e5ee;
       border-radius: 8px;
       background: #fff;
+    }
+
+    .venue-address-card-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
     }
 
     .venue-address-card strong {
@@ -1485,6 +1492,19 @@
       color: var(--muted);
       font-size: 13px;
       line-height: 1.6;
+    }
+
+    .venue-copy-button {
+      flex: 0 0 auto;
+      min-height: 30px;
+      border: 1px solid #a6c8df;
+      border-radius: 8px;
+      background: #fff;
+      color: var(--blue);
+      padding: 0 10px;
+      font-size: 12px;
+      font-weight: 900;
+      cursor: pointer;
     }
 
     .event-guide-assets {
@@ -2895,6 +2915,7 @@
       { area: "神奈川県 / 横浜会場", address: "横浜市西区南幸2-8-9 ブライト横浜ビル8階", venue: "横浜コンファレンスホール" },
       { area: "群馬県 / 高崎・前橋会場", address: "前橋市表町2丁目30-8", venue: "アエルレンタル会議室" },
       { area: "千葉県 / 船橋会場", address: "船橋市本町4-41-25 STAGE船橋 地下1階", venue: "CourCafe +（クォカフェプラス）" },
+      { area: "千葉県 / 船橋会場", address: "千葉県船橋市本町6-3-18 アイランドビル3階", venue: "ベストエフォートオフィス" },
       { area: "静岡県 / 静岡会場", address: "静岡市葵区七間町11-1", venue: "KOKO HOTEL 2階カンファレンスルーム" },
       { area: "静岡県 / 浜松会場", address: "浜松市中央区旭町 えんてつ百貨店新館13階", venue: "えんてつレンタル会議室8" },
       { area: "愛知県 / 名古屋会場", address: "名古屋市中村区名駅3丁目18-5 モンマート4階", venue: "名古屋コンファレンスホール名駅" },
@@ -2904,7 +2925,12 @@
       { area: "北海道 / 札幌会場", address: "北海道札幌市中央区南3条西2-6 KT三条ビル2階", venue: "札幌コンファレンスホール" },
       { area: "福岡県 / 小倉会場", address: "福岡県北九州市小倉北区鍛治町1-9-8", venue: "ホテルテトラ北九州11階 カトレア" },
       { area: "福岡県 / 博多会場", address: "福岡県福岡市博多区博多駅中央街5-12 博多東ビル7階", venue: "ふれあい会議室 博多（RoomNo.124）" },
-      { area: "熊本県 / 熊本会場", address: "熊本県熊本市中央区下通1-6-27 タカハマビル5階", venue: "イベントスペースStylus〈スタイラス〉" }
+      { area: "熊本県 / 熊本会場", address: "熊本県熊本市中央区下通1-6-27 タカハマビル5階", venue: "イベントスペースStylus〈スタイラス〉" },
+      { area: "福島県 / 郡山会場", address: "福島県郡山市駅前1-7-10", venue: "MARUCO EKIMAE BUILDING 4F" },
+      { area: "宮城県 / 仙台会場", address: "宮城県仙台市宮城野区榴岡四丁目1番5号", venue: "仙台ガーデンパレス5F『欅』けやき" },
+      { area: "新潟県 / 新潟会場", address: "新潟県新潟市中央区花園1丁目1-21 JR新潟駅直結 CoCoLo南館 1F", venue: "CoCoLo南館 1F" },
+      { area: "兵庫県 / 神戸会場", address: "兵庫県神戸市中央区御幸通2丁目1-10", venue: "神戸ユニオンホテル2階会議室" },
+      { area: "京都府 / 京都会場", address: "京都府京都市下京区高辻通烏丸西入骨屋町319", venue: "KOKOホテル京都四条烏丸1Fレストラン" }
     ];
     const defaultEventGuideDocuments = [
       {
@@ -4317,15 +4343,100 @@
       }
     }
 
+    function formatVenueAddress(item) {
+      return `${item.area} ${item.address}「${item.venue}」`;
+    }
+
+    function normalizeVenueMatch(value) {
+      return String(value || "")
+        .replace(/\s+/g, "")
+        .replace(/[‐‑‒–—―ー－]/g, "-")
+        .replace(/[「」『』【】\[\]（）()]/g, "")
+        .toLowerCase();
+    }
+
+    function isSameVenueAddress(current, next) {
+      const currentArea = normalizeVenueMatch(current.area);
+      const nextArea = normalizeVenueMatch(next.area);
+      const currentVenue = normalizeVenueMatch(current.venue);
+      const nextVenue = normalizeVenueMatch(next.venue);
+      const currentAddress = normalizeVenueMatch(current.address);
+      const nextAddress = normalizeVenueMatch(next.address);
+      const venueMatches = currentVenue && nextVenue && (currentVenue.includes(nextVenue) || nextVenue.includes(currentVenue));
+      const addressMatches = currentAddress && nextAddress && (currentAddress.includes(nextAddress) || nextAddress.includes(currentAddress));
+      const areaMatches = currentArea && nextArea && (currentArea.includes(nextArea) || nextArea.includes(currentArea));
+      return venueMatches || addressMatches || (areaMatches && (currentVenue.includes(nextVenue) || nextVenue.includes(currentVenue)));
+    }
+
+    function normalizeVenueAddressCandidate(candidate) {
+      if (!candidate || typeof candidate !== "object") return null;
+      const area = candidate.area || candidate.label || candidate.name || candidate.venueArea || candidate.location || "";
+      const address = candidate.address || candidate.venueAddress || candidate.locationAddress || "";
+      const venue = candidate.venue || candidate.venueName || candidate.place || candidate.placeName || candidate.title || "";
+      if (!address || !venue) return null;
+      return { area: String(area || venue).trim(), address: String(address).trim(), venue: String(venue).trim() };
+    }
+
+    function extractVenueAddressesFromText(text) {
+      const source = String(text || "");
+      const matches = [];
+      const venueBlockPattern = /【([^】]+会場)】\s*([^「」\n\r]+?)\s*「([^」]+)」/gu;
+      let match;
+      while ((match = venueBlockPattern.exec(source))) {
+        matches.push({
+          area: match[1].replace(/\s+/g, " ").trim(),
+          address: match[2].replace(/\s+/g, " ").trim(),
+          venue: match[3].replace(/\s+/g, " ").trim()
+        });
+      }
+      return matches;
+    }
+
+    function getGuideVenueCandidates() {
+      return eventGuideDocuments.flatMap((guide) => {
+        const directList = Array.isArray(guide?.venueAddresses) ? guide.venueAddresses : [];
+        const directSingle = normalizeVenueAddressCandidate(guide);
+        const textValues = [
+          guide?.body,
+          guide?.text,
+          guide?.content,
+          guide?.description,
+          guide?.guideText,
+          guide?.message,
+          guide?.案内文
+        ];
+        return [
+          ...directList.map(normalizeVenueAddressCandidate).filter(Boolean),
+          ...(directSingle ? [directSingle] : []),
+          ...textValues.flatMap(extractVenueAddressesFromText)
+        ];
+      });
+    }
+
+    function getMergedVenueAddresses() {
+      return [...venueAddresses, ...getGuideVenueCandidates()].reduce((list, item) => {
+        if (!item || list.some((current) => isSameVenueAddress(current, item))) return list;
+        list.push(item);
+        return list;
+      }, []);
+    }
+
     function renderVenueAddressList() {
       if (!eventGuideTitle || !eventGuideMeta || !eventGuideBody) return;
       eventGuideTitle.textContent = "会場住所一覧";
-      eventGuideMeta.textContent = "Wonder＋で使用する各会場の住所と会場名を一覧で確認できます。";
+      const mergedVenueAddresses = getMergedVenueAddresses();
+      const addedCount = Math.max(0, mergedVenueAddresses.length - venueAddresses.length);
+      eventGuideMeta.textContent = addedCount
+        ? `Wonder＋で使用する会場住所です。フォーム連携から${addedCount}件を自動追加しています。`
+        : "Wonder＋で使用する各会場の住所と会場名を一覧で確認できます。";
       eventGuideBody.innerHTML = `
         <div class="venue-address-list">
-          ${venueAddresses.map((item) => `
+          ${mergedVenueAddresses.map((item) => `
             <div class="venue-address-card">
-              <strong>${escapeHtml(item.area)}</strong>
+              <div class="venue-address-card-head">
+                <strong>${escapeHtml(item.area)}</strong>
+                <button class="venue-copy-button" type="button" data-copy-venue="${escapeHtml(formatVenueAddress(item))}">コピー</button>
+              </div>
               <span>${escapeHtml(item.address)}「${escapeHtml(item.venue)}」</span>
             </div>
           `).join("")}
@@ -4725,6 +4836,23 @@ https://drive.google.com/drive/folders/1HQpyzjkAMPFJKCc8WjosxWVqH2KSukJD?usp=sha
       eventGuideAssets.querySelectorAll("[data-guide-asset-thumb]").forEach((button) => {
         button.classList.toggle("is-active", button === thumb);
       });
+    });
+
+    eventGuideBody?.addEventListener("click", async (event) => {
+      const button = event.target.closest("[data-copy-venue]");
+      if (!button) return;
+      const text = button.dataset.copyVenue || "";
+      if (!text) return;
+      const original = button.textContent;
+      try {
+        await navigator.clipboard.writeText(text);
+        button.textContent = "コピー済み";
+      } catch (error) {
+        button.textContent = "コピー不可";
+      }
+      setTimeout(() => {
+        button.textContent = original;
+      }, 1200);
     });
 
     document.querySelectorAll("[data-copy-guide]").forEach((button) => {

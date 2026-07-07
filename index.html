@@ -4758,12 +4758,13 @@
 
     function normalizeGuideMatchText(value) {
       return String(value || "")
+        .normalize("NFKC")
         .replace(/\s+/g, "")
         .replace(/[＋+]/g, "+")
         .toLowerCase();
     }
 
-    const guideTitleAliasGroups = [
+    const guideVenueAliasGroups = [
       ["北九州", "小倉", "kitakyusyu", "kitakyushu", "kokura"],
       ["福岡", "博多", "fukuoka", "hakata"],
       ["熊本", "kumamoto"],
@@ -4771,26 +4772,42 @@
       ["新宿", "shinjuku"],
       ["名古屋", "nagoya"],
       ["大阪", "osaka"],
+      ["岡山", "okayama"],
       ["広島", "hiroshima"],
       ["京都", "kyoto"],
       ["神戸", "kobe"],
       ["横浜", "yokohama"],
-      ["船橋", "funabashi"],
+      ["船橋", "funabashi", "chiba"],
       ["仙台", "sendai"],
       ["郡山", "koriyama"],
-      ["新潟", "niigata"],
-      ["浜松", "hamamatsu"],
+      ["福島", "fukushima"],
+      ["新潟", "niigata", "nigata", "nigtata"],
+      ["浜松", "hamamatsu", "hamamatu"],
       ["久留米", "kurume"],
       ["前橋", "maebashi"],
       ["高崎", "takasaki"],
       ["静岡", "shizuoka"],
-      ["札幌", "sapporo"]
+      ["札幌", "sapporo"],
+      ["宇都宮", "utsunomiya", "utunomiya"]
     ];
 
-    function getGuideTitleAliasTokens(value) {
+    const guideBrandAliasGroups = [
+      ["story"],
+      ["leaders", "leader"],
+      ["ladies", "lady"],
+      ["entertainment"],
+      ["gravity"],
+      ["beauty"],
+      ["cxo"],
+      ["finance"],
+      ["executive"],
+      ["100", "100人"]
+    ];
+
+    function getGuideAliasTokens(value, aliasGroups) {
       const normalized = normalizeGuideMatchText(value);
       const tokens = new Set([normalized]);
-      guideTitleAliasGroups.forEach((group) => {
+      aliasGroups.forEach((group) => {
         const normalizedGroup = group.map(normalizeGuideMatchText);
         if (normalizedGroup.some((token) => token && normalized.includes(token))) {
           normalizedGroup.forEach((token) => tokens.add(token));
@@ -4799,15 +4816,43 @@
       return tokens;
     }
 
+    function getGuideAliasGroupIds(value, aliasGroups) {
+      const normalized = normalizeGuideMatchText(value);
+      const ids = new Set();
+      aliasGroups.forEach((group, index) => {
+        const normalizedGroup = group.map(normalizeGuideMatchText);
+        if (normalizedGroup.some((token) => token && normalized.includes(token))) {
+          ids.add(index);
+        }
+      });
+      return ids;
+    }
+
+    function hasGuideGroupIntersection(a, b) {
+      return [...a].some((id) => b.has(id));
+    }
+
     function guideTitleMatchesSchedule(scheduleTitle, guideTitle) {
       const scheduleKey = normalizeGuideMatchText(scheduleTitle);
       const guideKey = normalizeGuideMatchText(guideTitle);
       if (!scheduleKey || !guideKey) return false;
       if (guideKey.includes(scheduleKey) || scheduleKey.includes(guideKey)) return true;
 
-      const scheduleTokens = getGuideTitleAliasTokens(scheduleTitle);
-      const guideTokens = getGuideTitleAliasTokens(guideTitle);
-      return [...scheduleTokens].some((token) => token.length > 1 && guideTokens.has(token));
+      const scheduleVenueIds = getGuideAliasGroupIds(scheduleTitle, guideVenueAliasGroups);
+      const guideVenueIds = getGuideAliasGroupIds(guideTitle, guideVenueAliasGroups);
+      const scheduleBrandIds = getGuideAliasGroupIds(scheduleTitle, guideBrandAliasGroups);
+      const guideBrandIds = getGuideAliasGroupIds(guideTitle, guideBrandAliasGroups);
+      const venueMatches = hasGuideGroupIntersection(scheduleVenueIds, guideVenueIds);
+      const brandMatches = hasGuideGroupIntersection(scheduleBrandIds, guideBrandIds);
+
+      if (venueMatches) {
+        if (!scheduleBrandIds.size && guideBrandIds.size) return false;
+        return !scheduleBrandIds.size || !guideBrandIds.size || brandMatches;
+      }
+      if (scheduleBrandIds.size && guideBrandIds.size && brandMatches && !guideVenueIds.size) {
+        return true;
+      }
+      return false;
     }
 
     function getGuideUpdatedTime(guide) {

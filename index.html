@@ -4857,19 +4857,41 @@
 
     function getGuideUpdatedTime(guide) {
       const value = guide?.updatedAt || guide?.createdAt || guide?.timestamp || guide?.["タイムスタンプ"] || "";
-      const time = Date.parse(String(value || ""));
-      return Number.isNaN(time) ? 0 : time;
+      if (value instanceof Date && !Number.isNaN(value.getTime())) return value.getTime();
+      const text = String(value || "").trim();
+      const parsed = Date.parse(text);
+      if (!Number.isNaN(parsed)) return parsed;
+      const normalized = text
+        .replace(/年|\/|\./g, "-")
+        .replace(/月/g, "-")
+        .replace(/日/g, " ")
+        .replace(/（.*?）|\(.*?\)/g, "")
+        .trim();
+      const fallback = Date.parse(normalized);
+      return Number.isNaN(fallback) ? 0 : fallback;
+    }
+
+    function getGuideIdentityKey(guide) {
+      return normalizeGuideMatchText([
+        guide?.month || guide?.eventMonth || "",
+        guide?.category || guide?.brand || "",
+        guide?.title || guide?.eventName || guide?.name || guide?.fileName || "",
+        guide?.url || guide?.fileUrl || guide?.documentUrl || guide?.docUrl || ""
+      ].join("|"));
     }
 
     function mergeEventGuideDocuments(...groups) {
-      const seen = new Set();
-      return groups.flat().filter((guide) => {
-        if (!guide || typeof guide !== "object") return false;
-        const key = normalizeGuideMatchText(guide.url || guide.fileUrl || guide.title || guide.eventName || guide.name || guide.fileName);
-        if (!key || seen.has(key)) return false;
-        seen.add(key);
-        return true;
+      const map = new Map();
+      groups.flat().forEach((guide) => {
+        if (!guide || typeof guide !== "object") return;
+        const key = getGuideIdentityKey(guide);
+        if (!key) return;
+        const current = map.get(key);
+        if (!current || getGuideUpdatedTime(guide) >= getGuideUpdatedTime(current)) {
+          map.set(key, guide);
+        }
       });
+      return Array.from(map.values());
     }
 
     function findDriveEventGuide(group, item) {
@@ -4888,8 +4910,17 @@
         .sort((a, b) => getGuideUpdatedTime(b) - getGuideUpdatedTime(a))[0];
     }
 
+    function stripGuideMaterialFooter(value) {
+      return String(value || "")
+        .replace(/\r\n/g, "\n")
+        .replace(/\n{0,2}【素材】[\s\S]*$/m, "")
+        .replace(/\n{0,2}\[素材\][\s\S]*$/mi, "")
+        .replace(/\n{0,2}素材\s*[:：]\s*(?:https?:\/\/\S+|Drive|Google Drive)[\s\S]*$/mi, "")
+        .trim();
+    }
+
     function getGuideBodyText(guide) {
-      return String(
+      return stripGuideMaterialFooter(
         guide?.body ||
         guide?.text ||
         guide?.content ||
@@ -4899,7 +4930,7 @@
         guide?.["案内文"] ||
         guide?.["本文"] ||
         ""
-      ).trim();
+      );
     }
 
     function getGuideMaterialUrl(guide) {
@@ -5078,15 +5109,11 @@
 
     function buildDriveEventGuideBody(guide, group, item) {
       const body = getGuideBodyText(guide);
-      const materialUrl = getGuideMaterialUrl(guide);
       const dateLine = `${group.month}月${item.day}日 ${formatScheduleDisplayMeta(item, group) || "詳細未入力"}`;
       return `【イベント名】${guide.title || guide.eventName || item.title}
 【開催日時】${dateLine}
 【案内文】
-${body || "このイベントに紐づくDriveファイルは見つかっていますが、本文はまだ取得できていません。Googleフォームに案内本文を入力して返す、またはApps ScriptでGoogleドキュメント本文を抽出して eventGuides の本文フィールドに入れると、ここに全文が表示されます。"}
-
-【素材】
-${materialUrl || "素材URLはDrive抽出データに未登録です。"}`;
+${body || "このイベントに紐づくDriveファイルは見つかっていますが、本文はまだ取得できていません。Googleフォームに案内本文を入力して返す、またはApps ScriptでGoogleドキュメント本文を抽出して eventGuides の本文フィールドに入れると、ここに全文が表示されます。"}`;
     }
 
     function buildEventGuideBody(group, item) {
@@ -5096,11 +5123,7 @@ ${materialUrl || "素材URLはDrive抽出データに未登録です。"}`;
 【開催日時】${date} ${detail}
 【案内文】
 このイベントに紐づくDrive案内文章はまだ読み込まれていません。
-Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽出し、eventGuidesデータとして返すと、この欄に正式な案内文章が表示されます。
-
-【素材】
-Drive抽出データに素材URLが含まれると、この欄に表示されます。
-https://drive.google.com/drive/folders/1HQpyzjkAMPFJKCc8WjosxWVqH2KSukJD?usp=sharing`;
+Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽出し、eventGuidesデータとして返すと、この欄に正式な案内文章が表示されます。`;
     }
 
     function renderSelectedEventGuide() {

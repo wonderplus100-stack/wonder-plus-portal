@@ -3970,6 +3970,11 @@
         const monthMatches = !guideMonth || guideMonth === month;
         const categoryMatches = !guideCategory || guideCategory.includes(category);
         return monthMatches && categoryMatches && guideTitleMatchesSchedule(item.title, guideTitle);
+      }).sort((a, b) => {
+        const aTitle = a.title || a.eventName || a.name || a.fileName;
+        const bTitle = b.title || b.eventName || b.name || b.fileName;
+        return getGuideMatchScore(item.title, bTitle) - getGuideMatchScore(item.title, aTitle)
+          || getGuideUpdatedTime(b) - getGuideUpdatedTime(a);
       });
       for (const guide of matchingGuides) {
         const candidates = [
@@ -4832,27 +4837,55 @@
       return [...a].some((id) => b.has(id));
     }
 
-    function guideTitleMatchesSchedule(scheduleTitle, guideTitle) {
+    function getGuideMatchParts(scheduleTitle, guideTitle) {
       const scheduleKey = normalizeGuideMatchText(scheduleTitle);
       const guideKey = normalizeGuideMatchText(guideTitle);
-      if (!scheduleKey || !guideKey) return false;
-      if (guideKey.includes(scheduleKey) || scheduleKey.includes(guideKey)) return true;
-
       const scheduleVenueIds = getGuideAliasGroupIds(scheduleTitle, guideVenueAliasGroups);
       const guideVenueIds = getGuideAliasGroupIds(guideTitle, guideVenueAliasGroups);
       const scheduleBrandIds = getGuideAliasGroupIds(scheduleTitle, guideBrandAliasGroups);
       const guideBrandIds = getGuideAliasGroupIds(guideTitle, guideBrandAliasGroups);
       const venueMatches = hasGuideGroupIntersection(scheduleVenueIds, guideVenueIds);
       const brandMatches = hasGuideGroupIntersection(scheduleBrandIds, guideBrandIds);
+      const textContains = Boolean(scheduleKey && guideKey && (guideKey.includes(scheduleKey) || scheduleKey.includes(guideKey)));
+      return {
+        scheduleKey,
+        guideKey,
+        scheduleVenueIds,
+        guideVenueIds,
+        scheduleBrandIds,
+        guideBrandIds,
+        venueMatches,
+        brandMatches,
+        textContains
+      };
+    }
 
-      if (venueMatches) {
-        if (!scheduleBrandIds.size && guideBrandIds.size) return false;
-        return !scheduleBrandIds.size || !guideBrandIds.size || brandMatches;
-      }
-      if (scheduleBrandIds.size && guideBrandIds.size && brandMatches && !guideVenueIds.size) {
-        return true;
-      }
-      return false;
+    function getGuideMatchScore(scheduleTitle, guideTitle) {
+      const parts = getGuideMatchParts(scheduleTitle, guideTitle);
+      if (!parts.scheduleKey || !parts.guideKey) return 0;
+
+      const scheduleHasVenue = parts.scheduleVenueIds.size > 0;
+      const guideHasVenue = parts.guideVenueIds.size > 0;
+      const scheduleHasBrand = parts.scheduleBrandIds.size > 0;
+      const guideHasBrand = parts.guideBrandIds.size > 0;
+
+      if (scheduleHasVenue && guideHasVenue && !parts.venueMatches) return 0;
+      if (scheduleHasBrand && guideHasBrand && !parts.brandMatches) return 0;
+      if (guideHasBrand && !scheduleHasBrand && !parts.venueMatches) return 0;
+
+      let score = 0;
+      if (parts.textContains) score += 20;
+      if (parts.venueMatches) score += 80;
+      if (parts.brandMatches) score += 40;
+      if (scheduleHasVenue && !guideHasVenue) score -= 25;
+      if (scheduleHasBrand && !guideHasBrand) score -= 10;
+
+      if (!score && parts.textContains) score = 1;
+      return Math.max(0, score);
+    }
+
+    function guideTitleMatchesSchedule(scheduleTitle, guideTitle) {
+      return getGuideMatchScore(scheduleTitle, guideTitle) > 0;
     }
 
     function getGuideUpdatedTime(guide) {
@@ -4907,7 +4940,12 @@
         const categoryMatches = !guideCategory || guideCategory.includes(category) || guideCategory.includes(activeGuideBrand.toLowerCase());
         return monthMatches && categoryMatches && guideTitleMatchesSchedule(title, guideTitle);
       })
-        .sort((a, b) => getGuideUpdatedTime(b) - getGuideUpdatedTime(a))[0];
+        .sort((a, b) => {
+          const aTitle = a.title || a.eventName || a.name || a.fileName;
+          const bTitle = b.title || b.eventName || b.name || b.fileName;
+          return getGuideMatchScore(title, bTitle) - getGuideMatchScore(title, aTitle)
+            || getGuideUpdatedTime(b) - getGuideUpdatedTime(a);
+        })[0];
     }
 
     function stripGuideMaterialFooter(value) {

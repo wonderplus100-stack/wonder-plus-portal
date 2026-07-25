@@ -4815,6 +4815,57 @@
       }
     }
 
+    function getSavedLoginCredentials() {
+      try {
+        const saved = JSON.parse(localStorage.getItem("wonderSavedLogin") || "null");
+        if (saved?.remember && saved.email && saved.password) return saved;
+      } catch (error) {
+        localStorage.removeItem("wonderSavedLogin");
+      }
+      return null;
+    }
+
+    async function restoreTokenFromSavedLogin(options = {}) {
+      const saved = getSavedLoginCredentials();
+      if (!saved) {
+        if (!options.silent) {
+          throw new Error("ログイン情報の有効期限が切れています。個別ページでログイン情報を保存してから再度更新してください。");
+        }
+        return null;
+      }
+      const payload = await callPortalAction("login", { email: saved.email, password: saved.password });
+      if (!payload.ok) {
+        if (!options.silent) throw new Error(payload.message || "保存済みログイン情報で再認証できませんでした。");
+        return null;
+      }
+      if (payload.token) localStorage.setItem("wonderMemberToken", payload.token);
+      const user = payload.user || {
+        email: saved.email,
+        name: payload.name || saved.email,
+        phase: payload.phase || currentMember?.phase || "2期",
+        role: payload.role || currentMember?.role || "member"
+      };
+      rememberMemberProfile(user);
+      const restoredAssignments = Array.isArray(payload.mine) ? payload.mine : payload.assignments;
+      if (Array.isArray(restoredAssignments)) {
+        userAssignments = new Set(toArray(restoredAssignments));
+        saveStoredMemberAssignments();
+      }
+      applyMemberSession(user);
+      return payload.token || localStorage.getItem("wonderMemberToken");
+    }
+
+    async function getMemberTokenForWrite() {
+      const token = localStorage.getItem("wonderMemberToken");
+      if (token) return token;
+      return restoreTokenFromSavedLogin();
+    }
+
+    function shouldRetryMemberAuth(payloadOrError) {
+      const message = String(payloadOrError?.message || payloadOrError || "").toLowerCase();
+      return /login|token|auth|ログイン|認証|期限|有効/.test(message);
+    }
+
     function getPortalHomeUrl() {
       return `${window.location.origin}${window.location.pathname}?v=member-login-${Date.now()}#member-portal`;
     }
@@ -4886,6 +4937,11 @@
       }
       const token = localStorage.getItem("wonderMemberToken");
       if (!token) {
+        const restoredToken = await restoreTokenFromSavedLogin({ silent: true });
+        if (restoredToken) {
+          setMemberStatus("保存済みログイン情報でログイン状態を復元しました。");
+          return;
+        }
         const remembered = getRememberedMemberProfile();
         if (remembered) {
           userAssignments = loadStoredMemberAssignments(remembered);
@@ -5023,7 +5079,7 @@
       setMemberStatus(`${changes.length}件の参加チェックを更新中です。`);
 
       try {
-        const token = localStorage.getItem("wonderMemberToken");
+        let token = await getMemberTokenForWrite();
         let latestPayload = null;
         for (const change of changes) {
           const details = getEventDetailsById(change.eventId);
@@ -5034,6 +5090,16 @@
             date: details.date,
             checked: change.checked
           });
+          if (!latestPayload.ok && shouldRetryMemberAuth(latestPayload)) {
+            token = await restoreTokenFromSavedLogin();
+            latestPayload = await callPortalAction("toggleAssignment", {
+              token,
+              eventId: change.eventId,
+              title: details.title,
+              date: details.date,
+              checked: change.checked
+            });
+          }
           if (!latestPayload.ok) throw new Error(latestPayload.message || "保存できませんでした");
         }
         const savedAssignments = new Set(pendingAssignments);
@@ -5057,9 +5123,12 @@
         renderMemberScheduleList();
         setMemberStatus("参加チェックを更新しました。");
       } catch (error) {
-        pendingAssignments = new Set(userAssignments);
+        applyLocalAssignmentChanges(changes);
+        userAssignments = new Set(pendingAssignments);
+        saveStoredMemberAssignments();
+        renderSchedule(activeScheduleKey);
         renderMemberScheduleList();
-        setMemberStatus(error.message || "保存できませんでした。");
+        setMemberStatus(`${error.message || "保存できませんでした。"} 画面上のチェックは保持しました。ログイン情報を保存している場合は、再度「参加チェックを更新」を押してください。`);
       } finally {
         memberScheduleList?.querySelectorAll("input[type='checkbox']").forEach((input) => {
           input.disabled = false;
@@ -6097,12 +6166,13 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
     }
 
     function normalizeMinutesCategory(value = "") {
-      const text = String(value || "").toLowerCase();
-      if (text.includes("マーケ")) return "marketing";
-      if (text.includes("企画")) return "planning";
-      if (text.includes("運営")) return "operation";
-      if (text.includes("wonder")) return "wonder";
-      if (text.includes("その他")) return "other";
+      const text = String(value || "").trim().toLowerCase();
+      if (!text) return "";
+      if (["marketing", "market", "marke"].includes(text) || text.includes("マーケ")) return "marketing";
+      if (["planning", "plan", "planning-dept"].includes(text) || text.includes("企画")) return "planning";
+      if (["operation", "operations", "ops"].includes(text) || text.includes("運営")) return "operation";
+      if (["wonder", "wonder+"].includes(text) || text.includes("wonder")) return "wonder";
+      if (["other", "others"].includes(text) || text.includes("その他")) return "other";
       return "other";
     }
 
@@ -6128,6 +6198,15 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
       return text;
     }
 
+    function getFirstRowValue(row, keys = []) {
+      for (const key of keys) {
+        if (row?.[key] !== undefined && row?.[key] !== null && String(row[key]).trim()) return row[key];
+      }
+      const normalizedKeys = keys.map((key) => String(key).replace(/\s+/g, "").toLowerCase());
+      const foundKey = Object.keys(row || {}).find((key) => normalizedKeys.includes(String(key).replace(/\s+/g, "").toLowerCase()));
+      return foundKey ? row[foundKey] : "";
+    }
+
     function normalizeMinutesRows(payload) {
       const source = Array.isArray(payload?.minutes)
         ? payload.minutes
@@ -6139,7 +6218,22 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
               ? payload
               : [];
       return source.map((row, index) => {
-        const categoryRaw = row.category || row.department || row["部門の選択"] || row["部門"] || row.type || "";
+        const categoryRaw = getFirstRowValue(row, [
+          "category",
+          "categoryCode",
+          "department",
+          "departmentName",
+          "type",
+          "meetingType",
+          "minutesType",
+          "部門の選択",
+          "部門",
+          "カテゴリ",
+          "議事録カテゴリ",
+          "議事録種別",
+          "ミーティング種別",
+          "会議種別"
+        ]) || row.title || "";
         const body = row.body || row.minutes || row.content || row.text || row["議事録貼り付け"] || "";
         const date = row.date || row.meetingDate || row.datetime || row["日時"] || row.createdAt || "";
         const category = normalizeMinutesCategory(categoryRaw);

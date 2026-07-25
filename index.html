@@ -2402,6 +2402,7 @@
       inset: 22px;
       z-index: 109;
       display: grid;
+      grid-template-rows: auto minmax(0, 1fr);
       width: min(1080px, calc(100vw - 44px));
       max-height: calc(100vh - 44px);
       margin: auto;
@@ -2421,6 +2422,38 @@
       color: var(--blue);
       font-weight: 900;
       cursor: pointer;
+    }
+
+    .manual-window-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 4px 2px 12px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .manual-window-head strong {
+      display: block;
+      font-size: 18px;
+      line-height: 1.35;
+    }
+
+    .manual-window-head span {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .manual-frame {
+      width: 100%;
+      min-height: 0;
+      height: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
     }
 
     .manual-nav {
@@ -2689,6 +2722,15 @@
         inset: 10px;
         width: calc(100vw - 20px);
         max-height: calc(100vh - 20px);
+        padding: 10px;
+      }
+
+      .manual-window-head {
+        align-items: flex-start;
+      }
+
+      .manual-window-head strong {
+        font-size: 16px;
       }
 
       .manual-launch-card {
@@ -3155,143 +3197,14 @@
             </div>
             <div class="manual-modal-shade" data-manual-close hidden></div>
             <div class="manual-scroll">
-              <div class="manual-hero">
+              <div class="manual-window-head">
                 <div>
-                  <strong>異業種交流会 運営マニュアル</strong>
-                  <span>ドリンク手配、会場設営、受付、進行判断、片付けまでを一つの窓で確認できます。</span>
+                  <strong>運営マニュアル</strong>
+                  <span>添付いただいた完全版マニュアルをそのまま表示しています。スマホでは画面幅に合わせて閲覧できます。</span>
                 </div>
                 <button class="manual-close" type="button" data-manual-close>閉じる</button>
               </div>
-
-              <nav class="manual-nav" aria-label="マニュアル内メニュー">
-                <a href="#manual-drinks">1. ドリンク準備</a>
-                <a href="#manual-setup">2. 会場設営</a>
-                <a href="#manual-reception">3. 受付業務</a>
-                <a href="#manual-operation">4. 進行・運営</a>
-                <a href="#manual-cleanup">5. 片付け・撤収</a>
-              </nav>
-
-              <article class="manual-section" id="manual-drinks">
-                <div class="manual-section-head">
-                  <span class="manual-number">1</span>
-                  <div>
-                    <h3>ドリンク準備</h3>
-                    <p>参加予定人数を入力すると、2Lペットボトルの目安本数を計算します。</p>
-                  </div>
-                </div>
-                <div class="manual-calc">
-                  <div class="manual-input-card">
-                    <label for="manualGuestCount">参加予定人数</label>
-                    <input id="manualGuestCount" type="number" min="1" max="200" value="20">
-                  </div>
-                  <div class="manual-calc-result" aria-live="polite">
-                    <div class="manual-result-box"><span>合計</span><strong id="manualTotalBottles">3本</strong></div>
-                    <div class="manual-result-box"><span>ウーロン茶</span><strong id="manualOolongCount">2本</strong></div>
-                    <div class="manual-result-box"><span>水</span><strong id="manualWaterCount">1本</strong></div>
-                  </div>
-                </div>
-                <div class="manual-table-wrap">
-                  <table class="manual-table">
-                    <thead>
-                      <tr><th>参加人数</th><th>合計本数</th><th>内訳</th></tr>
-                    </thead>
-                    <tbody>
-                      <tr><td>1-14名</td><td>2本</td><td>ウーロン茶1本、水1本</td></tr>
-                      <tr><td>15-22名</td><td>3本</td><td>ウーロン茶2本、水1本</td></tr>
-                      <tr><td>23-30名</td><td>4本</td><td>ウーロン茶2本、水2本</td></tr>
-                      <tr><td>31名以上</td><td>7名ごとに1本追加</td><td>ウーロン茶をやや多めに、水とバランス調整</td></tr>
-                    </tbody>
-                  </table>
-                </div>
-              </article>
-
-              <article class="manual-section" id="manual-setup">
-                <div class="manual-section-head">
-                  <span class="manual-number">2</span>
-                  <div>
-                    <h3>会場設営</h3>
-                    <p>受付、荷物置き場、プロフィール記入台、ドリンクブース、出展ブースの導線を先に決めます。</p>
-                  </div>
-                </div>
-                <div class="manual-grid">
-                  <label class="manual-check"><input type="checkbox" data-manual-check><span><strong>受付位置</strong>入口から自然に案内できる場所に設置します。</span></label>
-                  <label class="manual-check"><input type="checkbox" data-manual-check><span><strong>荷物置き場</strong>交流導線を妨げない場所にまとめます。</span></label>
-                  <label class="manual-check"><input type="checkbox" data-manual-check><span><strong>プロフィール記入台</strong>記入カード、ペン、案内文をセットします。</span></label>
-                  <label class="manual-check"><input type="checkbox" data-manual-check><span><strong>ドリンクブース</strong>おぼん、紙コップ、必要な場合はプラカップを用意します。</span></label>
-                  <label class="manual-check"><input type="checkbox" data-manual-check><span><strong>フードテーブル</strong>クロス、ランチョンマット、箸、皿、お手拭きを配置します。</span></label>
-                  <label class="manual-check"><input type="checkbox" data-manual-check><span><strong>出展ブース</strong>参加者が見つけやすく、混雑しにくい配置にします。</span></label>
-                </div>
-              </article>
-
-              <article class="manual-section" id="manual-reception">
-                <div class="manual-section-head">
-                  <span class="manual-number">3</span>
-                  <div>
-                    <h3>受付業務</h3>
-                    <p>受付開始前に、現金・カード・リスト・配布物をまとめて確認します。</p>
-                  </div>
-                </div>
-                <div class="manual-grid three">
-                  <div class="manual-card"><h4>受付備品</h4><ul><li>お釣り</li><li>プロフィールカード</li><li>領収書</li><li>配布物</li></ul></div>
-                  <div class="manual-card"><h4>照合リスト</h4><ul><li>WKシステムリスト</li><li>WPフォームリスト</li><li>Peatixリスト</li><li>1期リスト</li></ul></div>
-                  <div class="manual-card"><h4>受付時の確認</h4><ul><li>申込名と支払い状況</li><li>紹介者・参加区分</li><li>会場案内と注意事項</li></ul></div>
-                </div>
-              </article>
-
-              <article class="manual-section" id="manual-operation">
-                <div class="manual-section-head">
-                  <span class="manual-number">4</span>
-                  <div>
-                    <h3>進行・運営</h3>
-                    <p>集まり具合と経過時間を見て、開始・待機・短縮進行を判断します。</p>
-                  </div>
-                </div>
-                <div class="manual-decision-grid">
-                  <label class="manual-card">
-                    <h4>開始からの経過</h4>
-                    <select class="manual-select" id="manualTimeSelect">
-                      <option value="0">定刻前・定刻</option>
-                      <option value="5">5分経過</option>
-                      <option value="10">10分経過</option>
-                      <option value="15">15分以上経過</option>
-                    </select>
-                  </label>
-                  <label class="manual-card">
-                    <h4>参加者の集まり</h4>
-                    <select class="manual-select" id="manualArrivalSelect">
-                      <option value="good">集まり良好</option>
-                      <option value="half">半数程度</option>
-                      <option value="low">少ない</option>
-                    </select>
-                  </label>
-                </div>
-                <div class="manual-decision" id="manualDecisionBox" aria-live="polite">
-                  <strong id="manualDecisionBadge">挨拶スタート</strong>
-                  <span id="manualDecisionText">定刻で参加者が集まっている場合は、冒頭挨拶から進行を開始します。</span>
-                </div>
-                <div class="manual-grid">
-                  <label class="manual-check"><input type="checkbox" data-manual-check><span><strong>冒頭挨拶</strong>目的、流れ、終了時間を共有します。</span></label>
-                  <label class="manual-check"><input type="checkbox" data-manual-check><span><strong>ルール説明</strong>時間厳守、情報共有、参加者の安全を伝えます。</span></label>
-                  <label class="manual-check"><input type="checkbox" data-manual-check><span><strong>交流誘導</strong>孤立している参加者に声をかけ、自然に橋渡しします。</span></label>
-                  <label class="manual-check"><input type="checkbox" data-manual-check><span><strong>記録・共有</strong>写真、議事録、トラブルはLINE WORKSへ共有します。</span></label>
-                </div>
-              </article>
-
-              <article class="manual-section" id="manual-cleanup">
-                <div class="manual-section-head">
-                  <span class="manual-number">5</span>
-                  <div>
-                    <h3>片付け・撤収</h3>
-                    <p>会場の原状回復、忘れ物、ゴミ、備品、報告までを最後に確認します。</p>
-                  </div>
-                </div>
-                <div class="manual-grid">
-                  <label class="manual-check"><input type="checkbox" data-manual-check><span><strong>忘れ物確認</strong>机、椅子、受付、荷物置き場を確認します。</span></label>
-                  <label class="manual-check"><input type="checkbox" data-manual-check><span><strong>ゴミ回収</strong>分別と会場ルールに沿って処理します。</span></label>
-                  <label class="manual-check"><input type="checkbox" data-manual-check><span><strong>備品戻し</strong>クロス、トング、コンロ、POP、QRコードを回収します。</span></label>
-                  <label class="manual-check"><input type="checkbox" data-manual-check><span><strong>報告</strong>活動状況フォーム、BOスケジュール、議事録を更新します。</span></label>
-                </div>
-              </article>
+              <iframe class="manual-frame" src="manual.html" title="運営マニュアル"></iframe>
             </div>
           </section>
 
@@ -5359,7 +5272,8 @@
       ["新潟", "niigata", "nigata", "nigtata"],
       ["浜松", "hamamatsu", "hamamatu"],
       ["久留米", "kurume"],
-      ["前橋", "高崎", "高碕", "maebashi", "takasaki"],
+      ["前橋", "maebashi"],
+      ["高崎", "高碕", "takasaki", "labi"],
       ["静岡", "shizuoka"],
       ["札幌", "sapporo"],
       ["宇都宮", "utsunomiya", "utunomiya"]
@@ -5452,7 +5366,6 @@
       const guideIsMaebashi = parts.guideKey.includes("前橋") || parts.guideKey.includes("maebashi");
       if (scheduleIsTakasaki && guideIsTakasaki) score += 35;
       if (scheduleIsMaebashi && guideIsMaebashi) score += 35;
-      if ((scheduleIsTakasaki && guideIsMaebashi) || (scheduleIsMaebashi && guideIsTakasaki)) score += 6;
       if (scheduleHasVenue && !guideHasVenue) score -= 25;
       if (scheduleHasBrand && !guideHasBrand) score -= 10;
 

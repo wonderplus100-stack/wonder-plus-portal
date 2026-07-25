@@ -2340,13 +2340,87 @@
       line-height: 1.55;
     }
 
-    .manual-scroll {
+    .manual-launch-card {
       display: grid;
+      grid-template-columns: 72px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--ink);
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+      transition: border-color .16s ease, background .16s ease, transform .16s ease;
+    }
+
+    .manual-launch-card:hover {
+      border-color: #b9cfdd;
+      background: #f8fbfd;
+      transform: translateY(-1px);
+    }
+
+    .manual-launch-card strong {
+      display: block;
+      margin-bottom: 3px;
+      font-size: 15px;
+      line-height: 1.35;
+    }
+
+    .manual-launch-card span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .manual-modal-shade {
+      position: fixed;
+      inset: 0;
+      z-index: 108;
+      display: none;
+      background: rgba(18, 33, 44, .52);
+    }
+
+    body.manual-modal-open .manual-modal-shade {
+      display: block;
+    }
+
+    .manual-scroll {
+      display: none;
       gap: 12px;
       max-height: min(74vh, 780px);
       overflow-y: auto;
       padding: 12px;
       scrollbar-width: thin;
+    }
+
+    body.manual-modal-open #manual .manual-scroll {
+      position: fixed;
+      inset: 22px;
+      z-index: 109;
+      display: grid;
+      width: min(1080px, calc(100vw - 44px));
+      max-height: calc(100vh - 44px);
+      margin: auto;
+      padding: 16px;
+      border: 1px solid rgba(255, 255, 255, .45);
+      border-radius: 10px;
+      background: #fff;
+      box-shadow: 0 24px 60px rgba(13, 29, 43, .24);
+    }
+
+    .manual-close {
+      min-width: 72px;
+      min-height: 36px;
+      border: 1px solid #bfd0dd;
+      border-radius: 999px;
+      background: #fff;
+      color: var(--blue);
+      font-weight: 900;
+      cursor: pointer;
     }
 
     .manual-nav {
@@ -2608,9 +2682,22 @@
 
     @media (max-width: 720px) {
       .manual-scroll {
-        max-height: none;
-        overflow: visible;
         padding: 10px;
+      }
+
+      body.manual-modal-open #manual .manual-scroll {
+        inset: 10px;
+        width: calc(100vw - 20px);
+        max-height: calc(100vh - 20px);
+      }
+
+      .manual-launch-card {
+        grid-template-columns: 58px minmax(0, 1fr);
+      }
+
+      .manual-launch-card .status {
+        grid-column: 2;
+        width: fit-content;
       }
 
       .manual-hero,
@@ -3056,13 +3143,24 @@
               </div>
               <span class="badge">現場確認用</span>
             </div>
+            <div class="materials-list" aria-label="運営マニュアルを開く">
+              <button class="manual-launch-card" type="button" data-manual-open>
+                <span class="datebox">Manual</span>
+                <span>
+                  <strong>運営マニュアル</strong>
+                  <span>ドリンク準備、会場設営、受付、進行判断、撤収までを別ウインドウで確認できます。</span>
+                </span>
+                <span class="status">開く</span>
+              </button>
+            </div>
+            <div class="manual-modal-shade" data-manual-close hidden></div>
             <div class="manual-scroll">
               <div class="manual-hero">
                 <div>
                   <strong>異業種交流会 運営マニュアル</strong>
                   <span>ドリンク手配、会場設営、受付、進行判断、片付けまでを一つの窓で確認できます。</span>
                 </div>
-                <span class="manual-pill">レスポンシブ対応</span>
+                <button class="manual-close" type="button" data-manual-close>閉じる</button>
               </div>
 
               <nav class="manual-nav" aria-label="マニュアル内メニュー">
@@ -3219,6 +3317,7 @@
                 <button class="tab-button" type="button" data-guide-month="7">7月</button>
                 <button class="tab-button" type="button" data-guide-month="8">8月</button>
                 <button class="tab-button" type="button" data-guide-venues>会場住所一覧</button>
+                <button class="tab-button" type="button" data-guide-dates>イベント開催日時一覧</button>
               </div>
               <div class="event-guide-picker">
                 <label>イベントを選択
@@ -5234,6 +5333,7 @@
     function normalizeGuideMatchText(value) {
       return String(value || "")
         .normalize("NFKC")
+        .replace(/高碕/g, "高崎")
         .replace(/\s+/g, "")
         .replace(/[＋+]/g, "+")
         .toLowerCase();
@@ -5259,8 +5359,7 @@
       ["新潟", "niigata", "nigata", "nigtata"],
       ["浜松", "hamamatsu", "hamamatu"],
       ["久留米", "kurume"],
-      ["前橋", "maebashi"],
-      ["高崎", "takasaki"],
+      ["前橋", "高崎", "高碕", "maebashi", "takasaki"],
       ["静岡", "shizuoka"],
       ["札幌", "sapporo"],
       ["宇都宮", "utsunomiya", "utunomiya"]
@@ -5347,6 +5446,13 @@
       if (parts.textContains) score += 20;
       if (parts.venueMatches) score += 80;
       if (parts.brandMatches) score += 40;
+      const scheduleIsTakasaki = parts.scheduleKey.includes("高崎") || parts.scheduleKey.includes("takasaki");
+      const guideIsTakasaki = parts.guideKey.includes("高崎") || parts.guideKey.includes("takasaki");
+      const scheduleIsMaebashi = parts.scheduleKey.includes("前橋") || parts.scheduleKey.includes("maebashi");
+      const guideIsMaebashi = parts.guideKey.includes("前橋") || parts.guideKey.includes("maebashi");
+      if (scheduleIsTakasaki && guideIsTakasaki) score += 35;
+      if (scheduleIsMaebashi && guideIsMaebashi) score += 35;
+      if ((scheduleIsTakasaki && guideIsMaebashi) || (scheduleIsMaebashi && guideIsTakasaki)) score += 6;
       if (scheduleHasVenue && !guideHasVenue) score -= 25;
       if (scheduleHasBrand && !guideHasBrand) score -= 10;
 
@@ -5657,6 +5763,108 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
       renderEventGuideAssets(driveGuide);
     }
 
+    function getWonderEventDateRows(month = activeGuideMonth) {
+      return getAllScheduleEntries()
+        .filter(({ group, item }) => Number(group.month) === Number(month) && getMemberScheduleCategory(item) === "wonder")
+        .sort((a, b) => (a.item.day - b.item.day) || String(a.item.title).localeCompare(String(b.item.title), "ja"))
+        .map(({ group, item }) => {
+          const time = formatScheduleDisplayMeta(item, group) || "時間未入力";
+          return {
+            date: `${group.month}/${item.day}`,
+            title: item.title,
+            time,
+            line: `${group.month}/${item.day} ${item.title} ${time}`
+          };
+        });
+    }
+
+    function openEventDateListWindow() {
+      const month = activeGuideMonth;
+      const rows = getWonderEventDateRows(month);
+      const listText = rows.map((row) => row.line).join("\n");
+      const rowsHtml = rows.length
+        ? rows.map((row) => `
+          <tr>
+            <td>${escapeHtml(row.date)}</td>
+            <td>${escapeHtml(row.title)}</td>
+            <td>${escapeHtml(row.time)}</td>
+          </tr>
+        `).join("")
+        : `<tr><td colspan="3">${month}月のWonder＋イベントは未反映です。</td></tr>`;
+      const popup = window.open("", "_blank");
+      if (!popup) {
+        alert("別窓を開けませんでした。ブラウザのポップアップ許可を確認してください。");
+        return;
+      }
+      popup.document.open();
+      popup.document.write(`<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${month}月 Wonder＋イベント開催日時一覧</title>
+  <style>
+    :root { --ink:#17212b; --muted:#6b7b88; --line:#dfe8ee; --blue:#1f6f9f; --bg:#eef3f6; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",sans-serif; }
+    main { width:min(920px,100%); margin:0 auto; padding:22px; }
+    .panel { overflow:hidden; border:1px solid var(--line); border-radius:10px; background:#fff; box-shadow:0 18px 44px rgba(13,29,43,.09); }
+    .head { display:flex; justify-content:space-between; gap:12px; align-items:center; padding:16px 18px; border-bottom:1px solid var(--line); background:#f8fbfd; }
+    h1 { margin:0; font-size:20px; letter-spacing:0; }
+    p { margin:4px 0 0; color:var(--muted); font-size:13px; line-height:1.5; }
+    button { min-height:38px; padding:8px 14px; border:1px solid #bfd0dd; border-radius:999px; background:#fff; color:var(--blue); font-weight:900; cursor:pointer; }
+    button.primary { border-color:var(--blue); background:var(--blue); color:#fff; }
+    .table-wrap { overflow:auto; max-height:70vh; }
+    table { width:100%; min-width:620px; border-collapse:collapse; font-size:14px; }
+    th,td { padding:12px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; }
+    th { position:sticky; top:0; background:#f4f8fb; color:var(--muted); z-index:1; }
+    .actions { display:flex; flex-wrap:wrap; gap:10px; padding:14px 18px; border-top:1px solid var(--line); justify-content:flex-end; }
+    textarea { position:absolute; left:-9999px; }
+    @media (max-width:640px) { main{padding:10px;} .head{display:grid;} h1{font-size:17px;} table{font-size:13px;} }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="panel">
+      <div class="head">
+        <div>
+          <h1>${month}月 Wonder＋イベント開催日時一覧</h1>
+          <p>ポータルに反映されているスケジュールから作成しています。</p>
+        </div>
+        <button class="primary" id="copyList">一覧をコピー</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>日付</th><th>イベント</th><th>開催時間</th></tr></thead>
+          <tbody>${rowsHtml}</tbody>
+        </table>
+      </div>
+      <div class="actions">
+        <button onclick="window.print()">印刷 / PDF保存</button>
+        <button onclick="window.close()">閉じる</button>
+      </div>
+    </section>
+    <textarea id="copySource">${escapeHtml(listText)}</textarea>
+  </main>
+  <script>
+    document.getElementById("copyList").addEventListener("click", async () => {
+      const text = document.getElementById("copySource").value;
+      try {
+        await navigator.clipboard.writeText(text);
+        document.getElementById("copyList").textContent = "コピーしました";
+        setTimeout(() => document.getElementById("copyList").textContent = "一覧をコピー", 1500);
+      } catch (error) {
+        document.getElementById("copySource").select();
+        document.execCommand("copy");
+      }
+    });
+  <\/script>
+</body>
+</html>`);
+      popup.document.close();
+      popup.focus();
+    }
+
     document.querySelectorAll("[data-guide-month]").forEach((button) => {
       button.addEventListener("click", () => {
         activeGuideMode = "guide";
@@ -5664,6 +5872,8 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
         renderEventGuidePicker();
       });
     });
+
+    document.querySelector("[data-guide-dates]")?.addEventListener("click", openEventDateListWindow);
 
     document.querySelector("[data-guide-venues]")?.addEventListener("click", () => {
       activeGuideMode = "venues";
@@ -6137,7 +6347,7 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
       materialModal.classList.remove("is-open");
       materialModal.hidden = true;
       if (materialPdfFrame) materialPdfFrame.removeAttribute("src");
-      document.body.style.overflow = "";
+      if (!document.body.classList.contains("manual-modal-open")) document.body.style.overflow = "";
       activeMaterial = null;
     }
 
@@ -6156,6 +6366,31 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape" && materialModal?.classList.contains("is-open")) {
         closeMaterialModal();
+      }
+    });
+
+    const manualShade = document.querySelector("#manual .manual-modal-shade");
+
+    function openManualModal() {
+      document.body.classList.add("manual-modal-open");
+      if (manualShade) manualShade.hidden = false;
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeManualModal() {
+      document.body.classList.remove("manual-modal-open");
+      if (manualShade) manualShade.hidden = true;
+      if (!materialModal?.classList.contains("is-open")) document.body.style.overflow = "";
+    }
+
+    document.querySelector("[data-manual-open]")?.addEventListener("click", openManualModal);
+    document.querySelectorAll("[data-manual-close]").forEach((button) => {
+      button.addEventListener("click", closeManualModal);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && document.body.classList.contains("manual-modal-open")) {
+        closeManualModal();
       }
     });
 

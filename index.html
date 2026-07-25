@@ -699,6 +699,7 @@
     body.auth-required:not(.is-member-logged-in) #lineworks,
     body.auth-required:not(.is-member-logged-in) #event-info,
     body.auth-required:not(.is-member-logged-in) #media-share,
+    body.auth-required:not(.is-member-logged-in) #manual,
     body.auth-required:not(.is-member-logged-in) #event-guides,
     body.auth-required:not(.is-member-logged-in) #prepare,
     body.auth-required:not(.is-member-logged-in) #prepare-detail,
@@ -2315,6 +2316,322 @@
       line-height: 1.5;
     }
 
+    .manual-hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      padding: 14px;
+      border: 1px solid #cfe1ec;
+      border-radius: 8px;
+      background: #f4f9fc;
+    }
+
+    .manual-hero strong {
+      display: block;
+      color: var(--ink);
+      font-size: 17px;
+      line-height: 1.35;
+    }
+
+    .manual-hero span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .manual-scroll {
+      display: grid;
+      gap: 12px;
+      max-height: min(74vh, 780px);
+      overflow-y: auto;
+      padding: 12px;
+      scrollbar-width: thin;
+    }
+
+    .manual-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .manual-nav a,
+    .manual-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      padding: 7px 11px;
+      border: 1px solid #d6e2ea;
+      border-radius: 8px;
+      background: #fff;
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .manual-section {
+      display: grid;
+      gap: 12px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .manual-section-head {
+      display: grid;
+      grid-template-columns: 52px minmax(0, 1fr);
+      gap: 12px;
+      align-items: center;
+    }
+
+    .manual-number {
+      display: grid;
+      place-items: center;
+      width: 52px;
+      min-height: 48px;
+      border-radius: 8px;
+      background: #eef6fb;
+      color: var(--blue);
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .manual-section h3,
+    .manual-card h4 {
+      margin: 0;
+      color: var(--ink);
+      letter-spacing: 0;
+    }
+
+    .manual-section h3 {
+      font-size: 17px;
+    }
+
+    .manual-section p {
+      margin: 3px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .manual-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .manual-grid.three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .manual-card,
+    .manual-check {
+      display: grid;
+      gap: 6px;
+      padding: 12px;
+      border: 1px solid #dfe8ee;
+      border-radius: 8px;
+      background: #fbfdfe;
+      color: var(--ink);
+    }
+
+    .manual-card h4 {
+      font-size: 14px;
+    }
+
+    .manual-card ul {
+      margin: 0;
+      padding-left: 17px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.65;
+    }
+
+    .manual-calc {
+      display: grid;
+      grid-template-columns: 160px minmax(0, 1fr);
+      gap: 10px;
+      align-items: stretch;
+    }
+
+    .manual-input-card {
+      display: grid;
+      gap: 8px;
+      padding: 12px;
+      border-radius: 8px;
+      background: #143e61;
+      color: #fff;
+    }
+
+    .manual-input-card label {
+      color: #d6e6f1;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .manual-input-card input,
+    .manual-select {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid #bed1de;
+      border-radius: 8px;
+      padding: 8px 10px;
+      background: #fff;
+      color: var(--ink);
+      font: inherit;
+      font-weight: 800;
+    }
+
+    .manual-calc-result {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .manual-result-box {
+      display: grid;
+      place-items: center;
+      gap: 4px;
+      min-height: 86px;
+      padding: 10px;
+      border: 1px solid #dfe8ee;
+      border-radius: 8px;
+      background: #fff;
+      text-align: center;
+    }
+
+    .manual-result-box span {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .manual-result-box strong {
+      color: var(--blue);
+      font-size: 22px;
+      line-height: 1;
+    }
+
+    .manual-table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+
+    .manual-table {
+      width: 100%;
+      min-width: 520px;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    .manual-table th,
+    .manual-table td {
+      padding: 10px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .manual-table th {
+      background: #f4f8fb;
+      color: var(--muted);
+      font-weight: 900;
+    }
+
+    .manual-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .manual-check {
+      grid-template-columns: 20px minmax(0, 1fr);
+      align-items: start;
+      cursor: pointer;
+    }
+
+    .manual-check input {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--blue);
+    }
+
+    .manual-check.is-checked {
+      background: #f3f8fb;
+      opacity: .72;
+    }
+
+    .manual-check strong {
+      display: block;
+      color: var(--ink);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .manual-check span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .manual-decision-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .manual-decision {
+      display: grid;
+      gap: 6px;
+      padding: 12px;
+      border: 1px solid #cfe1ec;
+      border-radius: 8px;
+      background: #eef6fb;
+    }
+
+    .manual-decision strong {
+      color: var(--blue);
+      font-size: 15px;
+    }
+
+    .manual-decision.is-wait {
+      border-color: #e8d8a8;
+      background: #fff9e8;
+    }
+
+    .manual-decision.is-adjust {
+      border-color: #f0c7c7;
+      background: #fff7f7;
+    }
+
+    @media (max-width: 720px) {
+      .manual-scroll {
+        max-height: none;
+        overflow: visible;
+        padding: 10px;
+      }
+
+      .manual-hero,
+      .manual-calc,
+      .manual-section-head,
+      .manual-decision-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .manual-grid,
+      .manual-grid.three,
+      .manual-calc-result {
+        grid-template-columns: 1fr;
+      }
+
+      .manual-number {
+        width: 46px;
+        min-height: 42px;
+      }
+    }
+
     .material-card .status {
       justify-self: end;
       white-space: nowrap;
@@ -2499,6 +2816,10 @@
           <a class="tile" href="#materials">
             <span class="icon blue"><svg viewBox="0 0 24 24"><path d="M4 19.5V4a2 2 0 0 1 2-2h11l3 3v14.5A2.5 2.5 0 0 1 17.5 22H6.5A2.5 2.5 0 0 1 4 19.5Z"></path><path d="M14 2v6h6"></path><path d="M8 13h8"></path><path d="M8 17h6"></path></svg></span>
             <span><strong>各種資料</strong><span>出展要項・PDF資料を確認</span></span>
+          </a>
+          <a class="tile" href="#manual">
+            <span class="icon green"><svg viewBox="0 0 24 24"><path d="M4 19.5V4a2 2 0 0 1 2-2h10l4 4v13.5A2.5 2.5 0 0 1 17.5 22H6.5A2.5 2.5 0 0 1 4 19.5Z"></path><path d="M14 2v6h6"></path><path d="M8 12h8"></path><path d="M8 16h8"></path></svg></span>
+            <span><strong>運営マニュアル</strong><span>ドリンク・設営・受付・進行・撤収</span></span>
           </a>
           <a class="tile" href="#minutes">
             <span class="icon violet"><svg viewBox="0 0 24 24"><path d="M4 19.5V4a2 2 0 0 1 2-2h11l3 3v14.5A2.5 2.5 0 0 1 17.5 22H6.5A2.5 2.5 0 0 1 4 19.5Z"></path><path d="M14 2v6h6"></path></svg></span>
@@ -2724,6 +3045,155 @@
                 </span>
                 <span class="status">表示</span>
               </button>
+            </div>
+          </section>
+
+          <section class="panel" id="manual" aria-label="運営マニュアル">
+            <div class="panel-head">
+              <div class="panel-title">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5V4a2 2 0 0 1 2-2h10l4 4v13.5A2.5 2.5 0 0 1 17.5 22H6.5A2.5 2.5 0 0 1 4 19.5Z"></path><path d="M14 2v6h6"></path><path d="M8 12h8"></path><path d="M8 16h8"></path></svg>
+                運営マニュアル
+              </div>
+              <span class="badge">現場確認用</span>
+            </div>
+            <div class="manual-scroll">
+              <div class="manual-hero">
+                <div>
+                  <strong>異業種交流会 運営マニュアル</strong>
+                  <span>ドリンク手配、会場設営、受付、進行判断、片付けまでを一つの窓で確認できます。</span>
+                </div>
+                <span class="manual-pill">レスポンシブ対応</span>
+              </div>
+
+              <nav class="manual-nav" aria-label="マニュアル内メニュー">
+                <a href="#manual-drinks">1. ドリンク準備</a>
+                <a href="#manual-setup">2. 会場設営</a>
+                <a href="#manual-reception">3. 受付業務</a>
+                <a href="#manual-operation">4. 進行・運営</a>
+                <a href="#manual-cleanup">5. 片付け・撤収</a>
+              </nav>
+
+              <article class="manual-section" id="manual-drinks">
+                <div class="manual-section-head">
+                  <span class="manual-number">1</span>
+                  <div>
+                    <h3>ドリンク準備</h3>
+                    <p>参加予定人数を入力すると、2Lペットボトルの目安本数を計算します。</p>
+                  </div>
+                </div>
+                <div class="manual-calc">
+                  <div class="manual-input-card">
+                    <label for="manualGuestCount">参加予定人数</label>
+                    <input id="manualGuestCount" type="number" min="1" max="200" value="20">
+                  </div>
+                  <div class="manual-calc-result" aria-live="polite">
+                    <div class="manual-result-box"><span>合計</span><strong id="manualTotalBottles">3本</strong></div>
+                    <div class="manual-result-box"><span>ウーロン茶</span><strong id="manualOolongCount">2本</strong></div>
+                    <div class="manual-result-box"><span>水</span><strong id="manualWaterCount">1本</strong></div>
+                  </div>
+                </div>
+                <div class="manual-table-wrap">
+                  <table class="manual-table">
+                    <thead>
+                      <tr><th>参加人数</th><th>合計本数</th><th>内訳</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>1-14名</td><td>2本</td><td>ウーロン茶1本、水1本</td></tr>
+                      <tr><td>15-22名</td><td>3本</td><td>ウーロン茶2本、水1本</td></tr>
+                      <tr><td>23-30名</td><td>4本</td><td>ウーロン茶2本、水2本</td></tr>
+                      <tr><td>31名以上</td><td>7名ごとに1本追加</td><td>ウーロン茶をやや多めに、水とバランス調整</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </article>
+
+              <article class="manual-section" id="manual-setup">
+                <div class="manual-section-head">
+                  <span class="manual-number">2</span>
+                  <div>
+                    <h3>会場設営</h3>
+                    <p>受付、荷物置き場、プロフィール記入台、ドリンクブース、出展ブースの導線を先に決めます。</p>
+                  </div>
+                </div>
+                <div class="manual-grid">
+                  <label class="manual-check"><input type="checkbox" data-manual-check><span><strong>受付位置</strong>入口から自然に案内できる場所に設置します。</span></label>
+                  <label class="manual-check"><input type="checkbox" data-manual-check><span><strong>荷物置き場</strong>交流導線を妨げない場所にまとめます。</span></label>
+                  <label class="manual-check"><input type="checkbox" data-manual-check><span><strong>プロフィール記入台</strong>記入カード、ペン、案内文をセットします。</span></label>
+                  <label class="manual-check"><input type="checkbox" data-manual-check><span><strong>ドリンクブース</strong>おぼん、紙コップ、必要な場合はプラカップを用意します。</span></label>
+                  <label class="manual-check"><input type="checkbox" data-manual-check><span><strong>フードテーブル</strong>クロス、ランチョンマット、箸、皿、お手拭きを配置します。</span></label>
+                  <label class="manual-check"><input type="checkbox" data-manual-check><span><strong>出展ブース</strong>参加者が見つけやすく、混雑しにくい配置にします。</span></label>
+                </div>
+              </article>
+
+              <article class="manual-section" id="manual-reception">
+                <div class="manual-section-head">
+                  <span class="manual-number">3</span>
+                  <div>
+                    <h3>受付業務</h3>
+                    <p>受付開始前に、現金・カード・リスト・配布物をまとめて確認します。</p>
+                  </div>
+                </div>
+                <div class="manual-grid three">
+                  <div class="manual-card"><h4>受付備品</h4><ul><li>お釣り</li><li>プロフィールカード</li><li>領収書</li><li>配布物</li></ul></div>
+                  <div class="manual-card"><h4>照合リスト</h4><ul><li>WKシステムリスト</li><li>WPフォームリスト</li><li>Peatixリスト</li><li>1期リスト</li></ul></div>
+                  <div class="manual-card"><h4>受付時の確認</h4><ul><li>申込名と支払い状況</li><li>紹介者・参加区分</li><li>会場案内と注意事項</li></ul></div>
+                </div>
+              </article>
+
+              <article class="manual-section" id="manual-operation">
+                <div class="manual-section-head">
+                  <span class="manual-number">4</span>
+                  <div>
+                    <h3>進行・運営</h3>
+                    <p>集まり具合と経過時間を見て、開始・待機・短縮進行を判断します。</p>
+                  </div>
+                </div>
+                <div class="manual-decision-grid">
+                  <label class="manual-card">
+                    <h4>開始からの経過</h4>
+                    <select class="manual-select" id="manualTimeSelect">
+                      <option value="0">定刻前・定刻</option>
+                      <option value="5">5分経過</option>
+                      <option value="10">10分経過</option>
+                      <option value="15">15分以上経過</option>
+                    </select>
+                  </label>
+                  <label class="manual-card">
+                    <h4>参加者の集まり</h4>
+                    <select class="manual-select" id="manualArrivalSelect">
+                      <option value="good">集まり良好</option>
+                      <option value="half">半数程度</option>
+                      <option value="low">少ない</option>
+                    </select>
+                  </label>
+                </div>
+                <div class="manual-decision" id="manualDecisionBox" aria-live="polite">
+                  <strong id="manualDecisionBadge">挨拶スタート</strong>
+                  <span id="manualDecisionText">定刻で参加者が集まっている場合は、冒頭挨拶から進行を開始します。</span>
+                </div>
+                <div class="manual-grid">
+                  <label class="manual-check"><input type="checkbox" data-manual-check><span><strong>冒頭挨拶</strong>目的、流れ、終了時間を共有します。</span></label>
+                  <label class="manual-check"><input type="checkbox" data-manual-check><span><strong>ルール説明</strong>時間厳守、情報共有、参加者の安全を伝えます。</span></label>
+                  <label class="manual-check"><input type="checkbox" data-manual-check><span><strong>交流誘導</strong>孤立している参加者に声をかけ、自然に橋渡しします。</span></label>
+                  <label class="manual-check"><input type="checkbox" data-manual-check><span><strong>記録・共有</strong>写真、議事録、トラブルはLINE WORKSへ共有します。</span></label>
+                </div>
+              </article>
+
+              <article class="manual-section" id="manual-cleanup">
+                <div class="manual-section-head">
+                  <span class="manual-number">5</span>
+                  <div>
+                    <h3>片付け・撤収</h3>
+                    <p>会場の原状回復、忘れ物、ゴミ、備品、報告までを最後に確認します。</p>
+                  </div>
+                </div>
+                <div class="manual-grid">
+                  <label class="manual-check"><input type="checkbox" data-manual-check><span><strong>忘れ物確認</strong>机、椅子、受付、荷物置き場を確認します。</span></label>
+                  <label class="manual-check"><input type="checkbox" data-manual-check><span><strong>ゴミ回収</strong>分別と会場ルールに沿って処理します。</span></label>
+                  <label class="manual-check"><input type="checkbox" data-manual-check><span><strong>備品戻し</strong>クロス、トング、コンロ、POP、QRコードを回収します。</span></label>
+                  <label class="manual-check"><input type="checkbox" data-manual-check><span><strong>報告</strong>活動状況フォーム、BOスケジュール、議事録を更新します。</span></label>
+                </div>
+              </article>
             </div>
           </section>
 
@@ -4209,7 +4679,7 @@
       if (isLimitedPhase) {
         document.querySelectorAll("#quickGrid .tile").forEach((tile) => {
           const target = tile.getAttribute("href");
-          const allowedTargets = new Set(["#prepare", "#event-info", "#mindset", "#media-share", "#materials", "#shared-board"]);
+          const allowedTargets = new Set(["#prepare", "#event-info", "#mindset", "#media-share", "#materials", "#manual", "#shared-board"]);
           setManagedVisibility(tile, allowedTargets.has(target));
         });
 
@@ -5706,6 +6176,69 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
       }
     });
 
+    const manualGuestCount = document.getElementById("manualGuestCount");
+    const manualTotalBottles = document.getElementById("manualTotalBottles");
+    const manualOolongCount = document.getElementById("manualOolongCount");
+    const manualWaterCount = document.getElementById("manualWaterCount");
+    const manualTimeSelect = document.getElementById("manualTimeSelect");
+    const manualArrivalSelect = document.getElementById("manualArrivalSelect");
+    const manualDecisionBox = document.getElementById("manualDecisionBox");
+    const manualDecisionBadge = document.getElementById("manualDecisionBadge");
+    const manualDecisionText = document.getElementById("manualDecisionText");
+
+    function calculateManualDrinks() {
+      if (!manualGuestCount || !manualTotalBottles || !manualOolongCount || !manualWaterCount) return;
+      const guests = Math.max(1, Number(manualGuestCount.value || 1));
+      let total = 2;
+      if (guests <= 14) total = 2;
+      else if (guests <= 22) total = 3;
+      else if (guests <= 30) total = 4;
+      else total = 4 + Math.ceil((guests - 30) / 7);
+      const oolong = Math.ceil(total / 2);
+      const water = total - oolong;
+      manualTotalBottles.textContent = `${total}本`;
+      manualOolongCount.textContent = `${oolong}本`;
+      manualWaterCount.textContent = `${water}本`;
+    }
+
+    function updateManualDecision() {
+      if (!manualDecisionBox || !manualDecisionBadge || !manualDecisionText) return;
+      const minutes = Number(manualTimeSelect?.value || 0);
+      const arrival = manualArrivalSelect?.value || "good";
+      manualDecisionBox.classList.remove("is-wait", "is-adjust");
+      if (arrival === "low" && minutes < 10) {
+        manualDecisionBox.classList.add("is-wait");
+        manualDecisionBadge.textContent = "少し待機";
+        manualDecisionText.textContent = "参加者が少ない場合は、LINE WORKSで到着状況を確認しつつ、10分程度まで待機します。";
+        return;
+      }
+      if (arrival === "low" && minutes >= 10) {
+        manualDecisionBox.classList.add("is-adjust");
+        manualDecisionBadge.textContent = "短縮進行で開始";
+        manualDecisionText.textContent = "10分以上経過している場合は、冒頭説明を短くして開始し、途中参加者を自然に合流させます。";
+        return;
+      }
+      if (arrival === "half" && minutes < 5) {
+        manualDecisionBox.classList.add("is-wait");
+        manualDecisionBadge.textContent = "5分だけ待機";
+        manualDecisionText.textContent = "半数程度の集まりなら、5分だけ待機してから挨拶スタートを判断します。";
+        return;
+      }
+      manualDecisionBadge.textContent = "挨拶スタート";
+      manualDecisionText.textContent = "参加者が集まっている場合は、目的、流れ、終了時間を共有して進行を開始します。";
+    }
+
+    manualGuestCount?.addEventListener("input", calculateManualDrinks);
+    manualTimeSelect?.addEventListener("change", updateManualDecision);
+    manualArrivalSelect?.addEventListener("change", updateManualDecision);
+    document.querySelectorAll("[data-manual-check]").forEach((checkbox) => {
+      checkbox.addEventListener("change", () => {
+        checkbox.closest(".manual-check")?.classList.toggle("is-checked", checkbox.checked);
+      });
+    });
+    calculateManualDrinks();
+    updateManualDecision();
+
     loginButton?.addEventListener("click", handleLogin);
     loginPassword?.addEventListener("keydown", (event) => {
       if (event.key === "Enter") handleLogin();
@@ -5747,6 +6280,7 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
         board: ["shared-board"],
         media: ["media-share"],
         materials: ["materials"],
+        manual: ["manual"],
         prepare: ["prepare"],
         mindset: ["mindset"],
         reports: ["reports"],

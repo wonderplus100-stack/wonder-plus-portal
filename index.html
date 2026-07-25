@@ -5143,7 +5143,8 @@
       const venueMatches = currentVenue && nextVenue && (currentVenue.includes(nextVenue) || nextVenue.includes(currentVenue));
       const addressMatches = currentAddress && nextAddress && (currentAddress.includes(nextAddress) || nextAddress.includes(currentAddress));
       const areaMatches = currentArea && nextArea && (currentArea.includes(nextArea) || nextArea.includes(currentArea));
-      return venueMatches || addressMatches || (areaMatches && (currentVenue.includes(nextVenue) || nextVenue.includes(currentVenue)));
+      if (currentAddress && nextAddress) return Boolean(addressMatches);
+      return Boolean(venueMatches && areaMatches);
     }
 
     function normalizeVenueAddressCandidate(candidate) {
@@ -5155,8 +5156,9 @@
       return { area: String(area || venue).trim(), address: String(address).trim(), venue: String(venue).trim() };
     }
 
-    function extractVenueAddressesFromText(text) {
+    function extractVenueAddressesFromText(text, title = "") {
       const source = String(text || "");
+      const contextualTitle = String(title || "").trim();
       const matches = [];
       const venueBlockPattern = /【([^】]+会場)】\s*([^「」\n\r]+?)\s*「([^」]+)」/gu;
       let match;
@@ -5167,6 +5169,78 @@
           venue: match[3].replace(/\s+/g, " ").trim()
         });
       }
+      const cleanLine = (value) => String(value || "")
+        .replace(/^[■□◆◇・\-\s]+/, "")
+        .replace(/^会場\s*[：:]\s*/, "")
+        .replace(/^住所\s*[：:]\s*/, "")
+        .replace(/[（）()]/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
+      const isStopLine = (value) => /^(参加費|ご案内|本イベント|参加対象|タイムテーブル|よくある|FAQ|持ち物|途中入退室|キャンセル|禁止事項|免責事項|詳細|お申し込み|Wonder\+の特長)/.test(cleanLine(value));
+      const isAddressLine = (value) => {
+        const line = cleanLine(value);
+        return /(?:〒[\d０-９]{3}-?[\d０-９]{4}|北海道|東京都|京都府|大阪府|.{2,3}県|市|区|郡|町|村).*[\d０-９一二三四五六七八九十]/.test(line);
+      };
+      const looksLikeVenueLine = (value) => {
+        const line = cleanLine(value);
+        return line && !isStopLine(line) && !/^※/.test(line) && !/^■/.test(line);
+      };
+      const normalizeVenueArea = (title, address, venue) => {
+        const merged = `${title || ""} ${address || ""} ${venue || ""}`;
+        const pref = merged.match(/(北海道|東京都|京都府|大阪府|.{2,3}県)/)?.[1] || "";
+        const city = merged.match(/([一-龠ぁ-んァ-ヶー]+(?:市|区|町|村))/)?.[1] || "";
+        const eventName = String(title || "").replace(/^Wonder[＋+]\s*/i, "").trim();
+        const label = eventName && !/^open$/i.test(eventName) ? eventName : (city || venue || "追加会場");
+        return `${pref ? `${pref} / ` : ""}${label}会場`;
+      };
+      const pushCandidate = (area, address, venue) => {
+        const normalizedAddress = cleanLine(address);
+        const normalizedVenue = cleanLine(venue).replace(/^「|」$/g, "");
+        if (!normalizedAddress || !normalizedVenue || !isAddressLine(normalizedAddress)) return;
+        matches.push({
+          area: cleanLine(area) || normalizeVenueArea("", normalizedAddress, normalizedVenue),
+          address: normalizedAddress,
+          venue: normalizedVenue
+        });
+      };
+      const lines = source.split(/\r?\n/)
+        .map((line) => line.trim())
+        .filter(Boolean);
+      lines.forEach((line, index) => {
+        const cleaned = cleanLine(line);
+        const quoted = cleaned.match(/^(.*?)(?:\s*「([^」]+)」|\s*『([^』]+)』)\s*$/);
+        if (quoted && isAddressLine(quoted[1])) {
+          pushCandidate(normalizeVenueArea(contextualTitle || source.slice(0, 80), quoted[1], quoted[2] || quoted[3]), quoted[1], quoted[2] || quoted[3]);
+        }
+
+        const inlineVenueFirst = cleaned.match(/^会場\s*[：:]\s*([^（(]+)[（(]([^）)]+)[）)]/);
+        if (inlineVenueFirst) {
+          pushCandidate(normalizeVenueArea(contextualTitle || source.slice(0, 80), inlineVenueFirst[2], inlineVenueFirst[1]), inlineVenueFirst[2], inlineVenueFirst[1]);
+        }
+
+        if (!/会場/.test(line)) return;
+        const following = lines.slice(index + 1, index + 5).filter((nextLine) => !isStopLine(nextLine));
+        const inlineValue = cleanLine(line);
+        if (inlineValue && inlineValue !== "会場" && !/^■\s*会場$/.test(line)) {
+          const nextAddress = following.find(isAddressLine);
+          if (nextAddress && !isAddressLine(inlineValue)) {
+            pushCandidate(normalizeVenueArea(contextualTitle || source.slice(0, 80), nextAddress, inlineValue), nextAddress, inlineValue);
+          }
+          if (isAddressLine(inlineValue)) {
+            const nextVenue = following.find((candidate) => looksLikeVenueLine(candidate) && !isAddressLine(candidate));
+            if (nextVenue) pushCandidate(normalizeVenueArea(contextualTitle || source.slice(0, 80), inlineValue, nextVenue), inlineValue, nextVenue);
+          }
+        }
+        const addressLine = following.find(isAddressLine);
+        if (!addressLine) return;
+        const addressIndex = following.indexOf(addressLine);
+        const venueBefore = following.slice(0, addressIndex).reverse().find((candidate) => looksLikeVenueLine(candidate) && !isAddressLine(candidate));
+        const venueAfter = following.slice(addressIndex + 1).find((candidate) => looksLikeVenueLine(candidate) && !isAddressLine(candidate));
+        const venueLine = venueBefore || venueAfter;
+        if (venueLine) {
+          pushCandidate(normalizeVenueArea(contextualTitle || source.slice(0, 80), addressLine, venueLine), addressLine, venueLine);
+        }
+      });
       return matches;
     }
 
@@ -5186,7 +5260,10 @@
         return [
           ...directList.map(normalizeVenueAddressCandidate).filter(Boolean),
           ...(directSingle ? [directSingle] : []),
-          ...textValues.flatMap(extractVenueAddressesFromText)
+          ...textValues.flatMap((value) => extractVenueAddressesFromText(
+            value,
+            guide?.title || guide?.eventName || guide?.name || guide?.fileName || guide?.イベント名 || ""
+          ))
         ];
       });
     }

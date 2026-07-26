@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wonder+異業種交流会 運営アナウンス基本マニュアル</title>
+  <style>
+    :root {
+      --ink: #142432;
+      --muted: #647789;
+      --blue: #1f6f9f;
+      --blue-soft: #e8f4fb;
+      --line: #dce7ef;
+      --paper: #f3f7fa;
+      --accent: #9f7a26;
+      --accent-soft: #fff7df;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Inter", "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+      line-height: 1.75;
+    }
+
+    .page {
+      width: min(1040px, 100%);
+      margin: 0 auto;
+      padding: 28px;
+    }
+
+    .hero {
+      display: grid;
+      gap: 14px;
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: linear-gradient(135deg, #ffffff 0%, #edf7fc 100%);
+      box-shadow: 0 18px 40px rgba(26, 52, 70, .08);
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--blue);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .02em;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(25px, 4vw, 42px);
+      line-height: 1.22;
+      letter-spacing: 0;
+    }
+
+    .version {
+      margin: 0;
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .lead {
+      margin: 0;
+      color: #43586a;
+      font-size: 15px;
+    }
+
+    .toc {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin: 18px 0 0;
+    }
+
+    .toc a {
+      display: block;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .section {
+      margin-top: 18px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 12px 28px rgba(31, 50, 64, .06);
+    }
+
+    .section h2 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 16px;
+      font-size: clamp(20px, 2.5vw, 27px);
+      line-height: 1.35;
+      letter-spacing: 0;
+    }
+
+    .num {
+      display: inline-grid;
+      flex: 0 0 auto;
+      place-items: center;
+      min-width: 42px;
+      height: 42px;
+      padding: 0 10px;
+      border-radius: 10px;
+      background: var(--blue-soft);
+      color: var(--blue);
+      font-weight: 900;
+    }
+
+    h3 {
+      margin: 18px 0 8px;
+      color: #1a394d;
+      font-size: 17px;
+      line-height: 1.45;
+    }
+
+    p {
+      margin: 8px 0;
+    }
+
+    ul {
+      margin: 8px 0 0;
+      padding-left: 1.2em;
+    }
+
+    li {
+      margin: 3px 0;
+    }
+
+    .script {
+      display: grid;
+      gap: 8px;
+      margin: 12px 0;
+      padding: 14px;
+      border: 1px solid #cfe0eb;
+      border-radius: 10px;
+      background: #f8fbfd;
+    }
+
+    .script p {
+      margin: 0;
+      padding-left: 12px;
+      border-left: 3px solid var(--blue);
+      color: #20384b;
+      font-weight: 700;
+    }
+
+    .note {
+      margin: 14px 0;
+      padding: 14px;
+      border: 1px solid #ead9a5;
+      border-radius: 10px;
+      background: var(--accent-soft);
+      color: #5a4314;
+      font-weight: 700;
+    }
+
+    .quote-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin: 12px 0;
+    }
+
+    .quote-list span {
+      padding: 9px 11px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfdff;
+      color: #26485e;
+      font-weight: 700;
+    }
+
+    .policy {
+      border-color: #c9dceb;
+      background: linear-gradient(180deg, #ffffff 0%, #f2f8fc 100%);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 14px;
+      }
+
+      .hero,
+      .section {
+        padding: 18px;
+        border-radius: 10px;
+      }
+
+      .toc,
+      .quote-list {
+        grid-template-columns: 1fr;
+      }
+
+      .section h2 {
+        align-items: flex-start;
+      }
+
+      .num {
+        min-width: 36px;
+        height: 36px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <span class="hero-tag">司会原稿 / 運営アナウンス</span>
+      <h1>Wonder+異業種交流会 運営アナウンス基本マニュアル</h1>
+      <p class="version">Ver.2026.07.26</p>
+      <p class="lead">Wonder+異業種交流会を円滑かつ高品質に運営するための、受付・客案・司会・席替え・終了案内までの基本マニュアルです。</p>
+      <nav class="toc" aria-label="目次">
+        <a href="#intro">はじめに</a>
+        <a href="#welcome">1. お客様のお迎え</a>
+        <a href="#drink">2. ドリンクカウンター</a>
+        <a href="#seat">3. 席へのご案内</a>
+        <a href="#start">4. テーブルスタート</a>
+        <a href="#before-change">5. 席替え前</a>
+        <a href="#change-first">6. 1回目の席替え</a>
+        <a href="#follow">7. 席替え後フォロー</a>
+        <a href="#standing">8. スタンディング</a>
+        <a href="#closing">9. 終了アナウンス</a>
+        <a href="#sendoff">10. お見送り</a>
+        <a href="#repeat">11. 重要ポイント</a>
+      </nav>
+    </header>
+
+    <section class="section" id="intro">
+      <h2><span class="num">Intro</span>はじめに</h2>
+      <p>本マニュアルは、Wonder+異業種交流会を円滑かつ高品質に運営するための基本マニュアルです。</p>
+      <p>Wonder+が目指す交流会は、単なる名刺交換会ではありません。</p>
+      <div class="quote-list">
+        <span>「また参加したい」</span>
+        <span>「居心地が良かった」</span>
+        <span>「スタッフの対応が良かった」</span>
+        <span>「紹介したくなる交流会だった」</span>
+      </div>
+      <p>そう感じていただける運営を全スタッフで提供することを目的とします。</p>
+      <p>そのためには、一人ひとりのお客様への接し方、会場の雰囲気づくり、進行、演出まで細部にこだわることが重要です。</p>
+    </section>
+
+    <section class="section" id="welcome">
+      <h2><span class="num">1</span>お客様のお迎え（受付・客案・司会 共通）</h2>
+      <h3>ご来場時の挨拶</h3>
+      <p>最初の第一印象が交流会全体の印象を決めます。</p>
+      <p>スタッフ全員が笑顔で、元気よく、爽やかにお迎えしてください。</p>
+      <h3>挨拶</h3>
+      <div class="script">
+        <p>「こんにちは！」</p>
+        <p>または</p>
+        <p>「こんばんは！」</p>
+      </div>
+      <p>明るく自然な笑顔を忘れず、お客様が安心して入場できる雰囲気を作ります。</p>
+      <h3>接触コメント（リピートにつながる声掛け）</h3>
+      <p>受付では、できるだけ全員のお客様へ一言お声掛けを行います。</p>
+      <p>この一言が安心感を生み、リピート率向上につながります。</p>
+      <h3>コメント例</h3>
+      <ul>
+        <li>その服かわいいですね！</li>
+        <li>いつもありがとうございます！</li>
+        <li>いつもお洒落ですね。</li>
+        <li>今日も可愛いですね。</li>
+        <li>今日もお綺麗ですね。</li>
+        <li>バッグかわいいですね。</li>
+        <li>ネイル素敵ですね。</li>
+        <li>髪切りましたね。</li>
+        <li>髪型すっきりしましたね。</li>
+        <li>今日は暑いですね。</li>
+        <li>今日は寒いですね。</li>
+        <li>今日は天気がいいですね。</li>
+        <li>寒い中ありがとうございます。</li>
+        <li>雨の中ありがとうございます。</li>
+        <li>今日も良い出会いがあるといいですね。</li>
+      </ul>
+      <p>無理に褒める必要はありません。</p>
+      <p>自然な会話を心掛け、お客様一人ひとりに興味を持って接してください。</p>
+    </section>
+
+    <section class="section" id="drink">
+      <h2><span class="num">2</span>ドリンクカウンター</h2>
+      <p>笑顔でお迎えします。</p>
+      <div class="script">
+        <p>「こんにちは！」</p>
+      </div>
+      <p>接触コメントをしたあとにご案内します。</p>
+      <div class="script">
+        <p>「お飲み物は○○、○○、○○、○○をご用意しております。お好きなものをお取りください。」</p>
+      </div>
+      <p>お客様が迷っている場合は積極的におすすめしてください。</p>
+    </section>
+
+    <section class="section" id="seat">
+      <h2><span class="num">3</span>席へのご案内</h2>
+      <p>お客様を席まで丁寧にご案内します。</p>
+      <div class="script">
+        <p>「こちらのお席になります。」</p>
+        <p>「プロフィールシートをご記入いただいてお待ちください。」</p>
+      </div>
+      <h3>注意事項</h3>
+      <ul>
+        <li>ドリンク担当と同じスタッフの場合は異なる接触コメントを意識する</li>
+        <li>席までしっかりご案内する</li>
+        <li>指差しだけで案内しない</li>
+      </ul>
+    </section>
+
+    <section class="section" id="start">
+      <h2><span class="num">4</span>テーブルスタート</h2>
+      <p>3～4名そろったら開始します。</p>
+      <h3>アナウンス</h3>
+      <div class="script">
+        <p>「皆さん、本日はWonder+へお越しいただきありがとうございます。」</p>
+        <p>「開始に先立ちましてご案内いたします。」</p>
+        <p>「Wonder+は仲間を見つける異業種交流会と言うのがコンセプトです。売り先や営業相手を見つけるのではなく、一緒の協業をして、共に成長できる仲間を見つけることが目的の会です」</p>
+        <p>「注意事項がございます。禁止事項として違法行為、ネットワークビジネスの勧誘、宗教や政治思想の勧誘は禁止となります」</p>
+        <p>「また、Wonder+ではインスタグラムの運用を行っておりまして、場内で撮影を行う場合がございます。撮影NGの方がいらっしゃいましたらスタッフまでお声掛けください」</p>
+        <p>「初めは各テーブル単位でお話していただきます」</p>
+        <p>「プロフィールシートをご記入いただいていますので、そちらを見ながら順番に自己紹介をお願いします。」</p>
+        <p>「約20分後に席替えがあります。」</p>
+        <p>「2回目のお話が終わりましたら、３セット目はスタンディング形式に移行してまいります。」</p>
+        <p>「それでは、本日のWonder+スタートしてまいります」</p>
+        <p>「皆さん、よろしくお願いします！」</p>
+      </div>
+      <div class="note">スタッフは拍手で雰囲気を作る</div>
+    </section>
+
+    <section class="section" id="before-change">
+      <h2><span class="num">5</span>席替え前アナウンス</h2>
+      <p>席替え2分前になったら各テーブルへお声掛けします。</p>
+      <div class="script">
+        <p>「あと2分ほどで席替えになります。」</p>
+        <p>「連絡先交換など、ご準備をお願いします。」</p>
+      </div>
+      <p>連絡先交換をしていないテーブルがあれば、</p>
+      <div class="script">
+        <p>「まもなく席替えです。連絡先交換をお願いします。」</p>
+      </div>
+      <p>と積極的にお声掛けしてください。</p>
+    </section>
+
+    <section class="section" id="change-first">
+      <h2><span class="num">6</span>1回目の席替え</h2>
+      <div class="note">※16名以上はマイク使用を推奨</div>
+      <h3>アナウンス</h3>
+      <div class="script">
+        <p>「皆さん、改めましてこんにちは！」</p>
+        <p>「本日はWonder+異業種交流会へご参加いただきありがとうございます。」</p>
+        <p>「これから席替えを行いますのでご説明します。」</p>
+        <p>「スタッフがお配りした席替えカードをご確認ください。」</p>
+        <p>「カードに書かれている番号のテーブルへ移動してください。」</p>
+      </div>
+      <p>テーブル番号を指差しながら説明します。</p>
+      <div class="script">
+        <p>「テーブルは指定されていますが、イスはどこへ座っていただいても大丈夫です。」</p>
+        <p>「移動の際はプロフィールシート・バインダー・お飲み物・お荷物を忘れずにお持ちください。」</p>
+        <p>「席替えはあと1回あります。」</p>
+        <p>「その後はスタンディング形式で自由に交流していただくお時間をご用意しています。」</p>
+        <p>「それでは皆さん、ご起立をお願いします！」</p>
+      </div>
+      <h3>演出</h3>
+      <ul>
+        <li>気分が高揚するBGMへ切り替える</li>
+        <li>音量を少し上げる</li>
+        <li>着席後は通常音量へ戻す</li>
+        <li>スタッフは素早く誘導する</li>
+      </ul>
+    </section>
+
+    <section class="section" id="follow">
+      <h2><span class="num">7</span>席替え後フォロー</h2>
+      <p>全テーブルを確認し、会話が始まっていないテーブルには積極的に入ります。</p>
+      <h3>声掛け</h3>
+      <div class="script">
+        <p>「それでは自己紹介からお願いします。」</p>
+        <p>「こちらのテーブルでは20分ほどお話しいただきます。」</p>
+        <p>「最後はフリースタイルで自由に交流していただくお時間となります。」</p>
+      </div>
+    </section>
+
+    <section class="section" id="standing">
+      <h2><span class="num">8</span>2回目の移動（スタンディングフリースタイル）</h2>
+      <div class="script">
+        <p>「皆さん、お話し中のところ失礼します。」</p>
+        <p>「それでは2回目のお話のお時間は終了となります。」</p>
+        <p>「このあとは、まだお話しされていない方とも交流できるよう、フリースタイルで自由にご挨拶いただく時間とさせていただきます。」</p>
+        <p>「それでは、ただいまをもちまして2セット目終了となります。」</p>
+        <p>「皆さん、ありがとうございました。」</p>
+        <p>「それでは、ご起立をお願いします。」</p>
+      </div>
+      <h3>演出</h3>
+      <ul>
+        <li>BGMを少し上げる</li>
+        <li>会場全体が動きやすい雰囲気を作る</li>
+        <li>スタッフは交流できていない方への橋渡しを積極的に行う</li>
+      </ul>
+    </section>
+
+    <section class="section" id="closing">
+      <h2><span class="num">9</span>終了アナウンス</h2>
+      <p>終了予定時刻になりましたら全体へご案内します。</p>
+      <div class="script">
+        <p>「皆さん、お話し中のところ失礼します。」</p>
+        <p>「90分の交流会もまもなく終了のお時間となります。」</p>
+        <p>「あっという間の90分でしたが、有意義なお時間をお過ごしいただけましたでしょうか。」</p>
+        <p>「本日のWonder+異業種交流会は、まもなく終了となります。」</p>
+      </div>
+      <h3>アドリブ例</h3>
+      <ul>
+        <li>本日はたくさんの方にご参加いただきありがとうございました。</li>
+        <li>今日はとても活発な交流が行われていました。</li>
+        <li>皆様のおかげで素晴らしい会になりました。</li>
+      </ul>
+      <p>その後、定型コメントを行います。</p>
+      <h3>定型コメント</h3>
+      <div class="script">
+        <p>「今日のご縁を大切に、ぜひ皆様のビジネスの発展につなげていただければ幸いです。」</p>
+        <p>「次回のWonder+は○月○日○時より○○会場で開催いたします。」</p>
+        <p>「お帰りの際は、お荷物や携帯電話などお忘れ物のないようご確認ください。」</p>
+        <p>「それでは本日は以上で終了となります。」</p>
+        <p>「皆様、また次回Wonder+でお会いできることを楽しみにしております。」</p>
+        <p>「本日はご来場いただき誠にありがとうございました。」</p>
+      </div>
+      <p>理想は自然と拍手が起こる進行です。</p>
+      <h3>終了時の演出</h3>
+      <ul>
+        <li>BGMを上げて余韻を演出する</li>
+        <li>お客様がエレベーターホールを離れるまで雰囲気を維持する</li>
+        <li>隣会場利用時は騒音に十分配慮する</li>
+      </ul>
+    </section>
+
+    <section class="section" id="sendoff">
+      <h2><span class="num">10</span>お見送り</h2>
+      <p>エレベーターホールにてお見送りします。</p>
+      <p>イベントチラシがある場合はお渡ししてください。</p>
+      <h3>お見送り時の接触コメント</h3>
+      <ul>
+        <li>いつもありがとうございます。</li>
+        <li>本日もありがとうございました。</li>
+        <li>また遊びに来てくださいね。</li>
+        <li>またお待ちしております。</li>
+        <li>お忘れ物はありませんか。</li>
+        <li>お気を付けてお帰りください。</li>
+        <li>今日はありがとうございました。</li>
+      </ul>
+      <p>できるだけ全員へ一言お声掛けを行ってください。</p>
+      <p>スタッフ自身がお客様との交流を深めることも大切です。</p>
+    </section>
+
+    <section class="section" id="repeat">
+      <h2><span class="num">11</span>Wonder+をリピートしていただくための重要ポイント</h2>
+      <ul>
+        <li>参加人数が適正であること（理想30名以上、大都市では60名以上）</li>
+        <li>接触コメントを積極的に行うこと</li>
+        <li>特に女性スタッフからの自然な声掛けは効果が高い</li>
+        <li>受付開始・イベント開始ともに定刻運営を徹底する</li>
+        <li>快適な室温を維持する</li>
+        <li>会場全体の人口密度を均一にする</li>
+        <li>会場設備を無駄なく活用する</li>
+        <li>整理整頓された会場づくり</li>
+        <li>十分なテーブルスペースを確保する</li>
+        <li>床やテーブルクロスなど清潔感を維持する</li>
+        <li>雰囲気を乱す参加者がいないこと</li>
+        <li>営業行為が過度な参加者へ適切に対応すること</li>
+        <li>受付・案内をスムーズに行うこと</li>
+        <li>親しみやすく、それでいて礼儀正しい接客を行うこと</li>
+        <li>20名以上でも待ち時間が発生しない受付を行うこと</li>
+        <li>受付は最高速度で、大きな声で、簡潔に対応すること</li>
+        <li>スタッフ自身が楽しそうに働いていること</li>
+        <li>スタッフ全員が自然で温かいウェルカム姿勢を持つこと</li>
+      </ul>
+    </section>
+
+    <section class="section policy">
+      <h2><span class="num">方針</span>Wonder+運営方針</h2>
+      <p>Wonder+では、「人」と「空間」の質が交流会の価値を決めると考えています。</p>
+      <p>参加者満足度を高めるためには、一つのサービスだけではなく、「接触コメント」「受付」「進行」「席替え」「会場づくり」「スタッフの雰囲気」「演出」など、すべてを高いレベルで提供することが重要です。</p>
+      <p>私たちは、参加者一人ひとりに「また来たい」と思っていただける交流会を目指します。</p>
+      <p>そのためにスタッフ全員が笑顔・気配り・ホスピタリティを大切にし、高品質な運営を継続して提供していきます。</p>
+    </section>
+  </main>
+</body>
+</html>

@@ -3186,11 +3186,19 @@
               <span class="badge">現場確認用</span>
             </div>
             <div class="materials-list" aria-label="運営マニュアルを開く">
-              <button class="manual-launch-card" type="button" data-manual-open>
+              <button class="manual-launch-card" type="button" data-manual-open="manual.html" data-manual-title="運営マニュアル" data-manual-subtitle="添付いただいた完全版マニュアルをそのまま表示しています。スマホでは画面幅に合わせて閲覧できます。">
                 <span class="datebox">Manual</span>
                 <span>
                   <strong>運営マニュアル</strong>
                   <span>ドリンク準備、会場設営、受付、進行判断、撤収までを別ウインドウで確認できます。</span>
+                </span>
+                <span class="status">開く</span>
+              </button>
+              <button class="manual-launch-card" type="button" data-manual-open="mc-script.html" data-manual-title="司会原稿" data-manual-subtitle="Wonder+異業種交流会の受付・席替え・終了案内まで、司会と現場スタッフが確認できます。">
+                <span class="datebox">Script</span>
+                <span>
+                  <strong>司会原稿</strong>
+                  <span>お迎え、席替え、スタンディング、終了アナウンスまでを流れに沿って確認できます。</span>
                 </span>
                 <span class="status">開く</span>
               </button>
@@ -3199,8 +3207,8 @@
             <div class="manual-scroll">
               <div class="manual-window-head">
                 <div>
-                  <strong>運営マニュアル</strong>
-                  <span>添付いただいた完全版マニュアルをそのまま表示しています。スマホでは画面幅に合わせて閲覧できます。</span>
+                  <strong data-manual-modal-title>運営マニュアル</strong>
+                  <span data-manual-modal-subtitle>添付いただいた完全版マニュアルをそのまま表示しています。スマホでは画面幅に合わせて閲覧できます。</span>
                 </div>
                 <button class="manual-close" type="button" data-manual-close>閉じる</button>
               </div>
@@ -6454,8 +6462,20 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
     });
 
     const manualShade = document.querySelector("#manual .manual-modal-shade");
+    const manualFrame = document.querySelector("#manual .manual-frame");
+    const manualModalTitle = document.querySelector("[data-manual-modal-title]");
+    const manualModalSubtitle = document.querySelector("[data-manual-modal-subtitle]");
 
-    function openManualModal() {
+    function openManualModal(trigger) {
+      const source = trigger?.dataset?.manualOpen || "manual.html";
+      const title = trigger?.dataset?.manualTitle || "運営マニュアル";
+      const subtitle = trigger?.dataset?.manualSubtitle || "スマホでは画面幅に合わせて閲覧できます。";
+      if (manualFrame && manualFrame.getAttribute("src") !== source) {
+        manualFrame.setAttribute("src", source);
+      }
+      if (manualFrame) manualFrame.setAttribute("title", title);
+      if (manualModalTitle) manualModalTitle.textContent = title;
+      if (manualModalSubtitle) manualModalSubtitle.textContent = subtitle;
       document.body.classList.add("manual-modal-open");
       if (manualShade) manualShade.hidden = false;
       document.body.style.overflow = "hidden";
@@ -6467,7 +6487,9 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
       if (!materialModal?.classList.contains("is-open")) document.body.style.overflow = "";
     }
 
-    document.querySelector("[data-manual-open]")?.addEventListener("click", openManualModal);
+    document.querySelectorAll("[data-manual-open]").forEach((button) => {
+      button.addEventListener("click", () => openManualModal(button));
+    });
     document.querySelectorAll("[data-manual-close]").forEach((button) => {
       button.addEventListener("click", closeManualModal);
     });

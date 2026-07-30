@@ -5261,8 +5261,37 @@
       }
     }
 
+    function sanitizeVenueAddressOnly(value) {
+      let text = String(value || "")
+        .replace(/\r?\n+/g, " ")
+        .replace(/\s+/g, " ")
+        .replace(/^住所\s*[：:]\s*/i, "")
+        .replace(/^会場住所\s*[：:]\s*/i, "")
+        .trim();
+      text = text
+        .replace(/「[^」]*」/g, "")
+        .replace(/『[^』]*』/g, "")
+        .replace(/【[^】]*】/g, "")
+        .replace(/\([^)]*(?:会場|ホール|ホテル|ビル|Room|ルーム|階|F)[^)]*\)/gi, "")
+        .replace(/（[^）]*(?:会場|ホール|ホテル|ビル|Room|ルーム|階|F)[^）]*）/gi, "")
+        .replace(/\s+/g, " ")
+        .trim();
+      const stopPatterns = [
+        /(?:\s|　)+(?:参加費|定員|案内文|素材|申込|申し込み|フォーム|URL|http|開催日時|イベント名|注意|備考|受付|集合|持ち物|運営|スタッフ|CXO|CxO|cxo).*/i,
+        /(?:\s|　)+(?:Wonder|W\+|W＋|異業種交流会|交流会|イベント|開催|決定|変更|追加).*/i
+      ];
+      stopPatterns.forEach((pattern) => {
+        const match = text.search(pattern);
+        if (match > 0) text = text.slice(0, match).trim();
+      });
+      return text
+        .replace(/(?:会場名|会場)\s*[：:].*$/i, "")
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
     function formatVenueAddress(item) {
-      return `${item.area} ${item.address}「${item.venue}」`;
+      return sanitizeVenueAddressOnly(item.address);
     }
 
     function normalizeVenueMatch(value) {
@@ -5292,8 +5321,9 @@
       const area = candidate.area || candidate.label || candidate.name || candidate.venueArea || candidate.location || "";
       const address = candidate.address || candidate.venueAddress || candidate.locationAddress || "";
       const venue = candidate.venue || candidate.venueName || candidate.place || candidate.placeName || candidate.title || "";
-      if (!address || !venue) return null;
-      return { area: String(area || venue).trim(), address: String(address).trim(), venue: String(venue).trim() };
+      const cleanAddress = sanitizeVenueAddressOnly(address);
+      if (!cleanAddress || !venue) return null;
+      return { area: String(area || venue).trim(), address: cleanAddress, venue: String(venue).trim() };
     }
 
     function extractVenueAddressesFromText(text, title = "") {
@@ -5334,7 +5364,7 @@
         return `${pref ? `${pref} / ` : ""}${label}会場`;
       };
       const pushCandidate = (area, address, venue) => {
-        const normalizedAddress = cleanLine(address);
+        const normalizedAddress = sanitizeVenueAddressOnly(cleanLine(address));
         const normalizedVenue = cleanLine(venue).replace(/^「|」$/g, "");
         if (!normalizedAddress || !normalizedVenue || !isAddressLine(normalizedAddress)) return;
         matches.push({
@@ -5410,8 +5440,12 @@
 
     function getMergedVenueAddresses() {
       return [...venueAddresses, ...getGuideVenueCandidates()].reduce((list, item) => {
-        if (!item || list.some((current) => isSameVenueAddress(current, item))) return list;
-        list.push(item);
+        if (!item) return list;
+        const address = sanitizeVenueAddressOnly(item.address);
+        if (!address) return list;
+        const normalizedItem = { ...item, address };
+        if (list.some((current) => isSameVenueAddress(current, normalizedItem))) return list;
+        list.push(normalizedItem);
         return list;
       }, []);
     }
@@ -5432,7 +5466,7 @@
                 <strong>${escapeHtml(item.area)}</strong>
                 <button class="venue-copy-button" type="button" data-copy-venue="${escapeHtml(formatVenueAddress(item))}">コピー</button>
               </div>
-              <span>${escapeHtml(item.address)}「${escapeHtml(item.venue)}」</span>
+              <span>${escapeHtml(sanitizeVenueAddressOnly(item.address))}</span>
             </div>
           `).join("")}
         </div>

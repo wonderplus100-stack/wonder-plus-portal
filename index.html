@@ -3906,6 +3906,33 @@
       };
     }
 
+    function canonicalizeAssignmentId(eventId) {
+      const text = String(eventId || "").trim();
+      if (!text) return "";
+      const exactEntry = getAllScheduleEntries().find(({ group, item }) => getEventId(group, item) === text);
+      if (exactEntry) return text;
+      const matches = getAllScheduleEntries().filter(({ group, item }) => scheduleMatchesAssignmentId(group, item, text));
+      if (matches.length !== 1) return "";
+      return getEventId(matches[0].group, matches[0].item);
+    }
+
+    function canonicalizeAssignmentSet(values) {
+      const list = values instanceof Set || Array.isArray(values) ? [...values] : toArray(values);
+      return new Set(list
+        .map(canonicalizeAssignmentId)
+        .filter(Boolean));
+    }
+
+    function canonicalizeAssignmentMap(sourceMap) {
+      const nextMap = {};
+      Object.entries(sourceMap || {}).forEach(([eventId, names]) => {
+        const canonicalId = canonicalizeAssignmentId(eventId);
+        if (!canonicalId) return;
+        nextMap[canonicalId] = [...new Set([...(nextMap[canonicalId] || []), ...toArray(names)])];
+      });
+      return nextMap;
+    }
+
     function saveScheduleLogs() {
       localStorage.setItem("wonderScheduleLogs", JSON.stringify(scheduleLogs.slice(0, 30)));
     }
@@ -3964,6 +3991,22 @@
       return [...new Set(toArray(names).map(displayFamilyName).filter(Boolean))];
     }
 
+    function reconcileCurrentMemberAssignmentsInMap() {
+      if (!currentMember) return;
+      const name = getCurrentMemberAssignmentName();
+      const family = displayFamilyName(name);
+      Object.keys(assignmentMap || {}).forEach((eventId) => {
+        assignmentMap[eventId] = toArray(assignmentMap[eventId]).filter((item) => {
+          const value = String(item || "").trim();
+          return value !== name && (!family || displayFamilyName(value) !== family);
+        });
+        if (!assignmentMap[eventId].length) delete assignmentMap[eventId];
+      });
+      canonicalizeAssignmentSet(userAssignments).forEach((eventId) => {
+        assignmentMap[eventId] = [...new Set([...(assignmentMap[eventId] || []), name])];
+      });
+    }
+
     function getAssignmentsForMemberFromMap(user = currentMember) {
       if (!user) return new Set();
       const name = String(user.name || user.email || "").trim();
@@ -3981,15 +4024,21 @@
 
     function syncMemberAssignmentsFromSources(apiAssignments = new Set()) {
       if (!currentMember) return;
-      const storedAssignments = hasStoredMemberAssignments() ? loadStoredMemberAssignments() : new Set();
-      const mappedAssignments = getAssignmentsForMemberFromMap(currentMember);
-      userAssignments = mergeAssignmentSets(apiAssignments, storedAssignments, mappedAssignments);
+      const hasStored = hasStoredMemberAssignments();
+      const storedAssignments = hasStored ? canonicalizeAssignmentSet(loadStoredMemberAssignments()) : new Set();
+      const mappedAssignments = hasStored ? new Set() : canonicalizeAssignmentSet(getAssignmentsForMemberFromMap(currentMember));
+      userAssignments = hasStored
+        ? storedAssignments
+        : mergeAssignmentSets(canonicalizeAssignmentSet(apiAssignments), mappedAssignments);
       pendingAssignments = new Set(userAssignments);
+      reconcileCurrentMemberAssignmentsInMap();
       saveStoredMemberAssignments();
       updateAssignmentSaveState();
     }
 
     function getAssignmentDiff() {
+      pendingAssignments = canonicalizeAssignmentSet(pendingAssignments);
+      userAssignments = canonicalizeAssignmentSet(userAssignments);
       const added = [...pendingAssignments].filter((id) => !userAssignments.has(id));
       const removed = [...userAssignments].filter((id) => !pendingAssignments.has(id));
       return { added, removed };
@@ -4027,6 +4076,7 @@
     }
 
     function applyLocalAssignmentChange(eventId, checked) {
+      eventId = canonicalizeAssignmentId(eventId) || eventId;
       const name = getCurrentMemberAssignmentName();
       const currentNames = toArray(assignmentMap[eventId]);
       if (checked) {
@@ -4074,6 +4124,7 @@
 
     function saveStoredMemberAssignments() {
       if (!currentMember) return;
+      userAssignments = canonicalizeAssignmentSet(userAssignments);
       localStorage.setItem(getMemberAssignmentStorageKey(), JSON.stringify([...userAssignments]));
     }
 
@@ -4342,7 +4393,7 @@
     }
 
     function getAssignmentNamesForSchedule(group, item) {
-      return getEventIdCandidates(group, item).flatMap((eventId) => toArray(assignmentMap[eventId]));
+      return toArray(assignmentMap[getEventId(group, item)]);
     }
 
     function renderAssignmentNamesForSchedule(group, item, label = "担当", options = {}) {
@@ -4636,9 +4687,9 @@
     async function loadAssignments() {
       try {
         const payload = await callPortalAction("assignments");
-        assignmentMap = payload.assignments || {};
+        assignmentMap = canonicalizeAssignmentMap(payload.assignments || {});
         if (currentMember) {
-          const apiAssignments = Array.isArray(payload.mine) ? new Set(toArray(payload.mine)) : new Set();
+          const apiAssignments = Array.isArray(payload.mine) ? canonicalizeAssignmentSet(payload.mine) : new Set();
           syncMemberAssignmentsFromSources(apiAssignments);
           renderMemberScheduleList();
           renderEventList(schedules[activeScheduleKey], selectedScheduleDay);
@@ -4771,7 +4822,7 @@
         const eventId = getEventId(group, item);
         const candidateIds = getEventIdCandidates(group, item);
         const legacyIds = candidateIds.filter((id) => id !== eventId);
-        const checked = candidateIds.some((id) => pendingAssignments.has(id));
+        const checked = pendingAssignments.has(eventId);
         return `
           <label class="check-row">
             <input type="checkbox" data-event-id="${escapeHtml(eventId)}" data-candidate-ids="${escapeHtml(candidateIds.map(encodeURIComponent).join(","))}" data-legacy-ids="${escapeHtml(legacyIds.map(encodeURIComponent).join(","))}" data-title="${escapeHtml(item.title)}" data-date="${group.month}/${item.day}" ${checked ? "checked" : ""}>
@@ -4867,7 +4918,7 @@
       rememberMemberProfile(user);
       const restoredAssignments = Array.isArray(payload.mine) ? payload.mine : payload.assignments;
       if (Array.isArray(restoredAssignments)) {
-        userAssignments = new Set(toArray(restoredAssignments));
+        userAssignments = canonicalizeAssignmentSet(restoredAssignments);
         saveStoredMemberAssignments();
       }
       applyMemberSession(user);
@@ -4900,7 +4951,7 @@
         if (payload.token) localStorage.setItem("wonderMemberToken", payload.token);
         const user = payload.user || { email, name: payload.name || email, phase: payload.phase || "2期", role: payload.role || "member" };
         rememberMemberProfile(user);
-        userAssignments = new Set(toArray(payload.assignments));
+        userAssignments = canonicalizeAssignmentSet(payload.assignments);
         applyMemberSession(user);
         saveStoredMemberAssignments();
         await loadAssignments();
@@ -4976,8 +5027,8 @@
         if (!payload.ok) throw new Error(payload.message || "ログイン期限切れです");
         rememberMemberProfile(payload.user);
         userAssignments = hasStoredMemberAssignments(payload.user)
-          ? loadStoredMemberAssignments(payload.user)
-          : new Set(toArray(payload.assignments));
+          ? canonicalizeAssignmentSet(loadStoredMemberAssignments(payload.user))
+          : canonicalizeAssignmentSet(payload.assignments);
         if (userAssignments.size) localStorage.setItem(getMemberAssignmentStorageKey(payload.user), JSON.stringify([...userAssignments]));
         applyMemberSession(payload.user);
         setMemberStatus("ログイン状態を復元しました。");
@@ -5070,9 +5121,11 @@
       const legacyIds = parseEncodedIdList(input.dataset.legacyIds);
       if (input.checked) {
         pendingAssignments.add(input.dataset.eventId);
+        candidateIds.filter((eventId) => eventId !== input.dataset.eventId).forEach((eventId) => pendingAssignments.delete(eventId));
         legacyIds.forEach((eventId) => pendingAssignments.delete(eventId));
       } else {
-        candidateIds.forEach((eventId) => pendingAssignments.delete(eventId));
+        pendingAssignments.delete(input.dataset.eventId);
+        candidateIds.filter((eventId) => eventId !== input.dataset.eventId).forEach((eventId) => pendingAssignments.delete(eventId));
       }
       updateAssignmentSaveState();
       setMemberStatus(activeMemberCategory === "meeting" ? "ミーティング不参加チェックはまだ未反映です。更新してください。" : "チェック内容はまだ未反映です。参加チェックを更新してください。");
@@ -5121,15 +5174,14 @@
           }
           if (!latestPayload.ok) throw new Error(latestPayload.message || "保存できませんでした");
         }
-        const savedAssignments = new Set(pendingAssignments);
+        const savedAssignments = canonicalizeAssignmentSet(pendingAssignments);
         userAssignments = savedAssignments;
-        if (Array.isArray(latestPayload?.mine) && (latestPayload.mine.length || savedAssignments.size === 0)) {
-          userAssignments = new Set(toArray(latestPayload.mine));
-        }
         if (latestPayload?.assignments) {
-          assignmentMap = latestPayload.assignments;
+          assignmentMap = canonicalizeAssignmentMap(latestPayload.assignments);
         }
         applyLocalAssignmentChanges(changes);
+        reconcileCurrentMemberAssignmentsInMap();
+        userAssignments = canonicalizeAssignmentSet(userAssignments);
         saveStoredMemberAssignments();
         pendingAssignments = new Set(userAssignments);
         changes.forEach((change) => {

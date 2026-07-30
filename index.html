@@ -3856,11 +3856,22 @@
 
       const currentTraits = extractScheduleTitleTraits(item.title);
       const savedTraits = extractScheduleTitleTraits(parsed.title);
+      const currentTime = normalizeScheduleTime(item.meta);
+      const savedTime = normalizeScheduleTime(parsed.time);
+      if (currentTime && savedTime && currentTime !== savedTime) return false;
       const sharedVenue = currentTraits.venues.some((venue) => savedTraits.venues.includes(venue));
       const sharedBrand = currentTraits.brands.some((brand) => savedTraits.brands.includes(brand));
       const currentBaseWonder = /wonder|w\+/i.test(currentTraits.compact);
       const savedBaseWonder = /wonder|w\+/i.test(savedTraits.compact);
-      return sharedVenue || sharedBrand || (currentBaseWonder && savedBaseWonder && currentTraits.compact === savedTraits.compact);
+      if (currentTraits.brands.length || savedTraits.brands.length) {
+        if (!sharedBrand) return false;
+        if (currentTraits.venues.length && savedTraits.venues.length) return sharedVenue;
+        return currentBaseWonder && savedBaseWonder;
+      }
+      if (currentTraits.venues.length && savedTraits.venues.length) {
+        return sharedVenue && currentBaseWonder && savedBaseWonder && currentTraits.compact === savedTraits.compact;
+      }
+      return currentBaseWonder && savedBaseWonder && currentTraits.compact === savedTraits.compact;
     }
 
     function getMatchingAssignmentIds(group, item) {

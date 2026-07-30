@@ -3778,6 +3778,18 @@
       return single ? single[0] : "";
     }
 
+    function getScheduleTimeStart(time) {
+      return String(time || "").match(/\d{1,2}:\d{2}/)?.[0] || "";
+    }
+
+    function areScheduleTimesCompatible(currentTime, savedTime) {
+      if (!currentTime || !savedTime) return true;
+      if (currentTime === savedTime) return true;
+      const currentStart = getScheduleTimeStart(currentTime);
+      const savedStart = getScheduleTimeStart(savedTime);
+      return Boolean(currentStart && savedStart && currentStart === savedStart);
+    }
+
     function normalizeScheduleTitleKey(title) {
       return normalizeEventTitle(title)
         .replace(/\s+/g, "")
@@ -3798,8 +3810,9 @@
     function extractScheduleTitleTraits(title) {
       const compact = compactScheduleTitle(title);
       const venues = [
-        "銀座", "新宿", "名古屋", "大阪", "福岡", "博多", "北九州", "小倉", "熊本", "岡山", "広島",
-        "船橋", "横浜", "高崎", "前橋", "静岡", "札幌", "京都", "神戸", "浜松", "久留米", "仙台", "郡山", "新潟"
+        "銀座", "新宿", "有楽町", "名古屋", "大阪", "福岡", "博多", "北九州", "小倉", "熊本", "岡山", "広島",
+        "船橋", "横浜", "高崎", "前橋", "静岡", "札幌", "京都", "神戸", "浜松", "久留米", "仙台", "郡山", "新潟",
+        "福島", "宇都宮"
       ].filter((name) => compact.includes(name.toLowerCase()));
       const aliases = [
         ["story", ["story"]],
@@ -3858,7 +3871,7 @@
       const savedTraits = extractScheduleTitleTraits(parsed.title);
       const currentTime = normalizeScheduleTime(item.meta);
       const savedTime = normalizeScheduleTime(parsed.time);
-      if (currentTime && savedTime && currentTime !== savedTime) return false;
+      if (!areScheduleTimesCompatible(currentTime, savedTime)) return false;
       const sharedVenue = currentTraits.venues.some((venue) => savedTraits.venues.includes(venue));
       const sharedBrand = currentTraits.brands.some((brand) => savedTraits.brands.includes(brand));
       const currentBaseWonder = /wonder|w\+/i.test(currentTraits.compact);
@@ -3869,7 +3882,7 @@
         return currentBaseWonder && savedBaseWonder;
       }
       if (currentTraits.venues.length && savedTraits.venues.length) {
-        return sharedVenue && currentBaseWonder && savedBaseWonder && currentTraits.compact === savedTraits.compact;
+        return sharedVenue && currentBaseWonder && savedBaseWonder;
       }
       return currentBaseWonder && savedBaseWonder && currentTraits.compact === savedTraits.compact;
     }
@@ -4026,10 +4039,8 @@
       if (!currentMember) return;
       const hasStored = hasStoredMemberAssignments();
       const storedAssignments = hasStored ? canonicalizeAssignmentSet(loadStoredMemberAssignments()) : new Set();
-      const mappedAssignments = hasStored ? new Set() : canonicalizeAssignmentSet(getAssignmentsForMemberFromMap(currentMember));
-      userAssignments = hasStored
-        ? storedAssignments
-        : mergeAssignmentSets(canonicalizeAssignmentSet(apiAssignments), mappedAssignments);
+      const mappedAssignments = canonicalizeAssignmentSet(getAssignmentsForMemberFromMap(currentMember));
+      userAssignments = mergeAssignmentSets(canonicalizeAssignmentSet(apiAssignments), storedAssignments, mappedAssignments);
       pendingAssignments = new Set(userAssignments);
       reconcileCurrentMemberAssignmentsInMap();
       saveStoredMemberAssignments();

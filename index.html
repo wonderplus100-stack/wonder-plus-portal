@@ -3626,6 +3626,7 @@
     if (authRequired) document.body.classList.add("auth-required");
     let selectedScheduleDay = null;
     let assignmentMap = {};
+    let rawAssignmentMap = {};
     let currentMember = null;
     let userAssignments = new Set();
     let pendingAssignments = new Set();
@@ -4306,7 +4307,7 @@
         next[key].items = mergeScheduleDuplicates(consolidated[key].items)
           .sort((a, b) => a.day - b.day || a.title.localeCompare(b.title, "ja"));
       });
-      assignmentMap = payload?.assignments || assignmentMap || {};
+      rawAssignmentMap = payload?.assignments || rawAssignmentMap || {};
       return fillDefaultSchedules(next);
     }
 
@@ -4404,7 +4405,13 @@
     }
 
     function getAssignmentNamesForSchedule(group, item) {
-      return toArray(assignmentMap[getEventId(group, item)]);
+      const currentId = getEventId(group, item);
+      const names = [...toArray(assignmentMap[currentId])];
+      Object.entries(rawAssignmentMap || {}).forEach(([eventId, values]) => {
+        if (eventId === currentId) return;
+        if (scheduleMatchesAssignmentId(group, item, eventId)) names.push(...toArray(values));
+      });
+      return [...new Set(names)];
     }
 
     function renderAssignmentNamesForSchedule(group, item, label = "担当", options = {}) {
@@ -4698,6 +4705,7 @@
     async function loadAssignments() {
       try {
         const payload = await callPortalAction("assignments");
+        rawAssignmentMap = payload.assignments || {};
         assignmentMap = canonicalizeAssignmentMap(payload.assignments || {});
         if (currentMember) {
           const apiAssignments = Array.isArray(payload.mine) ? canonicalizeAssignmentSet(payload.mine) : new Set();
@@ -5188,6 +5196,7 @@
         const savedAssignments = canonicalizeAssignmentSet(pendingAssignments);
         userAssignments = savedAssignments;
         if (latestPayload?.assignments) {
+          rawAssignmentMap = latestPayload.assignments;
           assignmentMap = canonicalizeAssignmentMap(latestPayload.assignments);
         }
         applyLocalAssignmentChanges(changes);

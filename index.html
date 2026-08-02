@@ -3550,24 +3550,11 @@
         ].join("\n")
       }
     };
-    const emptySchedules = {
-      juneWonder: { month: 6, label: "6月 Wonder＋", items: [] },
-      juneRegular: { month: 6, label: "6月 レギュラー", items: [] },
-      juneMiraiba: { month: 6, label: "6月 ミライバ", items: [] },
-      juneMeeting: { month: 6, label: "6月 ミーティング", items: [] },
-      julyWonder: { month: 7, label: "7月 Wonder＋", items: [] },
-      julyRegular: { month: 7, label: "7月 レギュラー", items: [] },
-      julyMiraiba: { month: 7, label: "7月 ミライバ", items: [] },
-      julyMeeting: { month: 7, label: "7月 ミーティング", items: [] },
-      augustWonder: { month: 8, label: "8月 Wonder＋", items: [] },
-      augustRegular: { month: 8, label: "8月 レギュラー", items: [] },
-      augustMiraiba: { month: 8, label: "8月 ミライバ", items: [] },
-      augustMeeting: { month: 8, label: "8月 ミーティング", items: [] }
-    };
+    const emptySchedules = createEmptySchedules();
     let schedules = fillDefaultSchedules(structuredClone(emptySchedules));
-    let activeScheduleMonth = Math.min(8, Math.max(6, currentScheduleMonth()));
+    let activeScheduleMonth = Math.min(12, Math.max(1, currentScheduleMonth()));
     let activeScheduleCategory = "wonder";
-    let activeScheduleKey = getScheduleKey(activeScheduleMonth, activeScheduleCategory) || "juneWonder";
+    let activeScheduleKey = getScheduleKey(activeScheduleMonth, activeScheduleCategory) || getScheduleKey(1, "wonder");
 
     const dows = ["月", "火", "水", "木", "金", "土", "日"];
 
@@ -3704,6 +3691,42 @@
       return now.getMonth() + 1;
     }
 
+    function getScheduleCategorySuffix(category) {
+      return {
+        wonder: "Wonder",
+        regular: "Regular",
+        miraiba: "Miraiba",
+        meeting: "Meeting"
+      }[category] || "Wonder";
+    }
+
+    function getScheduleCategoryFromSuffix(suffix) {
+      if (suffix === "Meeting") return "meeting";
+      if (suffix === "Miraiba") return "miraiba";
+      if (suffix === "Regular") return "regular";
+      return "wonder";
+    }
+
+    function getScheduleKey(month, category) {
+      const safeMonth = Number(month);
+      if (!Number.isInteger(safeMonth) || safeMonth < 1 || safeMonth > 12) return "";
+      return `month${safeMonth}${getScheduleCategorySuffix(category)}`;
+    }
+
+    function createEmptySchedules() {
+      const target = {};
+      for (let month = 1; month <= 12; month += 1) {
+        ["wonder", "regular", "miraiba", "meeting"].forEach((category) => {
+          target[getScheduleKey(month, category)] = {
+            month,
+            label: `${month}月 ${getMemberCategoryLabel(category)}`,
+            items: []
+          };
+        });
+      }
+      return target;
+    }
+
     function isArchivedScheduleGroup(group) {
       return Number(group?.month || 0) < currentScheduleMonth();
     }
@@ -3736,22 +3759,15 @@
     }
 
     function fillDefaultSchedules(target) {
+      const monthsWithPostedItems = new Set(Object.entries(target)
+        .filter(([key, group]) => group.items?.length && !/Miraiba|Meeting$/.test(key))
+        .map(([, group]) => Number(group.month)));
       Object.entries(target).forEach(([key, group]) => {
+        if (!monthsWithPostedItems.has(Number(group.month))) return;
         if (/Meeting$/.test(key) && !group.items.length) group.items = defaultMeetingItems(group.month);
         if (/Miraiba$/.test(key) && !group.items.length) group.items = defaultMiraibaItems(group.month);
       });
       return target;
-    }
-
-    function getScheduleKey(month, category) {
-      const prefix = { 6: "june", 7: "july", 8: "august" }[Number(month)];
-      const suffix = {
-        wonder: "Wonder",
-        regular: "Regular",
-        miraiba: "Miraiba",
-        meeting: "Meeting"
-      }[category];
-      return prefix && suffix ? `${prefix}${suffix}` : "";
     }
 
     function getScheduleEntries(options = {}) {
@@ -4261,12 +4277,37 @@
     }
 
     function getScheduleGroupKey(month, item) {
-      const prefix = { 6: "june", 7: "july", 8: "august" }[Number(month)];
-      if (!prefix) return null;
       const category = getMemberScheduleCategory(item);
-      if (category === "meeting") return `${prefix}Meeting`;
-      if (category === "miraiba") return `${prefix}Miraiba`;
-      return `${prefix}${category === "wonder" ? "Wonder" : "Regular"}`;
+      if (category === "meeting") return getScheduleKey(month, "meeting");
+      if (category === "miraiba") return getScheduleKey(month, "miraiba");
+      return getScheduleKey(month, category === "wonder" ? "wonder" : "regular");
+    }
+
+    function getPayloadScheduleMonth(key, value) {
+      const explicitMonth = Number(value?.month);
+      if (explicitMonth >= 1 && explicitMonth <= 12) return explicitMonth;
+      if (key?.startsWith("june")) return 6;
+      if (key?.startsWith("july")) return 7;
+      if (key?.startsWith("august")) return 8;
+      const monthNames = {
+        january: 1, february: 2, march: 3, april: 4, may: 5, june: 6,
+        july: 7, august: 8, september: 9, october: 10, november: 11, december: 12
+      };
+      const lowerKey = String(key || "").toLowerCase();
+      const nameMatch = Object.entries(monthNames).find(([name]) => lowerKey.startsWith(name));
+      if (nameMatch) return nameMatch[1];
+      const labelMatch = String(value?.label || "").match(/(\d{1,2})月/);
+      if (labelMatch) return Number(labelMatch[1]);
+      const match = String(key || "").match(/month(\d{1,2})/i);
+      return match ? Number(match[1]) : 0;
+    }
+
+    function getPayloadScheduleCategory(key) {
+      const text = String(key || "");
+      if (/Meeting$/i.test(text)) return "meeting";
+      if (/Miraiba$/i.test(text)) return "miraiba";
+      if (/Regular$/i.test(text)) return "regular";
+      return "wonder";
     }
 
     function normalizeSchedules(payload) {
@@ -4280,11 +4321,12 @@
             : (Array.isArray(payload?.guides) ? payload.guides : [])));
       eventGuideDocuments = mergeEventGuideDocuments(payloadGuideDocuments, defaultEventGuideDocuments);
       Object.entries(payload?.schedules || {}).forEach(([key, value]) => {
-        if (!next[key]) return;
+        const targetKey = getScheduleKey(getPayloadScheduleMonth(key, value), getPayloadScheduleCategory(key));
+        if (!targetKey || !next[targetKey]) return;
         const items = Array.isArray(value.items) ? value.items : [];
-        next[key] = {
-          month: Number(value.month) || next[key].month,
-          label: value.label || next[key].label,
+        next[targetKey] = {
+          month: getPayloadScheduleMonth(key, value) || next[targetKey].month,
+          label: value.label || next[targetKey].label,
           items: mergeScheduleDuplicates(items
             .map((item) => ({
               day: Number(item.day),
@@ -4341,14 +4383,19 @@
           script.remove();
           reject(new Error("JSONP failed"));
         };
-        script.src = `${apiUrl}${separator}callback=${encodeURIComponent(callbackName)}`;
+        script.src = `${apiUrl}${separator}callback=${encodeURIComponent(callbackName)}&_=${Date.now()}`;
         document.head.appendChild(script);
       });
     }
 
+    function withCacheBust(url) {
+      const separator = url.includes("?") ? "&" : "?";
+      return `${url}${separator}_=${Date.now()}`;
+    }
+
     async function fetchSchedulePayload(apiUrl) {
       try {
-        const response = await fetch(apiUrl, { cache: "no-store" });
+        const response = await fetch(withCacheBust(apiUrl), { cache: "no-store" });
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         return await response.json();
       } catch (error) {
@@ -4426,58 +4473,76 @@
 
     function renderArchiveSchedule() {
       if (!scheduleArchiveList) return;
-      const rows = getScheduleEntries({ includeArchived: true, archivedOnly: true });
-      scheduleArchiveList.innerHTML = rows.length ? `
-        <details>
-          <summary class="note-box"><strong>過去のスケジュール</strong> 月が終了した予定はこちらに保存されます。</summary>
-          ${rows.map(({ group, item }) => `
-            <div class="schedule-log-row">
-              <time>${group.month}/${item.day}</time>
-              <div><strong>${escapeHtml(item.title)}</strong><br>${escapeHtml(formatScheduleDisplayMeta(item, group) || "詳細未入力")}</div>
-            </div>
-          `).join("")}
-        </details>
-      ` : `
+      scheduleArchiveList.innerHTML = `
         <div class="schedule-log-row">
-          <time>保存</time>
-          <div>終了した月のスケジュールはここにアーカイブ表示されます。</div>
+          <time>更新</time>
+          <div>終了した月のスケジュールは通常表示から除外され、最新投稿の月を優先して表示します。</div>
         </div>
       `;
     }
 
     function updateScheduleTabVisibility() {
+      const visibleMonths = getVisibleScheduleMonths();
+      const monthIndex = visibleMonths.indexOf(activeScheduleMonth);
+      const prevMonth = monthIndex > 0 ? visibleMonths[monthIndex - 1] : null;
+      const nextMonth = monthIndex >= 0 && monthIndex < visibleMonths.length - 1 ? visibleMonths[monthIndex + 1] : null;
       document.querySelectorAll("[data-schedule-category]").forEach((tab) => {
         tab.classList.toggle("is-active", tab.dataset.scheduleCategory === activeScheduleCategory);
       });
       if (currentScheduleMonthLabel) currentScheduleMonthLabel.textContent = `${activeScheduleMonth}月`;
-      if (prevScheduleMonthLabel) prevScheduleMonthLabel.textContent = activeScheduleMonth > 6 ? `${activeScheduleMonth - 1}月` : "";
-      if (nextScheduleMonthLabel) nextScheduleMonthLabel.textContent = activeScheduleMonth < 8 ? `${activeScheduleMonth + 1}月` : "";
+      if (prevScheduleMonthLabel) prevScheduleMonthLabel.textContent = prevMonth ? `${prevMonth}月` : "";
+      if (nextScheduleMonthLabel) nextScheduleMonthLabel.textContent = nextMonth ? `${nextMonth}月` : "";
       document.querySelectorAll("[data-schedule-month-step]").forEach((button) => {
         const step = Number(button.dataset.scheduleMonthStep || 0);
-        const targetMonth = activeScheduleMonth + step;
-        button.disabled = targetMonth < 6 || targetMonth > 8;
+        button.disabled = step < 0 ? !prevMonth : !nextMonth;
       });
     }
 
     function getScheduleStateFromKey(key) {
-      const month = key?.startsWith("june") ? 6 : key?.startsWith("july") ? 7 : key?.startsWith("august") ? 8 : activeScheduleMonth;
-      const category = key?.endsWith("Meeting") ? "meeting"
-        : key?.endsWith("Miraiba") ? "miraiba"
-          : key?.endsWith("Regular") ? "regular"
-            : "wonder";
+      const group = schedules[key];
+      const month = Number(group?.month) || getPayloadScheduleMonth(key, group) || activeScheduleMonth;
+      const suffix = String(key || "").match(/(Wonder|Regular|Miraiba|Meeting)$/)?.[1] || "Wonder";
+      const category = getScheduleCategoryFromSuffix(suffix);
       return { month, category };
     }
 
+    function getVisibleScheduleMonths() {
+      const currentMonth = currentScheduleMonth();
+      const months = [...new Set(Object.values(schedules || {})
+        .filter((group) => group.items?.length)
+        .map((group) => Number(group.month))
+        .filter((month) => month >= Math.min(12, Math.max(1, currentMonth)) && month <= 12))]
+        .sort((a, b) => a - b);
+      if (months.length) return months;
+      const fallback = Math.min(12, Math.max(1, currentMonth));
+      return [fallback];
+    }
+
+    function getNearestVisibleScheduleMonth(month) {
+      const visibleMonths = getVisibleScheduleMonths();
+      const requested = Number(month) || activeScheduleMonth || visibleMonths[0];
+      if (visibleMonths.includes(requested)) return requested;
+      return visibleMonths.find((visibleMonth) => visibleMonth >= requested) || visibleMonths[visibleMonths.length - 1] || requested;
+    }
+
     function syncActiveScheduleFromState(month = activeScheduleMonth, category = activeScheduleCategory) {
-      activeScheduleMonth = Math.min(8, Math.max(6, Number(month) || activeScheduleMonth || 6));
+      activeScheduleMonth = getNearestVisibleScheduleMonth(month);
       activeScheduleCategory = category || activeScheduleCategory || "wonder";
-      activeScheduleKey = getScheduleKey(activeScheduleMonth, activeScheduleCategory) || activeScheduleKey || "juneWonder";
+      activeScheduleKey = getScheduleKey(activeScheduleMonth, activeScheduleCategory) || activeScheduleKey || getScheduleKey(activeScheduleMonth, "wonder");
       return activeScheduleKey;
     }
 
     function switchSchedule(month, category) {
       selectedScheduleDay = null;
-      renderSchedule(syncActiveScheduleFromState(month, category));
+      const visibleMonths = getVisibleScheduleMonths();
+      const currentIndex = visibleMonths.indexOf(activeScheduleMonth);
+      const requested = Number(month);
+      const targetMonth = requested === activeScheduleMonth + 1 && currentIndex >= 0
+        ? (visibleMonths[currentIndex + 1] || activeScheduleMonth)
+        : requested === activeScheduleMonth - 1 && currentIndex > 0
+          ? visibleMonths[currentIndex - 1]
+          : requested;
+      renderSchedule(syncActiveScheduleFromState(targetMonth, category));
     }
 
     function normalizeSelectedScheduleDay(group) {
@@ -4669,7 +4734,7 @@
 
     async function loadSchedules() {
       const apiUrl = getScheduleApiUrl();
-      activeMemberMonth = Math.min(8, Math.max(6, currentScheduleMonth()));
+      activeMemberMonth = getNearestVisibleScheduleMonth(currentScheduleMonth());
       document.querySelectorAll("[data-member-month]").forEach((tab) => {
         tab.classList.toggle("is-active", Number(tab.dataset.memberMonth) === activeMemberMonth);
       });
@@ -4684,6 +4749,7 @@
         setScheduleStatus("スケジュール読込中");
         const payload = await fetchSchedulePayload(apiUrl);
         schedules = normalizeSchedules(payload);
+        syncActiveScheduleFromState(activeScheduleMonth, activeScheduleCategory);
         await loadAssignments();
         updateScheduleTabVisibility();
         renderSchedule(activeScheduleKey);

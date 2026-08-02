@@ -3589,6 +3589,7 @@
     const memberName = document.querySelector("#memberName");
     const memberRole = document.querySelector("#memberRole");
     const meetingNote = document.querySelector("#meetingNote");
+    const memberMonthTabs = document.querySelector(".member-month-tabs");
     const adminCard = document.querySelector("#adminCard");
     const adminUserList = document.querySelector("#adminUserList");
     const portalTitle = document.querySelector("#portalTitle");
@@ -3607,6 +3608,7 @@
     const eventGuideBody = document.querySelector("#eventGuideBody");
     const eventGuideAssets = document.querySelector("#eventGuideAssets");
     const eventGuidePicker = document.querySelector(".event-guide-picker");
+    const eventGuideMonthTabs = document.querySelector("#eventGuideMonthTabs");
     const queryParams = new URLSearchParams(window.location.search);
     const authRequired = queryParams.get("view") === "member";
     const forceLogin = queryParams.get("login") === "1";
@@ -4536,6 +4538,15 @@
       return visibleMonths.find((visibleMonth) => visibleMonth >= requested) || visibleMonths[visibleMonths.length - 1] || requested;
     }
 
+    function renderMemberMonthTabs() {
+      if (!memberMonthTabs) return;
+      const visibleMonths = getVisibleScheduleMonths();
+      activeMemberMonth = getNearestVisibleScheduleMonth(activeMemberMonth);
+      memberMonthTabs.innerHTML = visibleMonths.map((month) => `
+        <button class="tab-button ${month === activeMemberMonth ? "is-active" : ""}" type="button" data-member-month="${month}">${month}月</button>
+      `).join("");
+    }
+
     function syncActiveScheduleFromState(month = activeScheduleMonth, category = activeScheduleCategory) {
       activeScheduleMonth = getNearestVisibleScheduleMonth(month);
       activeScheduleCategory = category || activeScheduleCategory || "wonder";
@@ -4737,6 +4748,7 @@
       }
 
       renderEventList(current, selectedScheduleDay);
+      renderMemberMonthTabs();
       renderMemberScheduleList();
       renderArchiveSchedule();
       renderScheduleLogs();
@@ -4746,9 +4758,7 @@
     async function loadSchedules() {
       const apiUrl = getScheduleApiUrl();
       activeMemberMonth = getNearestVisibleScheduleMonth(currentScheduleMonth());
-      document.querySelectorAll("[data-member-month]").forEach((tab) => {
-        tab.classList.toggle("is-active", Number(tab.dataset.memberMonth) === activeMemberMonth);
-      });
+      renderMemberMonthTabs();
       renderScheduleLogs();
       renderSchedule(activeScheduleKey);
       if (!apiUrl) {
@@ -5160,29 +5170,27 @@
       }
     }
 
-    document.querySelectorAll(".tab-button").forEach((button) => {
-      button.addEventListener("click", () => {
-        if (button.dataset.scheduleCategory) {
-          switchSchedule(activeScheduleMonth, button.dataset.scheduleCategory);
-        }
-        if (button.dataset.scrollTarget) {
-          document.getElementById(button.dataset.scrollTarget)?.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-        if (button.dataset.memberCategory) {
-          activeMemberCategory = button.dataset.memberCategory;
-          document.querySelectorAll("[data-member-category]").forEach((tab) => {
-            tab.classList.toggle("is-active", tab === button);
-          });
-          renderMemberScheduleList();
-        }
-        if (button.dataset.memberMonth) {
-          activeMemberMonth = Number(button.dataset.memberMonth);
-          document.querySelectorAll("[data-member-month]").forEach((tab) => {
-            tab.classList.toggle("is-active", tab === button);
-          });
-          renderMemberScheduleList();
-        }
-      });
+    document.addEventListener("click", (event) => {
+      const button = event.target.closest(".tab-button");
+      if (!button) return;
+      if (button.dataset.scheduleCategory) {
+        switchSchedule(activeScheduleMonth, button.dataset.scheduleCategory);
+      }
+      if (button.dataset.scrollTarget) {
+        document.getElementById(button.dataset.scrollTarget)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+      if (button.dataset.memberCategory) {
+        activeMemberCategory = button.dataset.memberCategory;
+        document.querySelectorAll("[data-member-category]").forEach((tab) => {
+          tab.classList.toggle("is-active", tab === button);
+        });
+        renderMemberScheduleList();
+      }
+      if (button.dataset.memberMonth) {
+        activeMemberMonth = Number(button.dataset.memberMonth);
+        renderMemberMonthTabs();
+        renderMemberScheduleList();
+      }
     });
 
     document.querySelectorAll("[data-schedule-month-step]").forEach((button) => {
@@ -5344,18 +5352,18 @@
     }
 
     function renderEventGuideMonthTabs() {
-      document.querySelectorAll("[data-guide-month]").forEach((tab) => {
-        const month = Number(tab.dataset.guideMonth);
-        const hasMonthSchedule = getAllScheduleEntries().some(({ group }) => group.month === month);
-        tab.hidden = !hasMonthSchedule;
-        tab.classList.toggle("is-active", activeGuideMode === "guide" && month === activeGuideMonth);
-      });
-      document.querySelector("[data-guide-venues]")?.classList.toggle("is-active", activeGuideMode === "venues");
-      const activeTab = document.querySelector(`[data-guide-month="${activeGuideMonth}"]:not([hidden])`);
-      if (activeGuideMode === "guide" && !activeTab) {
-        const nextTab = document.querySelector("[data-guide-month]:not([hidden])");
-        if (nextTab) activeGuideMonth = Number(nextTab.dataset.guideMonth);
+      if (eventGuideMonthTabs) {
+        const visibleMonths = getVisibleScheduleMonths();
+        if (activeGuideMode === "guide") activeGuideMonth = getNearestVisibleScheduleMonth(activeGuideMonth);
+        eventGuideMonthTabs.innerHTML = [
+          ...visibleMonths.map((month) => `
+            <button class="tab-button ${activeGuideMode === "guide" && month === activeGuideMonth ? "is-active" : ""}" type="button" data-guide-month="${month}">${month}月</button>
+          `),
+          `<button class="tab-button ${activeGuideMode === "venues" ? "is-active" : ""}" type="button" data-guide-venues>会場住所一覧</button>`,
+          `<button class="tab-button" type="button" data-guide-dates>イベント開催日時一覧</button>`
+        ].join("");
       }
+      document.querySelector("[data-guide-venues]")?.classList.toggle("is-active", activeGuideMode === "venues");
     }
 
     function sanitizeVenueAddressOnly(value) {
@@ -6126,19 +6134,22 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
       popup.focus();
     }
 
-    document.querySelectorAll("[data-guide-month]").forEach((button) => {
-      button.addEventListener("click", () => {
+    eventGuideMonthTabs?.addEventListener("click", (event) => {
+      const monthButton = event.target.closest("[data-guide-month]");
+      if (monthButton) {
         activeGuideMode = "guide";
-        activeGuideMonth = Number(button.dataset.guideMonth);
+        activeGuideMonth = Number(monthButton.dataset.guideMonth);
         renderEventGuidePicker();
-      });
-    });
-
-    document.querySelector("[data-guide-dates]")?.addEventListener("click", openEventDateListWindow);
-
-    document.querySelector("[data-guide-venues]")?.addEventListener("click", () => {
-      activeGuideMode = "venues";
-      renderEventGuidePicker();
+        return;
+      }
+      if (event.target.closest("[data-guide-dates]")) {
+        openEventDateListWindow();
+        return;
+      }
+      if (event.target.closest("[data-guide-venues]")) {
+        activeGuideMode = "venues";
+        renderEventGuidePicker();
+      }
     });
 
     document.querySelectorAll("[data-guide-brand]").forEach((button) => {

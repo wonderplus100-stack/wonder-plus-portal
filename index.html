@@ -4286,9 +4286,18 @@
     function getPayloadScheduleMonth(key, value) {
       const explicitMonth = Number(value?.month);
       if (explicitMonth >= 1 && explicitMonth <= 12) return explicitMonth;
+      if (key?.startsWith("january")) return 1;
+      if (key?.startsWith("february")) return 2;
+      if (key?.startsWith("march")) return 3;
+      if (key?.startsWith("april")) return 4;
+      if (key?.startsWith("may")) return 5;
       if (key?.startsWith("june")) return 6;
       if (key?.startsWith("july")) return 7;
       if (key?.startsWith("august")) return 8;
+      if (key?.startsWith("september")) return 9;
+      if (key?.startsWith("october")) return 10;
+      if (key?.startsWith("november")) return 11;
+      if (key?.startsWith("december")) return 12;
       const monthNames = {
         january: 1, february: 2, march: 3, april: 4, may: 5, june: 6,
         july: 7, august: 8, september: 9, october: 10, november: 11, december: 12
@@ -4508,10 +4517,12 @@
 
     function getVisibleScheduleMonths() {
       const currentMonth = currentScheduleMonth();
+      const lowerBound = Math.max(1, currentMonth - 1);
+      const upperBound = Math.min(12, currentMonth + 2);
       const months = [...new Set(Object.values(schedules || {})
         .filter((group) => group.items?.length)
         .map((group) => Number(group.month))
-        .filter((month) => month >= Math.min(12, Math.max(1, currentMonth)) && month <= 12))]
+        .filter((month) => month >= lowerBound && month <= upperBound))]
         .sort((a, b) => a - b);
       if (months.length) return months;
       const fallback = Math.min(12, Math.max(1, currentMonth));

@@ -3555,6 +3555,7 @@
     let activeScheduleMonth = Math.min(12, Math.max(1, currentScheduleMonth()));
     let activeScheduleCategory = "wonder";
     let activeScheduleKey = getScheduleKey(activeScheduleMonth, activeScheduleCategory) || getScheduleKey(1, "wonder");
+    let hasUserSelectedScheduleMonth = false;
 
     const dows = ["月", "火", "水", "木", "金", "土", "日"];
 
@@ -4555,6 +4556,7 @@
     }
 
     function switchSchedule(month, category) {
+      hasUserSelectedScheduleMonth = true;
       selectedScheduleDay = null;
       const visibleMonths = getVisibleScheduleMonths();
       const currentIndex = visibleMonths.indexOf(activeScheduleMonth);
@@ -4770,6 +4772,10 @@
         setScheduleStatus("スケジュール読込中");
         const payload = await fetchSchedulePayload(apiUrl);
         schedules = normalizeSchedules(payload);
+        if (!hasUserSelectedScheduleMonth) {
+          const visibleMonths = getVisibleScheduleMonths();
+          activeScheduleMonth = visibleMonths[visibleMonths.length - 1] || activeScheduleMonth;
+        }
         syncActiveScheduleFromState(activeScheduleMonth, activeScheduleCategory);
         await loadAssignments();
         updateScheduleTabVisibility();

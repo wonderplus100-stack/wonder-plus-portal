@@ -4845,34 +4845,50 @@
       renderMemberMonthTabs();
       renderScheduleLogs();
       renderSchedule(activeScheduleKey);
+
+      let displayedFallbackSchedule = false;
+      const showFallbackSchedule = async () => {
+        const fallbackPayload = await getFastSchedulePayload();
+        if (!fallbackPayload?.schedules) return null;
+        await applySchedulePayload(fallbackPayload);
+        displayedFallbackSchedule = true;
+        return fallbackPayload;
+      };
+
       if (!apiUrl) {
-        setScheduleStatus("スケジュール接続待ち: Apps ScriptのWebアプリURLを設定すると自動反映されます");
+        const fallbackPayload = await showFallbackSchedule();
+        setScheduleStatus(fallbackPayload ? "Schedule cache loaded. Live API is not configured." : "Schedule API is not configured.");
         return;
       }
 
+      let cachedPayload = null;
       try {
-        setScheduleStatus("スケジュール読込中");
-        const cachedPayload = await getFastSchedulePayload();
-        if (cachedPayload?.schedules) {
-          await applySchedulePayload(cachedPayload);
-          setScheduleStatus("Schedule cache loaded");
-        }
+        setScheduleStatus("Schedule loading");
+        cachedPayload = await showFallbackSchedule();
+        if (cachedPayload) setScheduleStatus("Schedule cache loaded");
+
         const livePayload = await fetchSchedulePayload(apiUrl);
         const payload = isSchedulePayloadCompleteEnough(livePayload, cachedPayload) ? livePayload : cachedPayload;
         if (!payload?.schedules) throw new Error("schedule payload is empty");
         if (payload === livePayload) storeSchedulePayload(payload);
         await applySchedulePayload(payload);
+
         const updatedAt = payload?.updatedAt ? new Date(payload.updatedAt) : null;
         const suffix = updatedAt && !Number.isNaN(updatedAt.getTime())
-          ? `最終更新 ${updatedAt.toLocaleString("ja-JP")}`
-          : "最新データを反映しました";
-        setScheduleStatus(`自動反映済み: ${suffix}`);
-        if (payload?.updatedAt) addScheduleLog(`スケジュール自動反映: ${suffix}`);
+          ? `Last updated ${updatedAt.toLocaleString("ja-JP")}`
+          : "Latest schedule data applied";
+        setScheduleStatus(`Schedule loaded: ${suffix}`);
+        if (payload?.updatedAt) addScheduleLog(`Schedule loaded: ${suffix}`);
       } catch (error) {
         console.error(error);
+        if (!displayedFallbackSchedule) cachedPayload = await showFallbackSchedule();
+        if (displayedFallbackSchedule || cachedPayload) {
+          setScheduleStatus("Schedule cache loaded. Live refresh failed.");
+          return;
+        }
         schedules = structuredClone(emptySchedules);
         renderSchedule(activeScheduleKey);
-        setScheduleStatus("スケジュール読込エラー: 時間を置いて再読み込みしてください");
+        setScheduleStatus("Schedule load failed. Please reload later.");
       }
     }
 

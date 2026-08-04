@@ -3537,6 +3537,8 @@
   <script>
     const SCHEDULE_YEAR = 2026;
     const SCHEDULE_API_URL = "https://script.google.com/macros/s/AKfycbwdI4FZcM2-bMA1U5425QJz_SOXWY7R8vKQfx0z-xHfHjWQJix1KIKbtf0dMXScGqQZrw/exec?action=schedule";
+    const SCHEDULE_CACHE_URL = "schedule-cache.json";
+    const SCHEDULE_CACHE_STORAGE_KEY = "wonderPlusPortal.schedulePayload.v1";
     const MINUTES_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdoAHwVX8hkCmbXDf1wxtg-J4wVMnB7mm8SlYZ3OnuxuJvv_g/viewform?usp=header";
     const MATERIALS = {
       "exhibitor-guidelines": {
@@ -4415,6 +4417,75 @@
       }
     }
 
+    function countSchedulePayloadItems(payload) {
+      return Object.fromEntries(Object.entries(payload?.schedules || {})
+        .map(([key, value]) => [key, Array.isArray(value?.items) ? value.items.length : 0]));
+    }
+
+    function isSchedulePayloadCompleteEnough(candidate, baseline) {
+      if (!candidate?.schedules) return false;
+      if (!baseline?.schedules) return true;
+      const candidateCounts = countSchedulePayloadItems(candidate);
+      const baselineCounts = countSchedulePayloadItems(baseline);
+      const baselineTotal = Object.values(baselineCounts).reduce((sum, value) => sum + value, 0);
+      const candidateTotal = Object.values(candidateCounts).reduce((sum, value) => sum + value, 0);
+      if (candidateTotal < baselineTotal) return false;
+      return Object.entries(baselineCounts).every(([key, value]) => !value || (candidateCounts[key] || 0) >= value);
+    }
+
+    function readStoredSchedulePayload() {
+      try {
+        const raw = window.localStorage?.getItem(SCHEDULE_CACHE_STORAGE_KEY);
+        return raw ? JSON.parse(raw) : null;
+      } catch (error) {
+        return null;
+      }
+    }
+
+    function storeSchedulePayload(payload) {
+      if (!payload?.schedules) return;
+      try {
+        window.localStorage?.setItem(SCHEDULE_CACHE_STORAGE_KEY, JSON.stringify(payload));
+      } catch (error) {
+        // localStorage may be disabled inside some embedded views.
+      }
+    }
+
+    async function fetchStaticSchedulePayload() {
+      try {
+        const response = await fetch(SCHEDULE_CACHE_URL, { cache: "default" });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return await response.json();
+      } catch (error) {
+        return null;
+      }
+    }
+
+    async function getFastSchedulePayload() {
+      const stored = readStoredSchedulePayload();
+      if (stored?.schedules) return stored;
+      const staticPayload = await fetchStaticSchedulePayload();
+      if (staticPayload?.schedules) {
+        storeSchedulePayload(staticPayload);
+        return staticPayload;
+      }
+      return null;
+    }
+
+    async function applySchedulePayload(payload) {
+      schedules = normalizeSchedules(payload);
+      if (!hasUserSelectedScheduleMonth) {
+        const visibleMonths = getVisibleScheduleMonths();
+        activeScheduleMonth = visibleMonths[visibleMonths.length - 1] || activeScheduleMonth;
+      }
+      syncActiveScheduleFromState(activeScheduleMonth, activeScheduleCategory);
+      await loadAssignments();
+      updateScheduleTabVisibility();
+      renderSchedule(activeScheduleKey);
+      renderArchiveSchedule();
+      return payload;
+    }
+
     function setScheduleStatus(message) {
       if (scheduleStatus) scheduleStatus.textContent = message;
     }
@@ -4770,17 +4841,16 @@
 
       try {
         setScheduleStatus("スケジュール読込中");
-        const payload = await fetchSchedulePayload(apiUrl);
-        schedules = normalizeSchedules(payload);
-        if (!hasUserSelectedScheduleMonth) {
-          const visibleMonths = getVisibleScheduleMonths();
-          activeScheduleMonth = visibleMonths[visibleMonths.length - 1] || activeScheduleMonth;
+        const cachedPayload = await getFastSchedulePayload();
+        if (cachedPayload?.schedules) {
+          await applySchedulePayload(cachedPayload);
+          setScheduleStatus("Schedule cache loaded");
         }
-        syncActiveScheduleFromState(activeScheduleMonth, activeScheduleCategory);
-        await loadAssignments();
-        updateScheduleTabVisibility();
-        renderSchedule(activeScheduleKey);
-        renderArchiveSchedule();
+        const livePayload = await fetchSchedulePayload(apiUrl);
+        const payload = isSchedulePayloadCompleteEnough(livePayload, cachedPayload) ? livePayload : cachedPayload;
+        if (!payload?.schedules) throw new Error("schedule payload is empty");
+        if (payload === livePayload) storeSchedulePayload(payload);
+        await applySchedulePayload(payload);
         const updatedAt = payload?.updatedAt ? new Date(payload.updatedAt) : null;
         const suffix = updatedAt && !Number.isNaN(updatedAt.getTime())
           ? `最終更新 ${updatedAt.toLocaleString("ja-JP")}`

@@ -1,0 +1,1045 @@
+{
+  "updatedAt": "2026-08-04T05:00:00.000Z",
+  "schedules": {
+    "month1Wonder": {
+      "month": 1,
+      "label": "1月 Wonder+",
+      "items": []
+    },
+    "month1Regular": {
+      "month": 1,
+      "label": "1月 レギュラー",
+      "items": []
+    },
+    "month1Miraiba": {
+      "month": 1,
+      "label": "1月 ミライバ",
+      "items": []
+    },
+    "month1Meeting": {
+      "month": 1,
+      "label": "1月 ミーティング",
+      "items": []
+    },
+    "month2Wonder": {
+      "month": 2,
+      "label": "2月 Wonder+",
+      "items": []
+    },
+    "month2Regular": {
+      "month": 2,
+      "label": "2月 レギュラー",
+      "items": []
+    },
+    "month2Miraiba": {
+      "month": 2,
+      "label": "2月 ミライバ",
+      "items": []
+    },
+    "month2Meeting": {
+      "month": 2,
+      "label": "2月 ミーティング",
+      "items": []
+    },
+    "month3Wonder": {
+      "month": 3,
+      "label": "3月 Wonder+",
+      "items": []
+    },
+    "month3Regular": {
+      "month": 3,
+      "label": "3月 レギュラー",
+      "items": []
+    },
+    "month3Miraiba": {
+      "month": 3,
+      "label": "3月 ミライバ",
+      "items": []
+    },
+    "month3Meeting": {
+      "month": 3,
+      "label": "3月 ミーティング",
+      "items": []
+    },
+    "month4Wonder": {
+      "month": 4,
+      "label": "4月 Wonder+",
+      "items": []
+    },
+    "month4Regular": {
+      "month": 4,
+      "label": "4月 レギュラー",
+      "items": []
+    },
+    "month4Miraiba": {
+      "month": 4,
+      "label": "4月 ミライバ",
+      "items": []
+    },
+    "month4Meeting": {
+      "month": 4,
+      "label": "4月 ミーティング",
+      "items": []
+    },
+    "month5Wonder": {
+      "month": 5,
+      "label": "5月 Wonder+",
+      "items": []
+    },
+    "month5Regular": {
+      "month": 5,
+      "label": "5月 レギュラー",
+      "items": []
+    },
+    "month5Miraiba": {
+      "month": 5,
+      "label": "5月 ミライバ",
+      "items": []
+    },
+    "month5Meeting": {
+      "month": 5,
+      "label": "5月 ミーティング",
+      "items": []
+    },
+    "month6Wonder": {
+      "month": 6,
+      "label": "6月 Wonder+",
+      "items": [
+        {
+          "day": 30,
+          "title": "福岡 Wonder+",
+          "meta": "19:30-21:00"
+        },
+        {
+          "day": 30,
+          "title": "北九州 Wonder+",
+          "meta": "13:00-14:30"
+        }
+      ]
+    },
+    "month6Regular": {
+      "month": 6,
+      "label": "6月 レギュラー",
+      "items": []
+    },
+    "month6Miraiba": {
+      "month": 6,
+      "label": "6月 ミライバ",
+      "items": []
+    },
+    "month6Meeting": {
+      "month": 6,
+      "label": "6月 ミーティング",
+      "items": []
+    },
+    "month7Wonder": {
+      "month": 7,
+      "label": "7月 Wonder+",
+      "items": [
+        {
+          "day": 1,
+          "title": "熊本 Wonder+",
+          "meta": "13:00-14:30"
+        },
+        {
+          "day": 2,
+          "title": "銀座 Wonder+Story",
+          "meta": "15:30-17:30"
+        },
+        {
+          "day": 7,
+          "title": "郡山 Wonder+",
+          "meta": "13:00-14:30"
+        },
+        {
+          "day": 7,
+          "title": "仙台 Wonder+",
+          "meta": "19:30-21:00"
+        },
+        {
+          "day": 8,
+          "title": "新潟 Wonder+",
+          "meta": "13:00-14:30"
+        },
+        {
+          "day": 10,
+          "title": "銀座 Wonder+Ladies",
+          "meta": "15:00-16:30"
+        },
+        {
+          "day": 10,
+          "title": "銀座 Wonder+Leaders",
+          "meta": "12:30-14:30"
+        },
+        {
+          "day": 13,
+          "title": "広島 Wonder+",
+          "meta": "13:00-14:30"
+        },
+        {
+          "day": 13,
+          "title": "神戸 Wonder+",
+          "meta": "19:30"
+        },
+        {
+          "day": 13,
+          "title": "名古屋 Wonder+Ladies",
+          "meta": "15:00-16:30"
+        },
+        {
+          "day": 14,
+          "title": "京都 Wonder+",
+          "meta": "15:00-16:30"
+        },
+        {
+          "day": 16,
+          "title": "横浜 Wonder+",
+          "meta": "15:00-16:30"
+        },
+        {
+          "day": 16,
+          "title": "銀座 Wonder+Entertainment",
+          "meta": "20:00-22:00"
+        },
+        {
+          "day": 16,
+          "title": "船橋 Wonder+",
+          "meta": "15:00-16:30"
+        },
+        {
+          "day": 21,
+          "title": "浜松 Wonder+",
+          "meta": "14:00-15:30"
+        },
+        {
+          "day": 21,
+          "title": "名古屋 Wonder+",
+          "meta": "19:30-21:00"
+        },
+        {
+          "day": 22,
+          "title": "大阪 Wonder+",
+          "meta": "13:00-14:30"
+        },
+        {
+          "day": 23,
+          "title": "銀座 Wonder+CXO",
+          "meta": "19:30-21:30"
+        },
+        {
+          "day": 27,
+          "title": "静岡 Wonder+",
+          "meta": "13:00-14:30"
+        },
+        {
+          "day": 27,
+          "title": "前橋 Wonder+",
+          "meta": "19:30-21:00"
+        },
+        {
+          "day": 28,
+          "title": "銀座 Wonder+Gravity",
+          "meta": "19:30-21:30"
+        },
+        {
+          "day": 28,
+          "title": "福岡 Wonder+",
+          "meta": "19:30-21:00"
+        },
+        {
+          "day": 29,
+          "title": "銀座 Wonder+Beauty",
+          "meta": "19:30-21:30"
+        },
+        {
+          "day": 29,
+          "title": "熊本 Wonder+",
+          "meta": "13:00-14:30"
+        },
+        {
+          "day": 30,
+          "title": "新宿 Wonder+100",
+          "meta": "13:00-14:30"
+        },
+        {
+          "day": 30,
+          "title": "新宿 Wonder+100",
+          "meta": "15:00-16:30"
+        }
+      ]
+    },
+    "month7Regular": {
+      "month": 7,
+      "label": "7月 レギュラー",
+      "items": [
+        {
+          "day": 1,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        },
+        {
+          "day": 2,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        },
+        {
+          "day": 3,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        },
+        {
+          "day": 5,
+          "title": "朝活異業種交流会",
+          "meta": "10:00-11:00"
+        },
+        {
+          "day": 6,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        },
+        {
+          "day": 7,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        },
+        {
+          "day": 12,
+          "title": "朝活異業種交流会",
+          "meta": "10:00-11:00"
+        },
+        {
+          "day": 14,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        },
+        {
+          "day": 15,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        },
+        {
+          "day": 16,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        },
+        {
+          "day": 17,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        },
+        {
+          "day": 20,
+          "title": "朝活異業種交流会",
+          "meta": "10:00-11:00"
+        },
+        {
+          "day": 21,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        },
+        {
+          "day": 22,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        },
+        {
+          "day": 23,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        },
+        {
+          "day": 24,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        },
+        {
+          "day": 26,
+          "title": "朝活異業種交流会",
+          "meta": "10:00-11:00"
+        },
+        {
+          "day": 27,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        },
+        {
+          "day": 28,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        },
+        {
+          "day": 29,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        },
+        {
+          "day": 31,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        }
+      ]
+    },
+    "month7Miraiba": {
+      "month": 7,
+      "label": "7月 ミライバ",
+      "items": []
+    },
+    "month7Meeting": {
+      "month": 7,
+      "label": "7月 ミーティング",
+      "items": [
+        {
+          "day": 10,
+          "title": "ミーティング",
+          "meta": "17:00-18:30"
+        },
+        {
+          "day": 30,
+          "title": "ミーティング",
+          "meta": "17:30-19:00"
+        }
+      ]
+    },
+    "month8Wonder": {
+      "month": 8,
+      "label": "8月 Wonder+",
+      "items": [
+        {
+          "day": 4,
+          "title": "仙台 Wonder+",
+          "meta": "19:30-21:00"
+        },
+        {
+          "day": 4,
+          "title": "福島 Wonder+",
+          "meta": "15:00-16:30 / 新規開催 / 会場未定"
+        },
+        {
+          "day": 5,
+          "title": "新潟 Wonder+",
+          "meta": "13:00-14:30"
+        },
+        {
+          "day": 5,
+          "title": "名古屋 Wonder+Ladies",
+          "meta": "15:00-16:30"
+        },
+        {
+          "day": 6,
+          "title": "新宿 Wonder+Ladies",
+          "meta": "15:00-16:30"
+        },
+        {
+          "day": 6,
+          "title": "新宿 Wonder+Leaders",
+          "meta": "12:30-14:00"
+        },
+        {
+          "day": 10,
+          "title": "銀座 Wonder+Gravity",
+          "meta": "19:30-21:30"
+        },
+        {
+          "day": 10,
+          "title": "銀座 Wonder+Story",
+          "meta": "15:30-17:30"
+        },
+        {
+          "day": 17,
+          "title": "静岡 Wonder+",
+          "meta": "13:00-14:30"
+        },
+        {
+          "day": 17,
+          "title": "名古屋 Wonder+",
+          "meta": "19:30-21:00"
+        },
+        {
+          "day": 18,
+          "title": "高崎 Wonder+",
+          "meta": "15:00-16:30 / 会場はLABIへ戻り"
+        },
+        {
+          "day": 18,
+          "title": "大阪 Wonder+",
+          "meta": "13:00-14:30"
+        },
+        {
+          "day": 19,
+          "title": "銀座 Wonder+Alliance",
+          "meta": "19:30-21:00"
+        },
+        {
+          "day": 20,
+          "title": "横浜 Wonder+",
+          "meta": "15:00-16:30"
+        },
+        {
+          "day": 20,
+          "title": "銀座 Wonder+Entertainment",
+          "meta": "20:00-22:00"
+        },
+        {
+          "day": 20,
+          "title": "船橋 Wonder+",
+          "meta": "15:00-16:30"
+        },
+        {
+          "day": 21,
+          "title": "宇都宮 Wonder+",
+          "meta": "15:00-16:30 / 新規開催"
+        },
+        {
+          "day": 25,
+          "title": "熊本 Wonder+",
+          "meta": "13:00-14:30"
+        },
+        {
+          "day": 25,
+          "title": "福岡 Wonder+",
+          "meta": "19:30-21:00"
+        },
+        {
+          "day": 26,
+          "title": "岡山 Wonder+",
+          "meta": "19:30-21:00 / 会場変更あり"
+        },
+        {
+          "day": 26,
+          "title": "広島 Wonder+",
+          "meta": "13:00-14:30"
+        },
+        {
+          "day": 26,
+          "title": "札幌 Wonder+",
+          "meta": "19:00-21:00"
+        },
+        {
+          "day": 27,
+          "title": "銀座 Wonder+Beauty",
+          "meta": "15:00-16:30"
+        },
+        {
+          "day": 27,
+          "title": "銀座 Wonder+CXO",
+          "meta": "19:30-21:30"
+        },
+        {
+          "day": 28,
+          "title": "新宿 Wonder+100",
+          "meta": "13:00-14:30"
+        },
+        {
+          "day": 28,
+          "title": "新宿 Wonder+100",
+          "meta": "15:00-16:30"
+        },
+        {
+          "day": 31,
+          "title": "町田 Wonder+",
+          "meta": "13:00-14:30"
+        }
+      ]
+    },
+    "month8Regular": {
+      "month": 8,
+      "label": "8月 レギュラー",
+      "items": [
+        {
+          "day": 2,
+          "title": "朝活異業種交流会",
+          "meta": "10:00-11:00"
+        },
+        {
+          "day": 9,
+          "title": "朝活異業種交流会",
+          "meta": "10:00-11:00"
+        },
+        {
+          "day": 10,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        },
+        {
+          "day": 12,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        },
+        {
+          "day": 16,
+          "title": "朝活異業種交流会",
+          "meta": "10:00-11:00"
+        },
+        {
+          "day": 17,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        },
+        {
+          "day": 20,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        },
+        {
+          "day": 21,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        },
+        {
+          "day": 23,
+          "title": "朝活異業種交流会",
+          "meta": "10:00-11:00"
+        },
+        {
+          "day": 24,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        },
+        {
+          "day": 25,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        },
+        {
+          "day": 26,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        },
+        {
+          "day": 27,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        },
+        {
+          "day": 30,
+          "title": "朝活異業種交流会",
+          "meta": "10:00-11:00"
+        },
+        {
+          "day": 31,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        }
+      ]
+    },
+    "month8Miraiba": {
+      "month": 8,
+      "label": "8月 ミライバ",
+      "items": []
+    },
+    "month8Meeting": {
+      "month": 8,
+      "label": "8月 ミーティング",
+      "items": [
+        {
+          "day": 6,
+          "title": "ミーティング",
+          "meta": "17:00-18:30"
+        },
+        {
+          "day": 28,
+          "title": "ミーティング",
+          "meta": "11:00-12:00"
+        },
+        {
+          "day": 28,
+          "title": "ミーティング",
+          "meta": "17:30-19:00"
+        }
+      ]
+    },
+    "month9Wonder": {
+      "month": 9,
+      "label": "9月 Wonder+",
+      "items": [
+        {
+          "day": 2,
+          "title": "金沢 Wonder+",
+          "meta": "14:00-15:30"
+        },
+        {
+          "day": 3,
+          "title": "銀座 Wonder+Story",
+          "meta": "15:00-17:00 / 仮"
+        },
+        {
+          "day": 3,
+          "title": "大阪 Wonder+",
+          "meta": "20:00-22:00"
+        },
+        {
+          "day": 3,
+          "title": "名古屋 Wonder+",
+          "meta": "13:00-14:30"
+        },
+        {
+          "day": 7,
+          "title": "郡山 Wonder+",
+          "meta": "13:00-14:30"
+        },
+        {
+          "day": 7,
+          "title": "仙台 Wonder+",
+          "meta": "19:30-21:00"
+        },
+        {
+          "day": 8,
+          "title": "新潟 Wonder+",
+          "meta": "13:00-14:30"
+        },
+        {
+          "day": 9,
+          "title": "甲府 Wonder+",
+          "meta": "13:00-14:30"
+        },
+        {
+          "day": 9,
+          "title": "札幌 Wonder+",
+          "meta": "13:00-15:00"
+        },
+        {
+          "day": 9,
+          "title": "静岡 Wonder+",
+          "meta": "19:30-21:00"
+        },
+        {
+          "day": 9,
+          "title": "名古屋 Wonder+Ladies",
+          "meta": "15:00-16:30"
+        },
+        {
+          "day": 10,
+          "title": "銀座 Wonder+Ladies",
+          "meta": "15:00-16:30"
+        },
+        {
+          "day": 10,
+          "title": "銀座 Wonder+Leaders",
+          "meta": "12:30-14:00"
+        },
+        {
+          "day": 10,
+          "title": "銀座 Wonder+Real Estate",
+          "meta": "19:30-21:30"
+        },
+        {
+          "day": 14,
+          "title": "岡山 Wonder+",
+          "meta": "13:00-14:30"
+        },
+        {
+          "day": 14,
+          "title": "京都 Wonder+",
+          "meta": "19:30-21:00"
+        },
+        {
+          "day": 14,
+          "title": "広島 Wonder+",
+          "meta": "13:00-14:30"
+        },
+        {
+          "day": 14,
+          "title": "神戸 Wonder+",
+          "meta": "19:30-21:00"
+        },
+        {
+          "day": 15,
+          "title": "大阪 Wonder+",
+          "meta": "13:00-14:30"
+        },
+        {
+          "day": 15,
+          "title": "浜松 Wonder+",
+          "meta": "19:30-21:00"
+        },
+        {
+          "day": 15,
+          "title": "名古屋 Wonder+",
+          "meta": "19:30-21:00"
+        },
+        {
+          "day": 16,
+          "title": "銀座 Wonder+Night",
+          "meta": "19:30-21:30"
+        },
+        {
+          "day": 16,
+          "title": "高崎 Wonder+",
+          "meta": "15:00-16:30"
+        },
+        {
+          "day": 16,
+          "title": "大宮 Wonder+",
+          "meta": "19:30-21:00"
+        },
+        {
+          "day": 17,
+          "title": "横浜 Wonder+",
+          "meta": "15:00-16:30"
+        },
+        {
+          "day": 17,
+          "title": "銀座 Wonder+Entertainment",
+          "meta": "20:00-22:00"
+        },
+        {
+          "day": 17,
+          "title": "千葉 Wonder+",
+          "meta": "15:00-16:30"
+        },
+        {
+          "day": 18,
+          "title": "宇都宮 Wonder+",
+          "meta": "15:00-16:30"
+        },
+        {
+          "day": 24,
+          "title": "銀座 Wonder+Beauty",
+          "meta": "15:00-16:30"
+        },
+        {
+          "day": 24,
+          "title": "新宿 Wonder+Gravity",
+          "meta": "19:30-21:30"
+        },
+        {
+          "day": 25,
+          "title": "新宿 Wonder+100",
+          "meta": "13:00-14:30"
+        },
+        {
+          "day": 25,
+          "title": "新宿 Wonder+100",
+          "meta": "15:00-16:30"
+        },
+        {
+          "day": 28,
+          "title": "熊本 Wonder+",
+          "meta": "13:00-14:30"
+        },
+        {
+          "day": 28,
+          "title": "大阪 Wonder+",
+          "meta": "13:00-14:30"
+        },
+        {
+          "day": 28,
+          "title": "福岡 Wonder+",
+          "meta": "19:30-21:00"
+        },
+        {
+          "day": 28,
+          "title": "名古屋 Wonder+",
+          "meta": "20:00-21:30"
+        },
+        {
+          "day": 29,
+          "title": "横浜 Wonder+",
+          "meta": "19:30-21:00"
+        },
+        {
+          "day": 29,
+          "title": "北九州 Wonder+",
+          "meta": "14:00-15:30"
+        },
+        {
+          "day": 30,
+          "title": "銀座 Wonder+CXO",
+          "meta": "19:30-21:30"
+        },
+        {
+          "day": 30,
+          "title": "札幌 Wonder+",
+          "meta": "19:00-21:00"
+        }
+      ]
+    },
+    "month9Regular": {
+      "month": 9,
+      "label": "9月 レギュラー",
+      "items": [
+        {
+          "day": 1,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        },
+        {
+          "day": 3,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        },
+        {
+          "day": 4,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        },
+        {
+          "day": 5,
+          "title": "朝活異業種交流会",
+          "meta": "10:00-11:00"
+        },
+        {
+          "day": 7,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        },
+        {
+          "day": 8,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        },
+        {
+          "day": 9,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        },
+        {
+          "day": 11,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        },
+        {
+          "day": 13,
+          "title": "朝活異業種交流会",
+          "meta": "10:00-11:00"
+        },
+        {
+          "day": 14,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        },
+        {
+          "day": 15,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        },
+        {
+          "day": 16,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        },
+        {
+          "day": 18,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        },
+        {
+          "day": 23,
+          "title": "朝活異業種交流会",
+          "meta": "10:00-11:00"
+        },
+        {
+          "day": 24,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        },
+        {
+          "day": 25,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        },
+        {
+          "day": 27,
+          "title": "朝活異業種交流会",
+          "meta": "10:00-11:00"
+        },
+        {
+          "day": 28,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        },
+        {
+          "day": 29,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00"
+        }
+      ]
+    },
+    "month9Miraiba": {
+      "month": 9,
+      "label": "9月 ミライバ",
+      "items": []
+    },
+    "month9Meeting": {
+      "month": 9,
+      "label": "9月 ミーティング",
+      "items": [
+        {
+          "day": 10,
+          "title": "ミーティング",
+          "meta": "17:00-18:30"
+        },
+        {
+          "day": 25,
+          "title": "ミーティング",
+          "meta": "11:00-12:00"
+        },
+        {
+          "day": 25,
+          "title": "ミーティング",
+          "meta": "17:30-19:00"
+        }
+      ]
+    },
+    "month10Wonder": {
+      "month": 10,
+      "label": "10月 Wonder+",
+      "items": []
+    },
+    "month10Regular": {
+      "month": 10,
+      "label": "10月 レギュラー",
+      "items": []
+    },
+    "month10Miraiba": {
+      "month": 10,
+      "label": "10月 ミライバ",
+      "items": []
+    },
+    "month10Meeting": {
+      "month": 10,
+      "label": "10月 ミーティング",
+      "items": []
+    },
+    "month11Wonder": {
+      "month": 11,
+      "label": "11月 Wonder+",
+      "items": []
+    },
+    "month11Regular": {
+      "month": 11,
+      "label": "11月 レギュラー",
+      "items": []
+    },
+    "month11Miraiba": {
+      "month": 11,
+      "label": "11月 ミライバ",
+      "items": []
+    },
+    "month11Meeting": {
+      "month": 11,
+      "label": "11月 ミーティング",
+      "items": []
+    },
+    "month12Wonder": {
+      "month": 12,
+      "label": "12月 Wonder+",
+      "items": []
+    },
+    "month12Regular": {
+      "month": 12,
+      "label": "12月 レギュラー",
+      "items": []
+    },
+    "month12Miraiba": {
+      "month": 12,
+      "label": "12月 ミライバ",
+      "items": []
+    },
+    "month12Meeting": {
+      "month": 12,
+      "label": "12月 ミーティング",
+      "items": []
+    }
+  }
+}

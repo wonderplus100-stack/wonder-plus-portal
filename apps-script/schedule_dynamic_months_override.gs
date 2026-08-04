@@ -1,10 +1,8 @@
 /**
  * Wonder+ Portal schedule API dynamic month override.
  *
- * Paste this file at the very bottom of the existing Apps Script project.
- * It intentionally overrides only the portal schedule payload helpers so that
- * newly submitted months such as September and October are returned to the
- * portal without changing login, board, minutes, or approval features.
+ * ASCII-safe source. Japanese labels are written with Unicode escapes so
+ * Apps Script paste/import does not corrupt category matching.
  */
 
 function buildPortalSchedulePayload_() {
@@ -23,9 +21,7 @@ function buildPortalScheduleDataSafe_() {
   }
 
   const ss = SpreadsheetApp.openById(ssId);
-  const sheet = ss.getSheetByName('整形済み') || ss.getSheetByName('謨ｴ蠖｢貂医∩') || ss.getSheets().find(function(candidate) {
-    return String(candidate.getName()).indexOf('整') >= 0 || String(candidate.getName()).indexOf('済') >= 0;
-  });
+  const sheet = getSheetByNamePartFinal_(ss, ['\u6574\u5f62\u6e08\u307f', '\u6574\u5f62']);
   if (!sheet) {
     return {
       updatedAt: new Date().toISOString(),
@@ -56,11 +52,11 @@ function buildPortalScheduleDataSafe_() {
 
     const place = String(row[4] || '').trim();
     const eventName = String(row[5] || '').trim();
-    const startTime = portalFormatScheduleTime_(row[6]);
+    const scheduleTime = portalFormatScheduleTime_(row[6]);
     const note = String(row[8] || '').trim();
     const raw = String(row[9] || '').trim();
     const title = portalScheduleTitle_(place, eventName);
-    const displayTime = portalDisplayTimeRangeFinal_(startTime, raw);
+    const displayTime = portalDisplayTimeRangeFinal_(scheduleTime, raw);
     const itemKey = [date.getDate(), title, displayTime, category].join('|');
     if (seen[itemKey]) continue;
     seen[itemKey] = true;
@@ -85,12 +81,27 @@ function buildPortalScheduleDataSafe_() {
   };
 }
 
+function getSheetByNamePartFinal_(ss, names) {
+  for (let i = 0; i < names.length; i += 1) {
+    const exact = ss.getSheetByName(names[i]);
+    if (exact) return exact;
+  }
+  const sheets = ss.getSheets();
+  for (let s = 0; s < sheets.length; s += 1) {
+    const name = String(sheets[s].getName() || '');
+    for (let i = 0; i < names.length; i += 1) {
+      if (name.indexOf(names[i]) >= 0) return sheets[s];
+    }
+  }
+  return null;
+}
+
 function portalScheduleTypeKeyDynamic_(row) {
   const text = row.map(function(value) { return String(value || ''); }).join(' ');
-  if (/ミーティング|MTG|meeting/i.test(text)) return 'meeting';
-  if (/ミライバ/i.test(text)) return 'miraiba';
-  if (/朝活/.test(text)) return 'regular';
-  if (/Wonder|Wonder\+|Wonder＋|W\+|W＋|Leaders|Ladies|Lady|Story|Gravity|Beauty|Finance|Entertainment|Executive|CXO|CxO|\+100|100人/i.test(text)) return 'wonder';
+  if (new RegExp('\u30df\u30fc\u30c6\u30a3\u30f3\u30b0|MTG|meeting', 'i').test(text)) return 'meeting';
+  if (new RegExp('\u30df\u30e9\u30a4\u30d0', 'i').test(text)) return 'miraiba';
+  if (new RegExp('\u671d\u6d3b|\u30ec\u30ae\u30e5\u30e9\u30fc\u7570\u696d\u7a2e\u4ea4\u6d41\u4f1a|\u30ec\u30ae\u30e5\u30e9\u30fc').test(text)) return 'regular';
+  if (/Wonder|Wonder\+|W\+|Leaders|Ladies|Lady|Story|Gravity|Beauty|Finance|Entertainment|Executive|CXO|CxO|Alliance|Night|Real Estate|\+100|100/i.test(text)) return 'wonder';
   return 'regular';
 }
 
@@ -110,15 +121,15 @@ function portalEmptySchedulesFinal_() {
   const schedules = {};
   const labels = {
     wonder: 'Wonder+',
-    regular: 'レギュラー',
-    miraiba: 'ミライバ',
-    meeting: 'ミーティング'
+    regular: '\u30ec\u30ae\u30e5\u30e9\u30fc',
+    miraiba: '\u30df\u30e9\u30a4\u30d0',
+    meeting: '\u30df\u30fc\u30c6\u30a3\u30f3\u30b0'
   };
   ['wonder', 'regular', 'miraiba', 'meeting'].forEach(function(category) {
     for (let month = 1; month <= 12; month += 1) {
       schedules[portalScheduleKey_(month, category)] = {
         month: month,
-        label: month + '月 ' + labels[category],
+        label: month + '\u6708 ' + labels[category],
         items: []
       };
     }
@@ -131,11 +142,9 @@ function emptyPortalSchedules_() {
 }
 
 function portalDisplayTimeRangeFinal_(time, raw) {
-  const timeText = String(time || '').trim().replace(/[〜～–—−]/g, '-');
-  if (/\d{1,2}:\d{2}\s*-\s*\d{1,2}:\d{2}/.test(timeText)) {
-    return timeText.replace(/\s*-\s*/g, '-');
-  }
-  const source = String(raw || '').replace(/[〜～–—−]/g, '-');
+  const timeText = String(time || '').trim().replace(/[\u301c\uff5e\uff0d\u2014\u2015]/g, '-');
+  if (/\d{1,2}:\d{2}\s*-\s*\d{1,2}:\d{2}/.test(timeText)) return timeText.replace(/\s*-\s*/g, '-');
+  const source = String(raw || '').replace(/[\u301c\uff5e\uff0d\u2014\u2015]/g, '-');
   if (timeText) {
     const escaped = timeText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     const near = source.match(new RegExp(escaped + '\\s*-\\s*(\\d{1,2}:\\d{2})'));
@@ -148,7 +157,7 @@ function portalDisplayTimeRangeFinal_(time, raw) {
 
 function portalDisplayNoteFinal_(note) {
   return String(note || '')
-    .replace(/\(?\d+\s*(名|人|席|枠)\)?/g, '')
+    .replace(/\(?\d+\s*(\u540d|\u4eba|\u5e2d|\u67a0)\)?/g, '')
     .replace(/\s*\/\s*/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();

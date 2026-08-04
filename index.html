@@ -3542,7 +3542,9 @@
     const SCHEDULE_YEAR = 2026;
     const SCHEDULE_API_URL = "https://script.google.com/macros/s/AKfycbwdI4FZcM2-bMA1U5425QJz_SOXWY7R8vKQfx0z-xHfHjWQJix1KIKbtf0dMXScGqQZrw/exec?action=schedule";
     const SCHEDULE_CACHE_URL = "schedule-cache.json";
+    const EVENT_GUIDE_CACHE_URL = "event-guide-cache.json";
     const SCHEDULE_CACHE_STORAGE_KEY = "wonderPlusPortal.schedulePayload.v1";
+    const EVENT_GUIDE_CACHE_STORAGE_KEY = "wonderPlusPortal.eventGuides.v1";
     const MINUTES_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdoAHwVX8hkCmbXDf1wxtg-J4wVMnB7mm8SlYZ3OnuxuJvv_g/viewform?usp=header";
     const MATERIALS = {
       "exhibitor-guidelines": {
@@ -4330,14 +4332,8 @@
 
     function normalizeSchedules(payload) {
       const next = structuredClone(emptySchedules);
-      const payloadGuideDocuments = Array.isArray(payload?.eventGuides)
-        ? payload.eventGuides
-        : (Array.isArray(payload?.eventGuideDocuments)
-          ? payload.eventGuideDocuments
-          : (Array.isArray(payload?.eventInfoGuides)
-            ? payload.eventInfoGuides
-            : (Array.isArray(payload?.guides) ? payload.guides : [])));
-      eventGuideDocuments = mergeEventGuideDocuments(payloadGuideDocuments, defaultEventGuideDocuments);
+      const payloadGuideDocuments = getPayloadEventGuideDocuments(payload);
+      eventGuideDocuments = mergeEventGuideDocuments(payloadGuideDocuments, eventGuideDocuments, defaultEventGuideDocuments);
       Object.entries(payload?.schedules || {}).forEach(([key, value]) => {
         const targetKey = getScheduleKey(getPayloadScheduleMonth(key, value), getPayloadScheduleCategory(key));
         if (!targetKey || !next[targetKey]) return;
@@ -4466,6 +4462,39 @@
       }
     }
 
+    function getPayloadEventGuideDocuments(payload) {
+      return Array.isArray(payload?.eventGuides)
+        ? payload.eventGuides
+        : (Array.isArray(payload?.eventGuideDocuments)
+          ? payload.eventGuideDocuments
+          : (Array.isArray(payload?.eventInfoGuides)
+            ? payload.eventInfoGuides
+            : (Array.isArray(payload?.guides) ? payload.guides : [])));
+    }
+
+    function readStoredEventGuideDocuments() {
+      try {
+        const raw = window.localStorage?.getItem(EVENT_GUIDE_CACHE_STORAGE_KEY);
+        if (!raw) return [];
+        const payload = JSON.parse(raw);
+        return getPayloadEventGuideDocuments(payload);
+      } catch (error) {
+        return [];
+      }
+    }
+
+    function storeEventGuideDocuments(guides) {
+      if (!Array.isArray(guides) || !guides.length) return;
+      try {
+        window.localStorage?.setItem(EVENT_GUIDE_CACHE_STORAGE_KEY, JSON.stringify({
+          updatedAt: new Date().toISOString(),
+          eventGuides: guides
+        }));
+      } catch (error) {
+        // localStorage may be disabled inside some embedded views.
+      }
+    }
+
     async function fetchStaticSchedulePayload() {
       try {
         const response = await fetch(SCHEDULE_CACHE_URL, { cache: "default" });
@@ -4474,6 +4503,31 @@
       } catch (error) {
         return null;
       }
+    }
+
+    async function fetchStaticEventGuideDocuments() {
+      try {
+        const response = await fetch(EVENT_GUIDE_CACHE_URL, { cache: "default" });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return getPayloadEventGuideDocuments(await response.json());
+      } catch (error) {
+        return [];
+      }
+    }
+
+    async function hydrateEventGuideDocuments(payload) {
+      const payloadGuides = getPayloadEventGuideDocuments(payload);
+      if (payloadGuides.length) storeEventGuideDocuments(payloadGuides);
+      const storedGuides = readStoredEventGuideDocuments();
+      const staticGuides = await fetchStaticEventGuideDocuments();
+      eventGuideDocuments = mergeEventGuideDocuments(
+        payloadGuides,
+        storedGuides,
+        staticGuides,
+        eventGuideDocuments,
+        defaultEventGuideDocuments
+      );
+      if (eventGuideDocuments.length) storeEventGuideDocuments(eventGuideDocuments);
     }
 
     async function getFastSchedulePayload() {
@@ -4488,6 +4542,7 @@
     }
 
     async function applySchedulePayload(payload) {
+      await hydrateEventGuideDocuments(payload);
       schedules = normalizeSchedules(payload);
       if (!hasUserSelectedScheduleMonth) {
         const visibleMonths = getVisibleScheduleMonths();

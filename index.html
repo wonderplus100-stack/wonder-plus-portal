@@ -4422,6 +4422,14 @@
         .map(([key, value]) => [key, Array.isArray(value?.items) ? value.items.length : 0]));
     }
 
+    function getSchedulePayloadMaxMonth(counts) {
+      return Object.entries(counts).reduce((maxMonth, [key, count]) => {
+        if (!count) return maxMonth;
+        const match = key.match(/^month(\d{1,2})/i);
+        return match ? Math.max(maxMonth, Number(match[1])) : maxMonth;
+      }, 0);
+    }
+
     function isSchedulePayloadCompleteEnough(candidate, baseline) {
       if (!candidate?.schedules) return false;
       if (!baseline?.schedules) return true;
@@ -4430,6 +4438,9 @@
       const baselineTotal = Object.values(baselineCounts).reduce((sum, value) => sum + value, 0);
       const candidateTotal = Object.values(candidateCounts).reduce((sum, value) => sum + value, 0);
       if (candidateTotal < baselineTotal) return false;
+      const candidateMaxMonth = getSchedulePayloadMaxMonth(candidateCounts);
+      const baselineMaxMonth = getSchedulePayloadMaxMonth(baselineCounts);
+      if (candidateMaxMonth > baselineMaxMonth) return true;
       return Object.entries(baselineCounts).every(([key, value]) => !value || (candidateCounts[key] || 0) >= value);
     }
 

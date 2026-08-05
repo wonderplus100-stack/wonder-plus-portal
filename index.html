@@ -4437,6 +4437,15 @@
       const baselineCounts = countSchedulePayloadItems(baseline);
       const baselineTotal = Object.values(baselineCounts).reduce((sum, value) => sum + value, 0);
       const candidateTotal = Object.values(candidateCounts).reduce((sum, value) => sum + value, 0);
+      const candidateUpdatedAt = Date.parse(candidate.updatedAt || "");
+      const baselineUpdatedAt = Date.parse(baseline.updatedAt || "");
+      if (
+        candidateTotal > 0 &&
+        Number.isFinite(candidateUpdatedAt) &&
+        (!Number.isFinite(baselineUpdatedAt) || candidateUpdatedAt > baselineUpdatedAt)
+      ) {
+        return true;
+      }
       if (candidateTotal < baselineTotal) return false;
       const candidateMaxMonth = getSchedulePayloadMaxMonth(candidateCounts);
       const baselineMaxMonth = getSchedulePayloadMaxMonth(baselineCounts);

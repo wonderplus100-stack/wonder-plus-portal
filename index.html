@@ -4453,6 +4453,54 @@
       return Object.entries(baselineCounts).every(([key, value]) => !value || (candidateCounts[key] || 0) >= value);
     }
 
+    function shouldUseCandidateScheduleGroup(candidateItems, baselineItems) {
+      const candidateCount = Array.isArray(candidateItems) ? candidateItems.length : 0;
+      const baselineCount = Array.isArray(baselineItems) ? baselineItems.length : 0;
+      if (!baselineCount) return candidateCount > 0;
+      if (!candidateCount) return false;
+      if (candidateCount >= baselineCount) return true;
+
+      const missingCount = baselineCount - candidateCount;
+      const retentionRate = candidateCount / baselineCount;
+      return missingCount <= 2 && retentionRate >= 0.8;
+    }
+
+    function mergeSchedulePayloadWithBaseline(candidate, baseline) {
+      if (!candidate?.schedules) return baseline;
+      if (!baseline?.schedules) return candidate;
+
+      const mergedSchedules = {};
+      const keys = new Set([
+        ...Object.keys(baseline.schedules || {}),
+        ...Object.keys(candidate.schedules || {})
+      ]);
+      const guardedKeys = [];
+
+      keys.forEach((key) => {
+        const candidateGroup = candidate.schedules?.[key];
+        const baselineGroup = baseline.schedules?.[key];
+        const candidateItems = candidateGroup?.items;
+        const baselineItems = baselineGroup?.items;
+        if (shouldUseCandidateScheduleGroup(candidateItems, baselineItems)) {
+          mergedSchedules[key] = candidateGroup;
+        } else if (baselineGroup) {
+          mergedSchedules[key] = baselineGroup;
+          if (candidateGroup) guardedKeys.push(key);
+        }
+      });
+
+      if (guardedKeys.length) {
+        console.warn("Partial schedule API payload ignored for groups:", guardedKeys.join(", "));
+      }
+
+      return {
+        ...baseline,
+        ...candidate,
+        schedules: mergedSchedules,
+        guardedScheduleKeys: guardedKeys
+      };
+    }
+
     function readStoredSchedulePayload() {
       try {
         const raw = window.localStorage?.getItem(SCHEDULE_CACHE_STORAGE_KEY);
@@ -4540,13 +4588,16 @@
     }
 
     async function getFastSchedulePayload() {
-      const stored = readStoredSchedulePayload();
-      if (stored?.schedules) return stored;
       const staticPayload = await fetchStaticSchedulePayload();
+      const stored = readStoredSchedulePayload();
+      if (staticPayload?.schedules && stored?.schedules) {
+        return mergeSchedulePayloadWithBaseline(stored, staticPayload);
+      }
       if (staticPayload?.schedules) {
         storeSchedulePayload(staticPayload);
         return staticPayload;
       }
+      if (stored?.schedules) return stored;
       return null;
     }
 
@@ -4936,9 +4987,9 @@
         if (cachedPayload) setScheduleStatus("Schedule cache loaded");
 
         const livePayload = await fetchSchedulePayload(apiUrl);
-        const payload = isSchedulePayloadCompleteEnough(livePayload, cachedPayload) ? livePayload : cachedPayload;
+        const payload = mergeSchedulePayloadWithBaseline(livePayload, cachedPayload);
         if (!payload?.schedules) throw new Error("schedule payload is empty");
-        if (payload === livePayload) storeSchedulePayload(payload);
+        storeSchedulePayload(payload);
         await applySchedulePayload(payload);
 
         const updatedAt = payload?.updatedAt ? new Date(payload.updatedAt) : null;
@@ -4947,6 +4998,9 @@
           : "Latest schedule data applied";
         setScheduleStatus(`Schedule loaded: ${suffix}`);
         if (payload?.updatedAt) addScheduleLog(`Schedule loaded: ${suffix}`);
+        if (Array.isArray(payload.guardedScheduleKeys) && payload.guardedScheduleKeys.length) {
+          addScheduleLog(`Partial live schedule skipped: ${payload.guardedScheduleKeys.join(", ")}`);
+        }
       } catch (error) {
         console.error(error);
         if (!displayedFallbackSchedule) cachedPayload = await showFallbackSchedule();

@@ -18,7 +18,8 @@ function getPortalBoardPosts_() {
       id: String(row[3] || ''),
       name: name,
       message: message,
-      createdAt: formatPortalBoardDate_(createdAt)
+      createdAt: formatPortalBoardDate_(createdAt),
+      updatedAt: formatPortalBoardDate_(row[4] || '')
     });
   }
   posts.sort(function(a, b) {
@@ -29,6 +30,9 @@ function getPortalBoardPosts_() {
 
 function createPortalBoardPost_(params) {
   params = params || {};
+  const id = String(params.id || params.postId || '').trim();
+  if (id) return updatePortalBoardPost_(params);
+
   const message = String(params.message || '').trim();
   if (!message) return { ok: false, message: 'message is required' };
 
@@ -41,8 +45,39 @@ function createPortalBoardPost_(params) {
     createdAt: formatPortalBoardDate_(now)
   };
 
-  sheet.appendRow([now, post.name, post.message, post.id]);
+  sheet.appendRow([now, post.name, post.message, post.id, '']);
   return { ok: true, post: post };
+}
+
+function updatePortalBoardPost_(params) {
+  params = params || {};
+  const id = String(params.id || params.postId || '').trim();
+  const message = String(params.message || '').trim();
+  if (!id) return { ok: false, message: 'id is required' };
+  if (!message) return { ok: false, message: 'message is required' };
+
+  const sheet = getPortalBoardSheet_();
+  const values = sheet.getDataRange().getValues();
+  for (let i = 1; i < values.length; i += 1) {
+    const row = values[i];
+    if (String(row[3] || '').trim() !== id) continue;
+
+    const now = new Date();
+    const name = String(row[1] || '').trim() || String(params.name || '').trim() || 'ポータル利用者';
+    sheet.getRange(i + 1, 3).setValue(message);
+    sheet.getRange(i + 1, 5).setValue(now);
+    return {
+      ok: true,
+      post: {
+        id: id,
+        name: name,
+        message: message,
+        createdAt: formatPortalBoardDate_(row[0]),
+        updatedAt: formatPortalBoardDate_(now)
+      }
+    };
+  }
+  return { ok: false, message: 'post was not found' };
 }
 
 function getPortalBoardSheet_() {
@@ -74,13 +109,17 @@ function getPortalBoardSpreadsheet_() {
 }
 
 function ensurePortalBoardHeader_(sheet) {
-  const header = ['投稿日時', '投稿者', '重要共有事項', 'ID'];
+  const header = ['投稿日時', '投稿者', '重要事項共有専用', 'ID', '更新日時'];
   if (sheet.getLastRow() === 0) {
     sheet.getRange(1, 1, 1, header.length).setValues([header]);
     return;
   }
   const existing = sheet.getRange(1, 1, 1, header.length).getValues()[0];
-  if (existing.join('') === '') sheet.getRange(1, 1, 1, header.length).setValues([header]);
+  if (existing.join('') === '') {
+    sheet.getRange(1, 1, 1, header.length).setValues([header]);
+  } else {
+    sheet.getRange(1, 1, 1, header.length).setValues([header]);
+  }
 }
 
 function formatPortalBoardDate_(value) {

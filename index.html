@@ -1164,6 +1164,11 @@
       color: var(--muted);
     }
 
+    .board-compose.is-editing {
+      background: #fff7f7;
+      border-color: rgba(217, 48, 37, .28);
+    }
+
     .board-actions {
       display: flex;
       flex-wrap: wrap;
@@ -1176,6 +1181,12 @@
       color: var(--muted);
       font-size: 12px;
       line-height: 1.5;
+    }
+
+    .board-edit-status {
+      color: #d93025;
+      font-size: 12px;
+      font-weight: 800;
     }
 
     .board-feed {
@@ -1198,9 +1209,23 @@
     .board-meta {
       display: flex;
       flex-wrap: wrap;
+      align-items: center;
       gap: 8px;
       color: var(--muted);
       font-size: 12px;
+    }
+
+    .board-message {
+      color: #d93025;
+      font-weight: 800;
+      white-space: pre-wrap;
+    }
+
+    .board-edit-button {
+      min-height: 28px;
+      padding: 5px 10px;
+      font-size: 12px;
+      margin-left: auto;
     }
 
     .minutes-tabs {
@@ -2956,25 +2981,27 @@
       <a class="open-direct" href="https://wonderplus100-stack.github.io/wonder-plus-portal/?view=member&login=1" target="_blank" rel="noreferrer">個別ページにログイン</a>
       <a class="back-top" href="#top" aria-label="トップページに戻る">↑</a>
 
-      <section class="panel" id="shared-board" aria-label="重要共有事項用確認">
+      <section class="panel" id="shared-board" aria-label="重要事項共有専用">
         <div class="panel-head">
           <div class="panel-title important-board-title">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z"></path><path d="M8 9h8"></path><path d="M8 13h5"></path></svg>
-            重要共有事項用確認
+            重要事項共有専用
           </div>
           <span class="badge">誰でも投稿・閲覧</span>
         </div>
         <div class="board-compose">
-          <textarea id="boardMessage" placeholder="重要共有事項を入力してください"></textarea>
+          <textarea id="boardMessage" placeholder="重要事項共有専用の内容を入力してください"></textarea>
           <div class="board-actions">
             <div class="board-note">重要情報を投稿すると全体で確認できます。投稿内容はテキストのみ共有されます。</div>
-            <button class="member-button primary" type="button" id="boardSubmit">重要共有事項を投稿</button>
+            <span class="board-edit-status" id="boardEditStatus" hidden>編集中です</span>
+            <button class="member-button" type="button" id="boardEditCancel" hidden>編集をキャンセル</button>
+            <button class="member-button primary" type="button" id="boardSubmit">重要事項を投稿</button>
           </div>
         </div>
         <div class="board-feed" id="boardFeed">
           <div class="board-row">
-            <div class="board-meta"><strong>重要共有事項用確認</strong><span>投稿待ち</span></div>
-            <div>重要な共有事項を投稿すると、ここに一覧表示されます。</div>
+            <div class="board-meta"><strong>重要事項共有専用</strong><span>投稿待ち</span></div>
+            <div class="board-message">重要な共有事項を投稿すると、ここに一覧表示されます。</div>
           </div>
         </div>
       </section>
@@ -3581,7 +3608,7 @@
 
   <script>
     const SCHEDULE_YEAR = 2026;
-    const SCHEDULE_API_URL = "https://script.google.com/macros/s/AKfycbwdI4FZcM2-bMA1U5425QJz_SOXWY7R8vKQfx0z-xHfHjWQJix1KIKbtf0dMXScGqQZrw/exec?action=schedule";
+    const SCHEDULE_API_URL = "https://script.google.com/macros/s/AKfycbzRcXK2X1KtB0DuUPsk25g-ONb6zK8x0R4gby9c-R73MXeQB14cgqzuJrj9GejSR8I2nw/exec?action=schedule";
     const SCHEDULE_CACHE_URL = "schedule-cache.json";
     const EVENT_GUIDE_CACHE_URL = "event-guide-cache.json";
     const SCHEDULE_CACHE_STORAGE_KEY = "wonderPlusPortal.schedulePayload.v1";
@@ -3649,6 +3676,8 @@
     const personalScheduleText = document.querySelector("#personalScheduleText");
     const boardMessage = document.querySelector("#boardMessage");
     const boardSubmit = document.querySelector("#boardSubmit");
+    const boardEditCancel = document.querySelector("#boardEditCancel");
+    const boardEditStatus = document.querySelector("#boardEditStatus");
     const boardFeed = document.querySelector("#boardFeed");
     const quickMenu = document.querySelector("#quick");
     const quickMenuToggle = document.querySelector("#quickMenuToggle");
@@ -6492,7 +6521,15 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
 
     function getStoredBoardPosts() {
       try {
-        return JSON.parse(localStorage.getItem("wonderBoardPosts") || "[]");
+        const posts = JSON.parse(localStorage.getItem("wonderBoardPosts") || "[]");
+        let changed = false;
+        const normalizedPosts = Array.isArray(posts) ? posts.map((post) => {
+          if (post?.id) return post;
+          changed = true;
+          return { ...post, id: createLocalBoardPostId() };
+        }) : [];
+        if (changed) saveStoredBoardPosts(normalizedPosts);
+        return normalizedPosts;
       } catch (error) {
         return [];
       }
@@ -6502,36 +6539,63 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
       localStorage.setItem("wonderBoardPosts", JSON.stringify(posts.slice(0, 30)));
     }
 
+    const BOARD_SUBMIT_LABEL = "重要事項を投稿";
+    const BOARD_EDIT_LABEL = "修正内容を保存";
     let boardPostsCache = [];
+    let editingBoardPostId = "";
+
+    function createLocalBoardPostId() {
+      if (window.crypto?.randomUUID) return `local-${window.crypto.randomUUID()}`;
+      return `local-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+    }
 
     function normalizeBoardPost(post) {
       return {
+        id: post?.id || createLocalBoardPostId(),
         name: post?.name || "投稿者",
         message: post?.message || "",
-        createdAt: post?.createdAt || ""
+        createdAt: post?.createdAt || "",
+        updatedAt: post?.updatedAt || ""
       };
+    }
+
+    function updateBoardEditState(postId = "") {
+      editingBoardPostId = postId;
+      const isEditing = Boolean(postId);
+      boardSubmit.textContent = isEditing ? BOARD_EDIT_LABEL : BOARD_SUBMIT_LABEL;
+      boardSubmit.dataset.originalText = boardSubmit.textContent;
+      boardEditCancel.hidden = !isEditing;
+      boardEditStatus.hidden = !isEditing;
+      boardMessage.closest(".board-compose")?.classList.toggle("is-editing", isEditing);
+    }
+
+    function findBoardPost(postId) {
+      const cached = boardPostsCache.find((post) => post.id === postId);
+      if (cached) return cached;
+      return getStoredBoardPosts().map(normalizeBoardPost).find((post) => post.id === postId) || null;
     }
 
     function renderBoardPosts(posts = boardPostsCache) {
       if (!boardFeed) return;
-      const visiblePosts = posts.length ? posts : getStoredBoardPosts();
+      const visiblePosts = (posts.length ? posts : getStoredBoardPosts()).map(normalizeBoardPost);
       const emptyRows = `
         <div class="board-row">
-          <div class="board-meta"><strong>重要共有事項用確認</strong><span>投稿待ち</span></div>
-          <div>まだ投稿はありません。メッセージを投稿すると、他の利用者にも表示されます。</div>
+          <div class="board-meta"><strong>重要事項共有専用</strong><span>投稿待ち</span></div>
+          <div class="board-message">まだ投稿はありません。メッセージを投稿すると、他の利用者にも表示されます。</div>
         </div>
         <div class="board-row">
           <div class="board-meta"><strong>投稿形式</strong><span>テキスト</span></div>
-          <div>この掲示板は重要共有事項のテキスト投稿専用です。</div>
+          <div class="board-message">この掲示板は重要事項共有専用のテキスト投稿欄です。</div>
         </div>
       `;
       boardFeed.innerHTML = visiblePosts.length ? visiblePosts.map((post) => `
-        <div class="board-row">
+        <div class="board-row" data-board-post-id="${escapeHtml(post.id || "")}">
           <div class="board-meta">
             <strong>${escapeHtml(post.name || "投稿者")}</strong>
-            <span>${escapeHtml(post.createdAt || "")}</span>
+            <span>${escapeHtml(post.updatedAt ? `${post.createdAt || ""} / 更新 ${post.updatedAt}` : post.createdAt || "")}</span>
+            <button class="member-button board-edit-button" type="button" data-board-edit="${escapeHtml(post.id || "")}">編集</button>
           </div>
-          <div>${escapeHtml(post.message || "").replace(/\n/g, "<br>")}</div>
+          <div class="board-message">${escapeHtml(post.message || "").replace(/\n/g, "<br>")}</div>
         </div>
       `).join("") : emptyRows;
     }
@@ -6559,36 +6623,75 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
       return payload.post ? normalizeBoardPost(payload.post) : null;
     }
 
+    async function updateSharedBoardPost(postId, message) {
+      const params = {
+        token: localStorage.getItem("wonderMemberToken") || "",
+        id: postId,
+        name: currentMember?.name || "ポータル利用者",
+        message
+      };
+      let payload = await callPortalAction("updateBoardPost", params);
+      if (!payload?.ok) payload = await callPortalAction("createBoardPost", params);
+      if (!payload?.ok) throw new Error(payload?.message || "共有掲示板を更新できませんでした。");
+      if (!payload.post) throw new Error("共有掲示板APIがまだ更新されていません。");
+      return normalizeBoardPost(payload.post);
+    }
+
+    async function saveLocalBoardEdit(postId, message) {
+      const posts = getStoredBoardPosts().map(normalizeBoardPost);
+      const index = posts.findIndex((post) => post.id === postId);
+      if (index < 0) throw new Error("編集対象の投稿が見つかりませんでした。");
+      posts[index] = {
+        ...posts[index],
+        message,
+        updatedAt: new Date().toLocaleString("ja-JP", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" })
+      };
+      saveStoredBoardPosts(posts);
+      renderBoardPosts(posts);
+    }
+
     async function handleBoardSubmit() {
       if (!boardMessage || !boardSubmit) return;
       const message = boardMessage.value.trim();
+      const isEditing = Boolean(editingBoardPostId);
       if (!message) {
         boardSubmit.textContent = "内容を入力してください";
-        window.setTimeout(() => { boardSubmit.textContent = "重要共有事項を投稿"; }, 1600);
+        window.setTimeout(() => { boardSubmit.textContent = isEditing ? BOARD_EDIT_LABEL : BOARD_SUBMIT_LABEL; }, 1600);
         return;
       }
       try {
-        setButtonBusy(boardSubmit, true, "投稿中");
+        setButtonBusy(boardSubmit, true, isEditing ? "保存中" : "投稿中");
         try {
-          const post = await createSharedBoardPost(message);
-          if (post) boardPostsCache.unshift(post);
+          if (isEditing) {
+            await updateSharedBoardPost(editingBoardPostId, message);
+          } else {
+            const post = await createSharedBoardPost(message);
+            if (post) boardPostsCache.unshift(post);
+          }
           await loadSharedBoardPosts();
         } catch (sharedError) {
-          const posts = getStoredBoardPosts();
-          posts.unshift({
-            name: currentMember?.name || "ポータル利用者",
-            message,
-            createdAt: new Date().toLocaleString("ja-JP", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" })
-          });
-          saveStoredBoardPosts(posts);
-          renderBoardPosts(posts);
+          if (isEditing) {
+            await saveLocalBoardEdit(editingBoardPostId, message);
+          } else {
+            const posts = getStoredBoardPosts().map(normalizeBoardPost);
+            posts.unshift({
+              id: createLocalBoardPostId(),
+              name: currentMember?.name || "ポータル利用者",
+              message,
+              createdAt: new Date().toLocaleString("ja-JP", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" })
+            });
+            saveStoredBoardPosts(posts);
+            renderBoardPosts(posts);
+          }
         }
         boardMessage.value = "";
+        updateBoardEditState("");
       } catch (error) {
-        boardSubmit.textContent = error.message || "投稿できませんでした";
-        window.setTimeout(() => { boardSubmit.textContent = "重要共有事項を投稿"; }, 2000);
+        boardSubmit.textContent = error.message || (isEditing ? "保存できませんでした" : "投稿できませんでした");
+        window.setTimeout(() => { boardSubmit.textContent = isEditing ? BOARD_EDIT_LABEL : BOARD_SUBMIT_LABEL; }, 2000);
       } finally {
         setButtonBusy(boardSubmit, false);
+        boardSubmit.dataset.originalText = editingBoardPostId ? BOARD_EDIT_LABEL : BOARD_SUBMIT_LABEL;
       }
     }
 
@@ -7037,6 +7140,21 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
     registerButton?.addEventListener("click", handleRegister);
     resetButton?.addEventListener("click", handlePasswordReset);
     boardSubmit?.addEventListener("click", handleBoardSubmit);
+    boardEditCancel?.addEventListener("click", () => {
+      boardMessage.value = "";
+      updateBoardEditState("");
+    });
+    boardFeed?.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-board-edit]");
+      if (!button) return;
+      const postId = button.dataset.boardEdit || "";
+      const post = findBoardPost(postId);
+      if (!post) return;
+      boardMessage.value = post.message || "";
+      updateBoardEditState(postId);
+      boardMessage.focus();
+      boardMessage.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
     if (queryParams.get("view") === "minutes-detail") {
       renderMinutesDetailPage();
     } else {

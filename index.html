@@ -203,22 +203,24 @@
 
     .quick-grid {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 10px;
-      padding: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(82px, 1fr));
+      gap: 8px;
+      padding: 12px;
     }
 
     .tile {
-      display: flex;
-      gap: 10px;
+      display: grid;
+      gap: 8px;
       align-items: center;
-      min-height: 74px;
-      padding: 12px;
+      justify-items: center;
+      min-height: 82px;
+      padding: 10px 8px;
       border: 1px solid var(--line);
       border-radius: 8px;
       background: #fff;
       text-decoration: none;
       color: var(--ink);
+      text-align: center;
       cursor: pointer;
       transition: transform .15s ease, border-color .15s ease, background .15s ease;
     }
@@ -231,16 +233,13 @@
 
     .tile strong {
       display: block;
-      font-size: 14px;
-      line-height: 1.28;
+      font-size: 13px;
+      line-height: 1.2;
+      white-space: nowrap;
     }
 
-    .tile span:last-child {
-      display: block;
-      margin-top: 3px;
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.45;
+    .tile > span:last-child > span {
+      display: none;
     }
 
     .icon {
@@ -251,6 +250,15 @@
       border-radius: 8px;
       background: var(--soft);
       flex: 0 0 auto;
+    }
+
+    #quickGrid .tile[href="#shared-board"],
+    #quickGrid .tile[href="#ai"],
+    #schedule .sync-callout,
+    [data-event-guide-main],
+    #shared-board,
+    #ai {
+      display: none !important;
     }
 
     .calendar-wrap {
@@ -3518,6 +3526,26 @@
 
 </aside>
       </div>
+
+      <section class="panel" id="portal-forms" aria-label="共有フォーム">
+        <div class="panel-head">
+          <div class="panel-title">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+            共有フォーム
+          </div>
+          <span class="badge">投稿窓</span>
+        </div>
+        <div class="link-grid">
+          <a class="link-card" data-phase-scope="2期" href="https://forms.gle/38UzoYYjz5DQzr5o6" target="_blank" rel="noreferrer">
+            <strong>スケジュール投稿</strong>
+            <span>月間スケジュールを送信し、ポータルのカレンダーと一覧へ反映します。</span>
+          </a>
+          <a class="link-card" href="https://forms.gle/rBzVgad5FXEM4dcm9" target="_blank" rel="noreferrer">
+            <strong>イベント案内共有フォーム</strong>
+            <span>案内文章・素材URL・添付ファイルを送信し、イベント情報へ反映します。</span>
+          </a>
+        </div>
+      </section>
     </div>
 
     <div class="modal-backdrop" id="materialModal" hidden>
@@ -7031,6 +7059,25 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
 
       const filter = document.querySelector("#filter");
       const quickTiles = [...document.querySelectorAll("#quickGrid .tile")];
+      const quickMenuLabels = {
+        "#prepare": "準備",
+        "#mindset": "心得",
+        "#lineworks": "連絡",
+        "#reports": "報告",
+        "#member-portal": "参加",
+        "#event-info": "案内",
+        "#media-share": "画像",
+        "#materials": "資料",
+        "#manual": "運営",
+        "#minutes": "議事録"
+      };
+      quickTiles.forEach((tile) => {
+        const label = quickMenuLabels[tile.getAttribute("href")];
+        if (!label) return;
+        const title = tile.querySelector("strong");
+        if (title) title.textContent = label;
+        tile.setAttribute("aria-label", label);
+      });
       filter.addEventListener("input", () => {
         const q = filter.value.trim().toLowerCase();
         quickTiles.forEach((tile) => {

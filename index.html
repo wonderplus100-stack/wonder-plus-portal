@@ -791,7 +791,6 @@
     body.auth-required:not(.is-member-logged-in) #shared-board,
     body.auth-required:not(.is-member-logged-in) #lineworks,
     body.auth-required:not(.is-member-logged-in) #event-info,
-    body.auth-required:not(.is-member-logged-in) #media-share,
     body.auth-required:not(.is-member-logged-in) #manual,
     body.auth-required:not(.is-member-logged-in) #event-guides,
     body.auth-required:not(.is-member-logged-in) #prepare,
@@ -1165,66 +1164,6 @@
       color: var(--muted);
     }
 
-    .board-file-input {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      overflow: hidden;
-      clip: rect(0 0 0 0);
-      white-space: nowrap;
-    }
-
-    .board-file-button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      width: fit-content;
-      min-height: 36px;
-      padding: 8px 12px;
-      border: 1px solid #bfccd7;
-      border-radius: 999px;
-      background: #fff;
-      color: var(--blue);
-      font-size: 13px;
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-    .board-preview {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
-      gap: 8px;
-    }
-
-    .board-preview figure,
-    .board-attachments figure {
-      margin: 0;
-      display: grid;
-      gap: 5px;
-    }
-
-    .board-preview img,
-    .board-preview video,
-    .board-attachments img,
-    .board-attachments video {
-      width: 100%;
-      max-height: 150px;
-      object-fit: cover;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: #f8fafb;
-    }
-
-    .board-preview figcaption,
-    .board-attachments figcaption {
-      color: var(--muted);
-      font-size: 11px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
     .board-actions {
       display: flex;
       flex-wrap: wrap;
@@ -1262,13 +1201,6 @@
       gap: 8px;
       color: var(--muted);
       font-size: 12px;
-    }
-
-    .board-attachments {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-      gap: 8px;
-      margin-top: 4px;
     }
 
     .minutes-tabs {
@@ -3034,14 +2966,8 @@
         </div>
         <div class="board-compose">
           <textarea id="boardMessage" placeholder="重要共有事項を入力してください"></textarea>
-          <label class="board-file-button" for="boardFiles">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 8h.01"></path><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 15 5-5 4 4 2-2 7 7"></path></svg>
-            画像・動画を追加
-          </label>
-          <input class="board-file-input" id="boardFiles" type="file" accept="image/*,video/*" multiple>
-          <div class="board-preview" id="boardPreview" aria-live="polite"></div>
           <div class="board-actions">
-            <div class="board-note">重要情報を投稿すると全体で確認できます。画像・動画はDriveリンクを本文に貼る運用が安定します。</div>
+            <div class="board-note">重要情報を投稿すると全体で確認できます。投稿内容はテキストのみ共有されます。</div>
             <button class="member-button primary" type="button" id="boardSubmit">重要共有事項を投稿</button>
           </div>
         </div>
@@ -3093,10 +3019,6 @@
           <a class="tile" href="#event-info">
             <span class="icon blue"><svg viewBox="0 0 24 24"><path d="M3 4h18"></path><path d="M3 12h18"></path><path d="M3 20h18"></path></svg></span>
             <span><strong>イベント情報</strong><span>案内文・申込フォーム</span></span>
-          </a>
-          <a class="tile" href="#media-share">
-            <span class="icon green"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m10 10 5 3-5 3v-6Z"></path><path d="M7 19l-2 3"></path><path d="M17 19l2 3"></path></svg></span>
-            <span><strong>画像・動画共有ポスト</strong><span>保存用Driveへ投稿</span></span>
           </a>
           <a class="tile" href="#materials">
             <span class="icon blue"><svg viewBox="0 0 24 24"><path d="M4 19.5V4a2 2 0 0 1 2-2h11l3 3v14.5A2.5 2.5 0 0 1 17.5 22H6.5A2.5 2.5 0 0 1 4 19.5Z"></path><path d="M14 2v6h6"></path><path d="M8 13h8"></path><path d="M8 17h6"></path></svg></span>
@@ -3293,26 +3215,6 @@
 
 
 
-
-<section class="panel" id="media-share" aria-label="画像・動画共有ポスト">
-            <div class="panel-head">
-              <div class="panel-title">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m10 10 5 3-5 3v-6Z"></path><path d="M7 19l-2 3"></path><path d="M17 19l2 3"></path></svg>
-                画像・動画共有ポスト
-              </div>
-              <span class="badge">Drive保存</span>
-            </div>
-            <div class="link-grid">
-              <a class="link-card" href="#" target="_blank" rel="noreferrer">
-                <strong>保存用ドライブ</strong>
-                <span>イベント写真・動画の保存先。ここにGoogle Driveの共有URLを設定します。</span>
-              </a>
-              <a class="link-card" href="#" target="_blank" rel="noreferrer">
-                <strong>投稿ルール</strong>
-                <span>ファイル名は「日付_イベント名_担当者」。人物が写る素材は公開可否を確認してから共有。</span>
-              </a>
-            </div>
-          </section>
 
           <section class="panel" id="materials" aria-label="各種資料">
             <div class="panel-head">
@@ -3746,8 +3648,6 @@
     const personalSchedulePrompt = document.querySelector("#personalSchedulePrompt");
     const personalScheduleText = document.querySelector("#personalScheduleText");
     const boardMessage = document.querySelector("#boardMessage");
-    const boardFiles = document.querySelector("#boardFiles");
-    const boardPreview = document.querySelector("#boardPreview");
     const boardSubmit = document.querySelector("#boardSubmit");
     const boardFeed = document.querySelector("#boardFeed");
     const quickMenu = document.querySelector("#quick");
@@ -5233,7 +5133,7 @@
       if (isLimitedPhase) {
         document.querySelectorAll("#quickGrid .tile").forEach((tile) => {
           const target = tile.getAttribute("href");
-          const allowedTargets = new Set(["#prepare", "#event-info", "#mindset", "#media-share", "#materials", "#manual", "#shared-board"]);
+          const allowedTargets = new Set(["#prepare", "#event-info", "#mindset", "#materials", "#manual", "#shared-board"]);
           setManagedVisibility(tile, allowedTargets.has(target));
         });
 
@@ -6607,7 +6507,6 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
       return {
         name: post?.name || "投稿者",
         message: post?.message || "",
-        files: Array.isArray(post?.files) ? post.files : [],
         createdAt: post?.createdAt || ""
       };
     }
@@ -6621,8 +6520,8 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
           <div>まだ投稿はありません。メッセージを投稿すると、他の利用者にも表示されます。</div>
         </div>
         <div class="board-row">
-          <div class="board-meta"><strong>画像・動画</strong><span>Drive推奨</span></div>
-          <div>画像や動画はGoogle Driveへ保存し、本文に共有リンクを貼る運用が無料枠では安定します。</div>
+          <div class="board-meta"><strong>投稿形式</strong><span>テキスト</span></div>
+          <div>この掲示板は重要共有事項のテキスト投稿専用です。</div>
         </div>
       `;
       boardFeed.innerHTML = visiblePosts.length ? visiblePosts.map((post) => `
@@ -6632,7 +6531,6 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
             <span>${escapeHtml(post.createdAt || "")}</span>
           </div>
           <div>${escapeHtml(post.message || "").replace(/\n/g, "<br>")}</div>
-          ${renderBoardAttachments(post.files || [])}
         </div>
       `).join("") : emptyRows;
     }
@@ -6660,68 +6558,18 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
       return payload.post ? normalizeBoardPost(payload.post) : null;
     }
 
-    function renderBoardAttachments(files) {
-      if (!files.length) return "";
-      return `<div class="board-attachments">${files.map((file) => {
-        const caption = `<figcaption>${escapeHtml(file.name || "添付")}</figcaption>`;
-        if (String(file.type || "").startsWith("image/")) {
-          return `<figure><img src="${escapeHtml(file.url)}" alt="${escapeHtml(file.name || "添付画像")}">${caption}</figure>`;
-        }
-        if (String(file.type || "").startsWith("video/")) {
-          return `<figure><video src="${escapeHtml(file.url)}" controls playsinline></video>${caption}</figure>`;
-        }
-        return `<figure><a class="share-link" href="${escapeHtml(file.url)}" target="_blank" rel="noreferrer">${escapeHtml(file.name || "添付ファイル")}</a></figure>`;
-      }).join("")}</div>`;
-    }
-
-    function fileToBoardAttachment(file) {
-      return new Promise((resolve, reject) => {
-        if (file.size > 8 * 1024 * 1024) {
-          reject(new Error(`${file.name} は8MBを超えるため、Drive保存にしてください。`));
-          return;
-        }
-        const reader = new FileReader();
-        reader.onload = () => resolve({ name: file.name, type: file.type, url: reader.result });
-        reader.onerror = () => reject(new Error(`${file.name} を読み込めませんでした。`));
-        reader.readAsDataURL(file);
-      });
-    }
-
-    async function getSelectedBoardAttachments() {
-      const files = [...(boardFiles?.files || [])];
-      const attachments = [];
-      for (const file of files.slice(0, 6)) {
-        attachments.push(await fileToBoardAttachment(file));
-      }
-      return attachments;
-    }
-
-    async function renderBoardPreview() {
-      if (!boardPreview) return;
-      try {
-        const attachments = await getSelectedBoardAttachments();
-        boardPreview.innerHTML = renderBoardAttachments(attachments).replace("board-attachments", "board-preview");
-      } catch (error) {
-        boardPreview.innerHTML = `<div class="member-status">${escapeHtml(error.message)}</div>`;
-      }
-    }
-
     async function handleBoardSubmit() {
       if (!boardMessage || !boardSubmit) return;
       const message = boardMessage.value.trim();
-      if (!message && !(boardFiles?.files || []).length) {
+      if (!message) {
         boardSubmit.textContent = "内容を入力してください";
         window.setTimeout(() => { boardSubmit.textContent = "重要共有事項を投稿"; }, 1600);
         return;
       }
       try {
         setButtonBusy(boardSubmit, true, "投稿中");
-        const files = await getSelectedBoardAttachments();
-        if (files.length && boardPreview) {
-          boardPreview.innerHTML = `<div class="member-status">画像・動画はDriveリンクを本文に貼る形で共有してください。今回は本文を全体共有します。</div>`;
-        }
         try {
-          const post = await createSharedBoardPost(message || "画像・動画を共有しました。Driveリンクを追記してください。");
+          const post = await createSharedBoardPost(message);
           if (post) boardPostsCache.unshift(post);
           await loadSharedBoardPosts();
         } catch (sharedError) {
@@ -6729,17 +6577,15 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
           posts.unshift({
             name: currentMember?.name || "ポータル利用者",
             message,
-            files,
             createdAt: new Date().toLocaleString("ja-JP", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" })
           });
           saveStoredBoardPosts(posts);
           renderBoardPosts(posts);
-          if (boardPreview) boardPreview.innerHTML = `<div class="member-status">共有API未反映のため、この端末内に一時保存しました。Apps Script更新後に全体共有されます。</div>`;
         }
         boardMessage.value = "";
-        if (boardFiles) boardFiles.value = "";
       } catch (error) {
-        if (boardPreview) boardPreview.innerHTML = `<div class="member-status">${escapeHtml(error.message)}</div>`;
+        boardSubmit.textContent = error.message || "投稿できませんでした";
+        window.setTimeout(() => { boardSubmit.textContent = "重要共有事項を投稿"; }, 2000);
       } finally {
         setButtonBusy(boardSubmit, false);
       }
@@ -7189,7 +7035,6 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
     });
     registerButton?.addEventListener("click", handleRegister);
     resetButton?.addEventListener("click", handlePasswordReset);
-    boardFiles?.addEventListener("change", renderBoardPreview);
     boardSubmit?.addEventListener("click", handleBoardSubmit);
     if (queryParams.get("view") === "minutes-detail") {
       renderMinutesDetailPage();
@@ -7211,7 +7056,6 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
         "#reports": "報告",
         "#member-portal": "参加",
         "#event-info": "案内",
-        "#media-share": "画像",
         "#materials": "資料",
         "#manual": "運営",
         "#minutes": "議事録"
@@ -7261,7 +7105,6 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
         event: ["event-info"],
         "event-guides": ["event-info"],
         board: ["shared-board"],
-        media: ["media-share"],
         materials: ["materials"],
         manual: ["manual"],
         prepare: ["prepare"],
@@ -7303,23 +7146,6 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
       applySplitView();
       resetInitialPortalScroll();
     }
-    </script>
-    <script>
-      (function () {
-        function applyResponsivePortalOrder() {
-          const mediaShare = document.querySelector('section#media-share');
-          const memberPortal = document.querySelector('section#member-portal');
-          const aiPanel = document.querySelector('section#ai');
-          if (!mediaShare || !memberPortal || !aiPanel) return;
-          if (window.matchMedia('(max-width: 760px)').matches) {
-            aiPanel.insertAdjacentElement('afterend', mediaShare);
-          } else {
-            memberPortal.insertAdjacentElement('afterend', mediaShare);
-          }
-        }
-        window.addEventListener('DOMContentLoaded', applyResponsivePortalOrder);
-        window.addEventListener('resize', applyResponsivePortalOrder);
-      }());
     </script>
   </body>
 </html>

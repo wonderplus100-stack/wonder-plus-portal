@@ -208,6 +208,84 @@
       padding: 12px;
     }
 
+    .quick-dock {
+      position: fixed;
+      left: 16px;
+      bottom: 16px;
+      z-index: 80;
+      width: auto;
+    }
+
+    .quick-menu-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 48px;
+      padding: 0 16px;
+      border: 1px solid #c6d3dd;
+      border-radius: 999px;
+      background: #18222d;
+      color: #fff;
+      font: inherit;
+      font-weight: 850;
+      box-shadow: 0 14px 28px rgba(18, 29, 41, .22);
+      cursor: pointer;
+    }
+
+    .quick-menu-toggle svg {
+      width: 22px;
+      height: 22px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2.4;
+      stroke-linecap: round;
+    }
+
+    .quick-menu-drawer {
+      position: absolute;
+      left: 0;
+      bottom: 60px;
+      width: min(360px, calc(100vw - 32px));
+      max-height: min(72vh, 560px);
+      overflow-y: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 22px 46px rgba(28, 45, 62, .24);
+      display: none;
+    }
+
+    #quick.is-open .quick-menu-drawer {
+      display: block;
+    }
+
+    #quick .quick-grid {
+      grid-template-columns: 1fr;
+      padding: 10px;
+    }
+
+    #quick .tile {
+      grid-template-columns: 34px minmax(0, 1fr);
+      justify-items: start;
+      text-align: left;
+      min-height: 50px;
+      padding: 8px 10px;
+    }
+
+    #quick .tile > span:last-child > span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.35;
+      white-space: normal;
+    }
+
+    #quick .icon {
+      width: 30px;
+      height: 30px;
+    }
+
     .tile {
       display: grid;
       gap: 8px;
@@ -252,12 +330,15 @@
       flex: 0 0 auto;
     }
 
-    #quickGrid .tile[href="#shared-board"],
     #quickGrid .tile[href="#ai"],
     #schedule .sync-callout,
     [data-event-guide-main],
-    #shared-board,
     #ai {
+      display: none !important;
+    }
+
+    #scheduleUpdateLog,
+    #scheduleArchiveList {
       display: none !important;
     }
 
@@ -1056,6 +1137,10 @@
       gap: 10px;
       padding: 12px 14px;
       border-bottom: 1px solid var(--line);
+    }
+
+    .important-board-title {
+      color: #d93025;
     }
 
     .board-compose textarea,
@@ -2891,6 +2976,36 @@
     body.view-schedule-events .panel-head {
       display: none !important;
     }
+
+    #quick.quick-dock .quick-grid {
+      grid-template-columns: 1fr !important;
+      gap: 6px !important;
+      padding: 10px !important;
+    }
+
+    #quick.quick-dock .tile {
+      grid-template-columns: 34px minmax(0, 1fr) !important;
+      min-height: 50px !important;
+      padding: 8px 10px !important;
+      gap: 8px !important;
+      justify-items: start !important;
+      text-align: left !important;
+    }
+
+    #quick.quick-dock .tile strong {
+      font-size: 13px !important;
+      white-space: nowrap;
+    }
+
+    #quick.quick-dock .tile span:last-child {
+      font-size: 11px !important;
+      line-height: 1.35 !important;
+    }
+
+    #quick.quick-dock .icon {
+      width: 30px !important;
+      height: 30px !important;
+    }
   </style>
 </head>
 <body>
@@ -2904,23 +3019,52 @@
             <div class="sub" id="portalSub">スケジュール、準備タスク、報告フォーム、LINE WORKS導線を1画面に集約</div>
           </div>
         </div>
-        <label class="search" aria-label="メニュー検索">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
-          <input id="filter" type="search" placeholder="項目を検索">
-        </label>
       </header>
 
       <a class="open-direct" href="https://wonderplus100-stack.github.io/wonder-plus-portal/?view=member&login=1" target="_blank" rel="noreferrer">個別ページにログイン</a>
       <a class="back-top" href="#top" aria-label="トップページに戻る">↑</a>
 
-      <section class="panel" id="quick" aria-label="すぐ使う">
+      <section class="panel" id="shared-board" aria-label="重要共有事項用確認">
         <div class="panel-head">
-          <div class="panel-title">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8Z"></path></svg>
-            すぐ使う
+          <div class="panel-title important-board-title">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z"></path><path d="M8 9h8"></path><path d="M8 13h5"></path></svg>
+            重要共有事項用確認
           </div>
-          <span class="badge">サンプルUI</span>
+          <span class="badge">誰でも投稿・閲覧</span>
         </div>
+        <div class="board-compose">
+          <textarea id="boardMessage" placeholder="重要共有事項を入力してください"></textarea>
+          <label class="board-file-button" for="boardFiles">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 8h.01"></path><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 15 5-5 4 4 2-2 7 7"></path></svg>
+            画像・動画を追加
+          </label>
+          <input class="board-file-input" id="boardFiles" type="file" accept="image/*,video/*" multiple>
+          <div class="board-preview" id="boardPreview" aria-live="polite"></div>
+          <div class="board-actions">
+            <div class="board-note">重要情報を投稿すると全体で確認できます。画像・動画はDriveリンクを本文に貼る運用が安定します。</div>
+            <button class="member-button primary" type="button" id="boardSubmit">重要共有事項を投稿</button>
+          </div>
+        </div>
+        <div class="board-feed" id="boardFeed">
+          <div class="board-row">
+            <div class="board-meta"><strong>重要共有事項用確認</strong><span>投稿待ち</span></div>
+            <div>重要な共有事項を投稿すると、ここに一覧表示されます。</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="quick-dock" id="quick" aria-label="メニュー">
+        <button class="quick-menu-toggle" id="quickMenuToggle" type="button" aria-expanded="false" aria-controls="quickMenuDrawer">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16"></path><path d="M4 12h16"></path><path d="M4 17h16"></path></svg>
+          <span>メニュー</span>
+        </button>
+        <div class="quick-menu-drawer" id="quickMenuDrawer">
+          <div class="panel-head">
+            <div class="panel-title">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8Z"></path></svg>
+              メニュー
+            </div>
+          </div>
         <nav class="quick-grid" id="quickGrid">
           <a class="tile" href="#prepare">
             <span class="icon amber"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg></span>
@@ -2971,6 +3115,7 @@
             <span><strong>AI相談</strong><span>社内情報を元に確認</span></span>
           </a>
         </nav>
+        </div>
       </section>
 
       <div class="layout" style="margin-top:14px;">
@@ -3490,40 +3635,6 @@
             </div>
           </section>
 
-<section class="panel" id="shared-board" aria-label="共有掲示板">
-            <div class="panel-head">
-              <div class="panel-title">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z"></path><path d="M8 9h8"></path><path d="M8 13h5"></path></svg>
-                共有掲示板
-              </div>
-              <span class="badge">全体共有</span>
-            </div>
-            <div class="board-compose">
-              <textarea id="boardMessage" placeholder="共有したい内容を入力"></textarea>
-              <label class="board-file-button" for="boardFiles">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 8h.01"></path><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 15 5-5 4 4 2-2 7 7"></path></svg>
-                画像・動画を追加
-              </label>
-              <input class="board-file-input" id="boardFiles" type="file" accept="image/*,video/*" multiple>
-              <div class="board-preview" id="boardPreview" aria-live="polite"></div>
-              <div class="board-actions">
-                <div class="board-note">投稿本文は全体共有されます。画像・動画は無料枠を安定させるため、Driveリンクで共有してください。</div>
-                <button class="member-button primary" type="button" id="boardSubmit">共有掲示板に投稿</button>
-              </div>
-            </div>
-            <div class="board-feed" id="boardFeed">
-              <div class="board-row">
-                <div class="board-meta"><strong>運営</strong><span>サンプル</span></div>
-                <div>共有掲示板はApps Script WebアプリURLを設定後、メッセージ投稿・Drive添付・一覧取得が可能になります。</div>
-              </div>
-              <div class="board-row">
-                <div class="board-meta"><strong>素材共有</strong><span>Drive保存</span></div>
-                <div>動画ファイルはサイズが大きくなりやすいため、フォーム/Apps ScriptからDriveへ保存し、ここではタイトルとリンクだけを読み込みます。</div>
-              </div>
-            </div>
-          </section>
-
-
 </aside>
       </div>
 
@@ -3592,6 +3703,7 @@
     let activeScheduleCategory = "wonder";
     let activeScheduleKey = getScheduleKey(activeScheduleMonth, activeScheduleCategory) || getScheduleKey(1, "wonder");
     let hasUserSelectedScheduleMonth = false;
+    let hasInitializedScheduleMonth = true;
 
     const dows = ["月", "火", "水", "木", "金", "土", "日"];
 
@@ -3638,6 +3750,8 @@
     const boardPreview = document.querySelector("#boardPreview");
     const boardSubmit = document.querySelector("#boardSubmit");
     const boardFeed = document.querySelector("#boardFeed");
+    const quickMenu = document.querySelector("#quick");
+    const quickMenuToggle = document.querySelector("#quickMenuToggle");
     const eventGuideSelect = document.querySelector("#eventGuideSelect");
     const eventGuideShow = document.querySelector("#eventGuideShow");
     const eventGuideTitle = document.querySelector("#eventGuideTitle");
@@ -4018,21 +4132,7 @@
 
     function renderScheduleLogs() {
       if (!scheduleUpdateLog) return;
-      scheduleUpdateLog.innerHTML = scheduleLogs.length ? scheduleLogs.map((log) => {
-        const at = new Date(log.at);
-        const time = Number.isNaN(at.getTime()) ? "" : at.toLocaleString("ja-JP", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" });
-        return `
-          <div class="schedule-log-row">
-            <time>${escapeHtml(time)}</time>
-            <div>${escapeHtml(log.message)}</div>
-          </div>
-        `;
-      }).join("") : `
-        <div class="schedule-log-row">
-          <time>ログ</time>
-          <div>スケジュール更新や参加チェックの変更履歴がここに表示されます。</div>
-        </div>
-      `;
+      scheduleUpdateLog.innerHTML = "";
     }
 
     function displayFamilyName(name) {
@@ -4632,9 +4732,10 @@
     async function applySchedulePayload(payload) {
       await hydrateEventGuideDocuments(payload);
       schedules = normalizeSchedules(payload);
-      if (!hasUserSelectedScheduleMonth) {
+      if (!hasUserSelectedScheduleMonth && !hasInitializedScheduleMonth) {
         const visibleMonths = getVisibleScheduleMonths();
         activeScheduleMonth = visibleMonths[visibleMonths.length - 1] || activeScheduleMonth;
+        hasInitializedScheduleMonth = true;
       }
       syncActiveScheduleFromState(activeScheduleMonth, activeScheduleCategory);
       await loadAssignments();
@@ -4756,9 +4857,21 @@
         .map((group) => Number(group.month))
         .filter((month) => month >= lowerBound && month <= upperBound))]
         .sort((a, b) => a - b);
+      if (Number.isInteger(activeScheduleMonth) && activeScheduleMonth >= lowerBound && activeScheduleMonth <= upperBound && !months.includes(activeScheduleMonth)) {
+        months.push(activeScheduleMonth);
+        months.sort((a, b) => a - b);
+      }
       if (months.length) return months;
       const fallback = Math.min(12, Math.max(1, currentMonth));
       return [fallback];
+    }
+
+    function getStableScheduleMonth(month) {
+      const currentMonth = currentScheduleMonth();
+      const lowerBound = Math.max(1, currentMonth - 1);
+      const upperBound = Math.min(12, currentMonth + 2);
+      const requested = Number(month) || activeScheduleMonth || currentMonth;
+      return Math.min(upperBound, Math.max(lowerBound, requested));
     }
 
     function getNearestVisibleScheduleMonth(month) {
@@ -4778,7 +4891,7 @@
     }
 
     function syncActiveScheduleFromState(month = activeScheduleMonth, category = activeScheduleCategory) {
-      activeScheduleMonth = getNearestVisibleScheduleMonth(month);
+      activeScheduleMonth = getStableScheduleMonth(month);
       activeScheduleCategory = category || activeScheduleCategory || "wonder";
       activeScheduleKey = getScheduleKey(activeScheduleMonth, activeScheduleCategory) || activeScheduleKey || getScheduleKey(activeScheduleMonth, "wonder");
       return activeScheduleKey;
@@ -6504,8 +6617,8 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
       const visiblePosts = posts.length ? posts : getStoredBoardPosts();
       const emptyRows = `
         <div class="board-row">
-          <div class="board-meta"><strong>共有掲示板</strong><span>投稿待ち</span></div>
-          <div>まだ投稿はありません。メッセージを投稿すると、他の承認済みアカウントにも表示されます。</div>
+          <div class="board-meta"><strong>重要共有事項用確認</strong><span>投稿待ち</span></div>
+          <div>まだ投稿はありません。メッセージを投稿すると、他の利用者にも表示されます。</div>
         </div>
         <div class="board-row">
           <div class="board-meta"><strong>画像・動画</strong><span>Drive推奨</span></div>
@@ -6539,7 +6652,7 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
     async function createSharedBoardPost(message) {
       const payload = await callPortalAction("createBoardPost", {
         token: localStorage.getItem("wonderMemberToken") || "",
-        name: currentMember?.name || "",
+        name: currentMember?.name || "ポータル利用者",
         message
       });
       if (!payload?.ok) throw new Error(payload?.message || "共有掲示板へ投稿できませんでした。");
@@ -6598,7 +6711,7 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
       const message = boardMessage.value.trim();
       if (!message && !(boardFiles?.files || []).length) {
         boardSubmit.textContent = "内容を入力してください";
-        window.setTimeout(() => { boardSubmit.textContent = "共有掲示板に投稿"; }, 1600);
+        window.setTimeout(() => { boardSubmit.textContent = "重要共有事項を投稿"; }, 1600);
         return;
       }
       try {
@@ -7094,6 +7207,7 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
         "#prepare": "準備",
         "#mindset": "心得",
         "#lineworks": "連絡",
+        "#shared-board": "重要共有",
         "#reports": "報告",
         "#member-portal": "参加",
         "#event-info": "案内",
@@ -7109,11 +7223,30 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
         if (title) title.textContent = label;
         tile.setAttribute("aria-label", label);
       });
-      filter.addEventListener("input", () => {
+      filter?.addEventListener("input", () => {
         const q = filter.value.trim().toLowerCase();
         quickTiles.forEach((tile) => {
           tile.classList.toggle("hidden", q && !tile.textContent.toLowerCase().includes(q));
         });
+      });
+
+      quickMenuToggle?.addEventListener("click", () => {
+        const isOpen = quickMenu?.classList.toggle("is-open");
+        quickMenuToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      });
+
+      quickTiles.forEach((tile) => {
+        tile.addEventListener("click", () => {
+          quickMenu?.classList.remove("is-open");
+          quickMenuToggle?.setAttribute("aria-expanded", "false");
+        });
+      });
+
+      document.addEventListener("click", (event) => {
+        if (!quickMenu?.classList.contains("is-open")) return;
+        if (event.target.closest("#quick")) return;
+        quickMenu.classList.remove("is-open");
+        quickMenuToggle?.setAttribute("aria-expanded", "false");
       });
 
       const splitViews = {

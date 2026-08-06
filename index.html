@@ -5268,7 +5268,7 @@
     }
 
     function getPortalHomeUrl() {
-      return `${window.location.origin}${window.location.pathname}?v=member-login-${Date.now()}#member-portal`;
+      return `${window.location.origin}${window.location.pathname}?v=member-login-${Date.now()}`;
     }
 
     async function handleLogin() {
@@ -7073,11 +7073,24 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
         });
       }
 
+      function resetInitialPortalScroll() {
+        const view = new URLSearchParams(window.location.search).get("view");
+        if (view) return;
+        const autoScrollHashes = new Set(["#member-portal", "#schedule"]);
+        if (!autoScrollHashes.has(window.location.hash)) return;
+        window.history.replaceState(null, "", `${window.location.pathname}${window.location.search}`);
+        window.requestAnimationFrame(() => {
+          window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+          document.querySelector("#quick")?.scrollIntoView({ block: "start" });
+        });
+      }
+
       loadRememberedLoginFields();
       loadSchedules();
       restoreMemberSession();
       window.setInterval(loadSchedules, 5 * 60 * 1000);
       applySplitView();
+      resetInitialPortalScroll();
     }
     </script>
     <script>

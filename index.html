@@ -6665,6 +6665,37 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
       return text;
     }
 
+    function getMinutesVisibleMonthKeys(now = new Date()) {
+      const current = { year: now.getFullYear(), month: now.getMonth() + 1 };
+      const previous = current.month === 1
+        ? { year: current.year - 1, month: 12 }
+        : { year: current.year, month: current.month - 1 };
+      return new Set([
+        `${current.year}-${current.month}`,
+        `${previous.year}-${previous.month}`
+      ]);
+    }
+
+    function parseMinutesMonthKey(value = "") {
+      const text = String(value || "").trim();
+      if (!text) return "";
+      const yearMonthMatch = text.match(/(\d{4})[\/\-.年]\s*(\d{1,2})/);
+      if (yearMonthMatch) return `${Number(yearMonthMatch[1])}-${Number(yearMonthMatch[2])}`;
+      const monthDayMatch = text.match(/(\d{1,2})[\/月]\s*(\d{1,2})/);
+      if (monthDayMatch) return `${SCHEDULE_YEAR}-${Number(monthDayMatch[1])}`;
+      const date = new Date(text);
+      if (!Number.isNaN(date.getTime())) {
+        return `${date.getFullYear()}-${date.getMonth() + 1}`;
+      }
+      return "";
+    }
+
+    function isMinutesVisibleByMonth(row) {
+      const monthKey = parseMinutesMonthKey(row?.date || row?.dateLabel || "");
+      if (!monthKey) return true;
+      return getMinutesVisibleMonthKeys().has(monthKey);
+    }
+
     function getFirstRowValue(row, keys = []) {
       for (const key of keys) {
         if (row?.[key] !== undefined && row?.[key] !== null && String(row[key]).trim()) return row[key];
@@ -6714,7 +6745,7 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
           body,
           url: row.url || row.detailUrl || row.link || ""
         };
-      }).filter((row) => row.body || row.title);
+      }).filter((row) => (row.body || row.title) && isMinutesVisibleByMonth(row));
     }
 
     function buildMinutesDetailHtml(row) {

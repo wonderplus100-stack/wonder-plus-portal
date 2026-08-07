@@ -6631,7 +6631,7 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
         message
       };
       let payload = await callPortalAction("updateBoardPost", params);
-      if (!payload?.ok) payload = await callPortalAction("createBoardPost", params);
+      if (!payload?.ok || !payload.post) payload = await callPortalAction("createBoardPost", params);
       if (!payload?.ok) throw new Error(payload?.message || "共有掲示板を更新できませんでした。");
       if (!payload.post) throw new Error("共有掲示板APIがまだ更新されていません。");
       return normalizeBoardPost(payload.post);

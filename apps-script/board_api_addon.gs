@@ -243,6 +243,18 @@ function getRequiredPortalLineWorksProperty_(name) {
   return value;
 }
 
+function testImportantNoticeLineWorks() {
+  const result = sendImportantNoticeToLineWorks_({
+    mode: 'created',
+    id: 'test-' + Date.now(),
+    name: 'Wonder+ Portal Test',
+    message: 'LINE WORKS important notice notification test.',
+    createdAt: Utilities.formatDate(new Date(), 'Asia/Tokyo', 'M/d HH:mm')
+  });
+  Logger.log(JSON.stringify(result));
+  return result;
+}
+
 function getPortalBoardSheet_() {
   const ss = getPortalBoardSpreadsheet_();
   const sheetName = '重要共有事項';

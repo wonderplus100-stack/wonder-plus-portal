@@ -46,6 +46,13 @@ function createPortalBoardPost_(params) {
   };
 
   sheet.appendRow([now, post.name, post.message, post.id, '']);
+  post.lineWorks = notifyImportantNoticeToLineWorks_({
+    mode: 'created',
+    id: post.id,
+    name: post.name,
+    message: post.message,
+    createdAt: post.createdAt
+  });
   return { ok: true, post: post };
 }
 
@@ -66,6 +73,14 @@ function updatePortalBoardPost_(params) {
     const name = String(row[1] || '').trim() || String(params.name || '').trim() || 'ポータル利用者';
     sheet.getRange(i + 1, 3).setValue(message);
     sheet.getRange(i + 1, 5).setValue(now);
+    const lineWorks = notifyImportantNoticeToLineWorks_({
+      mode: 'updated',
+      id: id,
+      name: name,
+      message: message,
+      createdAt: formatPortalBoardDate_(row[0]),
+      updatedAt: formatPortalBoardDate_(now)
+    });
     return {
       ok: true,
       post: {
@@ -73,11 +88,159 @@ function updatePortalBoardPost_(params) {
         name: name,
         message: message,
         createdAt: formatPortalBoardDate_(row[0]),
-        updatedAt: formatPortalBoardDate_(now)
+        updatedAt: formatPortalBoardDate_(now),
+        lineWorks: lineWorks
       }
     };
   }
   return { ok: false, message: 'post was not found' };
+}
+
+function notifyImportantNoticeToLineWorks_(notice) {
+  try {
+    return sendImportantNoticeToLineWorks_(notice);
+  } catch (error) {
+    Logger.log('LINE WORKS important notice notification skipped: ' + error.message);
+    return { ok: false, skipped: true, message: error.message };
+  }
+}
+
+function sendImportantNoticeToLineWorks_(notice) {
+  const props = PropertiesService.getScriptProperties();
+  const botId = getRequiredPortalLineWorksProperty_('WONDER_PORTAL_LINEWORKS_BOT_ID');
+  const accessToken = getPortalLineWorksAccessToken_();
+  const channelIds = getPortalLineWorksNoticeChannelIds_();
+  if (!channelIds.length) throw new Error('WONDER_PORTAL_LINEWORKS_CHANNEL_IDS is empty.');
+
+  const text = buildImportantNoticeLineWorksText_(notice);
+  const results = [];
+  channelIds.forEach(function(channelId) {
+    const url = 'https://www.worksapis.com/v1.0/bots/' + encodeURIComponent(botId) +
+      '/channels/' + encodeURIComponent(channelId) + '/messages';
+    const res = UrlFetchApp.fetch(url, {
+      method: 'post',
+      contentType: 'application/json',
+      headers: { Authorization: 'Bearer ' + accessToken },
+      payload: JSON.stringify({
+        content: {
+          type: 'text',
+          text: text
+        }
+      }),
+      muteHttpExceptions: true
+    });
+    const code = res.getResponseCode();
+    const body = res.getContentText();
+    results.push({ channelId: channelId, status: code, ok: code >= 200 && code < 300 });
+    if (code < 200 || code >= 300) {
+      Logger.log('LINE WORKS send failed: channelId=' + channelId + ' status=' + code + ' body=' + body);
+    }
+  });
+
+  return {
+    ok: results.every(function(result) { return result.ok; }),
+    results: results
+  };
+}
+
+function buildImportantNoticeLineWorksText_(notice) {
+  const modeLabel = notice.mode === 'updated' ? '更新' : '投稿';
+  const name = String(notice.name || 'Portal').trim();
+  const timestamp = String(notice.updatedAt || notice.createdAt || '').trim();
+  const message = String(notice.message || '').trim();
+  const header = [
+    '【重要事項共有専用】' + modeLabel,
+    '投稿者: ' + name,
+    timestamp ? '日時: ' + timestamp : ''
+  ].filter(Boolean).join('\n');
+  const maxBodyLength = 1800 - header.length;
+  const body = message.length > maxBodyLength
+    ? message.slice(0, Math.max(0, maxBodyLength - 20)) + '\n...(省略)'
+    : message;
+  return header + '\n\n' + body;
+}
+
+function getPortalLineWorksNoticeChannelIds_() {
+  const props = PropertiesService.getScriptProperties();
+  const configured = String(props.getProperty('WONDER_PORTAL_LINEWORKS_CHANNEL_IDS') || '').trim();
+  const fallback = [
+    'b0c28afd-26dc-55c3-531d-564ee5088d56',
+    '86be568e-ca15-b86a-3623-fbcbabe68431',
+    '4bec9198-ca7b-346c-092f-7d1e2d87eaf8'
+  ];
+  const raw = configured ? configured.split(/[\s,]+/) : fallback;
+  return raw.map(function(channelId) {
+    return String(channelId || '').trim();
+  }).filter(Boolean);
+}
+
+function getPortalLineWorksAccessToken_() {
+  const cache = CacheService.getScriptCache();
+  const cached = cache.get('WONDER_PORTAL_LINEWORKS_ACCESS_TOKEN');
+  if (cached) return cached;
+
+  const clientId = getRequiredPortalLineWorksProperty_('WONDER_PORTAL_LINEWORKS_CLIENT_ID');
+  const clientSecret = getRequiredPortalLineWorksProperty_('WONDER_PORTAL_LINEWORKS_CLIENT_SECRET');
+  const serviceAccount = getRequiredPortalLineWorksProperty_('WONDER_PORTAL_LINEWORKS_SERVICE_ACCOUNT');
+  const assertion = createPortalLineWorksJwt_(clientId, serviceAccount);
+  const payload = {
+    assertion: assertion,
+    grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
+    client_id: clientId,
+    client_secret: clientSecret,
+    scope: 'bot.message'
+  };
+  const res = UrlFetchApp.fetch('https://auth.worksmobile.com/oauth2/v2.0/token', {
+    method: 'post',
+    payload: payload,
+    muteHttpExceptions: true
+  });
+  const code = res.getResponseCode();
+  const body = res.getContentText();
+  if (code < 200 || code >= 300) {
+    throw new Error('LINE WORKS token request failed: HTTP ' + code + ' ' + body);
+  }
+  const token = JSON.parse(body);
+  if (!token.access_token) throw new Error('LINE WORKS token response did not include access_token.');
+  const expiresIn = Number(token.expires_in || 3600);
+  cache.put('WONDER_PORTAL_LINEWORKS_ACCESS_TOKEN', token.access_token, Math.max(60, Math.min(expiresIn - 120, 21600)));
+  return token.access_token;
+}
+
+function createPortalLineWorksJwt_(clientId, serviceAccount) {
+  const now = Math.floor(Date.now() / 1000);
+  const header = {
+    alg: 'RS256',
+    typ: 'JWT'
+  };
+  const claims = {
+    iss: clientId,
+    sub: serviceAccount,
+    iat: now,
+    exp: now + 3600
+  };
+  const unsigned = base64UrlEncodePortalLineWorks_(JSON.stringify(header)) + '.' +
+    base64UrlEncodePortalLineWorks_(JSON.stringify(claims));
+  const privateKey = normalizePortalLineWorksPrivateKey_(getRequiredPortalLineWorksProperty_('WONDER_PORTAL_LINEWORKS_PRIVATE_KEY'));
+  const signature = Utilities.computeRsaSha256Signature(unsigned, privateKey);
+  return unsigned + '.' + base64UrlEncodePortalLineWorks_(signature);
+}
+
+function base64UrlEncodePortalLineWorks_(value) {
+  const bytes = typeof value === 'string' ? Utilities.newBlob(value).getBytes() : value;
+  return Utilities.base64EncodeWebSafe(bytes).replace(/=+$/g, '');
+}
+
+function normalizePortalLineWorksPrivateKey_(key) {
+  const value = String(key || '').trim().replace(/\\n/g, '\n');
+  if (value.indexOf('BEGIN PRIVATE KEY') !== -1) return value;
+  return '-----BEGIN PRIVATE KEY-----\n' + value.replace(/\s+/g, '\n') + '\n-----END PRIVATE KEY-----';
+}
+
+function getRequiredPortalLineWorksProperty_(name) {
+  const value = String(PropertiesService.getScriptProperties().getProperty(name) || '').trim();
+  if (!value) throw new Error(name + ' is not set.');
+  return value;
 }
 
 function getPortalBoardSheet_() {

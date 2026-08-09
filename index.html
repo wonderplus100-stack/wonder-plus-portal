@@ -3609,7 +3609,7 @@
   <script>
     const SCHEDULE_YEAR = 2026;
     const SCHEDULE_API_URL = "https://script.google.com/macros/s/AKfycbzRcXK2X1KtB0DuUPsk25g-ONb6zK8x0R4gby9c-R73MXeQB14cgqzuJrj9GejSR8I2nw/exec?action=schedule";
-    const STATIC_CACHE_VERSION = "20260809-2";
+    const STATIC_CACHE_VERSION = "20260809-3";
     const SCHEDULE_CACHE_URL = `schedule-cache.json?v=${STATIC_CACHE_VERSION}`;
     const EVENT_GUIDE_CACHE_URL = `event-guide-cache.json?v=${STATIC_CACHE_VERSION}`;
     const SCHEDULE_CACHE_STORAGE_KEY = "wonderPlusPortal.schedulePayload.v1";
@@ -6376,8 +6376,41 @@
       return `${openLine}\n\n${normalizedBody}`;
     }
 
+    function findVenueAddressForSchedule(item) {
+      const scheduleTitle = item?.title || "";
+      const scheduleVenueIds = getGuideAliasGroupIds(scheduleTitle, guideVenueAliasGroups);
+      if (!scheduleVenueIds.size) return null;
+      return venueAddresses.find((venue) => {
+        const venueText = [venue.area, venue.address, venue.venue].join(" ");
+        const venueIds = getGuideAliasGroupIds(venueText, guideVenueAliasGroups);
+        return hasGuideGroupIntersection(scheduleVenueIds, venueIds);
+      }) || null;
+    }
+
+    function buildVenueGuideText(venue) {
+      if (!venue) return "";
+      return [venue.address, venue.venue].filter(Boolean).join("\n");
+    }
+
+    function replaceGuideVenueSection(body, group, item) {
+      const venue = findVenueAddressForSchedule(item);
+      const venueText = buildVenueGuideText(venue);
+      if (!venueText) return body || "";
+      const normalizedBody = String(body || "").replace(/\r\n?/g, "\n");
+      const venueSection = `■ 会場\n${venueText}`;
+      const venuePattern = /(^|\n)([\u25A0\u25AA\u30FB\s-]*\u4F1A\u5834[^\n]*\n)([\s\S]*?)(?=\n[\u25A0\u25AA\u30FB\s-]*(?:\u53C2\u52A0\u8CBB|\u5B9A\u54E1|\u7533\u8FBC|\u6CE8\u610F|\u958B\u50AC|\u30A4\u30D9\u30F3\u30C8|SNS|URL)|$)/;
+      if (venuePattern.test(normalizedBody)) {
+        return normalizedBody.replace(venuePattern, `$1${venueSection}`);
+      }
+      return `${normalizedBody.trim()}\n\n${venueSection}`.trim();
+    }
+
     function buildDriveEventGuideBody(guide, group, item) {
-      const body = replaceGuideScheduleTimeLine(getGuideBodyText(guide), group, item);
+      const body = replaceGuideVenueSection(
+        replaceGuideScheduleTimeLine(getGuideBodyText(guide), group, item),
+        group,
+        item
+      );
       const dateLine = `${group.month}月${item.day}日 ${formatScheduleDisplayMeta(item, group) || "詳細未入力"}`;
       return `【イベント名】${guide.title || guide.eventName || item.title}
 【開催日時】${dateLine}

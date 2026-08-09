@@ -97,17 +97,28 @@ function updatePortalBoardPost_(params) {
 }
 
 function notifyImportantNoticeToLineWorks_(notice) {
+  const result = {
+    lineWorks: { ok: false, skipped: true, message: 'not attempted' },
+    line: { ok: false, skipped: true, message: 'not attempted' }
+  };
   try {
-    return sendImportantNoticeToLineWorks_(notice);
+    result.lineWorks = sendImportantNoticeToLineWorks_(notice);
   } catch (error) {
     Logger.log('LINE WORKS important notice notification skipped: ' + error.message);
-    return { ok: false, skipped: true, message: error.message };
+    result.lineWorks = { ok: false, skipped: true, message: error.message };
   }
+  try {
+    result.line = sendImportantNoticeToLine_(notice);
+  } catch (error) {
+    Logger.log('LINE important notice notification skipped: ' + error.message);
+    result.line = { ok: false, skipped: true, message: error.message };
+  }
+  result.ok = Boolean(result.lineWorks.ok || result.line.ok);
+  return result;
 }
 
 function sendImportantNoticeToLineWorks_(notice) {
-  const props = PropertiesService.getScriptProperties();
-  const botId = getRequiredPortalLineWorksProperty_('WONDER_PORTAL_LINEWORKS_BOT_ID');
+  const botId = getPortalLineWorksBotId_();
   const accessToken = getPortalLineWorksAccessToken_();
   const channelIds = getPortalLineWorksNoticeChannelIds_();
   if (!channelIds.length) throw new Error('WONDER_PORTAL_LINEWORKS_CHANNEL_IDS is empty.');
@@ -134,6 +145,40 @@ function sendImportantNoticeToLineWorks_(notice) {
     results.push({ channelId: channelId, status: code, ok: code >= 200 && code < 300 });
     if (code < 200 || code >= 300) {
       Logger.log('LINE WORKS send failed: channelId=' + channelId + ' status=' + code + ' body=' + body);
+    }
+  });
+
+  return {
+    ok: results.every(function(result) { return result.ok; }),
+    results: results
+  };
+}
+
+function sendImportantNoticeToLine_(notice) {
+  const accessToken = getOptionalPortalLineProperty_('WONDER_PORTAL_LINE_CHANNEL_ACCESS_TOKEN');
+  if (!accessToken) return { ok: false, skipped: true, message: 'WONDER_PORTAL_LINE_CHANNEL_ACCESS_TOKEN is not set.' };
+
+  const toIds = getPortalLineNoticeToIds_();
+  if (!toIds.length) return { ok: false, skipped: true, message: 'WONDER_PORTAL_LINE_TO_IDS is empty.' };
+
+  const text = buildImportantNoticeLineWorksText_(notice);
+  const results = [];
+  toIds.forEach(function(to) {
+    const res = UrlFetchApp.fetch('https://api.line.me/v2/bot/message/push', {
+      method: 'post',
+      contentType: 'application/json',
+      headers: { Authorization: 'Bearer ' + accessToken },
+      payload: JSON.stringify({
+        to: to,
+        messages: [{ type: 'text', text: text }]
+      }),
+      muteHttpExceptions: true
+    });
+    const code = res.getResponseCode();
+    const body = res.getContentText();
+    results.push({ to: to, status: code, ok: code >= 200 && code < 300 });
+    if (code < 200 || code >= 300) {
+      Logger.log('LINE send failed: to=' + to + ' status=' + code + ' body=' + body);
     }
   });
 
@@ -172,6 +217,26 @@ function getPortalLineWorksNoticeChannelIds_() {
   return raw.map(function(channelId) {
     return String(channelId || '').trim();
   }).filter(Boolean);
+}
+
+function getPortalLineWorksBotId_() {
+  const configured = String(PropertiesService.getScriptProperties().getProperty('WONDER_PORTAL_LINEWORKS_BOT_ID') || '').trim();
+  return configured || '12897792';
+}
+
+function getPortalLineNoticeToIds_() {
+  const props = PropertiesService.getScriptProperties();
+  const configured = [
+    props.getProperty('WONDER_PORTAL_LINE_TO_IDS'),
+    props.getProperty('WONDER_PORTAL_LINE_GROUP_IDS')
+  ].filter(Boolean).join(',');
+  return String(configured || '').split(/[\s,]+/).map(function(to) {
+    return String(to || '').trim();
+  }).filter(Boolean);
+}
+
+function getOptionalPortalLineProperty_(name) {
+  return String(PropertiesService.getScriptProperties().getProperty(name) || '').trim();
 }
 
 function getPortalLineWorksAccessToken_() {
@@ -249,6 +314,18 @@ function testImportantNoticeLineWorks() {
     id: 'test-' + Date.now(),
     name: 'Wonder+ Portal Test',
     message: 'LINE WORKS important notice notification test.',
+    createdAt: Utilities.formatDate(new Date(), 'Asia/Tokyo', 'M/d HH:mm')
+  });
+  Logger.log(JSON.stringify(result));
+  return result;
+}
+
+function testImportantNoticeLine() {
+  const result = sendImportantNoticeToLine_({
+    mode: 'created',
+    id: 'line-test-' + Date.now(),
+    name: 'Wonder+ Portal Test',
+    message: 'LINE important notice notification test.',
     createdAt: Utilities.formatDate(new Date(), 'Asia/Tokyo', 'M/d HH:mm')
   });
   Logger.log(JSON.stringify(result));

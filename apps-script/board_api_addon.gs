@@ -332,6 +332,47 @@ function testImportantNoticeLine() {
   return result;
 }
 
+function debugImportantNoticeNotificationSetup() {
+  const props = PropertiesService.getScriptProperties();
+  const lineWorksProperties = [
+    'WONDER_PORTAL_LINEWORKS_BOT_ID',
+    'WONDER_PORTAL_LINEWORKS_CLIENT_ID',
+    'WONDER_PORTAL_LINEWORKS_CLIENT_SECRET',
+    'WONDER_PORTAL_LINEWORKS_SERVICE_ACCOUNT',
+    'WONDER_PORTAL_LINEWORKS_PRIVATE_KEY',
+    'WONDER_PORTAL_LINEWORKS_CHANNEL_IDS'
+  ];
+  const lineProperties = [
+    'WONDER_PORTAL_LINE_CHANNEL_ACCESS_TOKEN',
+    'WONDER_PORTAL_LINE_TO_IDS',
+    'WONDER_PORTAL_LINE_GROUP_IDS'
+  ];
+  const mask = function(value) {
+    const text = String(value || '').trim();
+    if (!text) return { set: false, length: 0 };
+    return {
+      set: true,
+      length: text.length,
+      preview: text.slice(0, 4) + '...' + text.slice(-4)
+    };
+  };
+  const result = {
+    lineWorks: {},
+    line: {},
+    resolvedLineWorksBotId: getPortalLineWorksBotId_(),
+    resolvedLineWorksChannelIds: getPortalLineWorksNoticeChannelIds_(),
+    resolvedLineToIds: getPortalLineNoticeToIds_()
+  };
+  lineWorksProperties.forEach(function(name) {
+    result.lineWorks[name] = mask(props.getProperty(name));
+  });
+  lineProperties.forEach(function(name) {
+    result.line[name] = mask(props.getProperty(name));
+  });
+  Logger.log(JSON.stringify(result));
+  return result;
+}
+
 function getPortalBoardSheet_() {
   const ss = getPortalBoardSpreadsheet_();
   const sheetName = '重要共有事項';

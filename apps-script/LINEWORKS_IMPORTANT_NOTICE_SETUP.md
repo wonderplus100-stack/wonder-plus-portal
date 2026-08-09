@@ -40,9 +40,20 @@ Required LINE setup:
 
 If LINE sending fails, the Portal post itself is still saved; the error is written to Apps Script logs.
 
+The long-lived access token shown in LINE Official Account Manager / LINE Developers is for this normal LINE section. It is not a LINE WORKS OAuth token. Put that token in `WONDER_PORTAL_LINE_CHANNEL_ACCESS_TOKEN`.
+
+LINE group delivery needs a group ID or room ID in `WONDER_PORTAL_LINE_TO_IDS`. A user ID such as `Uxxxxxxxx` can only be used for direct delivery to that user, not for posting into a LINE group. To get a group ID, add the official account to the group, post a message in the group, and inspect the webhook event source.
+
 ## Test functions
 
 - `testImportantNoticeLineWorks()`
 - `testImportantNoticeLine()`
+- `debugImportantNoticeNotificationSetup()`
 
 After updating `board_api_addon.gs`, deploy a new web app version.
+
+## Event guide realtime refresh
+
+For event guide form submissions, paste `event_guides_realtime_refresh_addon.gs` at the bottom of the same Apps Script project, save it, run `installEventGuideRealtimeTrigger()` once, and deploy a new web app version.
+
+That trigger writes the submitted guide into the event guide sheet and clears/warmups portal data caches immediately. The next portal API request can then return the newly submitted guide without waiting for a manual refresh job.

@@ -9,6 +9,7 @@
  */
 
 var PORTAL_EVENT_GUIDE_REALTIME_SHEET_NAME = '\u30a4\u30d9\u30f3\u30c8\u6848\u5185';
+var PORTAL_EVENT_GUIDE_PRIMARY_SPREADSHEET_ID = '1rXae1o13ucNAI6VfPhXKIFi3LTq3uV0g4wKm_zI4zKM';
 var PORTAL_EVENT_GUIDE_REALTIME_HEADERS = [
   'CreatedAt',
   'Title',
@@ -157,6 +158,22 @@ function buildPortalEventGuidesRealtimeFallback_() {
   return buildPortalEventGuidesSafe_();
 }
 
+function buildPortalEventGuidesPayload_() {
+  var guides = buildPortalEventGuidesSafe_();
+  return {
+    ok: true,
+    updatedAt: new Date().toISOString(),
+    source: 'event-guide-response-sheet',
+    sourceSpreadsheetId: PORTAL_EVENT_GUIDE_PRIMARY_SPREADSHEET_ID,
+    count: Array.isArray(guides) ? guides.length : 0,
+    eventGuides: guides
+  };
+}
+
+function getPortalEventGuidesForApi_() {
+  return buildPortalEventGuidesPayload_();
+}
+
 function refreshPortalEventGuideCache_() {
   var props = PropertiesService.getScriptProperties();
   var now = new Date();
@@ -208,8 +225,9 @@ function getPortalEventGuideFormUrl_() {
 function getPortalEventGuideSpreadsheet_() {
   var props = PropertiesService.getScriptProperties();
   var candidates = [
-    props.getProperty('EVENT_INFO_SPREADSHEET_ID'),
+    PORTAL_EVENT_GUIDE_PRIMARY_SPREADSHEET_ID,
     props.getProperty('EVENT_GUIDE_SPREADSHEET_ID'),
+    props.getProperty('EVENT_INFO_SPREADSHEET_ID'),
     props.getProperty('SCHEDULE_SPREADSHEET_ID'),
     props.getProperty('SPREADSHEET_ID'),
     props.getProperty('PORTAL_SPREADSHEET_ID')

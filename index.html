@@ -3609,11 +3609,12 @@
   <script>
     const SCHEDULE_YEAR = 2026;
     const SCHEDULE_API_URL = "https://script.google.com/macros/s/AKfycbzRcXK2X1KtB0DuUPsk25g-ONb6zK8x0R4gby9c-R73MXeQB14cgqzuJrj9GejSR8I2nw/exec?action=schedule";
-    const STATIC_CACHE_VERSION = "20260810-3";
+    const EVENT_GUIDE_API_URL = makePortalActionUrl(SCHEDULE_API_URL, "eventGuides");
+    const STATIC_CACHE_VERSION = "20260810-4";
     const SCHEDULE_CACHE_URL = `schedule-cache.json?v=${STATIC_CACHE_VERSION}`;
     const EVENT_GUIDE_CACHE_URL = `event-guide-cache.json?v=${STATIC_CACHE_VERSION}`;
     const SCHEDULE_CACHE_STORAGE_KEY = "wonderPlusPortal.schedulePayload.v1";
-    const EVENT_GUIDE_CACHE_STORAGE_KEY = "wonderPlusPortal.eventGuides.v4";
+    const EVENT_GUIDE_CACHE_STORAGE_KEY = "wonderPlusPortal.eventGuides.v5";
     const MINUTES_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdoAHwVX8hkCmbXDf1wxtg-J4wVMnB7mm8SlYZ3OnuxuJvv_g/viewform?usp=header";
     const MATERIALS = {
       "exhibitor-guidelines": {
@@ -3634,6 +3635,20 @@
     let activeScheduleKey = getScheduleKey(activeScheduleMonth, activeScheduleCategory) || getScheduleKey(1, "wonder");
     let hasUserSelectedScheduleMonth = false;
     let hasInitializedScheduleMonth = true;
+
+    function makePortalActionUrl(baseUrl, action) {
+      try {
+        const url = new URL(baseUrl);
+        url.searchParams.set("action", action);
+        return url.toString();
+      } catch (error) {
+        if (/([?&])action=/i.test(baseUrl)) {
+          return baseUrl.replace(/([?&])action=[^&]*/i, `$1action=${encodeURIComponent(action)}`);
+        }
+        const separator = baseUrl.includes("?") ? "&" : "?";
+        return `${baseUrl}${separator}action=${encodeURIComponent(action)}`;
+      }
+    }
 
     const dows = ["月", "火", "水", "木", "金", "土", "日"];
 
@@ -4456,7 +4471,7 @@
       return `${url}${separator}_=${Date.now()}`;
     }
 
-    async function fetchSchedulePayload(apiUrl) {
+    async function fetchPortalPayload(apiUrl) {
       try {
         const response = await fetch(withCacheBust(apiUrl), { cache: "no-store" });
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -4464,6 +4479,10 @@
       } catch (error) {
         return loadScheduleJsonp(apiUrl);
       }
+    }
+
+    async function fetchSchedulePayload(apiUrl) {
+      return fetchPortalPayload(apiUrl);
     }
 
     function countSchedulePayloadItems(payload) {
@@ -4665,16 +4684,29 @@
       }
     }
 
+    async function fetchEventGuideApiDocuments() {
+      try {
+        const payload = await fetchPortalPayload(EVENT_GUIDE_API_URL);
+        return getUsableEventGuideDocuments(getPayloadEventGuideDocuments(payload));
+      } catch (error) {
+        console.warn("Event guide API unavailable:", error);
+        return [];
+      }
+    }
+
     async function hydrateEventGuideDocuments(payload) {
+      const apiGuides = await fetchEventGuideApiDocuments();
       const payloadGuides = getUsableEventGuideDocuments(getPayloadEventGuideDocuments(payload));
       const staticGuides = await fetchStaticEventGuideDocuments();
-      const storedGuides = readStoredEventGuideDocuments();
-      eventGuideDocuments = mergeEventGuideDocuments(
+      const authoritativeGuides = mergeEventGuideDocuments(
+        apiGuides,
         payloadGuides,
         staticGuides,
-        storedGuides,
         defaultEventGuideDocuments
       );
+      eventGuideDocuments = authoritativeGuides.length
+        ? authoritativeGuides
+        : mergeEventGuideDocuments(readStoredEventGuideDocuments(), defaultEventGuideDocuments);
       if (eventGuideDocuments.length) storeEventGuideDocuments(eventGuideDocuments);
     }
 

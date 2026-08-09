@@ -3609,11 +3609,11 @@
   <script>
     const SCHEDULE_YEAR = 2026;
     const SCHEDULE_API_URL = "https://script.google.com/macros/s/AKfycbzRcXK2X1KtB0DuUPsk25g-ONb6zK8x0R4gby9c-R73MXeQB14cgqzuJrj9GejSR8I2nw/exec?action=schedule";
-    const STATIC_CACHE_VERSION = "20260809-4";
+    const STATIC_CACHE_VERSION = "20260810-1";
     const SCHEDULE_CACHE_URL = `schedule-cache.json?v=${STATIC_CACHE_VERSION}`;
     const EVENT_GUIDE_CACHE_URL = `event-guide-cache.json?v=${STATIC_CACHE_VERSION}`;
     const SCHEDULE_CACHE_STORAGE_KEY = "wonderPlusPortal.schedulePayload.v1";
-    const EVENT_GUIDE_CACHE_STORAGE_KEY = "wonderPlusPortal.eventGuides.v1";
+    const EVENT_GUIDE_CACHE_STORAGE_KEY = "wonderPlusPortal.eventGuides.v2";
     const MINUTES_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdoAHwVX8hkCmbXDf1wxtg-J4wVMnB7mm8SlYZ3OnuxuJvv_g/viewform?usp=header";
     const MATERIALS = {
       "exhibitor-guidelines": {
@@ -4390,8 +4390,6 @@
 
     function normalizeSchedules(payload) {
       const next = structuredClone(emptySchedules);
-      const payloadGuideDocuments = getPayloadEventGuideDocuments(payload);
-      eventGuideDocuments = mergeEventGuideDocuments(payloadGuideDocuments, eventGuideDocuments, defaultEventGuideDocuments);
       Object.entries(payload?.schedules || {}).forEach(([key, value]) => {
         const targetKey = getScheduleKey(getPayloadScheduleMonth(key, value), getPayloadScheduleCategory(key));
         if (!targetKey || !next[targetKey]) return;
@@ -4587,12 +4585,28 @@
             : (Array.isArray(payload?.guides) ? payload.guides : [])));
     }
 
+    function isUsableEventGuideDocument(guide) {
+      if (!guide || typeof guide !== "object") return false;
+      const title = guide.title || guide.eventName || guide.name || guide.fileName || "";
+      const body = getGuideBodyText(guide);
+      const materialUrl = getGuideMaterialUrl(guide);
+      const attachments = getGuideAttachmentFiles(guide);
+      const searchable = normalizeGuideMatchText([title, body, materialUrl].filter(Boolean).join(" "));
+      if (!searchable && !attachments.length) return false;
+      if (/^(open|untitled|title)$/i.test(String(title || "").trim()) && !body && !attachments.length) return false;
+      return true;
+    }
+
+    function getUsableEventGuideDocuments(guides) {
+      return Array.isArray(guides) ? guides.filter(isUsableEventGuideDocument) : [];
+    }
+
     function readStoredEventGuideDocuments() {
       try {
         const raw = window.localStorage?.getItem(EVENT_GUIDE_CACHE_STORAGE_KEY);
         if (!raw) return [];
         const payload = JSON.parse(raw);
-        return getPayloadEventGuideDocuments(payload);
+        return getUsableEventGuideDocuments(getPayloadEventGuideDocuments(payload));
       } catch (error) {
         return [];
       }
@@ -4624,24 +4638,24 @@
       try {
         const response = await fetch(EVENT_GUIDE_CACHE_URL, { cache: "no-store" });
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        return getPayloadEventGuideDocuments(await response.json());
+        return getUsableEventGuideDocuments(getPayloadEventGuideDocuments(await response.json()));
       } catch (error) {
         return [];
       }
     }
 
     async function hydrateEventGuideDocuments(payload) {
-      const payloadGuides = getPayloadEventGuideDocuments(payload);
-      if (payloadGuides.length) storeEventGuideDocuments(payloadGuides);
-      const storedGuides = readStoredEventGuideDocuments();
+      const payloadGuides = getUsableEventGuideDocuments(getPayloadEventGuideDocuments(payload));
       const staticGuides = await fetchStaticEventGuideDocuments();
-      const freshGuides = mergeEventGuideDocuments(payloadGuides, staticGuides);
+      const storedGuides = readStoredEventGuideDocuments();
       eventGuideDocuments = mergeEventGuideDocuments(
-        freshGuides,
-        freshGuides.length ? [] : storedGuides,
-        eventGuideDocuments,
+        payloadGuides,
+        staticGuides,
         defaultEventGuideDocuments
       );
+      if (!eventGuideDocuments.length) {
+        eventGuideDocuments = mergeEventGuideDocuments(storedGuides, defaultEventGuideDocuments);
+      }
       if (eventGuideDocuments.length) storeEventGuideDocuments(eventGuideDocuments);
     }
 
@@ -4895,7 +4909,7 @@
       const month = Number(group.month);
       const category = getMemberScheduleCategory(item);
       const matchingGuides = eventGuideDocuments.filter((guide) => {
-        const guideTitle = guide.title || guide.eventName || guide.name || guide.fileName;
+        const guideTitle = getGuideComparableText(guide);
         const guideMonth = getGuideKnownMonth(guide);
         const guideCategory = String(guide.category || guide.brand || "").toLowerCase();
         const monthMatches = !guideMonth || guideMonth === month;
@@ -4903,8 +4917,8 @@
         const categoryMatches = !guideCategory || guideCategory.includes(category);
         return monthMatches && dateMatches && categoryMatches && guideTitleMatchesSchedule(item.title, guideTitle);
       }).sort((a, b) => {
-        const aTitle = a.title || a.eventName || a.name || a.fileName;
-        const bTitle = b.title || b.eventName || b.name || b.fileName;
+        const aTitle = getGuideComparableText(a);
+        const bTitle = getGuideComparableText(b);
         return (getGuideMatchScore(item.title, bTitle) + getGuideDateMatchScore(b, month, item.day))
           - (getGuideMatchScore(item.title, aTitle) + getGuideDateMatchScore(a, month, item.day))
           || getGuideUpdatedTime(b) - getGuideUpdatedTime(a);
@@ -6054,6 +6068,22 @@
       ].filter(Boolean).join("\n").normalize("NFKC");
     }
 
+    function getGuideComparableText(guide) {
+      return [
+        guide?.title,
+        guide?.eventName,
+        guide?.name,
+        guide?.fileName,
+        guide?.brand,
+        guide?.category,
+        guide?.url,
+        guide?.fileUrl,
+        guide?.documentUrl,
+        guide?.docUrl,
+        getGuideBodyText(guide)
+      ].filter(Boolean).join("\n");
+    }
+
     function extractGuideMonthDay(guide) {
       const explicitMonth = Number(guide?.month || guide?.eventMonth || guide?.targetMonth || 0);
       const explicitDay = Number(guide?.day || guide?.eventDay || guide?.targetDay || 0);
@@ -6153,7 +6183,7 @@
       const category = getMemberScheduleCategory(item);
       return eventGuideDocuments
         .filter((guide) => {
-        const guideTitle = guide.title || guide.eventName || guide.name || guide.fileName;
+        const guideTitle = getGuideComparableText(guide);
         const guideMonth = getGuideKnownMonth(guide);
         const guideCategory = String(guide.category || guide.brand || "").toLowerCase();
         const monthMatches = !guideMonth || guideMonth === month;
@@ -6162,8 +6192,8 @@
         return monthMatches && dateMatches && categoryMatches && guideTitleMatchesSchedule(title, guideTitle);
       })
         .sort((a, b) => {
-          const aTitle = a.title || a.eventName || a.name || a.fileName;
-          const bTitle = b.title || b.eventName || b.name || b.fileName;
+          const aTitle = getGuideComparableText(a);
+          const bTitle = getGuideComparableText(b);
           return (getGuideMatchScore(title, bTitle) + getGuideDateMatchScore(b, month, item.day))
             - (getGuideMatchScore(title, aTitle) + getGuideDateMatchScore(a, month, item.day))
             || getGuideUpdatedTime(b) - getGuideUpdatedTime(a);

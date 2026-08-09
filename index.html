@@ -3609,11 +3609,11 @@
   <script>
     const SCHEDULE_YEAR = 2026;
     const SCHEDULE_API_URL = "https://script.google.com/macros/s/AKfycbzRcXK2X1KtB0DuUPsk25g-ONb6zK8x0R4gby9c-R73MXeQB14cgqzuJrj9GejSR8I2nw/exec?action=schedule";
-    const STATIC_CACHE_VERSION = "20260810-1";
+    const STATIC_CACHE_VERSION = "20260810-3";
     const SCHEDULE_CACHE_URL = `schedule-cache.json?v=${STATIC_CACHE_VERSION}`;
     const EVENT_GUIDE_CACHE_URL = `event-guide-cache.json?v=${STATIC_CACHE_VERSION}`;
     const SCHEDULE_CACHE_STORAGE_KEY = "wonderPlusPortal.schedulePayload.v1";
-    const EVENT_GUIDE_CACHE_STORAGE_KEY = "wonderPlusPortal.eventGuides.v2";
+    const EVENT_GUIDE_CACHE_STORAGE_KEY = "wonderPlusPortal.eventGuides.v4";
     const MINUTES_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdoAHwVX8hkCmbXDf1wxtg-J4wVMnB7mm8SlYZ3OnuxuJvv_g/viewform?usp=header";
     const MATERIALS = {
       "exhibitor-guidelines": {
@@ -3723,14 +3723,7 @@
       { area: "熊本県 / 熊本会場", address: "熊本県熊本市中央区下通1-6-27 タカハマビル5階", venue: "イベントスペースStylus〈スタイラス〉" },
       { area: "栃木県 / 宇都宮会場", address: "栃木県宇都宮市本町4-12 虎屋ビル 7F", venue: "宇都宮コンファレンスホール" }
     ];
-    const defaultEventGuideDocuments = [
-      {
-        title: "Wonder＋Finance",
-        eventName: "Wonder＋Finance",
-        category: "wonder",
-        url: "https://docs.google.com/document/d/1cDSFpr6IuGr8eN0IWq3Y_l7GY3-6NcMU/edit?usp=drive_link&ouid=118412994467939369915&rtpof=true&sd=true"
-      }
-    ];
+    const defaultEventGuideDocuments = [];
     let eventGuideDocuments = [...defaultEventGuideDocuments];
     let scheduleLogs = [];
     try {
@@ -4585,15 +4578,43 @@
             : (Array.isArray(payload?.guides) ? payload.guides : [])));
     }
 
+    function hasMojibakeText(value) {
+      const text = String(value || "");
+      if (!text) return false;
+      const markers = [];
+      const markerHits = markers.reduce((count, marker) => count + (text.includes(marker) ? 1 : 0), 0);
+      const replacementHits = [...text].filter((char) => char.charCodeAt(0) === 0xfffd).length;
+      return replacementHits >= 2 || markerHits >= 2;
+    }
+
+    function isPlaceholderGuideBody(value) {
+      const text = String(value || "");
+      return [
+        "\u3053\u306e\u30a4\u30d9\u30f3\u30c8\u306b\u7d10\u3065\u304fDrive\u6848\u5185\u6587\u7ae0\u306f\u307e\u3060\u8aad\u307f\u8fbc\u307e\u308c\u3066\u3044\u307e\u305b\u3093",
+        "Drive\u9023\u643a\u5f85\u3061",
+        "\u672a\u53cd\u6620",
+        "\u672a\u8aad\u307f\u8fbc\u307f"
+      ].some((placeholder) => text.includes(placeholder));
+    }
+
+    function isCorruptEventGuideDocument(guide) {
+      const title = String(guide?.title || guide?.eventName || guide?.name || guide?.fileName || "");
+      const body = String(guide?.body || guide?.text || guide?.content || guide?.description || guide?.guideText || guide?.message || "");
+      return hasMojibakeText(title) || hasMojibakeText(body);
+    }
+
     function isUsableEventGuideDocument(guide) {
       if (!guide || typeof guide !== "object") return false;
+      if (isCorruptEventGuideDocument(guide)) return false;
       const title = guide.title || guide.eventName || guide.name || guide.fileName || "";
       const body = getGuideBodyText(guide);
       const materialUrl = getGuideMaterialUrl(guide);
       const attachments = getGuideAttachmentFiles(guide);
+      const titleText = String(title || "").trim();
+      if (/^(open|untitled|title)$/i.test(titleText)) return false;
+      if (isPlaceholderGuideBody(body)) return false;
       const searchable = normalizeGuideMatchText([title, body, materialUrl].filter(Boolean).join(" "));
       if (!searchable && !attachments.length) return false;
-      if (/^(open|untitled|title)$/i.test(String(title || "").trim()) && !body && !attachments.length) return false;
       return true;
     }
 
@@ -4651,11 +4672,9 @@
       eventGuideDocuments = mergeEventGuideDocuments(
         payloadGuides,
         staticGuides,
+        storedGuides,
         defaultEventGuideDocuments
       );
-      if (!eventGuideDocuments.length) {
-        eventGuideDocuments = mergeEventGuideDocuments(storedGuides, defaultEventGuideDocuments);
-      }
       if (eventGuideDocuments.length) storeEventGuideDocuments(eventGuideDocuments);
     }
 
@@ -5914,38 +5933,45 @@
     function normalizeGuideMatchText(value) {
       return String(value || "")
         .normalize("NFKC")
-        .replace(/高碕/g, "高崎")
+        .replace(/\u30ef\u30f3\u30c0\u30fc\u30d7\u30e9\u30b9/gi, "wonder+")
+        .replace(/[\uff0b]/g, "+")
+        .replace(/[\u2010\u2011\u2012\u2013\u2014\u2015\u30fc\uff0d-]/g, "")
+        .replace(/[\uff0f/]/g, "")
+        .replace(/[\u300c\u300d\u300e\u300f\u3010\u3011\[\]\uff08\uff09()]/g, "")
         .replace(/\s+/g, "")
-        .replace(/[＋+]/g, "+")
         .toLowerCase();
     }
 
     const guideVenueAliasGroups = [
-      ["北九州", "小倉", "kitakyusyu", "kitakyushu", "kokura"],
-      ["福岡", "博多", "fukuoka", "hakata"],
-      ["熊本", "kumamoto"],
-      ["銀座", "ginza"],
-      ["新宿", "shinjuku"],
-      ["名古屋", "nagoya"],
-      ["大阪", "osaka"],
-      ["岡山", "okayama"],
-      ["広島", "hiroshima"],
-      ["京都", "kyoto"],
-      ["神戸", "kobe"],
-      ["横浜", "yokohama"],
-      ["船橋", "funabashi", "chiba"],
-      ["仙台", "sendai"],
-      ["郡山", "koriyama"],
-      ["福島", "fukushima", "fukushim"],
-      ["金沢", "kanazawa"],
-      ["新潟", "niigata", "nigata", "nigtata"],
-      ["浜松", "hamamatsu", "hamamatu"],
-      ["久留米", "kurume"],
-      ["前橋", "maebashi"],
-      ["高崎", "高碕", "takasaki", "labi"],
-      ["静岡", "shizuoka"],
-      ["札幌", "sapporo"],
-      ["宇都宮", "utsunomiya", "utunomiya"]
+      ["\u5317\u4e5d\u5dde", "\u5c0f\u5009", "kitakyusyu", "kitakyushu", "kokura"],
+      ["\u798f\u5ca1", "\u535a\u591a", "fukuoka", "hakata"],
+      ["\u718a\u672c", "kumamoto"],
+      ["\u9280\u5ea7", "ginza"],
+      ["\u65b0\u5bbf", "shinjuku"],
+      ["\u540d\u53e4\u5c4b", "nagoya"],
+      ["\u5927\u962a", "osaka"],
+      ["\u5ca1\u5c71", "okayama"],
+      ["\u5e83\u5cf6", "hiroshima"],
+      ["\u4eac\u90fd", "kyoto"],
+      ["\u795e\u6238", "kobe"],
+      ["\u6a2a\u6d5c", "yokohama"],
+      ["\u8239\u6a4b", "funabashi"],
+      ["\u5343\u8449", "chiba"],
+      ["\u4ed9\u53f0", "sendai"],
+      ["\u90e1\u5c71", "koriyama"],
+      ["\u798f\u5cf6", "fukushima", "fukushim"],
+      ["\u91d1\u6ca2", "kanazawa"],
+      ["\u65b0\u6f5f", "niigata", "nigata", "nigtata"],
+      ["\u6d5c\u677e", "hamamatsu", "hamamatu"],
+      ["\u4e45\u7559\u7c73", "kurume"],
+      ["\u524d\u6a4b", "maebashi"],
+      ["\u9ad8\u5d0e", "takasaki", "labi"],
+      ["\u9759\u5ca1", "shizuoka"],
+      ["\u672d\u5e4c", "sapporo", "saporo"],
+      ["\u5b87\u90fd\u5bae", "utsunomiya", "utunomiya"],
+      ["\u753a\u7530", "machida"],
+      ["\u7532\u5e9c", "kofu"],
+      ["\u5927\u5bae", "omiya"]
     ];
 
     const guideBrandAliasGroups = [
@@ -5959,8 +5985,9 @@
       ["finance"],
       ["executive"],
       ["alliance"],
-      ["realestate", "real estate", "real-estate", "real_estate", "不動産"],
-      ["100", "100人"]
+      ["realestate", "real estate", "real-estate", "real_estate", "\u4e0d\u52d5\u7523"],
+      ["night"],
+      ["100", "100\u4eba"]
     ];
 
     function getGuideAliasTokens(value, aliasGroups) {
@@ -6030,15 +6057,19 @@
       let score = 0;
       if (parts.textContains) score += 20;
       if (parts.venueMatches) score += 80;
-      if (parts.brandMatches) score += 40;
-      const scheduleIsTakasaki = parts.scheduleKey.includes("高崎") || parts.scheduleKey.includes("takasaki");
-      const guideIsTakasaki = parts.guideKey.includes("高崎") || parts.guideKey.includes("takasaki");
-      const scheduleIsMaebashi = parts.scheduleKey.includes("前橋") || parts.scheduleKey.includes("maebashi");
-      const guideIsMaebashi = parts.guideKey.includes("前橋") || parts.guideKey.includes("maebashi");
+      if (parts.brandMatches) score += 70;
+
+      const scheduleIsTakasaki = parts.scheduleKey.includes("\u9ad8\u5d0e") || parts.scheduleKey.includes("takasaki");
+      const guideIsTakasaki = parts.guideKey.includes("\u9ad8\u5d0e") || parts.guideKey.includes("takasaki");
+      const scheduleIsMaebashi = parts.scheduleKey.includes("\u524d\u6a4b") || parts.scheduleKey.includes("maebashi");
+      const guideIsMaebashi = parts.guideKey.includes("\u524d\u6a4b") || parts.guideKey.includes("maebashi");
       if (scheduleIsTakasaki && guideIsTakasaki) score += 35;
       if (scheduleIsMaebashi && guideIsMaebashi) score += 35;
-      if (scheduleHasVenue && !guideHasVenue) score -= 25;
-      if (scheduleHasBrand && !guideHasBrand) score -= 10;
+
+      // Generic brand guides such as Wonder+Leaders often do not include a venue.
+      // Allow them, but rank venue-specific guides higher when both are available.
+      if (scheduleHasVenue && !guideHasVenue) score -= 10;
+      if (scheduleHasBrand && !guideHasBrand) score -= 25;
 
       if (!score && parts.textContains) score = 1;
       return Math.max(0, score);
@@ -6075,12 +6106,7 @@
         guide?.name,
         guide?.fileName,
         guide?.brand,
-        guide?.category,
-        guide?.url,
-        guide?.fileUrl,
-        guide?.documentUrl,
-        guide?.docUrl,
-        getGuideBodyText(guide)
+        guide?.category
       ].filter(Boolean).join("\n");
     }
 
@@ -6089,8 +6115,8 @@
       const explicitDay = Number(guide?.day || guide?.eventDay || guide?.targetDay || 0);
       const text = getGuideSearchText(guide);
       const patterns = [
-        /20\d{2}\s*年\s*(1[0-2]|[1-9])\s*月\s*([12]?\d|3[01])\s*日/,
-        /(?:^|[^\d])(1[0-2]|[1-9])\s*月\s*([12]?\d|3[01])\s*日/,
+        /20\d{2}\s*[\u5e74\/.-]\s*(1[0-2]|[1-9])\s*[\u6708\/.-]\s*([12]?\d|3[01])\s*[\u65e5]?/,
+        /(?:^|[^\d])(1[0-2]|[1-9])\s*[\u6708]\s*([12]?\d|3[01])\s*[\u65e5]/,
         /(?:^|[^\d])(1[0-2]|[1-9])\s*[\/.-]\s*([12]?\d|3[01])(?:[^\d]|$)/
       ];
       for (const pattern of patterns) {
@@ -6117,8 +6143,9 @@
     }
 
     function getGuideDateMatchScore(guide, month, day) {
-      if (!guideDateAllowsSchedule(guide, month, day)) return -10000;
       const guideDate = extractGuideMonthDay(guide);
+      if (guideDate.month && guideDate.month !== Number(month)) return 0;
+      if (guideDate.day && Number(day) && guideDate.day !== Number(day)) return 0;
       let score = 0;
       if (guideDate.month && guideDate.month === Number(month)) score += 90;
       if (guideDate.day && Number(day) && guideDate.day === Number(day)) score += 180;
@@ -6135,16 +6162,15 @@
     }
 
     function getGuideUpdatedTime(guide) {
-      const value = guide?.updatedAt || guide?.createdAt || guide?.timestamp || guide?.["タイムスタンプ"] || "";
+      const value = guide?.updatedAt || guide?.createdAt || guide?.timestamp || guide?.["\u30bf\u30a4\u30e0\u30b9\u30bf\u30f3\u30d7"] || guide?.["Timestamp"] || "";
       if (value instanceof Date && !Number.isNaN(value.getTime())) return value.getTime();
       const text = String(value || "").trim();
       const parsed = Date.parse(text);
       if (!Number.isNaN(parsed)) return parsed;
       const normalized = text
-        .replace(/年|\/|\./g, "-")
-        .replace(/月/g, "-")
-        .replace(/日/g, " ")
-        .replace(/（.*?）|\(.*?\)/g, "")
+        .replace(/[\u5e74\u6708/.]/g, "-")
+        .replace(/[\u65e5]/g, " ")
+        .replace(/\(.*?\)/g, "")
         .trim();
       const fallback = Date.parse(normalized);
       return Number.isNaN(fallback) ? 0 : fallback;
@@ -6186,10 +6212,11 @@
         const guideTitle = getGuideComparableText(guide);
         const guideMonth = getGuideKnownMonth(guide);
         const guideCategory = String(guide.category || guide.brand || "").toLowerCase();
-        const monthMatches = !guideMonth || guideMonth === month;
-        const dateMatches = guideDateAllowsSchedule(guide, month, item.day);
+        const matchScore = getGuideMatchScore(title, guideTitle);
+        const monthMatches = !guideMonth || guideMonth === month || matchScore >= 60;
+        const dateMatches = guideDateAllowsSchedule(guide, month, item.day) || matchScore >= 60;
         const categoryMatches = !guideCategory || guideCategory.includes(category) || guideCategory.includes(activeGuideBrand.toLowerCase());
-        return monthMatches && dateMatches && categoryMatches && guideTitleMatchesSchedule(title, guideTitle);
+        return monthMatches && dateMatches && categoryMatches && matchScore > 0;
       })
         .sort((a, b) => {
           const aTitle = getGuideComparableText(a);
@@ -6202,10 +6229,9 @@
 
     function stripGuideMaterialFooter(value) {
       return String(value || "")
-        .replace(/\r\n/g, "\n")
-        .replace(/\n{0,2}【素材】[\s\S]*$/m, "")
-        .replace(/\n{0,2}\[素材\][\s\S]*$/mi, "")
-        .replace(/\n{0,2}素材\s*[:：]\s*(?:https?:\/\/\S+|Drive|Google Drive)[\s\S]*$/mi, "")
+        .replace(/\r\n?/g, "\n")
+        .replace(/\n{0,2}\u3010\u7d20\u6750\u3011[\s\S]*$/m, "")
+        .replace(/\n{0,2}[\u25a0\u25a1\u25c6\u25c7\u30fb\s]*(\u7d20\u6750|\u6dfb\u4ed8|\u753b\u50cf|\u30d5\u30a1\u30a4\u30eb|Drive|Google Drive)\s*[\uff1a:]?[\s\S]*$/mi, "")
         .trim();
     }
 
@@ -6217,8 +6243,10 @@
         guide?.description ||
         guide?.guideText ||
         guide?.message ||
-        guide?.["案内文"] ||
-        guide?.["本文"] ||
+        guide?.["\u6848\u5185\u6587"] ||
+        guide?.["\u672c\u6587"] ||
+        guide?.["\u6848\u5185\u6587\u7ae0"] ||
+        guide?.["\u6295\u7a3f\u672c\u6587"] ||
         ""
       );
     }
@@ -6231,7 +6259,10 @@
         guide?.documentUrl ||
         guide?.docUrl ||
         guide?.url ||
-        guide?.["素材URL"] ||
+        guide?.["\u7d20\u6750URL"] ||
+        guide?.["\u7d20\u6750"] ||
+        guide?.["\u6dfb\u4ed8\u30d5\u30a1\u30a4\u30ebURL"] ||
+        guide?.["\u753b\u50cfURL"] ||
         guide?.["URL"] ||
         ""
       ).trim();
@@ -6243,7 +6274,7 @@
         return [value.url || value.fileUrl || value.downloadUrl || value.webViewLink || value.thumbnailUrl || ""].filter(Boolean);
       }
       return String(value || "")
-        .split(/[\n,、\s]+/)
+        .split(/[\n,\u3001\s]+/)
         .map((url) => url.trim())
         .filter(Boolean)
         .map((url) => /^https?:\/\//i.test(url) ? url : driveIdToOpenUrl(url))
@@ -6261,11 +6292,11 @@
         guide.images,
         guide.mediaUrls,
         guide.materialFiles,
-        guide["添付ファイルURL"],
-        guide["添付ファイル"],
-        guide["画像URL"],
-        guide["画像"],
-        guide["素材ファイル"]
+        guide["\u6dfb\u4ed8\u30d5\u30a1\u30a4\u30ebURL"],
+        guide["\u6dfb\u4ed8\u30d5\u30a1\u30a4\u30eb"],
+        guide["\u753b\u50cfURL"],
+        guide["\u753b\u50cf"],
+        guide["\u7d20\u6750\u30d5\u30a1\u30a4\u30eb"]
       ];
       const materialUrl = getGuideMaterialUrl(guide);
       if (materialUrl) rawValues.push(materialUrl);
@@ -6291,7 +6322,7 @@
 
     function normalizeGuideAttachment(file) {
       const url = String(file?.url || file?.fileUrl || file?.downloadUrl || file?.webViewLink || file || "").trim();
-      const name = String(file?.name || file?.fileName || inferFileNameFromUrl(url) || "添付ファイル").trim();
+      const name = String(file?.name || file?.fileName || inferFileNameFromUrl(url) || "\u6dfb\u4ed8\u30d5\u30a1\u30a4\u30eb").trim();
       const mimeType = String(file?.mimeType || file?.type || "").toLowerCase();
       return {
         url,

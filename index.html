@@ -3609,7 +3609,7 @@
   <script>
     const SCHEDULE_YEAR = 2026;
     const SCHEDULE_API_URL = "https://script.google.com/macros/s/AKfycbzRcXK2X1KtB0DuUPsk25g-ONb6zK8x0R4gby9c-R73MXeQB14cgqzuJrj9GejSR8I2nw/exec?action=schedule";
-    const STATIC_CACHE_VERSION = "20260809-3";
+    const STATIC_CACHE_VERSION = "20260809-4";
     const SCHEDULE_CACHE_URL = `schedule-cache.json?v=${STATIC_CACHE_VERSION}`;
     const EVENT_GUIDE_CACHE_URL = `event-guide-cache.json?v=${STATIC_CACHE_VERSION}`;
     const SCHEDULE_CACHE_STORAGE_KEY = "wonderPlusPortal.schedulePayload.v1";
@@ -4635,10 +4635,10 @@
       if (payloadGuides.length) storeEventGuideDocuments(payloadGuides);
       const storedGuides = readStoredEventGuideDocuments();
       const staticGuides = await fetchStaticEventGuideDocuments();
+      const freshGuides = mergeEventGuideDocuments(payloadGuides, staticGuides);
       eventGuideDocuments = mergeEventGuideDocuments(
-        payloadGuides,
-        storedGuides,
-        staticGuides,
+        freshGuides,
+        freshGuides.length ? [] : storedGuides,
         eventGuideDocuments,
         defaultEventGuideDocuments
       );
@@ -4896,15 +4896,17 @@
       const category = getMemberScheduleCategory(item);
       const matchingGuides = eventGuideDocuments.filter((guide) => {
         const guideTitle = guide.title || guide.eventName || guide.name || guide.fileName;
-        const guideMonth = Number(guide.month || guide.eventMonth || 0);
+        const guideMonth = getGuideKnownMonth(guide);
         const guideCategory = String(guide.category || guide.brand || "").toLowerCase();
         const monthMatches = !guideMonth || guideMonth === month;
+        const dateMatches = guideDateAllowsSchedule(guide, month, item.day);
         const categoryMatches = !guideCategory || guideCategory.includes(category);
-        return monthMatches && categoryMatches && guideTitleMatchesSchedule(item.title, guideTitle);
+        return monthMatches && dateMatches && categoryMatches && guideTitleMatchesSchedule(item.title, guideTitle);
       }).sort((a, b) => {
         const aTitle = a.title || a.eventName || a.name || a.fileName;
         const bTitle = b.title || b.eventName || b.name || b.fileName;
-        return getGuideMatchScore(item.title, bTitle) - getGuideMatchScore(item.title, aTitle)
+        return (getGuideMatchScore(item.title, bTitle) + getGuideDateMatchScore(b, month, item.day))
+          - (getGuideMatchScore(item.title, aTitle) + getGuideDateMatchScore(a, month, item.day))
           || getGuideUpdatedTime(b) - getGuideUpdatedTime(a);
       });
       for (const guide of matchingGuides) {
@@ -5840,7 +5842,7 @@
     }
 
     function getMergedVenueAddresses() {
-      return [...venueAddresses, ...getGuideVenueCandidates()].reduce((list, item) => {
+      return [...getGuideVenueCandidates(), ...venueAddresses].reduce((list, item) => {
         if (!item) return list;
         const address = sanitizeVenueAddressOnly(item.address);
         if (!address) return list;
@@ -6032,6 +6034,76 @@
       return getGuideMatchScore(scheduleTitle, guideTitle) > 0;
     }
 
+    function getGuideSearchText(guide) {
+      return [
+        guide?.title,
+        guide?.eventName,
+        guide?.name,
+        guide?.fileName,
+        guide?.body,
+        guide?.text,
+        guide?.content,
+        guide?.description,
+        guide?.guideText,
+        guide?.message,
+        guide?.url,
+        guide?.fileUrl,
+        guide?.documentUrl,
+        guide?.docUrl,
+        getGuideBodyText(guide)
+      ].filter(Boolean).join("\n").normalize("NFKC");
+    }
+
+    function extractGuideMonthDay(guide) {
+      const explicitMonth = Number(guide?.month || guide?.eventMonth || guide?.targetMonth || 0);
+      const explicitDay = Number(guide?.day || guide?.eventDay || guide?.targetDay || 0);
+      const text = getGuideSearchText(guide);
+      const patterns = [
+        /20\d{2}\s*年\s*(1[0-2]|[1-9])\s*月\s*([12]?\d|3[01])\s*日/,
+        /(?:^|[^\d])(1[0-2]|[1-9])\s*月\s*([12]?\d|3[01])\s*日/,
+        /(?:^|[^\d])(1[0-2]|[1-9])\s*[\/.-]\s*([12]?\d|3[01])(?:[^\d]|$)/
+      ];
+      for (const pattern of patterns) {
+        const match = text.match(pattern);
+        if (match) {
+          return {
+            month: explicitMonth || Number(match[1]),
+            day: explicitDay || Number(match[2])
+          };
+        }
+      }
+      return { month: explicitMonth, day: explicitDay };
+    }
+
+    function getGuideKnownMonth(guide) {
+      return extractGuideMonthDay(guide).month || Number(guide?.month || guide?.eventMonth || 0);
+    }
+
+    function guideDateAllowsSchedule(guide, month, day) {
+      const guideDate = extractGuideMonthDay(guide);
+      if (guideDate.month && guideDate.month !== Number(month)) return false;
+      if (guideDate.day && Number(day) && guideDate.day !== Number(day)) return false;
+      return true;
+    }
+
+    function getGuideDateMatchScore(guide, month, day) {
+      if (!guideDateAllowsSchedule(guide, month, day)) return -10000;
+      const guideDate = extractGuideMonthDay(guide);
+      let score = 0;
+      if (guideDate.month && guideDate.month === Number(month)) score += 90;
+      if (guideDate.day && Number(day) && guideDate.day === Number(day)) score += 180;
+      return score;
+    }
+
+    function simpleGuideHash(value) {
+      const text = normalizeGuideMatchText(value).slice(0, 1200);
+      let hash = 0;
+      for (let index = 0; index < text.length; index += 1) {
+        hash = ((hash << 5) - hash + text.charCodeAt(index)) | 0;
+      }
+      return String(Math.abs(hash));
+    }
+
     function getGuideUpdatedTime(guide) {
       const value = guide?.updatedAt || guide?.createdAt || guide?.timestamp || guide?.["タイムスタンプ"] || "";
       if (value instanceof Date && !Number.isNaN(value.getTime())) return value.getTime();
@@ -6049,11 +6121,15 @@
     }
 
     function getGuideIdentityKey(guide) {
+      const guideDate = extractGuideMonthDay(guide);
+      const body = getGuideBodyText(guide) || guide?.body || guide?.text || guide?.content || guide?.description || "";
       return normalizeGuideMatchText([
-        guide?.month || guide?.eventMonth || "",
+        guideDate.month || guide?.month || guide?.eventMonth || "",
+        guideDate.day || guide?.day || guide?.eventDay || "",
         guide?.category || guide?.brand || "",
         guide?.title || guide?.eventName || guide?.name || guide?.fileName || "",
-        guide?.url || guide?.fileUrl || guide?.documentUrl || guide?.docUrl || ""
+        guide?.url || guide?.fileUrl || guide?.documentUrl || guide?.docUrl || "",
+        simpleGuideHash(body)
       ].join("|"));
     }
 
@@ -6078,16 +6154,18 @@
       return eventGuideDocuments
         .filter((guide) => {
         const guideTitle = guide.title || guide.eventName || guide.name || guide.fileName;
-        const guideMonth = Number(guide.month || guide.eventMonth || 0);
+        const guideMonth = getGuideKnownMonth(guide);
         const guideCategory = String(guide.category || guide.brand || "").toLowerCase();
         const monthMatches = !guideMonth || guideMonth === month;
+        const dateMatches = guideDateAllowsSchedule(guide, month, item.day);
         const categoryMatches = !guideCategory || guideCategory.includes(category) || guideCategory.includes(activeGuideBrand.toLowerCase());
-        return monthMatches && categoryMatches && guideTitleMatchesSchedule(title, guideTitle);
+        return monthMatches && dateMatches && categoryMatches && guideTitleMatchesSchedule(title, guideTitle);
       })
         .sort((a, b) => {
           const aTitle = a.title || a.eventName || a.name || a.fileName;
           const bTitle = b.title || b.eventName || b.name || b.fileName;
-          return getGuideMatchScore(title, bTitle) - getGuideMatchScore(title, aTitle)
+          return (getGuideMatchScore(title, bTitle) + getGuideDateMatchScore(b, month, item.day))
+            - (getGuideMatchScore(title, aTitle) + getGuideDateMatchScore(a, month, item.day))
             || getGuideUpdatedTime(b) - getGuideUpdatedTime(a);
         })[0];
     }
@@ -6380,7 +6458,7 @@
       const scheduleTitle = item?.title || "";
       const scheduleVenueIds = getGuideAliasGroupIds(scheduleTitle, guideVenueAliasGroups);
       if (!scheduleVenueIds.size) return null;
-      return venueAddresses.find((venue) => {
+      return getMergedVenueAddresses().find((venue) => {
         const venueText = [venue.area, venue.address, venue.venue].join(" ");
         const venueIds = getGuideAliasGroupIds(venueText, guideVenueAliasGroups);
         return hasGuideGroupIntersection(scheduleVenueIds, venueIds);

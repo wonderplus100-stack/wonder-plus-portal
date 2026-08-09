@@ -3609,7 +3609,7 @@
   <script>
     const SCHEDULE_YEAR = 2026;
     const SCHEDULE_API_URL = "https://script.google.com/macros/s/AKfycbzRcXK2X1KtB0DuUPsk25g-ONb6zK8x0R4gby9c-R73MXeQB14cgqzuJrj9GejSR8I2nw/exec?action=schedule";
-    const STATIC_CACHE_VERSION = "20260809-1";
+    const STATIC_CACHE_VERSION = "20260809-2";
     const SCHEDULE_CACHE_URL = `schedule-cache.json?v=${STATIC_CACHE_VERSION}`;
     const EVENT_GUIDE_CACHE_URL = `event-guide-cache.json?v=${STATIC_CACHE_VERSION}`;
     const SCHEDULE_CACHE_STORAGE_KEY = "wonderPlusPortal.schedulePayload.v1";
@@ -6289,8 +6289,95 @@
       `;
     }
 
+    function parseTimeRangeParts(value) {
+      const normalized = String(value || "")
+        .replace(/[−‐‑‒–—ー〜～]/g, "-")
+        .replace(/\s+/g, "");
+      const range = normalized.match(/(\d{1,2}):(\d{2})-(\d{1,2}):(\d{2})/);
+      if (range) {
+        return {
+          start: `${range[1].padStart(2, "0")}:${range[2]}`,
+          end: `${range[3].padStart(2, "0")}:${range[4]}`
+        };
+      }
+      const single = normalized.match(/(\d{1,2}):(\d{2})/);
+      if (single) {
+        return { start: `${single[1].padStart(2, "0")}:${single[2]}`, end: "" };
+      }
+      return null;
+    }
+
+    function shiftTimeByMinutes(value, minutes) {
+      const match = String(value || "").match(/^(\d{1,2}):(\d{2})$/);
+      if (!match) return "";
+      const total = (Number(match[1]) * 60 + Number(match[2]) + minutes + 24 * 60) % (24 * 60);
+      return `${String(Math.floor(total / 60)).padStart(2, "0")}:${String(total % 60).padStart(2, "0")}`;
+    }
+
+    function getEventGuideScheduleTimeParts(group, item) {
+      const candidates = [
+        item?.timeRange,
+        item?.time,
+        item?.detail,
+        item?.notes,
+        formatScheduleDisplayMeta(item, group)
+      ];
+      for (const candidate of candidates) {
+        const parsed = parseTimeRangeParts(candidate);
+        if (parsed?.start) return parsed;
+      }
+      return null;
+    }
+
+    function buildEventGuideOpenLine(group, item) {
+      const parsed = getEventGuideScheduleTimeParts(group, item);
+      if (!parsed?.start) return "";
+      const open = shiftTimeByMinutes(parsed.start, -15);
+      return parsed.end
+        ? `${open} オープン｜${parsed.start} スタート｜${parsed.end} クローズ`
+        : `${open} オープン｜${parsed.start} スタート`;
+    }
+
+    function replaceGuideScheduleTimeLine(body, group, item) {
+      const openLine = buildEventGuideOpenLine(group, item);
+      if (!openLine) return body || "";
+      const scheduleMeta = formatScheduleDisplayMeta(item, group) || "";
+      const dateLine = `${group.month}月${item.day}日 ${scheduleMeta}`.trim();
+      const normalizedBody = String(body || "").replace(/\r\n?/g, "\n");
+      if (!normalizedBody.trim()) return openLine;
+
+      let updated = normalizedBody
+        .replace(/(\d{1,2}:\d{2}\s*オープン\s*[｜|]\s*\d{1,2}:\d{2}\s*スタート(?:\s*[｜|]\s*\d{1,2}:\d{2}\s*クローズ)?)/g, openLine)
+        .replace(/(OPEN|Open|open)\s*[:：]?\s*\d{1,2}:\d{2}\s*[｜|/]\s*(START|Start|start)\s*[:：]?\s*\d{1,2}:\d{2}(?:\s*[｜|/]\s*(CLOSE|Close|close)\s*[:：]?\s*\d{1,2}:\d{2})?/g, openLine);
+
+      if (updated !== normalizedBody) return updated;
+
+      updated = normalizedBody.replace(/【開催日時】[^\n]*/g, `【開催日時】${dateLine}\n${openLine}`);
+      if (updated !== normalizedBody) return updated;
+
+      const lines = normalizedBody.split("\n");
+      const dateHeadingIndex = lines.findIndex((line) => /^[\s■□▪・-]*日時[\s　]*$/.test(line));
+      if (dateHeadingIndex >= 0) {
+        const nextIndex = dateHeadingIndex + 1;
+        if (nextIndex < lines.length && /\d{1,2}:\d{2}/.test(lines[nextIndex])) {
+          lines[nextIndex] = openLine;
+        } else {
+          lines.splice(nextIndex, 0, openLine);
+        }
+        return lines.join("\n");
+      }
+
+      const dateLikeIndex = lines.findIndex((line) => /日時|開催日時|スタート|クローズ|オープン/.test(line) && /\d{1,2}:\d{2}/.test(line));
+      if (dateLikeIndex >= 0) {
+        lines[dateLikeIndex] = openLine;
+        return lines.join("\n");
+      }
+
+      return `${openLine}\n\n${normalizedBody}`;
+    }
+
     function buildDriveEventGuideBody(guide, group, item) {
-      const body = getGuideBodyText(guide);
+      const body = replaceGuideScheduleTimeLine(getGuideBodyText(guide), group, item);
       const dateLine = `${group.month}月${item.day}日 ${formatScheduleDisplayMeta(item, group) || "詳細未入力"}`;
       return `【イベント名】${guide.title || guide.eventName || item.title}
 【開催日時】${dateLine}

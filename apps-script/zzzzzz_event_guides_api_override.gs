@@ -27,6 +27,11 @@ var doGet = function(e) {
           ? getPortalEventGuidesForApi_()
           : { ok: true, updatedAt: new Date().toISOString(), eventGuides: buildPortalEventGuidesSafe_() };
         break;
+      case 'eventGuideDiagnostics':
+        payload = typeof getPortalEventGuideDiagnostics_ === 'function'
+          ? getPortalEventGuideDiagnostics_()
+          : { ok: false, message: 'event guide diagnostics is not installed' };
+        break;
       case 'register':
         payload = registerPortalUser_(params);
         break;

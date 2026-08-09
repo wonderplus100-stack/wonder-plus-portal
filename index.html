@@ -3610,11 +3610,11 @@
     const SCHEDULE_YEAR = 2026;
     const SCHEDULE_API_URL = "https://script.google.com/macros/s/AKfycbzRcXK2X1KtB0DuUPsk25g-ONb6zK8x0R4gby9c-R73MXeQB14cgqzuJrj9GejSR8I2nw/exec?action=schedule";
     const EVENT_GUIDE_API_URL = makePortalActionUrl(SCHEDULE_API_URL, "eventGuides");
-    const STATIC_CACHE_VERSION = "20260810-4";
+    const STATIC_CACHE_VERSION = "20260810-5";
     const SCHEDULE_CACHE_URL = `schedule-cache.json?v=${STATIC_CACHE_VERSION}`;
     const EVENT_GUIDE_CACHE_URL = `event-guide-cache.json?v=${STATIC_CACHE_VERSION}`;
     const SCHEDULE_CACHE_STORAGE_KEY = "wonderPlusPortal.schedulePayload.v1";
-    const EVENT_GUIDE_CACHE_STORAGE_KEY = "wonderPlusPortal.eventGuides.v5";
+    const EVENT_GUIDE_CACHE_STORAGE_KEY = "wonderPlusPortal.eventGuides.v6";
     const MINUTES_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdoAHwVX8hkCmbXDf1wxtg-J4wVMnB7mm8SlYZ3OnuxuJvv_g/viewform?usp=header";
     const MATERIALS = {
       "exhibitor-guidelines": {
@@ -6155,8 +6155,8 @@
         const match = text.match(pattern);
         if (match) {
           return {
-            month: explicitMonth || Number(match[1]),
-            day: explicitDay || Number(match[2])
+            month: Number(match[1]) || explicitMonth,
+            day: Number(match[2]) || explicitDay
           };
         }
       }

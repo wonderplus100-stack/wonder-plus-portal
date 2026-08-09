@@ -14,6 +14,10 @@ var PORTAL_EVENT_GUIDE_REALTIME_HEADERS = [
   'CreatedAt',
   'Title',
   'Month',
+  'Day',
+  'EventDate',
+  'StartTime',
+  'EndTime',
   'Body',
   'MaterialUrl',
   'AttachmentUrls',
@@ -60,6 +64,51 @@ var PORTAL_EVENT_GUIDE_MONTH_KEYS = [
   'month',
   'eventmonth',
   'targetmonth'
+];
+
+var PORTAL_EVENT_GUIDE_DAY_KEYS = [
+  '\u65e5',
+  '\u958b\u50ac\u65e5',
+  '\u5bfe\u8c61\u65e5',
+  'day',
+  'eventday',
+  'targetday'
+];
+
+var PORTAL_EVENT_GUIDE_DATE_KEYS = [
+  '\u958b\u50ac\u65e5',
+  '\u958b\u50ac\u65e5\u6642',
+  '\u65e5\u6642',
+  '\u65e5\u4ed8',
+  '\u30a4\u30d9\u30f3\u30c8\u65e5',
+  '\u30a4\u30d9\u30f3\u30c8\u65e5\u6642',
+  '\u5bfe\u8c61\u65e5',
+  'event date',
+  'eventdate',
+  'date',
+  'datetime',
+  'eventdatetime'
+];
+
+var PORTAL_EVENT_GUIDE_START_TIME_KEYS = [
+  '\u958b\u59cb\u6642\u9593',
+  '\u958b\u59cb\u6642\u523b',
+  '\u30b9\u30bf\u30fc\u30c8',
+  '\u958b\u59cb',
+  'starttime',
+  'start time',
+  'start'
+];
+
+var PORTAL_EVENT_GUIDE_END_TIME_KEYS = [
+  '\u7d42\u4e86\u6642\u9593',
+  '\u7d42\u4e86\u6642\u523b',
+  '\u30af\u30ed\u30fc\u30ba',
+  '\u7d42\u4e86',
+  'endtime',
+  'end time',
+  'close',
+  'end'
 ];
 
 var PORTAL_EVENT_GUIDE_MATERIAL_KEYS = [
@@ -121,6 +170,10 @@ function onEventGuideFormSubmit(e) {
     row.createdAt,
     row.title,
     row.month,
+    row.day,
+    row.eventDate,
+    row.startTime,
+    row.endTime,
     row.body,
     row.materialUrl,
     row.attachmentUrls,
@@ -172,6 +225,52 @@ function buildPortalEventGuidesPayload_() {
 
 function getPortalEventGuidesForApi_() {
   return buildPortalEventGuidesPayload_();
+}
+
+function getPortalEventGuideDiagnostics_() {
+  var ss = getPortalEventGuideSpreadsheet_();
+  var sheets = getPortalEventGuideCandidateSheets_(ss).map(function(sheet) {
+    var headers = [];
+    if (sheet.getLastRow() >= 1 && sheet.getLastColumn() >= 1) {
+      headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0]
+        .map(function(value) { return String(value || '').trim(); });
+    }
+    var samples = [];
+    if (sheet.getLastRow() >= 2 && headers.length) {
+      var rowCount = Math.min(3, sheet.getLastRow() - 1);
+      var values = sheet.getRange(2, 1, rowCount, sheet.getLastColumn()).getValues();
+      values.forEach(function(row) {
+        var raw = {};
+        headers.forEach(function(header, index) {
+          if (header) raw[header] = row[index];
+        });
+        var guide = normalizePortalEventGuideRecord_(raw, sheet.getName(), row, headers);
+        samples.push({
+          title: guide.title,
+          month: guide.month,
+          day: guide.day,
+          startTime: guide.startTime,
+          endTime: guide.endTime,
+          updatedAt: String(guide.updatedAt || ''),
+          source: guide.source
+        });
+      });
+    }
+    return {
+      name: sheet.getName(),
+      rows: sheet.getLastRow(),
+      columns: sheet.getLastColumn(),
+      priority: getPortalEventGuideSheetPriority_(sheet),
+      headers: headers,
+      samples: samples
+    };
+  });
+  return {
+    ok: true,
+    sourceSpreadsheetId: PORTAL_EVENT_GUIDE_PRIMARY_SPREADSHEET_ID,
+    updatedAt: new Date().toISOString(),
+    sheets: sheets
+  };
 }
 
 function refreshPortalEventGuideCache_() {
@@ -268,7 +367,27 @@ function getPortalEventGuideCandidateSheets_(ss) {
     }, 0);
     if (score >= 2) candidates.push(sheet);
   });
-  return candidates.length ? candidates : sheets;
+  var selected = candidates.length ? candidates : sheets;
+  return selected.sort(function(a, b) {
+    return getPortalEventGuideSheetPriority_(b) - getPortalEventGuideSheetPriority_(a);
+  });
+}
+
+function getPortalEventGuideSheetPriority_(sheet) {
+  var priority = 0;
+  var nameKey = normalizePortalTextKey_(sheet.getName());
+  if (/form|response|\u30d5\u30a9\u30fc\u30e0|\u56de\u7b54/.test(nameKey)) priority += 30;
+  if (nameKey.indexOf(normalizePortalTextKey_(PORTAL_EVENT_GUIDE_REALTIME_SHEET_NAME)) !== -1) priority += 10;
+  if (sheet.getLastRow() < 1 || sheet.getLastColumn() < 1) return priority;
+  try {
+    var headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+    if (pickPortalHeaderName_(headers, PORTAL_EVENT_GUIDE_DATE_KEYS)) priority += 30;
+    if (pickPortalHeaderName_(headers, PORTAL_EVENT_GUIDE_START_TIME_KEYS)) priority += 12;
+    if (pickPortalHeaderName_(headers, PORTAL_EVENT_GUIDE_END_TIME_KEYS)) priority += 12;
+    if (pickPortalHeaderName_(headers, PORTAL_EVENT_GUIDE_TITLE_KEYS)) priority += 12;
+    if (pickPortalHeaderName_(headers, PORTAL_EVENT_GUIDE_BODY_KEYS)) priority += 12;
+  } catch (error) {}
+  return priority;
 }
 
 function matchesAnyPortalGuideKey_(normalizedHeader) {
@@ -276,6 +395,10 @@ function matchesAnyPortalGuideKey_(normalizedHeader) {
     PORTAL_EVENT_GUIDE_TITLE_KEYS,
     PORTAL_EVENT_GUIDE_BODY_KEYS,
     PORTAL_EVENT_GUIDE_MONTH_KEYS,
+    PORTAL_EVENT_GUIDE_DAY_KEYS,
+    PORTAL_EVENT_GUIDE_DATE_KEYS,
+    PORTAL_EVENT_GUIDE_START_TIME_KEYS,
+    PORTAL_EVENT_GUIDE_END_TIME_KEYS,
     PORTAL_EVENT_GUIDE_MATERIAL_KEYS,
     PORTAL_EVENT_GUIDE_ATTACHMENT_KEYS,
     PORTAL_EVENT_GUIDE_CATEGORY_KEYS
@@ -283,7 +406,7 @@ function matchesAnyPortalGuideKey_(normalizedHeader) {
   return groups.some(function(keys) {
     return keys.some(function(key) {
       var needle = normalizePortalTextKey_(key);
-      return normalizedHeader === needle || normalizedHeader.indexOf(needle) !== -1 || needle.indexOf(normalizedHeader) !== -1;
+      return normalizedHeader === needle || isSafePortalHeaderPartialMatch_(normalizedHeader, needle);
     });
   });
 }
@@ -307,27 +430,48 @@ function getPortalNamedFormAnswers_(e) {
 }
 
 function normalizePortalEventGuideRecord_(record, source, rowValues, headers) {
+  record = record || {};
   var body = stripPortalEventGuideMaterialFooter_(
+    pickPortalAnswerStrict_(record, PORTAL_EVENT_GUIDE_BODY_KEYS) ||
     pickPortalAnswer_(record, PORTAL_EVENT_GUIDE_BODY_KEYS) ||
     inferPortalGuideBodyFromRow_(rowValues || [])
   );
-  var title = pickPortalAnswer_(record, PORTAL_EVENT_GUIDE_TITLE_KEYS) || inferPortalEventGuideTitleFromBody_(body) || inferPortalGuideTitleFromRow_(rowValues || []);
-  var materialUrl = pickPortalAnswer_(record, PORTAL_EVENT_GUIDE_MATERIAL_KEYS);
-  var attachmentUrls = pickPortalAnswer_(record, PORTAL_EVENT_GUIDE_ATTACHMENT_KEYS) || inferPortalGuideUrlsFromRow_(rowValues || []);
-  var month = parsePortalEventGuideMonth_(
-    pickPortalAnswer_(record, PORTAL_EVENT_GUIDE_MONTH_KEYS) + '\n' + title + '\n' + body
-  );
-  var category = normalizePortalEventGuideCategory_(pickPortalAnswer_(record, PORTAL_EVENT_GUIDE_CATEGORY_KEYS) || title || body || 'wonder');
-  var updatedAt = pickPortalAnswer_(record, ['UpdatedAt', 'updatedAt', '\u66f4\u65b0\u65e5\u6642', '\u30bf\u30a4\u30e0\u30b9\u30bf\u30f3\u30d7']) ||
-    pickPortalAnswer_(record, ['CreatedAt', 'createdAt', '\u767b\u9332\u65e5\u6642', '\u9001\u4fe1\u65e5\u6642']);
-  var createdAt = pickPortalAnswer_(record, ['CreatedAt', 'createdAt', '\u767b\u9332\u65e5\u6642', '\u9001\u4fe1\u65e5\u6642']) || updatedAt || new Date();
+  var title = pickPortalAnswerStrict_(record, PORTAL_EVENT_GUIDE_TITLE_KEYS) || pickPortalAnswer_(record, PORTAL_EVENT_GUIDE_TITLE_KEYS) || inferPortalEventGuideTitleFromBody_(body) || inferPortalGuideTitleFromRow_(rowValues || []);
+  var materialUrl = pickPortalAnswerStrict_(record, PORTAL_EVENT_GUIDE_MATERIAL_KEYS) || pickPortalAnswer_(record, PORTAL_EVENT_GUIDE_MATERIAL_KEYS);
+  var attachmentUrls = pickPortalAnswerStrict_(record, PORTAL_EVENT_GUIDE_ATTACHMENT_KEYS) || pickPortalAnswer_(record, PORTAL_EVENT_GUIDE_ATTACHMENT_KEYS) || inferPortalGuideUrlsFromRow_(rowValues || []);
+  var eventDateRaw = pickPortalRawValueStrict_(record, PORTAL_EVENT_GUIDE_DATE_KEYS);
+  var eventDate = formatPortalEventGuideDate_(eventDateRaw);
+  var startTime = normalizePortalEventGuideTime_(pickPortalRawValueStrict_(record, PORTAL_EVENT_GUIDE_START_TIME_KEYS));
+  var endTime = normalizePortalEventGuideTime_(pickPortalRawValueStrict_(record, PORTAL_EVENT_GUIDE_END_TIME_KEYS));
+  var dateFromValue = parsePortalEventGuideMonthDayFromValue_(eventDateRaw);
+  var dateFromBody = parsePortalEventGuideMonthDay_((eventDate || '') + '\n' + title + '\n' + body);
+  var explicitMonth = parsePortalEventGuideMonth_(pickPortalAnswerStrict_(record, PORTAL_EVENT_GUIDE_MONTH_KEYS));
+  var explicitDay = parsePortalEventGuideDay_(pickPortalAnswerStrict_(record, PORTAL_EVENT_GUIDE_DAY_KEYS));
+  var month = dateFromValue.month || dateFromBody.month || explicitMonth || 0;
+  var day = dateFromValue.day || dateFromBody.day || explicitDay || 0;
+  var category = normalizePortalEventGuideCategory_(pickPortalAnswerStrict_(record, PORTAL_EVENT_GUIDE_CATEGORY_KEYS) || pickPortalAnswer_(record, PORTAL_EVENT_GUIDE_CATEGORY_KEYS) || title || body || 'wonder');
+  var updatedAt = pickPortalAnswerStrict_(record, ['UpdatedAt', 'updatedAt', '\u66f4\u65b0\u65e5\u6642', '\u30bf\u30a4\u30e0\u30b9\u30bf\u30f3\u30d7', 'Timestamp']) ||
+    pickPortalAnswerStrict_(record, ['CreatedAt', 'createdAt', '\u767b\u9332\u65e5\u6642', '\u9001\u4fe1\u65e5\u6642']);
+  var createdAt = pickPortalAnswerStrict_(record, ['CreatedAt', 'createdAt', '\u767b\u9332\u65e5\u6642', '\u9001\u4fe1\u65e5\u6642', 'Timestamp']) || updatedAt || new Date();
   var cleanTitle = normalizePortalEventGuideTitle_(title || inferPortalEventGuideTitle_(materialUrl || attachmentUrls) || 'Wonder+');
   var attachments = makePortalGuideAttachmentList_(attachmentUrls || materialUrl);
+  var timeRange = startTime && endTime ? startTime + '-' + endTime : '';
   return {
     title: cleanTitle,
     eventName: cleanTitle,
     name: cleanTitle,
     month: month,
+    day: day,
+    eventDate: eventDate,
+    eventMonth: month,
+    eventDay: day,
+    startTime: startTime,
+    endTime: endTime,
+    timeRange: timeRange,
+    startEndTime: timeRange,
+    eventTime: timeRange,
+    dateTime: buildPortalEventGuideDateTime_(month, day, timeRange, eventDate),
+    eventDateTime: buildPortalEventGuideDateTime_(month, day, timeRange, eventDate),
     body: body,
     text: body,
     materialUrl: materialUrl,
@@ -356,6 +500,7 @@ function dedupePortalEventGuides_(guides) {
   guides.forEach(function(guide) {
     var key = [
       guide.month || 0,
+      guide.day || 0,
       normalizePortalTextKey_(guide.title || guide.eventName || ''),
       normalizePortalVenueKey_((guide.title || '') + '\n' + (guide.body || guide.text || ''))
     ].join('|');
@@ -384,6 +529,50 @@ function pickPortalAnswer_(object, names) {
     }
   }
   return '';
+}
+
+function pickPortalAnswerStrict_(object, names) {
+  var value = pickPortalRawValueStrict_(object, names);
+  return value === null || typeof value === 'undefined' ? '' : String(value || '').trim();
+}
+
+function pickPortalRawValueStrict_(object, names) {
+  if (!object) return '';
+  var keys = Object.keys(object);
+  var normalizedKeys = keys.map(function(key) {
+    return { key: key, normalized: normalizePortalTextKey_(key) };
+  });
+  for (var phase = 0; phase < 2; phase += 1) {
+    for (var i = 0; i < names.length; i += 1) {
+      var needle = normalizePortalTextKey_(names[i]);
+      if (!needle) continue;
+      for (var j = 0; j < normalizedKeys.length; j += 1) {
+        var candidate = normalizedKeys[j].normalized;
+        if (phase === 0 && candidate === needle) {
+          return object[normalizedKeys[j].key];
+        }
+        if (phase === 1 && isSafePortalHeaderPartialMatch_(candidate, needle)) {
+          return object[normalizedKeys[j].key];
+        }
+      }
+    }
+  }
+  return '';
+}
+
+function pickPortalHeaderName_(headers, names) {
+  var record = {};
+  (headers || []).forEach(function(header) {
+    if (header) record[String(header)] = String(header);
+  });
+  return pickPortalAnswerStrict_(record, names);
+}
+
+function isSafePortalHeaderPartialMatch_(candidate, needle) {
+  if (!candidate || !needle) return false;
+  if (needle.length < 3 && candidate !== needle) return false;
+  if (candidate.indexOf(needle) !== -1) return true;
+  return needle.length >= 5 && needle.indexOf(candidate) !== -1;
 }
 
 function normalizePortalTextKey_(value) {
@@ -450,6 +639,75 @@ function parsePortalEventGuideMonth_(value) {
   var slash = text.match(/(?:^|[^\d])(1[0-2]|[1-9])\s*[\/.-]\s*\d{1,2}(?:[^\d]|$)/);
   if (slash) return Number(slash[1]);
   return 0;
+}
+
+function parsePortalEventGuideDay_(value) {
+  var fromValue = parsePortalEventGuideMonthDayFromValue_(value);
+  if (fromValue.day) return fromValue.day;
+  var text = String(value || '');
+  try {
+    text = text.normalize('NFKC');
+  } catch (error) {}
+  var md = text.match(/(?:1[0-2]|[1-9])\s*\u6708\s*(3[01]|[12]\d|[1-9])\s*\u65e5/);
+  if (md) return Number(md[1]);
+  var slash = text.match(/(?:^|[^\d])(?:1[0-2]|[1-9])\s*[\/.-]\s*(3[01]|[12]\d|[1-9])(?:[^\d]|$)/);
+  if (slash) return Number(slash[1]);
+  var day = text.match(/(?:^|[^\d])(3[01]|[12]\d|[1-9])\s*\u65e5(?:[^\d]|$)/);
+  return day ? Number(day[1]) : 0;
+}
+
+function parsePortalEventGuideMonthDay_(value) {
+  var fromValue = parsePortalEventGuideMonthDayFromValue_(value);
+  if (fromValue.month || fromValue.day) return fromValue;
+  var text = String(value || '');
+  try {
+    text = text.normalize('NFKC');
+  } catch (error) {}
+  var md = text.match(/(?:20\d{2}\s*\u5e74\s*)?(1[0-2]|[1-9])\s*\u6708\s*(3[01]|[12]\d|[1-9])\s*\u65e5/);
+  if (md) return { month: Number(md[1]), day: Number(md[2]) };
+  var slash = text.match(/(?:^|[^\d])(1[0-2]|[1-9])\s*[\/.-]\s*(3[01]|[12]\d|[1-9])(?:[^\d]|$)/);
+  if (slash) return { month: Number(slash[1]), day: Number(slash[2]) };
+  return { month: parsePortalEventGuideMonth_(text), day: parsePortalEventGuideDay_(text) };
+}
+
+function normalizePortalEventGuideTime_(value) {
+  if (Object.prototype.toString.call(value) === '[object Date]' && !isNaN(value.getTime())) {
+    return Utilities.formatDate(value, 'Asia/Tokyo', 'HH:mm');
+  }
+  var text = String(value || '').trim();
+  if (!text) return '';
+  try {
+    text = text.normalize('NFKC');
+  } catch (error) {}
+  var match = text.match(/([01]?\d|2[0-3])\s*[:\u6642]\s*([0-5]\d)?/);
+  if (!match) return text;
+  var hour = ('0' + Number(match[1])).slice(-2);
+  var minute = match[2] ? ('0' + Number(match[2])).slice(-2) : '00';
+  return hour + ':' + minute;
+}
+
+function parsePortalEventGuideMonthDayFromValue_(value) {
+  if (Object.prototype.toString.call(value) === '[object Date]' && !isNaN(value.getTime())) {
+    return {
+      month: Number(Utilities.formatDate(value, 'Asia/Tokyo', 'M')),
+      day: Number(Utilities.formatDate(value, 'Asia/Tokyo', 'd'))
+    };
+  }
+  return { month: 0, day: 0 };
+}
+
+function formatPortalEventGuideDate_(value) {
+  if (Object.prototype.toString.call(value) === '[object Date]' && !isNaN(value.getTime())) {
+    return Utilities.formatDate(value, 'Asia/Tokyo', 'M\u6708d\u65e5');
+  }
+  return String(value || '').trim();
+}
+
+function buildPortalEventGuideDateTime_(month, day, timeRange, eventDate) {
+  var dateText = '';
+  if (month && day) dateText = month + '\u6708' + day + '\u65e5';
+  else dateText = String(eventDate || '').trim();
+  return [dateText, timeRange].filter(Boolean).join(' ');
 }
 
 function normalizePortalEventGuideCategory_(value) {

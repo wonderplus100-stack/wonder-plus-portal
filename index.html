@@ -3610,11 +3610,11 @@
     const SCHEDULE_YEAR = 2026;
     const SCHEDULE_API_URL = "https://script.google.com/macros/s/AKfycbzRcXK2X1KtB0DuUPsk25g-ONb6zK8x0R4gby9c-R73MXeQB14cgqzuJrj9GejSR8I2nw/exec?action=schedule";
     const EVENT_GUIDE_API_URL = makePortalActionUrl(SCHEDULE_API_URL, "eventGuides");
-    const STATIC_CACHE_VERSION = "20260810-5";
+    const STATIC_CACHE_VERSION = "20260812-3";
     const SCHEDULE_CACHE_URL = `schedule-cache.json?v=${STATIC_CACHE_VERSION}`;
     const EVENT_GUIDE_CACHE_URL = `event-guide-cache.json?v=${STATIC_CACHE_VERSION}`;
-    const SCHEDULE_CACHE_STORAGE_KEY = "wonderPlusPortal.schedulePayload.v1";
-    const EVENT_GUIDE_CACHE_STORAGE_KEY = "wonderPlusPortal.eventGuides.v6";
+    const SCHEDULE_CACHE_STORAGE_KEY = "wonderPlusPortal.schedulePayload.v2";
+    const EVENT_GUIDE_CACHE_STORAGE_KEY = "wonderPlusPortal.eventGuides.v7";
     const MINUTES_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdoAHwVX8hkCmbXDf1wxtg-J4wVMnB7mm8SlYZ3OnuxuJvv_g/viewform?usp=header";
     const MATERIALS = {
       "exhibitor-guidelines": {
@@ -4482,7 +4482,11 @@
     }
 
     async function fetchSchedulePayload(apiUrl) {
-      return fetchPortalPayload(apiUrl);
+      const payload = await fetchPortalPayload(apiUrl);
+      if (payload?.ok === false) {
+        throw new Error(payload.message || payload.error || "schedule api returned ok:false");
+      }
+      return payload;
     }
 
     function countSchedulePayloadItems(payload) {
@@ -4572,7 +4576,10 @@
     function readStoredSchedulePayload() {
       try {
         const raw = window.localStorage?.getItem(SCHEDULE_CACHE_STORAGE_KEY);
-        return raw ? JSON.parse(raw) : null;
+        if (!raw) return null;
+        const payload = JSON.parse(raw);
+        if (payload?.cacheVersion !== STATIC_CACHE_VERSION) return null;
+        return payload;
       } catch (error) {
         return null;
       }
@@ -4581,7 +4588,11 @@
     function storeSchedulePayload(payload) {
       if (!payload?.schedules) return;
       try {
-        window.localStorage?.setItem(SCHEDULE_CACHE_STORAGE_KEY, JSON.stringify(payload));
+        window.localStorage?.setItem(SCHEDULE_CACHE_STORAGE_KEY, JSON.stringify({
+          ...payload,
+          cacheVersion: STATIC_CACHE_VERSION,
+          storedAt: new Date().toISOString()
+        }));
       } catch (error) {
         // localStorage may be disabled inside some embedded views.
       }
@@ -4646,6 +4657,7 @@
         const raw = window.localStorage?.getItem(EVENT_GUIDE_CACHE_STORAGE_KEY);
         if (!raw) return [];
         const payload = JSON.parse(raw);
+        if (payload?.cacheVersion !== STATIC_CACHE_VERSION) return [];
         return getUsableEventGuideDocuments(getPayloadEventGuideDocuments(payload));
       } catch (error) {
         return [];
@@ -4656,6 +4668,7 @@
       if (!Array.isArray(guides) || !guides.length) return;
       try {
         window.localStorage?.setItem(EVENT_GUIDE_CACHE_STORAGE_KEY, JSON.stringify({
+          cacheVersion: STATIC_CACHE_VERSION,
           updatedAt: new Date().toISOString(),
           eventGuides: guides
         }));
@@ -4684,42 +4697,40 @@
       }
     }
 
-    async function fetchEventGuideApiDocuments() {
+    async function fetchEventGuideApiResult() {
       try {
         const payload = await fetchPortalPayload(EVENT_GUIDE_API_URL);
-        return getUsableEventGuideDocuments(getPayloadEventGuideDocuments(payload));
+        return {
+          ok: Boolean(payload?.ok !== false),
+          guides: getUsableEventGuideDocuments(getPayloadEventGuideDocuments(payload)),
+          payload
+        };
       } catch (error) {
         console.warn("Event guide API unavailable:", error);
-        return [];
+        return { ok: false, guides: [], payload: null, error };
       }
     }
 
+    async function fetchEventGuideApiDocuments() {
+      return (await fetchEventGuideApiResult()).guides;
+    }
+
     async function hydrateEventGuideDocuments(payload) {
-      const apiGuides = await fetchEventGuideApiDocuments();
+      const apiResult = await fetchEventGuideApiResult();
+      const apiGuides = apiResult.guides;
       const payloadGuides = getUsableEventGuideDocuments(getPayloadEventGuideDocuments(payload));
-      const staticGuides = await fetchStaticEventGuideDocuments();
-      const authoritativeGuides = mergeEventGuideDocuments(
-        apiGuides,
-        payloadGuides,
-        staticGuides,
-        defaultEventGuideDocuments
-      );
-      eventGuideDocuments = authoritativeGuides.length
-        ? authoritativeGuides
-        : mergeEventGuideDocuments(readStoredEventGuideDocuments(), defaultEventGuideDocuments);
+      const storedGuides = readStoredEventGuideDocuments();
+      const sourceGuides = apiResult.ok
+        ? apiGuides
+        : (payloadGuides.length
+            ? payloadGuides
+            : (storedGuides.length ? storedGuides : defaultEventGuideDocuments));
+      eventGuideDocuments = mergeEventGuideDocuments(sourceGuides);
       if (eventGuideDocuments.length) storeEventGuideDocuments(eventGuideDocuments);
     }
 
     async function getFastSchedulePayload() {
-      const staticPayload = await fetchStaticSchedulePayload();
       const stored = readStoredSchedulePayload();
-      if (staticPayload?.schedules && stored?.schedules) {
-        return mergeSchedulePayloadWithBaseline(stored, staticPayload);
-      }
-      if (staticPayload?.schedules) {
-        storeSchedulePayload(staticPayload);
-        return staticPayload;
-      }
       if (stored?.schedules) return stored;
       return null;
     }
@@ -5125,7 +5136,7 @@
         if (cachedPayload) setScheduleStatus("Schedule cache loaded");
 
         const livePayload = await fetchSchedulePayload(apiUrl);
-        const payload = mergeSchedulePayloadWithBaseline(livePayload, cachedPayload);
+        const payload = livePayload;
         if (!payload?.schedules) throw new Error("schedule payload is empty");
         storeSchedulePayload(payload);
         await applySchedulePayload(payload);
@@ -5136,9 +5147,6 @@
           : "Latest schedule data applied";
         setScheduleStatus(`Schedule loaded: ${suffix}`);
         if (payload?.updatedAt) addScheduleLog(`Schedule loaded: ${suffix}`);
-        if (Array.isArray(payload.guardedScheduleKeys) && payload.guardedScheduleKeys.length) {
-          addScheduleLog(`Partial live schedule skipped: ${payload.guardedScheduleKeys.join(", ")}`);
-        }
       } catch (error) {
         console.error(error);
         if (!displayedFallbackSchedule) cachedPayload = await showFallbackSchedule();
@@ -6870,7 +6878,7 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
 
     function renderBoardPosts(posts = boardPostsCache) {
       if (!boardFeed) return;
-      const visiblePosts = (posts.length ? posts : getStoredBoardPosts()).map(normalizeBoardPost);
+      const visiblePosts = posts.map(normalizeBoardPost);
       const emptyRows = `
         <div class="board-row">
           <div class="board-meta"><strong>重要事項共有専用</strong><span>投稿待ち</span></div>
@@ -6901,7 +6909,9 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
         boardPostsCache = payload.posts.map(normalizeBoardPost);
         renderBoardPosts(boardPostsCache);
       } catch (error) {
-        renderBoardPosts(getStoredBoardPosts());
+        console.warn("Shared board API unavailable:", error);
+        boardPostsCache = [];
+        renderBoardPosts([]);
       }
     }
 
@@ -6963,19 +6973,7 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
           }
           await loadSharedBoardPosts();
         } catch (sharedError) {
-          if (isEditing) {
-            await saveLocalBoardEdit(editingBoardPostId, message);
-          } else {
-            const posts = getStoredBoardPosts().map(normalizeBoardPost);
-            posts.unshift({
-              id: createLocalBoardPostId(),
-              name: currentMember?.name || "ポータル利用者",
-              message,
-              createdAt: new Date().toLocaleString("ja-JP", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" })
-            });
-            saveStoredBoardPosts(posts);
-            renderBoardPosts(posts);
-          }
+          throw sharedError;
         }
         boardMessage.value = "";
         updateBoardEditState("");

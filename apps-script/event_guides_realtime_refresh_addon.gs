@@ -188,8 +188,20 @@ function onEventGuideFormSubmit(e) {
 }
 
 function buildPortalEventGuidesSafe_() {
+  var guideLibrary = buildPortalEventGuideLibrary_();
+  var scheduledGuides = buildPortalEventGuidesFromSchedule_(guideLibrary);
+  if (scheduledGuides.length) {
+    return scheduledGuides.sort(function(a, b) {
+      return (a.month - b.month) || (a.day - b.day) || String(a.title).localeCompare(String(b.title), 'ja') || String(a.timeRange).localeCompare(String(b.timeRange), 'ja');
+    });
+  }
+  return dedupePortalEventGuides_(guideLibrary.rawGuides)
+    .sort(function(a, b) { return getPortalGuideUpdatedTime_(b) - getPortalGuideUpdatedTime_(a); });
+}
+
+function buildPortalEventGuideLibrary_() {
   var ss = getPortalEventGuideSpreadsheet_();
-  var guides = [];
+  var rawGuides = [];
   getPortalEventGuideCandidateSheets_(ss).forEach(function(sheet) {
     var values = sheet.getDataRange().getValues();
     if (values.length < 2) return;
@@ -200,11 +212,199 @@ function buildPortalEventGuidesSafe_() {
         if (header) raw[header] = values[r][c];
       });
       var guide = normalizePortalEventGuideRecord_(raw, sheet.getName(), values[r], headers);
-      if (isUsablePortalEventGuide_(guide)) guides.push(guide);
+      if (isUsablePortalEventGuide_(guide)) rawGuides.push(guide);
     }
   });
-  return dedupePortalEventGuides_(guides)
-    .sort(function(a, b) { return getPortalGuideUpdatedTime_(b) - getPortalGuideUpdatedTime_(a); });
+  var guides = dedupePortalEventGuides_(rawGuides);
+  var byExact = {};
+  var byVenueGeneric = {};
+  var byTypeOnly = {};
+  var byGeneric = [];
+  guides.forEach(function(guide) {
+    var identity = getPortalGuideIdentity_(guide);
+    guide.guideVenueKey = identity.venueKey;
+    guide.guideTypeKey = identity.typeKey;
+    guide.guideIdentityKey = identity.key;
+    if (identity.venueKey && identity.typeKey !== 'generic') setLatestPortalGuide_(byExact, identity.venueKey + '|' + identity.typeKey, guide);
+    if (identity.venueKey && identity.typeKey === 'generic') setLatestPortalGuide_(byVenueGeneric, identity.venueKey, guide);
+    if (!identity.venueKey && identity.typeKey !== 'generic') setLatestPortalGuide_(byTypeOnly, identity.typeKey, guide);
+    if (!identity.venueKey && identity.typeKey === 'generic') byGeneric.push(guide);
+  });
+  byGeneric.sort(function(a, b) { return getPortalGuideUpdatedTime_(b) - getPortalGuideUpdatedTime_(a); });
+  return {
+    rawGuides: rawGuides,
+    guides: guides,
+    byExact: byExact,
+    byVenueGeneric: byVenueGeneric,
+    byTypeOnly: byTypeOnly,
+    byGeneric: byGeneric
+  };
+}
+
+function setLatestPortalGuide_(map, key, guide) {
+  if (!key) return;
+  if (!map[key] || getPortalGuideUpdatedTime_(guide) >= getPortalGuideUpdatedTime_(map[key])) {
+    map[key] = guide;
+  }
+}
+
+function buildPortalEventGuidesFromSchedule_(library) {
+  var sheet = getPortalFormattedScheduleSheetForGuides_();
+  if (!sheet) return [];
+  var values = sheet.getDataRange().getValues();
+  var guides = [];
+  var seen = {};
+  for (var i = 1; i < values.length; i += 1) {
+    var row = values[i];
+    var date = row[3] instanceof Date ? row[3] : new Date(row[3]);
+    if (isNaN(date.getTime())) continue;
+    var category = typeof scheduleTypeKey_ === 'function' ? scheduleTypeKey_(row) : 'wonder';
+    if (category !== 'wonder') continue;
+
+    var place = String(row[4] || '').trim();
+    var eventName = String(row[5] || '').trim();
+    var raw = String(row[9] || '').trim();
+    var scheduleTime = typeof portalFormatScheduleTime_ === 'function'
+      ? portalFormatScheduleTime_(row[6])
+      : String(row[6] || '').trim();
+    var displayTime = typeof portalDisplayTimeRangeFinal_ === 'function'
+      ? portalDisplayTimeRangeFinal_(scheduleTime, raw)
+      : scheduleTime;
+    var timeParts = splitPortalTimeRange_(displayTime);
+    var title = typeof portalScheduleTitle_ === 'function'
+      ? portalScheduleTitle_(place, eventName)
+      : [place, eventName].filter(Boolean).join(' ');
+    var contextText = [place, eventName, title, raw].join(' ');
+    var identity = getPortalGuideIdentity_({ title: title, body: contextText, category: 'wonder' });
+    var matchedGuide = findPortalGuideForSchedule_(library, identity);
+    var fallbackBody = '\u3053\u306e\u30a4\u30d9\u30f3\u30c8\u306b\u7d10\u3065\u304f\u6848\u5185\u6587\u7ae0\u306f\u307e\u3060\u8aad\u307f\u8fbc\u307e\u308c\u3066\u3044\u307e\u305b\u3093\u3002';
+    var body = matchedGuide ? String(matchedGuide.body || matchedGuide.text || '').trim() : fallbackBody;
+    body = syncPortalGuideBodyWithSchedule_(body, title, date.getMonth() + 1, date.getDate(), displayTime);
+    var attachmentUrls = matchedGuide ? (matchedGuide.attachmentUrls || '') : '';
+    var materialUrl = matchedGuide ? (matchedGuide.materialUrl || '') : '';
+    var key = [date.getMonth() + 1, date.getDate(), title, displayTime].join('|');
+    if (seen[key]) continue;
+    seen[key] = true;
+    guides.push({
+      title: title,
+      eventName: title,
+      name: title,
+      month: date.getMonth() + 1,
+      day: date.getDate(),
+      eventMonth: date.getMonth() + 1,
+      eventDay: date.getDate(),
+      eventDate: (date.getMonth() + 1) + '\u6708' + date.getDate() + '\u65e5',
+      startTime: timeParts.start,
+      endTime: timeParts.end,
+      timeRange: displayTime,
+      startEndTime: displayTime,
+      eventTime: displayTime,
+      dateTime: buildPortalEventGuideDateTime_(date.getMonth() + 1, date.getDate(), displayTime, ''),
+      eventDateTime: buildPortalEventGuideDateTime_(date.getMonth() + 1, date.getDate(), displayTime, ''),
+      body: body,
+      text: body,
+      materialUrl: materialUrl,
+      attachmentUrls: attachmentUrls,
+      attachments: matchedGuide ? (matchedGuide.attachments || makePortalGuideAttachmentList_(attachmentUrls || materialUrl)) : [],
+      files: matchedGuide ? (matchedGuide.files || matchedGuide.attachments || makePortalGuideAttachmentList_(attachmentUrls || materialUrl)) : [],
+      category: 'wonder',
+      createdAt: matchedGuide ? matchedGuide.createdAt : '',
+      updatedAt: matchedGuide ? matchedGuide.updatedAt : '',
+      source: matchedGuide ? matchedGuide.source : 'schedule-without-guide',
+      guideMatched: !!matchedGuide,
+      guideIdentityKey: identity.key
+    });
+  }
+  return guides;
+}
+
+function getPortalFormattedScheduleSheetForGuides_() {
+  try {
+    var ss = typeof getPortalScheduleSpreadsheetFull_ === 'function'
+      ? getPortalScheduleSpreadsheetFull_()
+      : SpreadsheetApp.openById(PropertiesService.getScriptProperties().getProperty('SCHEDULE_SPREADSHEET_ID'));
+    return ss.getSheetByName('\u6574\u5f62\u6e08\u307f') || ss.getSheetByName('\u6574\u5f62');
+  } catch (error) {
+    Logger.log('event guide schedule sheet skipped: ' + error.message);
+    return null;
+  }
+}
+
+function findPortalGuideForSchedule_(library, identity) {
+  if (!library || !identity) return null;
+  var exactKey = identity.venueKey + '|' + identity.typeKey;
+  if (identity.venueKey && identity.typeKey !== 'generic' && library.byExact[exactKey]) return library.byExact[exactKey];
+  if (identity.venueKey && library.byVenueGeneric[identity.venueKey]) return library.byVenueGeneric[identity.venueKey];
+  if (identity.typeKey !== 'generic' && library.byTypeOnly[identity.typeKey]) return library.byTypeOnly[identity.typeKey];
+  return null;
+}
+
+function getPortalGuideIdentity_(guide) {
+  var text = [
+    guide && (guide.title || guide.eventName || guide.name || ''),
+    guide && (guide.body || guide.text || ''),
+    guide && (guide.materialUrl || ''),
+    guide && (guide.attachmentUrls || '')
+  ].join(' ');
+  var category = normalizePortalEventGuideCategory_(guide && guide.category || text || 'wonder');
+  var venueKey = normalizePortalVenueKey_(text);
+  var typeKey = normalizePortalGuideTypeKey_(text);
+  return {
+    category: category,
+    venueKey: venueKey,
+    typeKey: typeKey,
+    key: [category, venueKey || 'anywhere', typeKey || 'generic'].join('|')
+  };
+}
+
+function normalizePortalGuideTypeKey_(value) {
+  var key = normalizePortalTextKey_(value);
+  if (/realestate|\u4e0d\u52d5\u7523/.test(key)) return 'realestate';
+  if (/alliance/.test(key)) return 'alliance';
+  if (/entertainment/.test(key)) return 'entertainment';
+  if (/leaders|leader/.test(key)) return 'leaders';
+  if (/ladies|lady/.test(key)) return 'ladies';
+  if (/story/.test(key)) return 'story';
+  if (/gravity/.test(key)) return 'gravity';
+  if (/beauty/.test(key)) return 'beauty';
+  if (/finance/.test(key)) return 'finance';
+  if (/cxo/.test(key)) return 'cxo';
+  if (/night/.test(key)) return 'night';
+  if (/(?:^|[^0-9])100(?:[^0-9]|$)|100\u4eba/.test(key)) return '100';
+  return 'generic';
+}
+
+function splitPortalTimeRange_(value) {
+  var text = String(value || '').replace(/[\u301c\uff5e\uff0d\u2014\u2015]/g, '-');
+  var match = text.match(/(\d{1,2}:\d{2})\s*-\s*(\d{1,2}:\d{2})/);
+  if (match) return { start: match[1], end: match[2] };
+  var single = text.match(/(\d{1,2}:\d{2})/);
+  return { start: single ? single[1] : '', end: '' };
+}
+
+function syncPortalGuideBodyWithSchedule_(body, title, month, day, timeRange) {
+  var text = stripPortalEventGuideMaterialFooter_(body || '');
+  var dateText = month && day ? month + '\u6708' + day + '\u65e5 ' + timeRange : timeRange;
+  if (dateText) {
+    if (/\u3010\u958b\u50ac\u65e5\u6642\u3011/.test(text)) {
+      text = text.replace(/\u3010\u958b\u50ac\u65e5\u6642\u3011\s*[^\n]*/g, '\u3010\u958b\u50ac\u65e5\u6642\u3011 ' + dateText);
+    }
+    var parts = splitPortalTimeRange_(timeRange);
+    if (parts.start && parts.end) {
+      var open = subtractPortalMinutes_(parts.start, 15);
+      var line = open + ' \u30aa\u30fc\u30d7\u30f3 | ' + parts.start + ' \u30b9\u30bf\u30fc\u30c8 | ' + parts.end + ' \u30af\u30ed\u30fc\u30ba';
+      text = text.replace(/\d{1,2}:\d{2}\s*\u30aa\u30fc\u30d7\u30f3\s*[|\uff5c]\s*\d{1,2}:\d{2}\s*\u30b9\u30bf\u30fc\u30c8\s*[|\uff5c]\s*\d{1,2}:\d{2}\s*\u30af\u30ed\u30fc\u30ba/g, line);
+    }
+  }
+  return text;
+}
+
+function subtractPortalMinutes_(time, minutes) {
+  var match = String(time || '').match(/^(\d{1,2}):(\d{2})$/);
+  if (!match) return time;
+  var date = new Date(2000, 0, 1, Number(match[1]), Number(match[2]));
+  date.setMinutes(date.getMinutes() - Number(minutes || 0));
+  return Utilities.formatDate(date, 'Asia/Tokyo', 'H:mm');
 }
 
 function buildPortalEventGuidesRealtimeFallback_() {
@@ -216,7 +416,7 @@ function buildPortalEventGuidesPayload_() {
   return {
     ok: true,
     updatedAt: new Date().toISOString(),
-    source: 'event-guide-response-sheet',
+    source: 'schedule-joined-event-guides',
     sourceSpreadsheetId: PORTAL_EVENT_GUIDE_PRIMARY_SPREADSHEET_ID,
     count: Array.isArray(guides) ? guides.length : 0,
     eventGuides: guides
@@ -444,11 +644,10 @@ function normalizePortalEventGuideRecord_(record, source, rowValues, headers) {
   var startTime = normalizePortalEventGuideTime_(pickPortalRawValueStrict_(record, PORTAL_EVENT_GUIDE_START_TIME_KEYS));
   var endTime = normalizePortalEventGuideTime_(pickPortalRawValueStrict_(record, PORTAL_EVENT_GUIDE_END_TIME_KEYS));
   var dateFromValue = parsePortalEventGuideMonthDayFromValue_(eventDateRaw);
-  var dateFromBody = parsePortalEventGuideMonthDay_((eventDate || '') + '\n' + title + '\n' + body);
   var explicitMonth = parsePortalEventGuideMonth_(pickPortalAnswerStrict_(record, PORTAL_EVENT_GUIDE_MONTH_KEYS));
   var explicitDay = parsePortalEventGuideDay_(pickPortalAnswerStrict_(record, PORTAL_EVENT_GUIDE_DAY_KEYS));
-  var month = dateFromValue.month || dateFromBody.month || explicitMonth || 0;
-  var day = dateFromValue.day || dateFromBody.day || explicitDay || 0;
+  var month = explicitMonth || dateFromValue.month || 0;
+  var day = explicitDay || dateFromValue.day || 0;
   var category = normalizePortalEventGuideCategory_(pickPortalAnswerStrict_(record, PORTAL_EVENT_GUIDE_CATEGORY_KEYS) || pickPortalAnswer_(record, PORTAL_EVENT_GUIDE_CATEGORY_KEYS) || title || body || 'wonder');
   var updatedAt = pickPortalAnswerStrict_(record, ['UpdatedAt', 'updatedAt', '\u66f4\u65b0\u65e5\u6642', '\u30bf\u30a4\u30e0\u30b9\u30bf\u30f3\u30d7', 'Timestamp']) ||
     pickPortalAnswerStrict_(record, ['CreatedAt', 'createdAt', '\u767b\u9332\u65e5\u6642', '\u9001\u4fe1\u65e5\u6642']);
@@ -498,13 +697,10 @@ function isUsablePortalEventGuide_(guide) {
 function dedupePortalEventGuides_(guides) {
   var map = {};
   guides.forEach(function(guide) {
-    var key = [
-      guide.month || 0,
-      guide.day || 0,
-      normalizePortalTextKey_(guide.title || guide.eventName || ''),
-      normalizePortalVenueKey_((guide.title || '') + '\n' + (guide.body || guide.text || ''))
-    ].join('|');
-    if (!key.replace(/[|0]/g, '')) return;
+    var identity = getPortalGuideIdentity_(guide);
+    var key = identity.key;
+    if (!key || key === 'wonder|anywhere|generic') key = 'fallback|' + normalizePortalTextKey_(guide.title || guide.eventName || guide.body || '');
+    if (!key.replace(/[|]/g, '')) return;
     if (!map[key] || getPortalGuideUpdatedTime_(guide) >= getPortalGuideUpdatedTime_(map[key])) {
       map[key] = guide;
     }
@@ -593,12 +789,12 @@ function normalizePortalVenueKey_(value) {
     ['shinjuku', '\u65b0\u5bbf'],
     ['nagoya', '\u540d\u53e4\u5c4b'],
     ['sendai', '\u4ed9\u53f0'],
-    ['fukushima', '\u798f\u5cf6'],
+    ['fukushima', '\u798f\u5cf6', 'fukushim'],
     ['koriyama', '\u90e1\u5c71'],
     ['kanazawa', '\u91d1\u6ca2'],
     ['sapporo', '\u672d\u5e4c'],
-    ['fukuoka', '\u798f\u5ca1'],
-    ['kitakyushu', '\u5317\u4e5d\u5dde'],
+    ['fukuoka', '\u798f\u5ca1', 'hakata', '\u535a\u591a'],
+    ['kitakyushu', '\u5317\u4e5d\u5dde', 'kitakyusyu'],
     ['kokura', '\u5c0f\u5009'],
     ['kumamoto', '\u718a\u672c'],
     ['niigata', '\u65b0\u6f5f'],
@@ -611,7 +807,7 @@ function normalizePortalVenueKey_(value) {
     ['kyoto', '\u4eac\u90fd'],
     ['takasaki', '\u9ad8\u5d0e'],
     ['maebashi', '\u524d\u6a4b'],
-    ['utsunomiya', '\u5b87\u90fd\u5bae'],
+    ['utsunomiya', '\u5b87\u90fd\u5bae', 'utunomiya'],
     ['machida', '\u753a\u7530'],
     ['shizuoka', '\u9759\u5ca1'],
     ['hamamatsu', '\u6d5c\u677e'],
@@ -620,8 +816,10 @@ function normalizePortalVenueKey_(value) {
     ['kofu', '\u7532\u5e9c']
   ];
   for (var i = 0; i < venues.length; i += 1) {
-    if (key.indexOf(venues[i][0]) !== -1 || key.indexOf(normalizePortalTextKey_(venues[i][1])) !== -1) {
-      return venues[i][0];
+    for (var j = 0; j < venues[i].length; j += 1) {
+      if (key.indexOf(normalizePortalTextKey_(venues[i][j])) !== -1) {
+        return venues[i][0];
+      }
     }
   }
   return '';

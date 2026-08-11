@@ -3610,7 +3610,7 @@
     const SCHEDULE_YEAR = 2026;
     const SCHEDULE_API_URL = "https://script.google.com/macros/s/AKfycbzRcXK2X1KtB0DuUPsk25g-ONb6zK8x0R4gby9c-R73MXeQB14cgqzuJrj9GejSR8I2nw/exec?action=schedule";
     const EVENT_GUIDE_API_URL = makePortalActionUrl(SCHEDULE_API_URL, "eventGuides");
-    const STATIC_CACHE_VERSION = "20260812-3";
+    const STATIC_CACHE_VERSION = "20260812-4";
     const SCHEDULE_CACHE_URL = `schedule-cache.json?v=${STATIC_CACHE_VERSION}`;
     const EVENT_GUIDE_CACHE_URL = `event-guide-cache.json?v=${STATIC_CACHE_VERSION}`;
     const SCHEDULE_CACHE_STORAGE_KEY = "wonderPlusPortal.schedulePayload.v2";
@@ -4700,6 +4700,10 @@
     async function fetchEventGuideApiResult() {
       try {
         const payload = await fetchPortalPayload(EVENT_GUIDE_API_URL);
+        if (payload?.source !== "schedule-joined-event-guides") {
+          console.warn("Ignoring legacy event guide payload source:", payload?.source || "unknown");
+          return { ok: false, guides: [], payload, legacySource: payload?.source || "" };
+        }
         return {
           ok: Boolean(payload?.ok !== false),
           guides: getUsableEventGuideDocuments(getPayloadEventGuideDocuments(payload)),

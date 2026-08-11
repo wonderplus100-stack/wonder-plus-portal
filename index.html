@@ -3610,7 +3610,7 @@
     const SCHEDULE_YEAR = 2026;
     const SCHEDULE_API_URL = "https://script.google.com/macros/s/AKfycbzRcXK2X1KtB0DuUPsk25g-ONb6zK8x0R4gby9c-R73MXeQB14cgqzuJrj9GejSR8I2nw/exec?action=schedule";
     const EVENT_GUIDE_API_URL = makePortalActionUrl(SCHEDULE_API_URL, "eventGuides");
-    const STATIC_CACHE_VERSION = "20260812-4";
+    const STATIC_CACHE_VERSION = "20260812-5";
     const SCHEDULE_CACHE_URL = `schedule-cache.json?v=${STATIC_CACHE_VERSION}`;
     const EVENT_GUIDE_CACHE_URL = `event-guide-cache.json?v=${STATIC_CACHE_VERSION}`;
     const SCHEDULE_CACHE_STORAGE_KEY = "wonderPlusPortal.schedulePayload.v2";
@@ -4722,15 +4722,12 @@
     async function hydrateEventGuideDocuments(payload) {
       const apiResult = await fetchEventGuideApiResult();
       const apiGuides = apiResult.guides;
-      const payloadGuides = getUsableEventGuideDocuments(getPayloadEventGuideDocuments(payload));
-      const storedGuides = readStoredEventGuideDocuments();
-      const sourceGuides = apiResult.ok
-        ? apiGuides
-        : (payloadGuides.length
-            ? payloadGuides
-            : (storedGuides.length ? storedGuides : defaultEventGuideDocuments));
-      eventGuideDocuments = mergeEventGuideDocuments(sourceGuides);
-      if (eventGuideDocuments.length) storeEventGuideDocuments(eventGuideDocuments);
+      if (apiResult.ok) {
+        eventGuideDocuments = mergeEventGuideDocuments(apiGuides);
+        if (eventGuideDocuments.length) storeEventGuideDocuments(eventGuideDocuments);
+        return;
+      }
+      eventGuideDocuments = mergeEventGuideDocuments(defaultEventGuideDocuments);
     }
 
     async function getFastSchedulePayload() {

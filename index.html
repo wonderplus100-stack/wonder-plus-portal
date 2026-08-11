@@ -3610,7 +3610,7 @@
     const SCHEDULE_YEAR = 2026;
     const SCHEDULE_API_URL = "https://script.google.com/macros/s/AKfycbzRcXK2X1KtB0DuUPsk25g-ONb6zK8x0R4gby9c-R73MXeQB14cgqzuJrj9GejSR8I2nw/exec?action=schedule";
     const EVENT_GUIDE_API_URL = makePortalActionUrl(SCHEDULE_API_URL, "eventGuides");
-    const STATIC_CACHE_VERSION = "20260812-5";
+    const STATIC_CACHE_VERSION = "20260812-6";
     const SCHEDULE_CACHE_URL = `schedule-cache.json?v=${STATIC_CACHE_VERSION}`;
     const EVENT_GUIDE_CACHE_URL = `event-guide-cache.json?v=${STATIC_CACHE_VERSION}`;
     const SCHEDULE_CACHE_STORAGE_KEY = "wonderPlusPortal.schedulePayload.v2";
@@ -4598,6 +4598,14 @@
       }
     }
 
+    function clearStoredSchedulePayload() {
+      try {
+        window.localStorage?.removeItem(SCHEDULE_CACHE_STORAGE_KEY);
+      } catch (error) {
+        // localStorage may be disabled inside some embedded views.
+      }
+    }
+
     function getPayloadEventGuideDocuments(payload) {
       return Array.isArray(payload?.eventGuides)
         ? payload.eventGuides
@@ -4677,6 +4685,14 @@
       }
     }
 
+    function clearStoredEventGuideDocuments() {
+      try {
+        window.localStorage?.removeItem(EVENT_GUIDE_CACHE_STORAGE_KEY);
+      } catch (error) {
+        // localStorage may be disabled inside some embedded views.
+      }
+    }
+
     async function fetchStaticSchedulePayload() {
       try {
         const response = await fetch(SCHEDULE_CACHE_URL, { cache: "no-store" });
@@ -4727,7 +4743,8 @@
         if (eventGuideDocuments.length) storeEventGuideDocuments(eventGuideDocuments);
         return;
       }
-      eventGuideDocuments = mergeEventGuideDocuments(defaultEventGuideDocuments);
+      clearStoredEventGuideDocuments();
+      eventGuideDocuments = [];
     }
 
     async function getFastSchedulePayload() {
@@ -5115,12 +5132,10 @@
       renderScheduleLogs();
       renderSchedule(activeScheduleKey);
 
-      let displayedFallbackSchedule = false;
       const showFallbackSchedule = async () => {
         const fallbackPayload = await getFastSchedulePayload();
         if (!fallbackPayload?.schedules) return null;
         await applySchedulePayload(fallbackPayload);
-        displayedFallbackSchedule = true;
         return fallbackPayload;
       };
 
@@ -5130,14 +5145,11 @@
         return;
       }
 
-      let cachedPayload = null;
       try {
         setScheduleStatus("Schedule loading");
-        cachedPayload = await showFallbackSchedule();
-        if (cachedPayload) setScheduleStatus("Schedule cache loaded");
-
         const livePayload = await fetchSchedulePayload(apiUrl);
         const payload = livePayload;
+        if (payload?.ok === false) throw new Error(payload.message || "schedule API returned an error");
         if (!payload?.schedules) throw new Error("schedule payload is empty");
         storeSchedulePayload(payload);
         await applySchedulePayload(payload);
@@ -5150,14 +5162,15 @@
         if (payload?.updatedAt) addScheduleLog(`Schedule loaded: ${suffix}`);
       } catch (error) {
         console.error(error);
-        if (!displayedFallbackSchedule) cachedPayload = await showFallbackSchedule();
-        if (displayedFallbackSchedule || cachedPayload) {
-          setScheduleStatus("Schedule cache loaded. Live refresh failed.");
-          return;
-        }
+        clearStoredSchedulePayload();
         schedules = structuredClone(emptySchedules);
+        updateScheduleTabVisibility();
         renderSchedule(activeScheduleKey);
-        setScheduleStatus("Schedule load failed. Please reload later.");
+        renderMemberMonthTabs();
+        renderMemberScheduleList();
+        renderArchiveSchedule();
+        renderEventGuidePicker();
+        setScheduleStatus("Schedule load failed. Live API did not return current data.");
       }
     }
 

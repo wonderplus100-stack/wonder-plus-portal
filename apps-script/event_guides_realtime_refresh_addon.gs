@@ -188,15 +188,13 @@ function onEventGuideFormSubmit(e) {
 }
 
 function buildPortalEventGuidesSafe_() {
+  var scheduleSheet = getPortalFormattedScheduleSheetForGuides_();
+  if (!scheduleSheet) return [];
   var guideLibrary = buildPortalEventGuideLibrary_();
   var scheduledGuides = buildPortalEventGuidesFromSchedule_(guideLibrary);
-  if (scheduledGuides.length) {
-    return scheduledGuides.sort(function(a, b) {
-      return (a.month - b.month) || (a.day - b.day) || String(a.title).localeCompare(String(b.title), 'ja') || String(a.timeRange).localeCompare(String(b.timeRange), 'ja');
-    });
-  }
-  return dedupePortalEventGuides_(guideLibrary.rawGuides)
-    .sort(function(a, b) { return getPortalGuideUpdatedTime_(b) - getPortalGuideUpdatedTime_(a); });
+  return scheduledGuides.sort(function(a, b) {
+    return (a.month - b.month) || (a.day - b.day) || String(a.title).localeCompare(String(b.title), 'ja') || String(a.timeRange).localeCompare(String(b.timeRange), 'ja');
+  });
 }
 
 function buildPortalEventGuideLibrary_() {
@@ -412,6 +410,18 @@ function buildPortalEventGuidesRealtimeFallback_() {
 }
 
 function buildPortalEventGuidesPayload_() {
+  var scheduleSheet = getPortalFormattedScheduleSheetForGuides_();
+  if (!scheduleSheet) {
+    return {
+      ok: false,
+      updatedAt: new Date().toISOString(),
+      source: 'schedule-joined-event-guides',
+      sourceSpreadsheetId: PORTAL_EVENT_GUIDE_PRIMARY_SPREADSHEET_ID,
+      message: 'Schedule spreadsheet is not connected. Set SCHEDULE_SPREADSHEET_ID.',
+      count: 0,
+      eventGuides: []
+    };
+  }
   var guides = buildPortalEventGuidesSafe_();
   return {
     ok: true,

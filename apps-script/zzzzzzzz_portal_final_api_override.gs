@@ -72,44 +72,17 @@ function ensurePortalFormattedScheduleReadyFinal_(options) {
 }
 
 function buildPortalSchedulePayloadFinal_() {
-  var readiness = ensurePortalFormattedScheduleReadyFinal_();
+  var readiness = ensurePortalFormattedScheduleReadyFinal_({ skipRefresh: true });
   var payload = null;
-  var selectedSource = '';
   var buildWarnings = [];
-  var builders = [
-    {
-      name: 'formatted-schedule-sheet',
-      available: typeof buildPortalSchedulePayloadFromFormattedSheetFull_ === 'function',
-      run: function() { return buildPortalSchedulePayloadFromFormattedSheetFull_(); }
-    },
-    {
-      name: 'dynamic-schedule-sheet',
-      available: typeof buildPortalScheduleDataSafe_ === 'function',
-      run: function() { return buildPortalScheduleDataSafe_(); }
-    },
-    {
-      name: 'fast-cache-fallback',
-      available: typeof buildPortalSchedulePayloadFastFinal_ === 'function',
-      run: function() { return buildPortalSchedulePayloadFastFinal_(); }
-    }
-  ];
 
-  for (var i = 0; i < builders.length; i++) {
-    if (!builders[i].available) continue;
-    try {
-      var candidate = builders[i].run();
-      if (!payload && candidate) {
-        payload = candidate;
-        selectedSource = builders[i].name;
-      }
-      if (countPortalFinalScheduleItems_(candidate && candidate.schedules) > 0) {
-        payload = candidate;
-        selectedSource = builders[i].name;
-        break;
-      }
-    } catch (builderError) {
-      buildWarnings.push(builders[i].name + ': ' + String(builderError && builderError.message ? builderError.message : builderError));
+  try {
+    if (typeof buildPortalSchedulePayloadFromFormattedSheetFull_ !== 'function') {
+      throw new Error('formatted schedule sheet builder is not installed.');
     }
+    payload = buildPortalSchedulePayloadFromFormattedSheetFull_();
+  } catch (builderError) {
+    buildWarnings.push('formatted-schedule-sheet: ' + String(builderError && builderError.message ? builderError.message : builderError));
   }
 
   if (!payload) {
@@ -123,9 +96,10 @@ function buildPortalSchedulePayloadFinal_() {
 
   payload = payload || {};
   payload.ok = payload.ok !== false && readiness.ok;
-  payload.source = selectedSource || 'formatted-schedule-sheet';
+  payload.source = 'formatted-schedule-sheet';
   payload.masterSource = 'formatted-schedule-sheet';
   payload.scheduleReadiness = readiness;
+  payload.scheduleCounts = countPortalFinalScheduleGroups_(payload.schedules);
   if (buildWarnings.length) payload.buildWarnings = buildWarnings;
 
   // Event guides have their own endpoint. Keeping old guide rows in schedule
@@ -146,14 +120,37 @@ function countPortalFinalScheduleItems_(schedules) {
   var count = 0;
   if (!schedules || typeof schedules !== 'object') return 0;
   Object.keys(schedules).forEach(function(monthKey) {
-    var byType = schedules[monthKey];
-    if (!byType || typeof byType !== 'object') return;
-    Object.keys(byType).forEach(function(typeKey) {
-      var rows = byType[typeKey];
+    var group = schedules[monthKey];
+    if (!group || typeof group !== 'object') return;
+    if (Array.isArray(group.items)) {
+      count += group.items.length;
+      return;
+    }
+    Object.keys(group).forEach(function(typeKey) {
+      var rows = group[typeKey];
       if (Array.isArray(rows)) count += rows.length;
+      else if (rows && Array.isArray(rows.items)) count += rows.items.length;
     });
   });
   return count;
+}
+
+function countPortalFinalScheduleGroups_(schedules) {
+  var counts = {};
+  if (!schedules || typeof schedules !== 'object') return counts;
+  Object.keys(schedules).forEach(function(key) {
+    var group = schedules[key];
+    if (group && Array.isArray(group.items)) {
+      counts[key] = group.items.length;
+      return;
+    }
+    counts[key] = countPortalFinalScheduleItems_((function() {
+      var wrapper = {};
+      wrapper[key] = group;
+      return wrapper;
+    })());
+  });
+  return counts;
 }
 
 function buildPortalEventGuidesPayloadFinal_() {
@@ -375,6 +372,49 @@ function getPortalBoardSpreadsheet_() {
   var spreadsheets = getPortalBoardSpreadsheetCandidates_();
   if (spreadsheets.length) return spreadsheets[0];
   throw new Error('Portal spreadsheet was not found. Set BOARD_SPREADSHEET_ID or SCHEDULE_SPREADSHEET_ID.');
+}
+
+function getPortalBoardSheet_() {
+  var exactNames = [
+    '\u91cd\u8981\u4e8b\u9805\u5171\u6709\u5c02\u7528',
+    '\u91cd\u8981\u4e8b\u9805',
+    'ImportantNotices',
+    'BoardPosts'
+  ];
+  var spreadsheets = getPortalBoardSpreadsheetCandidates_();
+  if (!spreadsheets.length) throw new Error('Portal board spreadsheet was not found.');
+
+  for (var s = 0; s < spreadsheets.length; s += 1) {
+    var ss = spreadsheets[s];
+    for (var i = 0; i < exactNames.length; i += 1) {
+      var exact = ss.getSheetByName(exactNames[i]);
+      if (exact) {
+        ensurePortalBoardHeader_(exact);
+        return exact;
+      }
+    }
+  }
+
+  for (var x = 0; x < spreadsheets.length; x += 1) {
+    var sheets = spreadsheets[x].getSheets();
+    for (var y = 0; y < sheets.length; y += 1) {
+      var name = String(sheets[y].getName() || '');
+      var lower = name.toLowerCase();
+      if (
+        name.indexOf('\u91cd\u8981') >= 0 ||
+        name.indexOf('\u5171\u6709') >= 0 ||
+        lower.indexOf('notice') >= 0 ||
+        lower.indexOf('board') >= 0
+      ) {
+        ensurePortalBoardHeader_(sheets[y]);
+        return sheets[y];
+      }
+    }
+  }
+
+  var created = spreadsheets[0].insertSheet(exactNames[0]);
+  ensurePortalBoardHeader_(created);
+  return created;
 }
 
 var doGet = function(e) {

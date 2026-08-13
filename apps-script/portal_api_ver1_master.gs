@@ -336,38 +336,6 @@ function getPortalBoardSpreadsheetCandidates_() {
   return spreadsheets;
 }
 
-function getPortalBoardSheet_() {
-  var names = ['重要事項共有専用', '重要共有事項', 'ImportantNotices', 'BoardPosts'];
-  var spreadsheets = getPortalBoardSpreadsheetCandidates_();
-  for (var i = 0; i < spreadsheets.length; i += 1) {
-    for (var j = 0; j < names.length; j += 1) {
-      var sheet = spreadsheets[i].getSheetByName(names[j]);
-      if (sheet) {
-        ensurePortalBoardHeader_(sheet);
-        return sheet;
-      }
-    }
-  }
-
-  for (var s = 0; s < spreadsheets.length; s += 1) {
-    var sheets = spreadsheets[s].getSheets();
-    for (var k = 0; k < sheets.length; k += 1) {
-      var candidateSheet = sheets[k];
-      var name = String(candidateSheet.getName() || '');
-      var lower = name.toLowerCase();
-      if (name.indexOf('重要') >= 0 || lower.indexOf('notice') >= 0 || lower.indexOf('board') >= 0) {
-        ensurePortalBoardHeader_(candidateSheet);
-        return candidateSheet;
-      }
-    }
-  }
-
-  if (!spreadsheets.length) throw new Error('Portal spreadsheet was not found. Set BOARD_SPREADSHEET_ID or SCHEDULE_SPREADSHEET_ID.');
-  var newSheet = spreadsheets[0].insertSheet(names[0]);
-  ensurePortalBoardHeader_(newSheet);
-  return newSheet;
-}
-
 function getPortalBoardSpreadsheet_() {
   var spreadsheets = getPortalBoardSpreadsheetCandidates_();
   if (spreadsheets.length) return spreadsheets[0];

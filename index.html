@@ -3610,11 +3610,13 @@
     const SCHEDULE_YEAR = 2026;
     const SCHEDULE_API_URL = "https://script.google.com/macros/s/AKfycbzRcXK2X1KtB0DuUPsk25g-ONb6zK8x0R4gby9c-R73MXeQB14cgqzuJrj9GejSR8I2nw/exec?action=schedule";
     const EVENT_GUIDE_API_URL = makePortalActionUrl(SCHEDULE_API_URL, "eventGuides");
-    const STATIC_CACHE_VERSION = "20260812-6";
+    const STATIC_CACHE_VERSION = "20260814-1";
     const SCHEDULE_CACHE_URL = `schedule-cache.json?v=${STATIC_CACHE_VERSION}`;
     const EVENT_GUIDE_CACHE_URL = `event-guide-cache.json?v=${STATIC_CACHE_VERSION}`;
     const SCHEDULE_CACHE_STORAGE_KEY = "wonderPlusPortal.schedulePayload.v2";
     const EVENT_GUIDE_CACHE_STORAGE_KEY = "wonderPlusPortal.eventGuides.v7";
+    const REQUIRED_SCHEDULE_SOURCE = "formatted-schedule-sheet";
+    const REQUIRED_EVENT_GUIDE_SOURCE = "schedule-joined-event-guides";
     const MINUTES_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdoAHwVX8hkCmbXDf1wxtg-J4wVMnB7mm8SlYZ3OnuxuJvv_g/viewform?usp=header";
     const MATERIALS = {
       "exhibitor-guidelines": {
@@ -4486,7 +4488,43 @@
       if (payload?.ok === false) {
         throw new Error(payload.message || payload.error || "schedule api returned ok:false");
       }
+      if (!isCurrentSchedulePayload(payload)) {
+        throw new Error(`legacy schedule api payload ignored: ${payload?.source || payload?.error || "unknown"}`);
+      }
       return payload;
+    }
+
+    function isCurrentSchedulePayload(payload) {
+      if (!payload || typeof payload !== "object" || !payload.schedules) return false;
+      if (payload.ok === false) return false;
+      if (payload.source !== REQUIRED_SCHEDULE_SOURCE) return false;
+      if (Array.isArray(payload.eventGuides) && payload.eventGuides.length) return false;
+      const message = `${payload.error || ""} ${payload.message || ""}`;
+      if (/formatted schedule sheet not found|legacy|not found/i.test(message)) return false;
+      return true;
+    }
+
+    function isCurrentEventGuidePayload(payload) {
+      if (!payload || typeof payload !== "object" || payload.ok === false) return false;
+      if (payload.source !== REQUIRED_EVENT_GUIDE_SOURCE) return false;
+      const guides = getPayloadEventGuideDocuments(payload);
+      if (!Array.isArray(guides)) return false;
+      return guides.every((guide) => {
+        if (!guide || typeof guide !== "object") return false;
+        const month = Number(guide.month || guide.eventMonth);
+        const day = Number(guide.day || guide.eventDay);
+        const title = String(guide.title || guide.eventName || guide.name || "").trim();
+        return (
+          guide.source === REQUIRED_EVENT_GUIDE_SOURCE &&
+          Number.isInteger(month) &&
+          month >= 1 &&
+          month <= 12 &&
+          Number.isInteger(day) &&
+          day >= 1 &&
+          day <= 31 &&
+          Boolean(title)
+        );
+      });
     }
 
     function countSchedulePayloadItems(payload) {
@@ -4579,6 +4617,7 @@
         if (!raw) return null;
         const payload = JSON.parse(raw);
         if (payload?.cacheVersion !== STATIC_CACHE_VERSION) return null;
+        if (!isCurrentSchedulePayload(payload)) return null;
         return payload;
       } catch (error) {
         return null;
@@ -4586,7 +4625,7 @@
     }
 
     function storeSchedulePayload(payload) {
-      if (!payload?.schedules) return;
+      if (!isCurrentSchedulePayload(payload)) return;
       try {
         window.localStorage?.setItem(SCHEDULE_CACHE_STORAGE_KEY, JSON.stringify({
           ...payload,
@@ -4650,10 +4689,13 @@
       const attachments = getGuideAttachmentFiles(guide);
       const titleText = String(title || "").trim();
       if (/^(open|untitled|title)$/i.test(titleText)) return false;
-      if (isPlaceholderGuideBody(body)) return false;
+      const month = Number(guide.month || guide.eventMonth);
+      const day = Number(guide.day || guide.eventDay);
+      const isScheduleJoinedGuide = month >= 1 && month <= 12 && day >= 1 && day <= 31 && titleText && guide.source === REQUIRED_EVENT_GUIDE_SOURCE;
+      if (isPlaceholderGuideBody(body) && !isScheduleJoinedGuide) return false;
       const searchable = normalizeGuideMatchText([title, body, materialUrl].filter(Boolean).join(" "));
-      if (!searchable && !attachments.length) return false;
-      return true;
+      if (!searchable && !attachments.length && !isScheduleJoinedGuide) return false;
+      return isScheduleJoinedGuide || Boolean(searchable) || attachments.length > 0;
     }
 
     function getUsableEventGuideDocuments(guides) {
@@ -4678,6 +4720,7 @@
         window.localStorage?.setItem(EVENT_GUIDE_CACHE_STORAGE_KEY, JSON.stringify({
           cacheVersion: STATIC_CACHE_VERSION,
           updatedAt: new Date().toISOString(),
+          source: REQUIRED_EVENT_GUIDE_SOURCE,
           eventGuides: guides
         }));
       } catch (error) {
@@ -4697,7 +4740,8 @@
       try {
         const response = await fetch(SCHEDULE_CACHE_URL, { cache: "no-store" });
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        return await response.json();
+        const payload = await response.json();
+        return isCurrentSchedulePayload(payload) ? payload : null;
       } catch (error) {
         return null;
       }
@@ -4707,7 +4751,9 @@
       try {
         const response = await fetch(EVENT_GUIDE_CACHE_URL, { cache: "no-store" });
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        return getUsableEventGuideDocuments(getPayloadEventGuideDocuments(await response.json()));
+        const payload = await response.json();
+        if (!isCurrentEventGuidePayload(payload)) return [];
+        return getUsableEventGuideDocuments(getPayloadEventGuideDocuments(payload));
       } catch (error) {
         return [];
       }
@@ -4716,7 +4762,7 @@
     async function fetchEventGuideApiResult() {
       try {
         const payload = await fetchPortalPayload(EVENT_GUIDE_API_URL);
-        if (payload?.source !== "schedule-joined-event-guides") {
+        if (!isCurrentEventGuidePayload(payload)) {
           console.warn("Ignoring legacy event guide payload source:", payload?.source || "unknown");
           return { ok: false, guides: [], payload, legacySource: payload?.source || "" };
         }
@@ -4736,6 +4782,13 @@
     }
 
     async function hydrateEventGuideDocuments(payload) {
+      const staticGuides = await fetchStaticEventGuideDocuments();
+      if (staticGuides.length) {
+        eventGuideDocuments = mergeEventGuideDocuments(staticGuides);
+        storeEventGuideDocuments(eventGuideDocuments);
+        return;
+      }
+
       const apiResult = await fetchEventGuideApiResult();
       const apiGuides = apiResult.guides;
       if (apiResult.ok) {
@@ -4743,13 +4796,22 @@
         if (eventGuideDocuments.length) storeEventGuideDocuments(eventGuideDocuments);
         return;
       }
+
+      const storedGuides = readStoredEventGuideDocuments();
+      if (storedGuides.length) {
+        eventGuideDocuments = mergeEventGuideDocuments(storedGuides);
+        return;
+      }
+
       clearStoredEventGuideDocuments();
       eventGuideDocuments = [];
     }
 
     async function getFastSchedulePayload() {
       const stored = readStoredSchedulePayload();
-      if (stored?.schedules) return stored;
+      if (isCurrentSchedulePayload(stored)) return stored;
+      const staticPayload = await fetchStaticSchedulePayload();
+      if (isCurrentSchedulePayload(staticPayload)) return staticPayload;
       return null;
     }
 
@@ -5131,6 +5193,7 @@
       renderMemberMonthTabs();
       renderScheduleLogs();
       renderSchedule(activeScheduleKey);
+      let fallbackPayload = null;
 
       const showFallbackSchedule = async () => {
         const fallbackPayload = await getFastSchedulePayload();
@@ -5140,13 +5203,14 @@
       };
 
       if (!apiUrl) {
-        const fallbackPayload = await showFallbackSchedule();
+        fallbackPayload = await showFallbackSchedule();
         setScheduleStatus(fallbackPayload ? "Schedule cache loaded. Live API is not configured." : "Schedule API is not configured.");
         return;
       }
 
       try {
         setScheduleStatus("Schedule loading");
+        fallbackPayload = await showFallbackSchedule();
         const livePayload = await fetchSchedulePayload(apiUrl);
         const payload = livePayload;
         if (payload?.ok === false) throw new Error(payload.message || "schedule API returned an error");
@@ -5162,6 +5226,11 @@
         if (payload?.updatedAt) addScheduleLog(`Schedule loaded: ${suffix}`);
       } catch (error) {
         console.error(error);
+        fallbackPayload = fallbackPayload || await showFallbackSchedule();
+        if (fallbackPayload?.schedules) {
+          setScheduleStatus("Schedule cache loaded. Live API did not return current data.");
+          return;
+        }
         clearStoredSchedulePayload();
         schedules = structuredClone(emptySchedules);
         updateScheduleTabVisibility();
@@ -5170,7 +5239,7 @@
         renderMemberScheduleList();
         renderArchiveSchedule();
         renderEventGuidePicker();
-        setScheduleStatus("Schedule load failed. Live API did not return current data.");
+        setScheduleStatus("Schedule load failed. Current API data is not available.");
       }
     }
 
@@ -6874,6 +6943,32 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
       };
     }
 
+    function parseBoardPostTime(value = "") {
+      const text = String(value || "").trim();
+      if (!text) return 0;
+      const normalized = text.replace(/[年月]/g, "/").replace(/日/g, " ").replace(/\s+/g, " ");
+      const parsed = new Date(normalized);
+      if (Number.isFinite(parsed.getTime())) return parsed.getTime();
+      const currentYear = new Date().getFullYear();
+      const match = normalized.match(/(\d{1,2})\/(\d{1,2})(?:\s+(\d{1,2}):(\d{2}))?/);
+      if (!match) return 0;
+      return new Date(
+        currentYear,
+        Number(match[1]) - 1,
+        Number(match[2]),
+        Number(match[3] || 0),
+        Number(match[4] || 0)
+      ).getTime();
+    }
+
+    function sortBoardPosts(posts = []) {
+      return posts.slice().sort((a, b) => {
+        const timeA = Math.max(parseBoardPostTime(a.updatedAt), parseBoardPostTime(a.createdAt));
+        const timeB = Math.max(parseBoardPostTime(b.updatedAt), parseBoardPostTime(b.createdAt));
+        return timeB - timeA;
+      });
+    }
+
     function updateBoardEditState(postId = "") {
       editingBoardPostId = postId;
       const isEditing = Boolean(postId);
@@ -6892,7 +6987,7 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
 
     function renderBoardPosts(posts = boardPostsCache) {
       if (!boardFeed) return;
-      const visiblePosts = posts.map(normalizeBoardPost);
+      const visiblePosts = sortBoardPosts(posts.map(normalizeBoardPost));
       const emptyRows = `
         <div class="board-row">
           <div class="board-meta"><strong>重要事項共有専用</strong><span>投稿待ち</span></div>
@@ -6920,7 +7015,7 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
       try {
         const payload = await callPortalAction("boardPosts");
         if (!payload?.ok || !Array.isArray(payload.posts)) throw new Error(payload?.message || "掲示板を読み込めませんでした。");
-        boardPostsCache = payload.posts.map(normalizeBoardPost);
+        boardPostsCache = sortBoardPosts(payload.posts.map(normalizeBoardPost));
         renderBoardPosts(boardPostsCache);
       } catch (error) {
         console.warn("Shared board API unavailable:", error);

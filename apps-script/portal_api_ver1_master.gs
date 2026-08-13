@@ -1,5 +1,5 @@
 /**
- * True final API override for Wonder+ Portal.
+ * Portal API ver1 master for Wonder+ Portal.
  *
  * The portal had multiple historic doGet/buildPortalSchedulePayload_ overrides.
  * This file must be placed last in Apps Script so every public endpoint uses the

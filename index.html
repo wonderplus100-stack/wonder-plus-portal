@@ -3610,7 +3610,7 @@
     const SCHEDULE_YEAR = 2026;
     const SCHEDULE_API_URL = "https://script.google.com/macros/s/AKfycbzRcXK2X1KtB0DuUPsk25g-ONb6zK8x0R4gby9c-R73MXeQB14cgqzuJrj9GejSR8I2nw/exec?action=schedule";
     const EVENT_GUIDE_API_URL = makePortalActionUrl(SCHEDULE_API_URL, "eventGuides");
-    const STATIC_CACHE_VERSION = "20260814-1";
+    const STATIC_CACHE_VERSION = "20260814-3";
     const SCHEDULE_CACHE_URL = `schedule-cache.json?v=${STATIC_CACHE_VERSION}`;
     const EVENT_GUIDE_CACHE_URL = `event-guide-cache.json?v=${STATIC_CACHE_VERSION}`;
     const SCHEDULE_CACHE_STORAGE_KEY = "wonderPlusPortal.schedulePayload.v2";
@@ -4429,7 +4429,11 @@
         next[key].items = mergeScheduleDuplicates(consolidated[key].items)
           .sort((a, b) => a.day - b.day || a.title.localeCompare(b.title, "ja"));
       });
-      rawAssignmentMap = payload?.assignments || rawAssignmentMap || {};
+      const nextAssignments = payload?.assignments;
+      if (nextAssignments && Object.keys(nextAssignments).length) {
+        rawAssignmentMap = nextAssignments;
+        assignmentMap = canonicalizeAssignmentMap(nextAssignments);
+      }
       return fillDefaultSchedules(next);
     }
 
@@ -4782,18 +4786,25 @@
     }
 
     async function hydrateEventGuideDocuments(payload) {
-      const staticGuides = await fetchStaticEventGuideDocuments();
-      if (staticGuides.length) {
-        eventGuideDocuments = mergeEventGuideDocuments(staticGuides);
+      const apiResult = await fetchEventGuideApiResult();
+      const apiGuides = apiResult.guides;
+      if (apiResult.ok && apiGuides.length) {
+        eventGuideDocuments = mergeEventGuideDocuments(apiGuides);
         storeEventGuideDocuments(eventGuideDocuments);
         return;
       }
 
-      const apiResult = await fetchEventGuideApiResult();
-      const apiGuides = apiResult.guides;
-      if (apiResult.ok) {
-        eventGuideDocuments = mergeEventGuideDocuments(apiGuides);
-        if (eventGuideDocuments.length) storeEventGuideDocuments(eventGuideDocuments);
+      const payloadGuides = getUsableEventGuideDocuments(getPayloadEventGuideDocuments(payload));
+      if (payloadGuides.length) {
+        eventGuideDocuments = mergeEventGuideDocuments(payloadGuides);
+        storeEventGuideDocuments(eventGuideDocuments);
+        return;
+      }
+
+      const staticGuides = await fetchStaticEventGuideDocuments();
+      if (staticGuides.length) {
+        eventGuideDocuments = mergeEventGuideDocuments(staticGuides);
+        storeEventGuideDocuments(eventGuideDocuments);
         return;
       }
 
@@ -4803,7 +4814,7 @@
         return;
       }
 
-      clearStoredEventGuideDocuments();
+      if (apiResult.ok) clearStoredEventGuideDocuments();
       eventGuideDocuments = [];
     }
 
@@ -5210,7 +5221,6 @@
 
       try {
         setScheduleStatus("Schedule loading");
-        fallbackPayload = await showFallbackSchedule();
         const livePayload = await fetchSchedulePayload(apiUrl);
         const payload = livePayload;
         if (payload?.ok === false) throw new Error(payload.message || "schedule API returned an error");
@@ -5246,8 +5256,13 @@
     async function loadAssignments() {
       try {
         const payload = await callPortalAction("assignments");
-        rawAssignmentMap = payload.assignments || {};
-        assignmentMap = canonicalizeAssignmentMap(payload.assignments || {});
+        const nextAssignments = payload.assignments || {};
+        if (Object.keys(nextAssignments).length) {
+          rawAssignmentMap = nextAssignments;
+          assignmentMap = canonicalizeAssignmentMap(nextAssignments);
+        } else {
+          console.warn("Assignments API returned empty data; keeping the current assignment cache.");
+        }
         if (currentMember) {
           const apiAssignments = Array.isArray(payload.mine) ? canonicalizeAssignmentSet(payload.mine) : new Set();
           syncMemberAssignmentsFromSources(apiAssignments);
@@ -7015,12 +7030,14 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
       try {
         const payload = await callPortalAction("boardPosts");
         if (!payload?.ok || !Array.isArray(payload.posts)) throw new Error(payload?.message || "掲示板を読み込めませんでした。");
-        boardPostsCache = sortBoardPosts(payload.posts.map(normalizeBoardPost));
-        renderBoardPosts(boardPostsCache);
+        const nextPosts = sortBoardPosts(payload.posts.map(normalizeBoardPost));
+        if (nextPosts.length || !boardPostsCache.length) {
+          boardPostsCache = nextPosts;
+          renderBoardPosts(boardPostsCache);
+        }
       } catch (error) {
         console.warn("Shared board API unavailable:", error);
-        boardPostsCache = [];
-        renderBoardPosts([]);
+        if (!boardPostsCache.length) renderBoardPosts([]);
       }
     }
 

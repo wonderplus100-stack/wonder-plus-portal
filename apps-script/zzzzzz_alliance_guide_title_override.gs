@@ -6,10 +6,6 @@
  * unrelated guides collide, so this file intentionally leaves payloads intact.
  */
 
-function buildPortalSchedulePayload_() {
-  return buildPortalSchedulePayloadFromFormattedSheetFull_();
-}
-
 function normalizePortalAllianceGuideTitles_(payload) {
   return payload;
 }

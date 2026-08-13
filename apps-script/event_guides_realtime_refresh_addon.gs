@@ -434,6 +434,9 @@ function buildPortalEventGuidesPayload_() {
 }
 
 function getPortalEventGuidesForApi_() {
+  if (typeof buildPortalEventGuidesPayloadFinal_ === 'function') {
+    return buildPortalEventGuidesPayloadFinal_();
+  }
   return buildPortalEventGuidesPayload_();
 }
 

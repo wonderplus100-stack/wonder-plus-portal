@@ -373,15 +373,7 @@ function debugImportantNoticeNotificationSetup() {
   return result;
 }
 
-function getPortalBoardSheet_() {
-  const ss = getPortalBoardSpreadsheet_();
-  const sheetName = '重要共有事項';
-  const sheet = ss.getSheetByName(sheetName) || ss.insertSheet(sheetName);
-  ensurePortalBoardHeader_(sheet);
-  return sheet;
-}
-
-function getPortalBoardSpreadsheet_() {
+function getPortalBoardSpreadsheetCandidates_() {
   const props = PropertiesService.getScriptProperties();
   const candidates = [
     props.getProperty('BOARD_SPREADSHEET_ID'),
@@ -390,14 +382,50 @@ function getPortalBoardSpreadsheet_() {
     props.getProperty('PORTAL_SPREADSHEET_ID')
   ].filter(Boolean);
 
+  const spreadsheets = [];
   for (let i = 0; i < candidates.length; i += 1) {
     try {
-      return SpreadsheetApp.openById(String(candidates[i]).trim());
+      spreadsheets.push(SpreadsheetApp.openById(String(candidates[i]).trim()));
     } catch (error) {}
   }
 
   const active = SpreadsheetApp.getActiveSpreadsheet();
-  if (active) return active;
+  if (active) spreadsheets.push(active);
+  return spreadsheets;
+}
+
+function getPortalBoardSheet_() {
+  const names = ['重要事項共有専用', '重要共有事項', 'ImportantNotices', 'BoardPosts'];
+  const spreadsheets = getPortalBoardSpreadsheetCandidates_();
+  for (let i = 0; i < spreadsheets.length; i += 1) {
+    for (let j = 0; j < names.length; j += 1) {
+      const sheet = spreadsheets[i].getSheetByName(names[j]);
+      if (sheet) {
+        ensurePortalBoardHeader_(sheet);
+        return sheet;
+      }
+    }
+  }
+  for (let i = 0; i < spreadsheets.length; i += 1) {
+    const sheets = spreadsheets[i].getSheets();
+    for (let j = 0; j < sheets.length; j += 1) {
+      const sheet = sheets[j];
+      const name = sheet.getName();
+      if (name.indexOf('重要') >= 0 || name.toLowerCase().indexOf('notice') >= 0 || name.toLowerCase().indexOf('board') >= 0) {
+        ensurePortalBoardHeader_(sheet);
+        return sheet;
+      }
+    }
+  }
+  if (!spreadsheets.length) throw new Error('Portal spreadsheet was not found. Set BOARD_SPREADSHEET_ID or SCHEDULE_SPREADSHEET_ID.');
+  const sheet = spreadsheets[0].insertSheet(names[0]);
+  ensurePortalBoardHeader_(sheet);
+  return sheet;
+}
+
+function getPortalBoardSpreadsheet_() {
+  const spreadsheets = getPortalBoardSpreadsheetCandidates_();
+  if (spreadsheets.length) return spreadsheets[0];
   throw new Error('Portal spreadsheet was not found. Set BOARD_SPREADSHEET_ID or SCHEDULE_SPREADSHEET_ID.');
 }
 

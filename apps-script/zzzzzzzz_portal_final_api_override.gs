@@ -310,6 +310,73 @@ function refreshPortalDataFinal_() {
   };
 }
 
+function getPortalBoardSpreadsheetCandidates_() {
+  var props = PropertiesService.getScriptProperties();
+  var candidates = [
+    props.getProperty('BOARD_SPREADSHEET_ID'),
+    props.getProperty('WONDER_PORTAL_BOARD_SPREADSHEET_ID'),
+    props.getProperty('SCHEDULE_SPREADSHEET_ID'),
+    props.getProperty('WONDER_PORTAL_SCHEDULE_SPREADSHEET_ID'),
+    props.getProperty('SPREADSHEET_ID'),
+    props.getProperty('PORTAL_SPREADSHEET_ID'),
+    '1SRb3_nwgPWEj2Kb44SDD38SI0HmkllE4G_P7DPYKGKk'
+  ].filter(function(id, index, all) {
+    return id && all.indexOf(id) === index;
+  });
+
+  var spreadsheets = [];
+  for (var i = 0; i < candidates.length; i += 1) {
+    try {
+      spreadsheets.push(SpreadsheetApp.openById(String(candidates[i]).trim()));
+    } catch (error) {}
+  }
+
+  try {
+    var active = SpreadsheetApp.getActiveSpreadsheet();
+    if (active) spreadsheets.push(active);
+  } catch (activeError) {}
+
+  return spreadsheets;
+}
+
+function getPortalBoardSheet_() {
+  var names = ['重要事項共有専用', '重要共有事項', 'ImportantNotices', 'BoardPosts'];
+  var spreadsheets = getPortalBoardSpreadsheetCandidates_();
+  for (var i = 0; i < spreadsheets.length; i += 1) {
+    for (var j = 0; j < names.length; j += 1) {
+      var sheet = spreadsheets[i].getSheetByName(names[j]);
+      if (sheet) {
+        ensurePortalBoardHeader_(sheet);
+        return sheet;
+      }
+    }
+  }
+
+  for (var s = 0; s < spreadsheets.length; s += 1) {
+    var sheets = spreadsheets[s].getSheets();
+    for (var k = 0; k < sheets.length; k += 1) {
+      var candidateSheet = sheets[k];
+      var name = String(candidateSheet.getName() || '');
+      var lower = name.toLowerCase();
+      if (name.indexOf('重要') >= 0 || lower.indexOf('notice') >= 0 || lower.indexOf('board') >= 0) {
+        ensurePortalBoardHeader_(candidateSheet);
+        return candidateSheet;
+      }
+    }
+  }
+
+  if (!spreadsheets.length) throw new Error('Portal spreadsheet was not found. Set BOARD_SPREADSHEET_ID or SCHEDULE_SPREADSHEET_ID.');
+  var newSheet = spreadsheets[0].insertSheet(names[0]);
+  ensurePortalBoardHeader_(newSheet);
+  return newSheet;
+}
+
+function getPortalBoardSpreadsheet_() {
+  var spreadsheets = getPortalBoardSpreadsheetCandidates_();
+  if (spreadsheets.length) return spreadsheets[0];
+  throw new Error('Portal spreadsheet was not found. Set BOARD_SPREADSHEET_ID or SCHEDULE_SPREADSHEET_ID.');
+}
+
 var doGet = function(e) {
   var params = (e && e.parameter) || {};
   try {

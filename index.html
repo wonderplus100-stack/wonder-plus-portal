@@ -4002,6 +4002,8 @@
     }
 
     function getEventId(group, item) {
+      const stableId = String(item?.id || item?.eventId || item?.scheduleId || "").trim();
+      if (stableId) return stableId;
       const category = getMemberScheduleCategory(item);
       const time = normalizeScheduleTime(item.meta);
       return [SCHEDULE_YEAR, group.month, item.day, category, normalizeScheduleTitleKey(item.title), time].filter(Boolean).join("|");
@@ -4390,7 +4392,9 @@
       return match ? Number(match[1]) : 0;
     }
 
-    function getPayloadScheduleCategory(key) {
+    function getPayloadScheduleCategory(key, value) {
+      const explicitCategory = String(value?.category || value?.type || "").toLowerCase();
+      if (["wonder", "regular", "miraiba", "meeting"].includes(explicitCategory)) return explicitCategory;
       const text = String(key || "");
       if (/Meeting$/i.test(text)) return "meeting";
       if (/Miraiba$/i.test(text)) return "miraiba";
@@ -4401,18 +4405,27 @@
     function normalizeSchedules(payload) {
       const next = structuredClone(emptySchedules);
       Object.entries(payload?.schedules || {}).forEach(([key, value]) => {
-        const targetKey = getScheduleKey(getPayloadScheduleMonth(key, value), getPayloadScheduleCategory(key));
+        const payloadMonth = getPayloadScheduleMonth(key, value);
+        const payloadCategory = getPayloadScheduleCategory(key, value);
+        const targetKey = getScheduleKey(payloadMonth, payloadCategory);
         if (!targetKey || !next[targetKey]) return;
         const items = Array.isArray(value.items) ? value.items : [];
         next[targetKey] = {
-          month: getPayloadScheduleMonth(key, value) || next[targetKey].month,
+          month: payloadMonth || next[targetKey].month,
           label: value.label || next[targetKey].label,
           items: mergeScheduleDuplicates(items
-            .map((item) => ({
-              day: Number(item.day),
-              title: normalizeEventTitle(item.title),
-              meta: String(item.meta || "")
-            }))
+            .map((item) => {
+              const itemMonth = Number(item.month || item.eventMonth || payloadMonth || next[targetKey].month);
+              const itemCategory = String(item.category || item.scheduleCategory || payloadCategory || "").toLowerCase();
+              return {
+                id: String(item.id || item.eventId || item.scheduleId || "").trim(),
+                month: itemMonth,
+                category: ["wonder", "regular", "miraiba", "meeting"].includes(itemCategory) ? itemCategory : payloadCategory,
+                day: Number(item.day),
+                title: normalizeEventTitle(item.title),
+                meta: String(item.meta || item.timeRange || item.startEndTime || "")
+              };
+            })
             .filter((item) => item.day >= 1 && item.day <= 31)
             .filter(isValidScheduleDisplayItem))
             .sort((a, b) => a.day - b.day || a.title.localeCompare(b.title, "ja"))

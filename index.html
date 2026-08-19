@@ -3617,6 +3617,13 @@
     const EVENT_GUIDE_CACHE_STORAGE_KEY = "wonderPlusPortal.eventGuides.v7";
     const REQUIRED_SCHEDULE_SOURCE = "formatted-schedule-sheet";
     const REQUIRED_EVENT_GUIDE_SOURCE = "schedule-joined-event-guides";
+    const LOCAL_CACHE_MAX_AGE_MS = 10 * 60 * 1000;
+
+    function isLocalCacheEntryStale(timestamp) {
+      const time = Date.parse(timestamp || "");
+      if (Number.isNaN(time)) return true;
+      return Date.now() - time > LOCAL_CACHE_MAX_AGE_MS;
+    }
     const MINUTES_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdoAHwVX8hkCmbXDf1wxtg-J4wVMnB7mm8SlYZ3OnuxuJvv_g/viewform?usp=header";
     const MATERIALS = {
       "exhibitor-guidelines": {
@@ -4635,6 +4642,7 @@
         const payload = JSON.parse(raw);
         if (payload?.cacheVersion !== STATIC_CACHE_VERSION) return null;
         if (!isCurrentSchedulePayload(payload)) return null;
+        if (isLocalCacheEntryStale(payload?.storedAt)) return null;
         return payload;
       } catch (error) {
         return null;
@@ -4725,6 +4733,7 @@
         if (!raw) return [];
         const payload = JSON.parse(raw);
         if (payload?.cacheVersion !== STATIC_CACHE_VERSION) return [];
+        if (isLocalCacheEntryStale(payload?.updatedAt)) return [];
         return getUsableEventGuideDocuments(getPayloadEventGuideDocuments(payload));
       } catch (error) {
         return [];

@@ -4474,7 +4474,7 @@
           delete window[callbackName];
           script.remove();
           reject(new Error("JSONP timeout"));
-        }, 10000);
+        }, 35000);
         window[callbackName] = (payload) => {
           window.clearTimeout(timer);
           delete window[callbackName];

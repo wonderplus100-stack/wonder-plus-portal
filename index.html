@@ -4807,13 +4807,21 @@
       return (await fetchEventGuideApiResult()).guides;
     }
 
-    async function hydrateEventGuideDocuments(payload) {
-      const apiResult = await fetchEventGuideApiResult();
+    async function hydrateEventGuideDocuments(payload, { skipLive = false } = {}) {
+      const apiResult = skipLive ? { ok: false, guides: [] } : await fetchEventGuideApiResult();
       const apiGuides = apiResult.guides;
       if (apiResult.ok && apiGuides.length) {
         eventGuideDocuments = mergeEventGuideDocuments(apiGuides);
         storeEventGuideDocuments(eventGuideDocuments);
         return;
+      }
+
+      if (skipLive) {
+        const storedFirst = readStoredEventGuideDocuments();
+        if (storedFirst.length) {
+          eventGuideDocuments = mergeEventGuideDocuments(storedFirst);
+          return;
+        }
       }
 
       const payloadGuides = getUsableEventGuideDocuments(getPayloadEventGuideDocuments(payload));
@@ -4848,8 +4856,8 @@
       return null;
     }
 
-    async function applySchedulePayload(payload) {
-      await hydrateEventGuideDocuments(payload);
+    async function applySchedulePayload(payload, { skipLive = false } = {}) {
+      await hydrateEventGuideDocuments(payload, { skipLive });
       schedules = normalizeSchedules(payload);
       if (!hasUserSelectedScheduleMonth && !hasInitializedScheduleMonth) {
         const visibleMonths = getVisibleScheduleMonths();
@@ -4857,7 +4865,7 @@
         hasInitializedScheduleMonth = true;
       }
       syncActiveScheduleFromState(activeScheduleMonth, activeScheduleCategory);
-      await loadAssignments();
+      await loadAssignments({ skipLive });
       updateScheduleTabVisibility();
       renderSchedule(activeScheduleKey);
       renderArchiveSchedule();
@@ -5226,25 +5234,30 @@
       renderMemberMonthTabs();
       renderScheduleLogs();
       renderSchedule(activeScheduleKey);
-      let fallbackPayload = null;
 
-      const showFallbackSchedule = async () => {
-        const fallbackPayload = await getFastSchedulePayload();
-        if (!fallbackPayload?.schedules) return null;
-        await applySchedulePayload(fallbackPayload);
-        return fallbackPayload;
-      };
+      // Apps Script itself takes several seconds per call even when its own
+      // result is cached (fixed execution/redirect overhead, not something
+      // this app can shorten). Rather than block the whole page on that
+      // round trip every time, paint instantly from whatever schedule we
+      // already have (last live payload, or the static snapshot), then
+      // quietly replace it once the live fetch actually comes back.
+      const fallbackPayload = await getFastSchedulePayload();
+      let paintedFromFallback = false;
+      if (fallbackPayload?.schedules) {
+        await applySchedulePayload(fallbackPayload, { skipLive: true });
+        setScheduleStatus("Schedule cache loaded. Fetching the latest data…");
+        paintedFromFallback = true;
+      }
 
       if (!apiUrl) {
-        fallbackPayload = await showFallbackSchedule();
-        setScheduleStatus(fallbackPayload ? "Schedule cache loaded. Live API is not configured." : "Schedule API is not configured.");
+        setScheduleStatus(paintedFromFallback ? "Schedule cache loaded. Live API is not configured." : "Schedule API is not configured.");
         return;
       }
 
+      if (!paintedFromFallback) setScheduleStatus("Schedule loading");
+
       try {
-        setScheduleStatus("Schedule loading");
-        const livePayload = await fetchSchedulePayload(apiUrl);
-        const payload = livePayload;
+        const payload = await fetchSchedulePayload(apiUrl);
         if (payload?.ok === false) throw new Error(payload.message || "schedule API returned an error");
         if (!payload?.schedules) throw new Error("schedule payload is empty");
         storeSchedulePayload(payload);
@@ -5258,8 +5271,7 @@
         if (payload?.updatedAt) addScheduleLog(`Schedule loaded: ${suffix}`);
       } catch (error) {
         console.error(error);
-        fallbackPayload = fallbackPayload || await showFallbackSchedule();
-        if (fallbackPayload?.schedules) {
+        if (paintedFromFallback) {
           setScheduleStatus("Schedule cache loaded. Live API did not return current data.");
           return;
         }
@@ -5275,7 +5287,8 @@
       }
     }
 
-    async function loadAssignments() {
+    async function loadAssignments({ skipLive = false } = {}) {
+      if (skipLive) return;
       try {
         const payload = await callPortalAction("assignments");
         const nextAssignments = payload.assignments || {};

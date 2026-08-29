@@ -4522,7 +4522,6 @@
       if (!payload || typeof payload !== "object" || !payload.schedules) return false;
       if (payload.ok === false) return false;
       if (payload.source !== REQUIRED_SCHEDULE_SOURCE) return false;
-      if (Array.isArray(payload.eventGuides) && payload.eventGuides.length) return false;
       const message = `${payload.error || ""} ${payload.message || ""}`;
       if (/formatted schedule sheet not found|legacy|not found/i.test(message)) return false;
       return true;

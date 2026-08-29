@@ -6723,10 +6723,11 @@
         item
       );
       const dateLine = `${group.month}月${item.day}日 ${formatScheduleDisplayMeta(item, group) || "詳細未入力"}`;
+      const bodyText = body || "このイベントに紐づくDriveファイルは見つかっていますが、本文はまだ取得できていません。Googleフォームに案内本文を入力して返す、またはApps ScriptでGoogleドキュメント本文を抽出して eventGuides の本文フィールドに入れると、ここに全文が表示されます。";
+      const guideLabel = /^【案内文】/.test(bodyText.trim()) ? "" : "【案内文】\n";
       return `【イベント名】${guide.title || guide.eventName || item.title}
 【開催日時】${dateLine}
-【案内文】
-${body || "このイベントに紐づくDriveファイルは見つかっていますが、本文はまだ取得できていません。Googleフォームに案内本文を入力して返す、またはApps ScriptでGoogleドキュメント本文を抽出して eventGuides の本文フィールドに入れると、ここに全文が表示されます。"}`;
+${guideLabel}${bodyText}`;
     }
 
     function buildEventGuideBody(group, item) {

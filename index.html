@@ -3075,7 +3075,10 @@
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M3 10h18"></path></svg>
                 スケジュール
               </div>
-              <span class="badge" id="monthBadge">6月 Wonder＋</span>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span class="badge" id="monthBadge">6月 Wonder＋</span>
+                <button class="member-button" type="button" id="manualRefreshButton" title="サーバーのキャッシュをクリアして最新データを再取得します">更新</button>
+              </div>
             </div>
             <div class="personal-schedule-prompt" id="personalSchedulePrompt">
               <div>
@@ -3675,6 +3678,7 @@
     const memberActionStatus = document.querySelector("#memberActionStatus");
     const memberPendingStatus = document.querySelector("#memberPendingStatus");
     const memberSaveAssignments = document.querySelector("#memberSaveAssignments");
+    const manualRefreshButton = document.querySelector("#manualRefreshButton");
     const loginEmail = document.querySelector("#loginEmail");
     const loginPassword = document.querySelector("#loginPassword");
     const rememberLogin = document.querySelector("#rememberLogin");
@@ -4145,19 +4149,42 @@
       const hasStored = hasStoredMemberAssignments();
       const storedAssignments = hasStored ? canonicalizeAssignmentSet(loadStoredMemberAssignments()) : new Set();
       const mappedAssignments = canonicalizeAssignmentSet(getAssignmentsForMemberFromMap(currentMember));
-      userAssignments = mergeAssignmentSets(canonicalizeAssignmentSet(apiAssignments), storedAssignments, mappedAssignments);
-      pendingAssignments = new Set(userAssignments);
+      const nextUserAssignments = mergeAssignmentSets(canonicalizeAssignmentSet(apiAssignments), storedAssignments, mappedAssignments);
+
+      // This runs on every background refresh (including the automatic
+      // 5-minute reload), not just on login. If the member has checked/
+      // unchecked boxes that aren't saved yet, blindly resetting
+      // pendingAssignments here would silently wipe that in-progress work
+      // out from under them. Reapply their unsaved diff on top of the fresh
+      // server snapshot instead of discarding it.
+      const previousUserAssignments = userAssignments;
+      const { added: unsavedAdded, removed: unsavedRemoved } = diffAssignmentSets(previousUserAssignments, pendingAssignments);
+      userAssignments = nextUserAssignments;
+      if (unsavedAdded.length || unsavedRemoved.length) {
+        const reapplied = new Set(nextUserAssignments);
+        unsavedAdded.forEach((id) => reapplied.add(id));
+        unsavedRemoved.forEach((id) => reapplied.delete(id));
+        pendingAssignments = reapplied;
+      } else {
+        pendingAssignments = new Set(nextUserAssignments);
+      }
       reconcileCurrentMemberAssignmentsInMap();
       saveStoredMemberAssignments();
       updateAssignmentSaveState();
     }
 
+    function diffAssignmentSets(baseSet, compareSet) {
+      const base = canonicalizeAssignmentSet(baseSet || new Set());
+      const compare = canonicalizeAssignmentSet(compareSet || new Set());
+      const added = [...compare].filter((id) => !base.has(id));
+      const removed = [...base].filter((id) => !compare.has(id));
+      return { added, removed };
+    }
+
     function getAssignmentDiff() {
       pendingAssignments = canonicalizeAssignmentSet(pendingAssignments);
       userAssignments = canonicalizeAssignmentSet(userAssignments);
-      const added = [...pendingAssignments].filter((id) => !userAssignments.has(id));
-      const removed = [...userAssignments].filter((id) => !pendingAssignments.has(id));
-      return { added, removed };
+      return diffAssignmentSets(userAssignments, pendingAssignments);
     }
 
     function getCurrentMemberAssignmentName() {
@@ -5736,6 +5763,32 @@
       }
       updateAssignmentSaveState();
       setMemberStatus(activeMemberCategory === "meeting" ? "ミーティング不参加チェックはまだ未反映です。更新してください。" : "チェック内容はまだ未反映です。参加チェックを更新してください。");
+    });
+
+    manualRefreshButton?.addEventListener("click", async () => {
+      manualRefreshButton.disabled = true;
+      const originalLabel = manualRefreshButton.textContent;
+      manualRefreshButton.textContent = "更新中…";
+      setScheduleStatus("最新データを取得しています…");
+      try {
+        // Clear both cache layers so this is a true hard refresh: the local
+        // browser cache (so a slow/failed live fetch can't fall back to
+        // pre-refresh data) and the server-side CacheService cache (so the
+        // rebuilt payload reflects the spreadsheet right now, not whatever
+        // was cached up to 5 minutes ago).
+        clearStoredSchedulePayload();
+        clearStoredEventGuideDocuments();
+        await callPortalAction("refreshPortalData").catch((error) => console.warn(error));
+        await loadSchedules();
+        if (currentMember) await loadAssignments();
+        setScheduleStatus("最新の状態に更新しました。");
+      } catch (error) {
+        console.error(error);
+        setScheduleStatus("更新に失敗しました。時間をおいて再度お試しください。");
+      } finally {
+        manualRefreshButton.disabled = false;
+        manualRefreshButton.textContent = originalLabel;
+      }
     });
 
     memberSaveAssignments?.addEventListener("click", async () => {

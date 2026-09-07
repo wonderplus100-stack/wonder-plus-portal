@@ -5742,8 +5742,14 @@
       if (!currentMember) return;
       const { added, removed } = getAssignmentDiff();
       const changes = [
-        ...added.map((eventId) => ({ eventId, checked: "1" })),
-        ...removed.map((eventId) => ({ eventId, checked: "0" }))
+        ...added.map((eventId) => {
+          const details = getEventDetailsById(eventId);
+          return { eventId, checked: "1", title: details.title, date: details.date };
+        }),
+        ...removed.map((eventId) => {
+          const details = getEventDetailsById(eventId);
+          return { eventId, checked: "0", title: details.title, date: details.date };
+        })
       ];
       if (!changes.length) {
         setMemberStatus("現在のチェックは反映済みです。");
@@ -5759,28 +5765,23 @@
 
       try {
         let token = await getMemberTokenForWrite();
-        let latestPayload = null;
-        for (const change of changes) {
-          const details = getEventDetailsById(change.eventId);
-          latestPayload = await callPortalAction("toggleAssignment", {
+        // Save every change in a single round trip instead of one request per
+        // checkbox — sequential requests each pay Apps Script's multi-second
+        // overhead, so a batch of changes could leave the UI locked for a long
+        // time. One batched call keeps this fast regardless of how many
+        // events were toggled.
+        let latestPayload = await callPortalAction("toggleAssignmentsBatch", {
+          token,
+          changes: JSON.stringify(changes)
+        });
+        if (!latestPayload.ok && shouldRetryMemberAuth(latestPayload)) {
+          token = await restoreTokenFromSavedLogin();
+          latestPayload = await callPortalAction("toggleAssignmentsBatch", {
             token,
-            eventId: change.eventId,
-            title: details.title,
-            date: details.date,
-            checked: change.checked
+            changes: JSON.stringify(changes)
           });
-          if (!latestPayload.ok && shouldRetryMemberAuth(latestPayload)) {
-            token = await restoreTokenFromSavedLogin();
-            latestPayload = await callPortalAction("toggleAssignment", {
-              token,
-              eventId: change.eventId,
-              title: details.title,
-              date: details.date,
-              checked: change.checked
-            });
-          }
-          if (!latestPayload.ok) throw new Error(latestPayload.message || "保存できませんでした");
         }
+        if (!latestPayload.ok) throw new Error(latestPayload.message || "保存できませんでした");
         const savedAssignments = canonicalizeAssignmentSet(pendingAssignments);
         userAssignments = savedAssignments;
         if (latestPayload?.assignments) {

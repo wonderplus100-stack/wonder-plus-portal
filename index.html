@@ -4060,6 +4060,11 @@
       return [...new Set([getEventId(group, item), ...getLegacyEventIds(group, item), ...getMatchingAssignmentIds(group, item)].filter(Boolean))];
     }
 
+    function getEventIdCandidatesById(eventId) {
+      const entry = getAllScheduleEntries().find(({ group, item }) => getEventIdCandidates(group, item).includes(eventId));
+      return entry ? getEventIdCandidates(entry.group, entry.item) : [eventId];
+    }
+
     function getEventDetailsById(eventId) {
       const entry = getAllScheduleEntries().find(({ group, item }) => getEventIdCandidates(group, item).includes(eventId));
       if (!entry) return { title: eventId, date: "" };
@@ -5825,9 +5830,19 @@
           const details = getEventDetailsById(eventId);
           return { eventId, checked: "1", title: details.title, date: details.date };
         }),
-        ...removed.map((eventId) => {
+        // Clear every known ID variant for a removed event, not just the
+        // current canonical one. Older saves may have been written under a
+        // legacy ID format (schedule ID generation has changed over time);
+        // leaving that row TRUE server-side made the checkbox silently
+        // reappear even though the current-ID row was correctly turned off.
+        ...removed.flatMap((eventId) => {
           const details = getEventDetailsById(eventId);
-          return { eventId, checked: "0", title: details.title, date: details.date };
+          return getEventIdCandidatesById(eventId).map((candidateId) => ({
+            eventId: candidateId,
+            checked: "0",
+            title: details.title,
+            date: details.date
+          }));
         })
       ];
       if (!changes.length) {
@@ -5840,7 +5855,7 @@
       memberScheduleList?.querySelectorAll("input[type='checkbox']").forEach((input) => {
         input.disabled = true;
       });
-      setMemberStatus(`${changes.length}件の参加チェックを更新中です。`);
+      setMemberStatus(`${added.length + removed.length}件の参加チェックを更新中です。`);
 
       try {
         let token = await getMemberTokenForWrite();

@@ -3370,9 +3370,20 @@
                     <strong id="eventGuideTitle">イベント案内</strong>
                     <div class="event-meta" id="eventGuideMeta">月とイベントを選んで案内を表示してください。</div>
                   </div>
-                  <button class="copy-guide-button" type="button" data-copy-guide>コピー</button>
+                  <div style="display:flex;gap:8px;">
+                    <button class="copy-guide-button" type="button" data-copy-guide>コピー</button>
+                    <button class="copy-guide-button" type="button" id="eventGuideEditToggle" hidden>編集</button>
+                  </div>
                 </div>
                 <div class="event-guide-body" id="eventGuideBody">案内文章はここに表示されます。Drive抽出データが連携されると、選択したイベントに紐づく案内文章を表示します。</div>
+                <div id="eventGuideEditPanel" hidden style="margin-top:10px;">
+                  <textarea id="eventGuideEditTextarea" rows="12" style="width:100%;box-sizing:border-box;font:inherit;padding:8px;"></textarea>
+                  <div style="display:flex;gap:8px;margin-top:8px;">
+                    <button class="member-button primary" type="button" id="eventGuideEditSave">保存</button>
+                    <button class="member-button" type="button" id="eventGuideEditCancel">キャンセル</button>
+                  </div>
+                  <div class="event-meta" id="eventGuideEditStatus"></div>
+                </div>
                 <div class="event-guide-assets" id="eventGuideAssets" hidden></div>
               </article>
             </div>
@@ -3742,6 +3753,12 @@
     const eventGuideTitle = document.querySelector("#eventGuideTitle");
     const eventGuideMeta = document.querySelector("#eventGuideMeta");
     const eventGuideBody = document.querySelector("#eventGuideBody");
+    const eventGuideEditToggle = document.querySelector("#eventGuideEditToggle");
+    const eventGuideEditPanel = document.querySelector("#eventGuideEditPanel");
+    const eventGuideEditTextarea = document.querySelector("#eventGuideEditTextarea");
+    const eventGuideEditSave = document.querySelector("#eventGuideEditSave");
+    const eventGuideEditCancel = document.querySelector("#eventGuideEditCancel");
+    const eventGuideEditStatus = document.querySelector("#eventGuideEditStatus");
     const eventGuideAssets = document.querySelector("#eventGuideAssets");
     const eventGuidePicker = document.querySelector(".event-guide-picker");
     const eventGuideMonthTabs = document.querySelector("#eventGuideMonthTabs");
@@ -6835,10 +6852,24 @@ ${guideLabel}${bodyText}`;
 Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽出し、eventGuidesデータとして返すと、この欄に正式な案内文章が表示されます。`;
     }
 
+    let currentEventGuideEntry = null;
+
+    function isEventGuideEditor() {
+      return String(currentMember?.phase || "").indexOf("2") !== -1;
+    }
+
+    function closeEventGuideEditPanel() {
+      if (eventGuideEditPanel) eventGuideEditPanel.hidden = true;
+      if (eventGuideEditStatus) eventGuideEditStatus.textContent = "";
+    }
+
     function renderSelectedEventGuide() {
       if (!eventGuideSelect || !eventGuideTitle || !eventGuideMeta || !eventGuideBody) return;
       const eventId = eventGuideSelect.value;
       const entry = getAllScheduleEntries().find(({ group, item }) => getEventId(group, item) === eventId);
+      closeEventGuideEditPanel();
+      currentEventGuideEntry = entry || null;
+      if (eventGuideEditToggle) eventGuideEditToggle.hidden = !entry || !isEventGuideEditor();
       if (!entry) {
         eventGuideTitle.textContent = `${activeGuideMonth}月 ${getGuideBrandLabel()}`;
         eventGuideMeta.textContent = "スケジュール投稿後、ここからイベントを選択できます。";
@@ -6857,6 +6888,44 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
         : buildEventGuideBody(entry.group, entry.item);
       renderEventGuideAssets(driveGuide);
     }
+
+    eventGuideEditToggle?.addEventListener("click", () => {
+      if (!currentEventGuideEntry || !eventGuideEditPanel || !eventGuideEditTextarea) return;
+      eventGuideEditTextarea.value = eventGuideBody.textContent;
+      eventGuideEditPanel.hidden = false;
+      eventGuideEditTextarea.focus();
+    });
+
+    eventGuideEditCancel?.addEventListener("click", () => {
+      closeEventGuideEditPanel();
+    });
+
+    eventGuideEditSave?.addEventListener("click", async () => {
+      if (!currentEventGuideEntry) return;
+      const { group, item } = currentEventGuideEntry;
+      const linkedScheduleId = getEventId(group, item);
+      const newBody = eventGuideEditTextarea.value;
+      eventGuideEditSave.disabled = true;
+      eventGuideEditStatus.textContent = "保存中です…";
+      try {
+        const token = await getMemberTokenForWrite();
+        const result = await callPortalAction("updateEventGuideBody", {
+          token,
+          linkedScheduleId,
+          title: item.title,
+          body: newBody
+        });
+        if (!result.ok) throw new Error(result.message || "保存できませんでした。");
+        clearStoredEventGuideDocuments();
+        await hydrateEventGuideDocuments({});
+        renderSelectedEventGuide();
+        closeEventGuideEditPanel();
+      } catch (error) {
+        eventGuideEditStatus.textContent = error.message || "保存できませんでした。";
+      } finally {
+        eventGuideEditSave.disabled = false;
+      }
+    });
 
     function getWonderEventDateRows(month = activeGuideMonth) {
       return getAllScheduleEntries()

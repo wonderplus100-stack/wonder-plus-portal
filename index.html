@@ -7223,6 +7223,7 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
             <strong>${escapeHtml(post.name || "投稿者")}</strong>
             <span>${escapeHtml(post.updatedAt ? `${post.createdAt || ""} / 更新 ${post.updatedAt}` : post.createdAt || "")}</span>
             <button class="member-button board-edit-button" type="button" data-board-edit="${escapeHtml(post.id || "")}">編集</button>
+            <button class="member-button board-edit-button" type="button" data-board-delete="${escapeHtml(post.id || "")}">削除</button>
           </div>
           <div class="board-message">${escapeHtml(post.message || "").replace(/\n/g, "<br>")}</div>
         </div>
@@ -7270,6 +7271,14 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
       return normalizeBoardPost(payload.post);
     }
 
+    async function deleteSharedBoardPost(postId) {
+      const payload = await callPortalAction("deleteBoardPost", {
+        token: localStorage.getItem("wonderMemberToken") || "",
+        id: postId
+      });
+      if (!payload?.ok) throw new Error(payload?.message || "削除できませんでした。");
+    }
+
     async function saveLocalBoardEdit(postId, message) {
       const posts = getStoredBoardPosts().map(normalizeBoardPost);
       const index = posts.findIndex((post) => post.id === postId);
@@ -7283,8 +7292,11 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
       renderBoardPosts(posts);
     }
 
+    let boardSubmitInFlight = false;
+
     async function handleBoardSubmit() {
       if (!boardMessage || !boardSubmit) return;
+      if (boardSubmitInFlight) return;
       const message = boardMessage.value.trim();
       const isEditing = Boolean(editingBoardPostId);
       if (!message) {
@@ -7292,6 +7304,7 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
         window.setTimeout(() => { boardSubmit.textContent = isEditing ? BOARD_EDIT_LABEL : BOARD_SUBMIT_LABEL; }, 1600);
         return;
       }
+      boardSubmitInFlight = true;
       try {
         setButtonBusy(boardSubmit, true, isEditing ? "保存中" : "投稿中");
         try {
@@ -7311,6 +7324,7 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
         boardSubmit.textContent = error.message || (isEditing ? "保存できませんでした" : "投稿できませんでした");
         window.setTimeout(() => { boardSubmit.textContent = isEditing ? BOARD_EDIT_LABEL : BOARD_SUBMIT_LABEL; }, 2000);
       } finally {
+        boardSubmitInFlight = false;
         setButtonBusy(boardSubmit, false);
         boardSubmit.dataset.originalText = editingBoardPostId ? BOARD_EDIT_LABEL : BOARD_SUBMIT_LABEL;
       }
@@ -7735,16 +7749,36 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
       boardMessage.value = "";
       updateBoardEditState("");
     });
-    boardFeed?.addEventListener("click", (event) => {
-      const button = event.target.closest("[data-board-edit]");
-      if (!button) return;
-      const postId = button.dataset.boardEdit || "";
-      const post = findBoardPost(postId);
-      if (!post) return;
-      boardMessage.value = post.message || "";
-      updateBoardEditState(postId);
-      boardMessage.focus();
-      boardMessage.scrollIntoView({ behavior: "smooth", block: "center" });
+    boardFeed?.addEventListener("click", async (event) => {
+      const editButton = event.target.closest("[data-board-edit]");
+      if (editButton) {
+        const postId = editButton.dataset.boardEdit || "";
+        const post = findBoardPost(postId);
+        if (!post) return;
+        boardMessage.value = post.message || "";
+        updateBoardEditState(postId);
+        boardMessage.focus();
+        boardMessage.scrollIntoView({ behavior: "smooth", block: "center" });
+        return;
+      }
+      const deleteButton = event.target.closest("[data-board-delete]");
+      if (deleteButton) {
+        const postId = deleteButton.dataset.boardDelete || "";
+        if (!postId) return;
+        if (!window.confirm("この投稿を削除しますか？")) return;
+        deleteButton.disabled = true;
+        try {
+          await deleteSharedBoardPost(postId);
+          if (editingBoardPostId === postId) {
+            boardMessage.value = "";
+            updateBoardEditState("");
+          }
+          await loadSharedBoardPosts();
+        } catch (error) {
+          window.alert(error.message || "削除できませんでした。");
+          deleteButton.disabled = false;
+        }
+      }
     });
     if (queryParams.get("view") === "minutes-detail") {
       renderMinutesDetailPage();

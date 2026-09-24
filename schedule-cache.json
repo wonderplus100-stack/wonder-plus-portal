@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "updatedAt": "2026-09-24T00:41:41.764Z",
+  "updatedAt": "2026-09-24T05:28:02.912Z",
   "source": "formatted-schedule-sheet",
   "masterSource": "formatted-schedule-sheet",
   "scheduleCounts": {
@@ -833,7 +833,8 @@
       "小宮留衣"
     ],
     "2026|9|27|regular|レギュラー異業種交流会|10:00-11:00": [
-      "小宮留衣"
+      "小宮留衣",
+      "志村優佳"
     ],
     "2026|9|28|regular|レギュラー異業種交流会|13:00-14:00": [
       "小宮留衣"

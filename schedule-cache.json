@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "updatedAt": "2026-09-25T00:49:11.780Z",
+  "updatedAt": "2026-09-25T05:45:46.035Z",
   "source": "formatted-schedule-sheet",
   "masterSource": "formatted-schedule-sheet",
   "scheduleCounts": {
@@ -851,8 +851,7 @@
     ],
     "2026|9|25|meeting|ミーティング|17:30-19:00": [
       "池田葵",
-      "日比野里泉",
-      "小菅 夏凜"
+      "日比野里泉"
     ],
     "2026|9|17|wonder|千葉wonder+|15:00-16:30": [
       "高杉裕輔",

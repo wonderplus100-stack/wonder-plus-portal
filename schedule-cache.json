@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "updatedAt": "2026-09-24T22:33:03.250Z",
+  "updatedAt": "2026-09-25T00:49:11.780Z",
   "source": "formatted-schedule-sheet",
   "masterSource": "formatted-schedule-sheet",
   "scheduleCounts": {
@@ -850,7 +850,9 @@
       "高杉裕輔"
     ],
     "2026|9|25|meeting|ミーティング|17:30-19:00": [
-      "池田葵"
+      "池田葵",
+      "日比野里泉",
+      "小菅 夏凜"
     ],
     "2026|9|17|wonder|千葉wonder+|15:00-16:30": [
       "高杉裕輔",
@@ -921,9 +923,6 @@
       "荒井沙也香"
     ],
     "2026|10|29|wonder|新宿wonder+100|15:00-16:30": [
-      "荒井沙也香"
-    ],
-    "2026|10|28|wonder|横浜wonder+|19:30-21:00": [
       "荒井沙也香"
     ],
     "2026|10|1|wonder|銀座wonder+freelance|19:30-21:00": [

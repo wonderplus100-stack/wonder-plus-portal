@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "updatedAt": "2026-09-25T11:04:25.955Z",
+  "updatedAt": "2026-09-25T15:49:05.233Z",
   "source": "schedule-joined-event-guides",
   "count": 141,
   "eventGuides": [
@@ -36,7 +36,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+KITAKYUSYU",
       "guideUpdatedAt": "2026-06-26T00:25:40.000Z",
-      "updatedAt": "2026-09-25T11:04:28.020Z"
+      "updatedAt": "2026-09-25T15:49:06.789Z"
     },
     {
       "id": "month7-wonder-1-熊本wonder+-13:00-14:30",
@@ -70,7 +70,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+KUMAMOTO",
       "guideUpdatedAt": "2026-07-07T00:59:27.000Z",
-      "updatedAt": "2026-09-25T11:04:28.020Z"
+      "updatedAt": "2026-09-25T15:49:06.789Z"
     },
     {
       "id": "month7-wonder-2-銀座wonder+-15:30-17:30",
@@ -91,7 +91,7 @@
       "guideMatched": false,
       "matchedGuideTitle": "",
       "guideUpdatedAt": "",
-      "updatedAt": "2026-09-25T11:04:28.020Z"
+      "updatedAt": "2026-09-25T15:49:06.789Z"
     },
     {
       "id": "month7-wonder-7-郡山wonder+-13:00-14:30",
@@ -125,7 +125,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+KORIYAMA",
       "guideUpdatedAt": "2026-07-07T01:08:06.000Z",
-      "updatedAt": "2026-09-25T11:04:28.020Z"
+      "updatedAt": "2026-09-25T15:49:06.789Z"
     },
     {
       "id": "month7-wonder-7-仙台wonder+-13:00-14:30",
@@ -159,7 +159,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+SENDAI",
       "guideUpdatedAt": "2026-07-07T01:09:11.000Z",
-      "updatedAt": "2026-09-25T11:04:28.020Z"
+      "updatedAt": "2026-09-25T15:49:06.789Z"
     },
     {
       "id": "month7-wonder-8-新潟wonder+-13:00-14:30",
@@ -180,7 +180,7 @@
       "guideMatched": false,
       "matchedGuideTitle": "",
       "guideUpdatedAt": "",
-      "updatedAt": "2026-09-25T11:04:28.020Z"
+      "updatedAt": "2026-09-25T15:49:06.789Z"
     },
     {
       "id": "month7-wonder-10-銀座+leaderswonder+-12:30-14:30",
@@ -214,7 +214,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+Leaders",
       "guideUpdatedAt": "2026-07-30T10:17:45.000Z",
-      "updatedAt": "2026-09-25T11:04:28.021Z"
+      "updatedAt": "2026-09-25T15:49:06.790Z"
     },
     {
       "id": "month7-wonder-10-銀座+ladieswonder+-15:00-16:30",
@@ -235,7 +235,7 @@
       "guideMatched": false,
       "matchedGuideTitle": "",
       "guideUpdatedAt": "",
-      "updatedAt": "2026-09-25T11:04:28.021Z"
+      "updatedAt": "2026-09-25T15:49:06.790Z"
     },
     {
       "id": "month7-wonder-13-広島wonder+-13:00-14:30",
@@ -269,7 +269,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+HIROSHIMA",
       "guideUpdatedAt": "2026-06-28T01:41:17.000Z",
-      "updatedAt": "2026-09-25T11:04:28.021Z"
+      "updatedAt": "2026-09-25T15:49:06.790Z"
     },
     {
       "id": "month7-wonder-13-名古屋+ladieswonder+-13:00-14:30",
@@ -303,7 +303,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+NAGOYA",
       "guideUpdatedAt": "2026-06-28T03:50:40.000Z",
-      "updatedAt": "2026-09-25T11:04:28.021Z"
+      "updatedAt": "2026-09-25T15:49:06.790Z"
     },
     {
       "id": "month7-wonder-13-神戸wonder+-19:30-21:00",
@@ -331,7 +331,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+KOBE",
       "guideUpdatedAt": "2026-09-14T12:40:13.000Z",
-      "updatedAt": "2026-09-25T11:04:28.021Z"
+      "updatedAt": "2026-09-25T15:49:06.790Z"
     },
     {
       "id": "month7-wonder-14-京都wonder+-15:00-16:30",
@@ -365,7 +365,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+KYOTO",
       "guideUpdatedAt": "2026-06-28T03:21:03.000Z",
-      "updatedAt": "2026-09-25T11:04:28.021Z"
+      "updatedAt": "2026-09-25T15:49:06.791Z"
     },
     {
       "id": "month7-wonder-16-横浜wonder+-15:00-16:30",
@@ -399,7 +399,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+YOKOHAMA",
       "guideUpdatedAt": "2026-06-28T03:24:09.000Z",
-      "updatedAt": "2026-09-25T11:04:28.021Z"
+      "updatedAt": "2026-09-25T15:49:06.791Z"
     },
     {
       "id": "month7-wonder-16-銀座+entertainmentwonder+-15:00-16:30",
@@ -433,7 +433,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+Entertainment",
       "guideUpdatedAt": "2026-07-03T23:39:42.000Z",
-      "updatedAt": "2026-09-25T11:04:28.021Z"
+      "updatedAt": "2026-09-25T15:49:06.791Z"
     },
     {
       "id": "month7-wonder-16-船橋wonder+-15:00-16:30",
@@ -454,7 +454,7 @@
       "guideMatched": false,
       "matchedGuideTitle": "",
       "guideUpdatedAt": "",
-      "updatedAt": "2026-09-25T11:04:28.021Z"
+      "updatedAt": "2026-09-25T15:49:06.791Z"
     },
     {
       "id": "month7-wonder-21-浜松wonder+-14:00-15:30",
@@ -475,7 +475,7 @@
       "guideMatched": false,
       "matchedGuideTitle": "",
       "guideUpdatedAt": "",
-      "updatedAt": "2026-09-25T11:04:28.021Z"
+      "updatedAt": "2026-09-25T15:49:06.791Z"
     },
     {
       "id": "month7-wonder-21-名古屋wonder+-14:00-15:30",
@@ -509,7 +509,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+NAGOYA",
       "guideUpdatedAt": "2026-06-28T03:50:40.000Z",
-      "updatedAt": "2026-09-25T11:04:28.021Z"
+      "updatedAt": "2026-09-25T15:49:06.791Z"
     },
     {
       "id": "month7-wonder-22-大阪wonder+-13:00-14:30",
@@ -543,7 +543,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+OSAKA",
       "guideUpdatedAt": "2026-06-28T04:13:11.000Z",
-      "updatedAt": "2026-09-25T11:04:28.021Z"
+      "updatedAt": "2026-09-25T15:49:06.791Z"
     },
     {
       "id": "month7-wonder-23-銀座+cxowonder+-19:30-21:30",
@@ -577,7 +577,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+CXO",
       "guideUpdatedAt": "2026-08-23T06:11:55.000Z",
-      "updatedAt": "2026-09-25T11:04:28.021Z"
+      "updatedAt": "2026-09-25T15:49:06.791Z"
     },
     {
       "id": "month7-wonder-27-静岡wonder+-13:00-14:30",
@@ -611,7 +611,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+SHIZUOKA",
       "guideUpdatedAt": "2026-06-28T03:54:08.000Z",
-      "updatedAt": "2026-09-25T11:04:28.021Z"
+      "updatedAt": "2026-09-25T15:49:06.791Z"
     },
     {
       "id": "month7-wonder-27-前橋wonder+-19:30-21:00/追加（高崎ではなく前橋で開催）",
@@ -645,7 +645,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+MAEBASHI",
       "guideUpdatedAt": "2026-06-28T03:59:49.000Z",
-      "updatedAt": "2026-09-25T11:04:28.021Z"
+      "updatedAt": "2026-09-25T15:49:06.791Z"
     },
     {
       "id": "month7-wonder-28-銀座+gravitywonder+-19:30-21:00",
@@ -679,7 +679,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+Gravity",
       "guideUpdatedAt": "2026-07-03T23:57:31.000Z",
-      "updatedAt": "2026-09-25T11:04:28.021Z"
+      "updatedAt": "2026-09-25T15:49:06.791Z"
     },
     {
       "id": "month7-wonder-28-福岡wonder+-19:30-21:00/高杉+現地スタッフ運営",
@@ -713,7 +713,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+FUKUOKA",
       "guideUpdatedAt": "2026-08-09T13:41:54.000Z",
-      "updatedAt": "2026-09-25T11:04:28.021Z"
+      "updatedAt": "2026-09-25T15:49:06.791Z"
     },
     {
       "id": "month7-wonder-29-銀座+beautywonder+-13:00-14:30",
@@ -741,7 +741,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+Beauty",
       "guideUpdatedAt": "2026-09-23T07:48:47.000Z",
-      "updatedAt": "2026-09-25T11:04:28.021Z"
+      "updatedAt": "2026-09-25T15:49:06.792Z"
     },
     {
       "id": "month7-wonder-29-熊本wonder+-13:00-14:30/高杉+現地スタッフ運営",
@@ -775,7 +775,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+KUMAMOTO",
       "guideUpdatedAt": "2026-07-07T00:59:27.000Z",
-      "updatedAt": "2026-09-25T11:04:28.021Z"
+      "updatedAt": "2026-09-25T15:49:06.792Z"
     },
     {
       "id": "month7-wonder-30-新宿+100wonder+-13:00-14:30",
@@ -796,7 +796,7 @@
       "guideMatched": false,
       "matchedGuideTitle": "",
       "guideUpdatedAt": "",
-      "updatedAt": "2026-09-25T11:04:28.021Z"
+      "updatedAt": "2026-09-25T15:49:06.792Z"
     },
     {
       "id": "month8-wonder-4-福島wonder+-15:00-16:30/新規開催＊会場未定",
@@ -830,7 +830,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+FUKUSHIM",
       "guideUpdatedAt": "2026-08-04T01:49:05.000Z",
-      "updatedAt": "2026-09-25T11:04:28.021Z"
+      "updatedAt": "2026-09-25T15:49:06.792Z"
     },
     {
       "id": "month8-wonder-4-仙台wonder+-19:30-21:00",
@@ -864,7 +864,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+SENDAI",
       "guideUpdatedAt": "2026-07-07T01:09:11.000Z",
-      "updatedAt": "2026-09-25T11:04:28.021Z"
+      "updatedAt": "2026-09-25T15:49:06.792Z"
     },
     {
       "id": "month8-wonder-5-新潟wonder+-13:00-14:30",
@@ -885,7 +885,7 @@
       "guideMatched": false,
       "matchedGuideTitle": "",
       "guideUpdatedAt": "",
-      "updatedAt": "2026-09-25T11:04:28.021Z"
+      "updatedAt": "2026-09-25T15:49:06.792Z"
     },
     {
       "id": "month8-wonder-5-名古屋wonder+ladies-15:00-16:30",
@@ -919,7 +919,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+NAGOYA",
       "guideUpdatedAt": "2026-06-28T03:50:40.000Z",
-      "updatedAt": "2026-09-25T11:04:28.021Z"
+      "updatedAt": "2026-09-25T15:49:06.792Z"
     },
     {
       "id": "month8-wonder-6-新宿wonder+leaders-12:30-14:00",
@@ -953,7 +953,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+Leaders",
       "guideUpdatedAt": "2026-07-30T10:17:45.000Z",
-      "updatedAt": "2026-09-25T11:04:28.021Z"
+      "updatedAt": "2026-09-25T15:49:06.792Z"
     },
     {
       "id": "month8-wonder-6-新宿wonder+ladies-15:00-16:30",
@@ -974,7 +974,7 @@
       "guideMatched": false,
       "matchedGuideTitle": "",
       "guideUpdatedAt": "",
-      "updatedAt": "2026-09-25T11:04:28.021Z"
+      "updatedAt": "2026-09-25T15:49:06.792Z"
     },
     {
       "id": "month8-wonder-10-銀座wonder+story-15:30-17:30",
@@ -1008,7 +1008,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+Story",
       "guideUpdatedAt": "2026-08-23T07:32:33.000Z",
-      "updatedAt": "2026-09-25T11:04:28.021Z"
+      "updatedAt": "2026-09-25T15:49:06.792Z"
     },
     {
       "id": "month8-wonder-10-銀座wonder+gravity-19:30-21:30",
@@ -1042,7 +1042,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+Gravity",
       "guideUpdatedAt": "2026-07-03T23:57:31.000Z",
-      "updatedAt": "2026-09-25T11:04:28.021Z"
+      "updatedAt": "2026-09-25T15:49:06.792Z"
     },
     {
       "id": "month8-wonder-17-静岡wonder+-13:00-14:30",
@@ -1076,7 +1076,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+SHIZUOKA",
       "guideUpdatedAt": "2026-06-28T03:54:08.000Z",
-      "updatedAt": "2026-09-25T11:04:28.021Z"
+      "updatedAt": "2026-09-25T15:49:06.792Z"
     },
     {
       "id": "month8-wonder-17-名古屋wonder+-19:30-21:00",
@@ -1110,7 +1110,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+NAGOYA",
       "guideUpdatedAt": "2026-06-28T03:50:40.000Z",
-      "updatedAt": "2026-09-25T11:04:28.021Z"
+      "updatedAt": "2026-09-25T15:49:06.793Z"
     },
     {
       "id": "month8-wonder-18-大阪wonder+-13:00-14:30",
@@ -1144,7 +1144,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+OSAKA",
       "guideUpdatedAt": "2026-06-28T04:13:11.000Z",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.793Z"
     },
     {
       "id": "month8-wonder-18-高崎wonder+-15:00-16:30/会場はlabiへ戻り",
@@ -1178,7 +1178,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+TAKASAKI",
       "guideUpdatedAt": "2026-07-25T14:36:03.000Z",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.793Z"
     },
     {
       "id": "month8-wonder-19-銀座wonder+alliance-19:30-21:00",
@@ -1212,7 +1212,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+Alliance",
       "guideUpdatedAt": "2026-08-06T11:32:15.000Z",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.793Z"
     },
     {
       "id": "month8-wonder-20-横浜wonder+-15:00-16:30",
@@ -1246,7 +1246,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+YOKOHAMA",
       "guideUpdatedAt": "2026-06-28T03:24:09.000Z",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.793Z"
     },
     {
       "id": "month8-wonder-20-船橋wonder+-15:00-16:30",
@@ -1267,7 +1267,7 @@
       "guideMatched": false,
       "matchedGuideTitle": "",
       "guideUpdatedAt": "",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.793Z"
     },
     {
       "id": "month8-wonder-20-銀座wonder+entertainment-20:00-22:00",
@@ -1301,7 +1301,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+Entertainment",
       "guideUpdatedAt": "2026-07-03T23:39:42.000Z",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.793Z"
     },
     {
       "id": "month8-wonder-21-宇都宮wonder+-15:00-16:30/新規開催",
@@ -1335,7 +1335,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+UTUNOMIYA",
       "guideUpdatedAt": "2026-08-09T13:20:44.000Z",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.793Z"
     },
     {
       "id": "month8-wonder-25-熊本wonder+-13:00-14:30",
@@ -1369,7 +1369,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+KUMAMOTO",
       "guideUpdatedAt": "2026-07-07T00:59:27.000Z",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.793Z"
     },
     {
       "id": "month8-wonder-25-福岡wonder+-19:30-21:00",
@@ -1403,7 +1403,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+FUKUOKA",
       "guideUpdatedAt": "2026-08-09T13:41:54.000Z",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.794Z"
     },
     {
       "id": "month8-wonder-26-広島wonder+-13:00-14:30",
@@ -1437,7 +1437,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+HIROSHIMA",
       "guideUpdatedAt": "2026-06-28T01:41:17.000Z",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.794Z"
     },
     {
       "id": "month8-wonder-26-札幌wonder+-19:00-21:00",
@@ -1471,7 +1471,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+SAPORO",
       "guideUpdatedAt": "2026-08-19T07:38:08.000Z",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.794Z"
     },
     {
       "id": "month8-wonder-26-岡山wonder+-19:30-21:00/会場変更あり",
@@ -1505,7 +1505,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+OKAYAMA",
       "guideUpdatedAt": "2026-09-10T08:32:24.000Z",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.794Z"
     },
     {
       "id": "month8-wonder-27-銀座wonder+beauty-15:00-16:30",
@@ -1533,7 +1533,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+Beauty",
       "guideUpdatedAt": "2026-09-23T07:48:47.000Z",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.794Z"
     },
     {
       "id": "month8-wonder-27-銀座wonder+cxo-19:30-21:30",
@@ -1567,7 +1567,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+CXO",
       "guideUpdatedAt": "2026-08-23T06:11:55.000Z",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.794Z"
     },
     {
       "id": "month8-wonder-28-新宿+100wonder+-13:00-14:30",
@@ -1588,7 +1588,7 @@
       "guideMatched": false,
       "matchedGuideTitle": "",
       "guideUpdatedAt": "",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.794Z"
     },
     {
       "id": "month9-wonder-2-金沢wonder+-14:00-15:30",
@@ -1622,7 +1622,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+KANAZAWA",
       "guideUpdatedAt": "2026-08-04T01:59:36.000Z",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.794Z"
     },
     {
       "id": "month9-wonder-3-名古屋wonder+-13:00-14:30",
@@ -1656,7 +1656,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+NAGOYA",
       "guideUpdatedAt": "2026-06-28T03:50:40.000Z",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.794Z"
     },
     {
       "id": "month9-wonder-3-銀座wonder+alliance-19:30-21:00",
@@ -1690,7 +1690,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+Alliance",
       "guideUpdatedAt": "2026-08-06T11:32:15.000Z",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.794Z"
     },
     {
       "id": "month9-wonder-3-大阪wonder+-20:00-22:00",
@@ -1724,7 +1724,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+OSAKA",
       "guideUpdatedAt": "2026-06-28T04:13:11.000Z",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.795Z"
     },
     {
       "id": "month9-wonder-4-横浜wonder+-15:00-16:00",
@@ -1758,7 +1758,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+YOKOHAMA",
       "guideUpdatedAt": "2026-06-28T03:24:09.000Z",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.795Z"
     },
     {
       "id": "month9-wonder-7-郡山wonder+-13:00-14:30",
@@ -1792,7 +1792,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+KORIYAMA",
       "guideUpdatedAt": "2026-07-07T01:08:06.000Z",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.795Z"
     },
     {
       "id": "month9-wonder-7-仙台wonder+-19:30-21:00",
@@ -1826,7 +1826,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+SENDAI",
       "guideUpdatedAt": "2026-07-07T01:09:11.000Z",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.795Z"
     },
     {
       "id": "month9-wonder-8-新潟wonder+-13:00-14:30",
@@ -1847,7 +1847,7 @@
       "guideMatched": false,
       "matchedGuideTitle": "",
       "guideUpdatedAt": "",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.795Z"
     },
     {
       "id": "month9-wonder-9-甲府wonder+-13:00-14:30",
@@ -1881,7 +1881,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+KOFU",
       "guideUpdatedAt": "2026-08-11T15:50:03.000Z",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.795Z"
     },
     {
       "id": "month9-wonder-9-札幌wonder+-13:00-15:00",
@@ -1915,7 +1915,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+SAPORO",
       "guideUpdatedAt": "2026-08-19T07:38:08.000Z",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.795Z"
     },
     {
       "id": "month9-wonder-9-名古屋wonder+ladies-15:00-16:30",
@@ -1949,7 +1949,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+NAGOYA",
       "guideUpdatedAt": "2026-06-28T03:50:40.000Z",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.795Z"
     },
     {
       "id": "month9-wonder-9-銀座wonder+story-15:30-17:30",
@@ -1983,7 +1983,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+Story",
       "guideUpdatedAt": "2026-08-23T07:32:33.000Z",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.795Z"
     },
     {
       "id": "month9-wonder-9-静岡wonder+-19:30-21:00",
@@ -2017,7 +2017,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+SHIZUOKA",
       "guideUpdatedAt": "2026-06-28T03:54:08.000Z",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.795Z"
     },
     {
       "id": "month9-wonder-10-銀座wonder+leaders-12:30-14:00",
@@ -2051,7 +2051,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+Leaders",
       "guideUpdatedAt": "2026-07-30T10:17:45.000Z",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.795Z"
     },
     {
       "id": "month9-wonder-10-銀座wonder+ladies-15:00-16:30",
@@ -2072,7 +2072,7 @@
       "guideMatched": false,
       "matchedGuideTitle": "",
       "guideUpdatedAt": "",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.795Z"
     },
     {
       "id": "month9-wonder-10-銀座wonder+realestate-19:30-21:30",
@@ -2093,7 +2093,7 @@
       "guideMatched": false,
       "matchedGuideTitle": "",
       "guideUpdatedAt": "",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.795Z"
     },
     {
       "id": "month9-wonder-11-横浜wonder+-15:00-16:00",
@@ -2127,7 +2127,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+YOKOHAMA",
       "guideUpdatedAt": "2026-06-28T03:24:09.000Z",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.795Z"
     },
     {
       "id": "month9-wonder-14-岡山wonder+-13:00-14:30",
@@ -2161,7 +2161,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+OKAYAMA",
       "guideUpdatedAt": "2026-09-10T08:32:24.000Z",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.795Z"
     },
     {
       "id": "month9-wonder-14-広島wonder+-13:00-14:30",
@@ -2195,7 +2195,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+HIROSHIMA",
       "guideUpdatedAt": "2026-06-28T01:41:17.000Z",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.795Z"
     },
     {
       "id": "month9-wonder-14-京都wonder+-19:30-21:00",
@@ -2229,7 +2229,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+KYOTO",
       "guideUpdatedAt": "2026-06-28T03:21:03.000Z",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.795Z"
     },
     {
       "id": "month9-wonder-14-神戸wonder+-19:30-21:00",
@@ -2257,7 +2257,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+KOBE",
       "guideUpdatedAt": "2026-09-14T12:40:13.000Z",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.796Z"
     },
     {
       "id": "month9-wonder-15-大阪wonder+-13:00-14:30",
@@ -2291,7 +2291,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+OSAKA",
       "guideUpdatedAt": "2026-06-28T04:13:11.000Z",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.796Z"
     },
     {
       "id": "month9-wonder-15-浜松wonder+-19:30-21:00",
@@ -2312,7 +2312,7 @@
       "guideMatched": false,
       "matchedGuideTitle": "",
       "guideUpdatedAt": "",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.796Z"
     },
     {
       "id": "month9-wonder-15-名古屋wonder+-19:30-21:00",
@@ -2346,7 +2346,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+NAGOYA",
       "guideUpdatedAt": "2026-06-28T03:50:40.000Z",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.796Z"
     },
     {
       "id": "month9-wonder-16-大宮wonder+-13:00-14:30",
@@ -2380,7 +2380,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+OMIYA",
       "guideUpdatedAt": "2026-08-11T15:46:11.000Z",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.796Z"
     },
     {
       "id": "month9-wonder-16-高崎wonder+-15:00-16:30",
@@ -2414,7 +2414,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+TAKASAKI",
       "guideUpdatedAt": "2026-07-25T14:36:03.000Z",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.796Z"
     },
     {
       "id": "month9-wonder-16-銀座wonder+night-19:30-21:30",
@@ -2448,7 +2448,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+Night",
       "guideUpdatedAt": "2026-09-10T16:31:28.000Z",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.796Z"
     },
     {
       "id": "month9-wonder-17-横浜wonder+-15:00-16:30",
@@ -2482,7 +2482,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+YOKOHAMA",
       "guideUpdatedAt": "2026-06-28T03:24:09.000Z",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.796Z"
     },
     {
       "id": "month9-wonder-17-千葉wonder+-15:00-16:30",
@@ -2516,7 +2516,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+CHIBA",
       "guideUpdatedAt": "2026-06-28T03:26:54.000Z",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.796Z"
     },
     {
       "id": "month9-wonder-17-銀座wonder+entertainment-20:00-22:00",
@@ -2550,7 +2550,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+Entertainment",
       "guideUpdatedAt": "2026-07-03T23:39:42.000Z",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.796Z"
     },
     {
       "id": "month9-wonder-18-宇都宮wonder+-15:00-16:30",
@@ -2584,7 +2584,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+UTUNOMIYA",
       "guideUpdatedAt": "2026-08-09T13:20:44.000Z",
-      "updatedAt": "2026-09-25T11:04:28.022Z"
+      "updatedAt": "2026-09-25T15:49:06.796Z"
     },
     {
       "id": "month9-wonder-24-銀座wonder+beauty-15:00-16:30",
@@ -2612,7 +2612,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+Beauty",
       "guideUpdatedAt": "2026-09-23T07:48:47.000Z",
-      "updatedAt": "2026-09-25T11:04:28.023Z"
+      "updatedAt": "2026-09-25T15:49:06.796Z"
     },
     {
       "id": "month9-wonder-24-銀座+gravitywonder+-19:30-21:00",
@@ -2646,7 +2646,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+Gravity",
       "guideUpdatedAt": "2026-07-03T23:57:31.000Z",
-      "updatedAt": "2026-09-25T11:04:28.023Z"
+      "updatedAt": "2026-09-25T15:49:06.796Z"
     },
     {
       "id": "month9-wonder-25-新宿wonder+100-13:00-14:30",
@@ -2667,7 +2667,7 @@
       "guideMatched": false,
       "matchedGuideTitle": "",
       "guideUpdatedAt": "",
-      "updatedAt": "2026-09-25T11:04:28.023Z"
+      "updatedAt": "2026-09-25T15:49:06.796Z"
     },
     {
       "id": "month9-wonder-25-新宿wonder+100-15:00-16:30",
@@ -2688,7 +2688,7 @@
       "guideMatched": false,
       "matchedGuideTitle": "",
       "guideUpdatedAt": "",
-      "updatedAt": "2026-09-25T11:04:28.023Z"
+      "updatedAt": "2026-09-25T15:49:06.796Z"
     },
     {
       "id": "month9-wonder-28-熊本wonder+-13:00-14:30",
@@ -2722,7 +2722,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+KUMAMOTO",
       "guideUpdatedAt": "2026-07-07T00:59:27.000Z",
-      "updatedAt": "2026-09-25T11:04:28.023Z"
+      "updatedAt": "2026-09-25T15:49:06.796Z"
     },
     {
       "id": "month9-wonder-28-大阪wonder+-13:00-14:30",
@@ -2756,7 +2756,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+OSAKA",
       "guideUpdatedAt": "2026-06-28T04:13:11.000Z",
-      "updatedAt": "2026-09-25T11:04:28.023Z"
+      "updatedAt": "2026-09-25T15:49:06.796Z"
     },
     {
       "id": "month9-wonder-28-福岡wonder+-19:30-21:00",
@@ -2790,7 +2790,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+FUKUOKA",
       "guideUpdatedAt": "2026-08-09T13:41:54.000Z",
-      "updatedAt": "2026-09-25T11:04:28.023Z"
+      "updatedAt": "2026-09-25T15:49:06.796Z"
     },
     {
       "id": "month9-wonder-28-名古屋wonder+-20:00-21:30",
@@ -2824,7 +2824,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+NAGOYA",
       "guideUpdatedAt": "2026-06-28T03:50:40.000Z",
-      "updatedAt": "2026-09-25T11:04:28.023Z"
+      "updatedAt": "2026-09-25T15:49:06.796Z"
     },
     {
       "id": "month9-wonder-29-北九州wonder+-14:00-15:30",
@@ -2858,7 +2858,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+KITAKYUSYU",
       "guideUpdatedAt": "2026-06-26T00:25:40.000Z",
-      "updatedAt": "2026-09-25T11:04:28.023Z"
+      "updatedAt": "2026-09-25T15:49:06.797Z"
     },
     {
       "id": "month9-wonder-29-横浜wonder+-19:30-21:00",
@@ -2892,7 +2892,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+YOKOHAMA",
       "guideUpdatedAt": "2026-06-28T03:24:09.000Z",
-      "updatedAt": "2026-09-25T11:04:28.023Z"
+      "updatedAt": "2026-09-25T15:49:06.797Z"
     },
     {
       "id": "month9-wonder-30-札幌wonder+-19:00-21:00",
@@ -2926,7 +2926,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+SAPORO",
       "guideUpdatedAt": "2026-08-19T07:38:08.000Z",
-      "updatedAt": "2026-09-25T11:04:28.023Z"
+      "updatedAt": "2026-09-25T15:49:06.797Z"
     },
     {
       "id": "month9-wonder-30-銀座wonder+cxo-19:30-21:30",
@@ -2960,7 +2960,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+CXO",
       "guideUpdatedAt": "2026-08-23T06:11:55.000Z",
-      "updatedAt": "2026-09-25T11:04:28.023Z"
+      "updatedAt": "2026-09-25T15:49:06.797Z"
     },
     {
       "id": "month10-wonder-1-銀座wonder+story-15:00-16:30",
@@ -2994,7 +2994,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+Story",
       "guideUpdatedAt": "2026-08-23T07:32:33.000Z",
-      "updatedAt": "2026-09-25T11:04:28.023Z"
+      "updatedAt": "2026-09-25T15:49:06.797Z"
     },
     {
       "id": "month10-wonder-1-銀座wonder+freelance-19:30-21:00",
@@ -3028,7 +3028,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+ Freelance",
       "guideUpdatedAt": "2026-09-10T23:16:12.000Z",
-      "updatedAt": "2026-09-25T11:04:28.023Z"
+      "updatedAt": "2026-09-25T15:49:06.797Z"
     },
     {
       "id": "month10-wonder-5-甲府wonder+-13:00-14:30",
@@ -3062,7 +3062,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+KOFU",
       "guideUpdatedAt": "2026-08-11T15:50:03.000Z",
-      "updatedAt": "2026-09-25T11:04:28.023Z"
+      "updatedAt": "2026-09-25T15:49:06.797Z"
     },
     {
       "id": "month10-wonder-5-静岡wonder+-19:30-21:00",
@@ -3096,7 +3096,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+SHIZUOKA",
       "guideUpdatedAt": "2026-06-28T03:54:08.000Z",
-      "updatedAt": "2026-09-25T11:04:28.023Z"
+      "updatedAt": "2026-09-25T15:49:06.797Z"
     },
     {
       "id": "month10-wonder-7-名古屋wonder+ladies-15:00-16:30",
@@ -3130,7 +3130,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+NAGOYA",
       "guideUpdatedAt": "2026-06-28T03:50:40.000Z",
-      "updatedAt": "2026-09-25T11:04:28.023Z"
+      "updatedAt": "2026-09-25T15:49:06.797Z"
     },
     {
       "id": "month10-wonder-8-新宿wonder+leaders-12:30-14:00",
@@ -3164,7 +3164,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+Leaders",
       "guideUpdatedAt": "2026-07-30T10:17:45.000Z",
-      "updatedAt": "2026-09-25T11:04:28.023Z"
+      "updatedAt": "2026-09-25T15:49:06.797Z"
     },
     {
       "id": "month10-wonder-8-新宿wonder+ladies-15:00-16:30",
@@ -3185,7 +3185,7 @@
       "guideMatched": false,
       "matchedGuideTitle": "",
       "guideUpdatedAt": "",
-      "updatedAt": "2026-09-25T11:04:28.023Z"
+      "updatedAt": "2026-09-25T15:49:06.797Z"
     },
     {
       "id": "month10-wonder-8-前橋wonder+-19:30-21:00",
@@ -3219,7 +3219,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+MAEBASHI",
       "guideUpdatedAt": "2026-06-28T03:59:49.000Z",
-      "updatedAt": "2026-09-25T11:04:28.023Z"
+      "updatedAt": "2026-09-25T15:49:06.797Z"
     },
     {
       "id": "month10-wonder-8-新宿wonder+realestate-19:30-21:30",
@@ -3240,7 +3240,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "新宿 Wonder+RealEstate",
       "guideUpdatedAt": "2026-09-11T02:01:50.000Z",
-      "updatedAt": "2026-09-25T11:04:28.023Z"
+      "updatedAt": "2026-09-25T15:49:06.797Z"
     },
     {
       "id": "month10-wonder-9-横浜wonder+-15:00-16:00",
@@ -3274,7 +3274,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+YOKOHAMA",
       "guideUpdatedAt": "2026-06-28T03:24:09.000Z",
-      "updatedAt": "2026-09-25T11:04:28.023Z"
+      "updatedAt": "2026-09-25T15:49:06.797Z"
     },
     {
       "id": "month10-wonder-13-仙台wonder+-13:00-14:30",
@@ -3308,7 +3308,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+SENDAI",
       "guideUpdatedAt": "2026-07-07T01:09:11.000Z",
-      "updatedAt": "2026-09-25T11:04:28.023Z"
+      "updatedAt": "2026-09-25T15:49:06.797Z"
     },
     {
       "id": "month10-wonder-13-宇都宮wonder+-19:30-21:00",
@@ -3342,7 +3342,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+UTUNOMIYA",
       "guideUpdatedAt": "2026-08-09T13:20:44.000Z",
-      "updatedAt": "2026-09-25T11:04:28.023Z"
+      "updatedAt": "2026-09-25T15:49:06.797Z"
     },
     {
       "id": "month10-wonder-13-銀座wonder+gravity-19:30-21:00",
@@ -3376,7 +3376,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+Gravity",
       "guideUpdatedAt": "2026-07-03T23:57:31.000Z",
-      "updatedAt": "2026-09-25T11:04:28.023Z"
+      "updatedAt": "2026-09-25T15:49:06.797Z"
     },
     {
       "id": "month10-wonder-14-名古屋wonder+-13:00-14:30",
@@ -3410,7 +3410,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+NAGOYA",
       "guideUpdatedAt": "2026-06-28T03:50:40.000Z",
-      "updatedAt": "2026-09-25T11:04:28.023Z"
+      "updatedAt": "2026-09-25T15:49:06.798Z"
     },
     {
       "id": "month10-wonder-14-千葉wonder+-15:00-16:30",
@@ -3444,7 +3444,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+CHIBA",
       "guideUpdatedAt": "2026-06-28T03:26:54.000Z",
-      "updatedAt": "2026-09-25T11:04:28.023Z"
+      "updatedAt": "2026-09-25T15:49:06.798Z"
     },
     {
       "id": "month10-wonder-14-札幌wonder+-19:00-21:00",
@@ -3478,7 +3478,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+SAPORO",
       "guideUpdatedAt": "2026-08-19T07:38:08.000Z",
-      "updatedAt": "2026-09-25T11:04:28.023Z"
+      "updatedAt": "2026-09-25T15:49:06.798Z"
     },
     {
       "id": "month10-wonder-14-銀座wonder+marketing-19:30-21:00",
@@ -3512,7 +3512,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+ Marketing",
       "guideUpdatedAt": "2026-09-10T23:43:50.000Z",
-      "updatedAt": "2026-09-25T11:04:28.024Z"
+      "updatedAt": "2026-09-25T15:49:06.798Z"
     },
     {
       "id": "month10-wonder-14-大阪wonder+-19:30-21:00",
@@ -3546,7 +3546,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+OSAKA",
       "guideUpdatedAt": "2026-06-28T04:13:11.000Z",
-      "updatedAt": "2026-09-25T11:04:28.024Z"
+      "updatedAt": "2026-09-25T15:49:06.798Z"
     },
     {
       "id": "month10-wonder-15-横浜wonder+-15:00-16:30",
@@ -3580,7 +3580,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+YOKOHAMA",
       "guideUpdatedAt": "2026-06-28T03:24:09.000Z",
-      "updatedAt": "2026-09-25T11:04:28.024Z"
+      "updatedAt": "2026-09-25T15:49:06.798Z"
     },
     {
       "id": "month10-wonder-15-銀座wonder+entertainment-20:00-22:00",
@@ -3614,7 +3614,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+Entertainment",
       "guideUpdatedAt": "2026-07-03T23:39:42.000Z",
-      "updatedAt": "2026-09-25T11:04:28.024Z"
+      "updatedAt": "2026-09-25T15:49:06.798Z"
     },
     {
       "id": "month10-wonder-16-大阪wonder+ladies-15:00-16:30",
@@ -3648,7 +3648,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+OSAKA",
       "guideUpdatedAt": "2026-06-28T04:13:11.000Z",
-      "updatedAt": "2026-09-25T11:04:28.024Z"
+      "updatedAt": "2026-09-25T15:49:06.798Z"
     },
     {
       "id": "month10-wonder-16-大阪wonder+sales-15:30-17:00",
@@ -3682,7 +3682,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+OSAKA",
       "guideUpdatedAt": "2026-06-28T04:13:11.000Z",
-      "updatedAt": "2026-09-25T11:04:28.024Z"
+      "updatedAt": "2026-09-25T15:49:06.798Z"
     },
     {
       "id": "month10-wonder-16-京都wonder+-19:30-21:00",
@@ -3716,7 +3716,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+KYOTO",
       "guideUpdatedAt": "2026-06-28T03:21:03.000Z",
-      "updatedAt": "2026-09-25T11:04:28.024Z"
+      "updatedAt": "2026-09-25T15:49:06.798Z"
     },
     {
       "id": "month10-wonder-17-大阪朝wonder+-10:00-11:30",
@@ -3750,7 +3750,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+OSAKA",
       "guideUpdatedAt": "2026-06-28T04:13:11.000Z",
-      "updatedAt": "2026-09-25T11:04:28.024Z"
+      "updatedAt": "2026-09-25T15:49:06.798Z"
     },
     {
       "id": "month10-wonder-17-大阪wonder+100コン-19:30-21:30",
@@ -3784,7 +3784,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+OSAKA",
       "guideUpdatedAt": "2026-06-28T04:13:11.000Z",
-      "updatedAt": "2026-09-25T11:04:28.024Z"
+      "updatedAt": "2026-09-25T15:49:06.798Z"
     },
     {
       "id": "month10-wonder-19-熊本wonder+-13:00-14:30",
@@ -3818,7 +3818,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+KUMAMOTO",
       "guideUpdatedAt": "2026-07-07T00:59:27.000Z",
-      "updatedAt": "2026-09-25T11:04:28.024Z"
+      "updatedAt": "2026-09-25T15:49:06.798Z"
     },
     {
       "id": "month10-wonder-19-福岡wonder+-19:30-21:00",
@@ -3852,7 +3852,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+FUKUOKA",
       "guideUpdatedAt": "2026-08-09T13:41:54.000Z",
-      "updatedAt": "2026-09-25T11:04:28.024Z"
+      "updatedAt": "2026-09-25T15:49:06.798Z"
     },
     {
       "id": "month10-wonder-20-北九州wonder+-14:00-15:30",
@@ -3886,7 +3886,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+KITAKYUSYU",
       "guideUpdatedAt": "2026-06-26T00:25:40.000Z",
-      "updatedAt": "2026-09-25T11:04:28.024Z"
+      "updatedAt": "2026-09-25T15:49:06.798Z"
     },
     {
       "id": "month10-wonder-20-新宿wonder+alliance-19:30-21:00",
@@ -3920,7 +3920,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+Alliance",
       "guideUpdatedAt": "2026-08-06T11:32:15.000Z",
-      "updatedAt": "2026-09-25T11:04:28.024Z"
+      "updatedAt": "2026-09-25T15:49:06.798Z"
     },
     {
       "id": "month10-wonder-21-大宮wonder+-15:00-16:30",
@@ -3954,7 +3954,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+OMIYA",
       "guideUpdatedAt": "2026-08-11T15:46:11.000Z",
-      "updatedAt": "2026-09-25T11:04:28.024Z"
+      "updatedAt": "2026-09-25T15:49:06.798Z"
     },
     {
       "id": "month10-wonder-22-新宿wonder+ses-14:00-15:30",
@@ -3982,7 +3982,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+ SES",
       "guideUpdatedAt": "2026-09-11T01:49:42.000Z",
-      "updatedAt": "2026-09-25T11:04:28.024Z"
+      "updatedAt": "2026-09-25T15:49:06.799Z"
     },
     {
       "id": "month10-wonder-22-銀座wonder+cxo-19:30-21:30",
@@ -4016,7 +4016,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+CXO",
       "guideUpdatedAt": "2026-08-23T06:11:55.000Z",
-      "updatedAt": "2026-09-25T11:04:28.024Z"
+      "updatedAt": "2026-09-25T15:49:06.799Z"
     },
     {
       "id": "month10-wonder-23-横浜wonder+-15:00-16:00",
@@ -4050,7 +4050,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+YOKOHAMA",
       "guideUpdatedAt": "2026-06-28T03:24:09.000Z",
-      "updatedAt": "2026-09-25T11:04:28.024Z"
+      "updatedAt": "2026-09-25T15:49:06.799Z"
     },
     {
       "id": "month10-wonder-26-岡山wonder+-13:00-14:30",
@@ -4084,7 +4084,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+OKAYAMA",
       "guideUpdatedAt": "2026-09-10T08:32:24.000Z",
-      "updatedAt": "2026-09-25T11:04:28.024Z"
+      "updatedAt": "2026-09-25T15:49:06.799Z"
     },
     {
       "id": "month10-wonder-26-広島wonder+-13:00-14:30",
@@ -4118,7 +4118,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+HIROSHIMA",
       "guideUpdatedAt": "2026-06-28T01:41:17.000Z",
-      "updatedAt": "2026-09-25T11:04:28.024Z"
+      "updatedAt": "2026-09-25T15:49:06.799Z"
     },
     {
       "id": "month10-wonder-26-高崎wonder+-13:00-14:30",
@@ -4152,7 +4152,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+TAKASAKI",
       "guideUpdatedAt": "2026-07-25T14:36:03.000Z",
-      "updatedAt": "2026-09-25T11:04:28.024Z"
+      "updatedAt": "2026-09-25T15:49:06.799Z"
     },
     {
       "id": "month10-wonder-26-神戸wonder+-19:30-21:00",
@@ -4180,7 +4180,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+KOBE",
       "guideUpdatedAt": "2026-09-14T12:40:13.000Z",
-      "updatedAt": "2026-09-25T11:04:28.024Z"
+      "updatedAt": "2026-09-25T15:49:06.799Z"
     },
     {
       "id": "month10-wonder-27-大阪wonder+-13:00-14:30",
@@ -4214,7 +4214,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+OSAKA",
       "guideUpdatedAt": "2026-06-28T04:13:11.000Z",
-      "updatedAt": "2026-09-25T11:04:28.024Z"
+      "updatedAt": "2026-09-25T15:49:06.799Z"
     },
     {
       "id": "month10-wonder-27-浜松wonder+-19:30-21:00",
@@ -4235,7 +4235,7 @@
       "guideMatched": false,
       "matchedGuideTitle": "",
       "guideUpdatedAt": "",
-      "updatedAt": "2026-09-25T11:04:28.024Z"
+      "updatedAt": "2026-09-25T15:49:06.799Z"
     },
     {
       "id": "month10-wonder-27-名古屋wonder+-19:30-21:00",
@@ -4269,7 +4269,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+NAGOYA",
       "guideUpdatedAt": "2026-06-28T03:50:40.000Z",
-      "updatedAt": "2026-09-25T11:04:28.024Z"
+      "updatedAt": "2026-09-25T15:49:06.799Z"
     },
     {
       "id": "month10-wonder-28-札幌wonder+-13:00-14:30",
@@ -4303,7 +4303,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+SAPORO",
       "guideUpdatedAt": "2026-08-19T07:38:08.000Z",
-      "updatedAt": "2026-09-25T11:04:28.024Z"
+      "updatedAt": "2026-09-25T15:49:06.799Z"
     },
     {
       "id": "month10-wonder-28-銀座wonder+beauty-15:00-16:30",
@@ -4331,7 +4331,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+Beauty",
       "guideUpdatedAt": "2026-09-23T07:48:47.000Z",
-      "updatedAt": "2026-09-25T11:04:28.024Z"
+      "updatedAt": "2026-09-25T15:49:06.799Z"
     },
     {
       "id": "month10-wonder-28-横浜wonder+-19:30-21:00",
@@ -4365,7 +4365,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+YOKOHAMA",
       "guideUpdatedAt": "2026-06-28T03:24:09.000Z",
-      "updatedAt": "2026-09-25T11:04:28.024Z"
+      "updatedAt": "2026-09-25T15:49:06.799Z"
     },
     {
       "id": "month10-wonder-28-銀座wonder+gravity-19:30-21:00",
@@ -4399,7 +4399,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+Gravity",
       "guideUpdatedAt": "2026-07-03T23:57:31.000Z",
-      "updatedAt": "2026-09-25T11:04:28.024Z"
+      "updatedAt": "2026-09-25T15:49:06.799Z"
     },
     {
       "id": "month10-wonder-29-新宿wonder+100-13:00-14:30",
@@ -4420,7 +4420,7 @@
       "guideMatched": false,
       "matchedGuideTitle": "",
       "guideUpdatedAt": "",
-      "updatedAt": "2026-09-25T11:04:28.024Z"
+      "updatedAt": "2026-09-25T15:49:06.799Z"
     },
     {
       "id": "month10-wonder-29-新宿wonder+100-15:00-16:30",
@@ -4441,7 +4441,7 @@
       "guideMatched": false,
       "matchedGuideTitle": "",
       "guideUpdatedAt": "",
-      "updatedAt": "2026-09-25T11:04:28.024Z"
+      "updatedAt": "2026-09-25T15:49:06.799Z"
     },
     {
       "id": "month10-wonder-29-銀座wonder+hr（人材）-19:30-21:00",
@@ -4469,7 +4469,7 @@
       "guideMatched": true,
       "matchedGuideTitle": "Wonder+ HR",
       "guideUpdatedAt": "2026-09-11T01:52:29.000Z",
-      "updatedAt": "2026-09-25T11:04:28.024Z"
+      "updatedAt": "2026-09-25T15:49:06.799Z"
     }
   ],
   "scheduleReadiness": {

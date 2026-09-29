@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "updatedAt": "2026-09-29T10:55:35.140Z",
+  "updatedAt": "2026-09-29T16:47:26.535Z",
   "source": "formatted-schedule-sheet",
   "masterSource": "formatted-schedule-sheet",
   "scheduleCounts": {
@@ -15,7 +15,7 @@
     "septemberRegular": 17,
     "septemberMeeting": 3,
     "octoberWonder": 47,
-    "octoberRegular": 25,
+    "octoberRegular": 24,
     "octoberMeeting": 3
   },
   "assignments": {
@@ -3515,17 +3515,17 @@
       "label": "10月 Wonder+",
       "items": [
         {
-          "id": "2026|10|1|wonder|銀座wonder+story|15:00-16:30",
+          "id": "2026|10|1|wonder|銀座wonder+story|15:30-17:30",
           "year": 2026,
           "month": 10,
           "category": "wonder",
           "day": 1,
           "title": "銀座 Wonder+Story",
-          "meta": "15:00-16:30",
-          "timeRange": "15:00-16:30",
+          "meta": "15:30-17:30",
+          "timeRange": "15:30-17:30",
           "venue": "銀座",
           "eventName": "W+Story",
-          "time": "15:00-16:30",
+          "time": "15:30-17:30",
           "sourceRow": 159
         },
         {
@@ -4219,7 +4219,7 @@
           "venue": "",
           "eventName": "朝活異業種交流会",
           "time": "10:00-11:00",
-          "sourceRow": 226
+          "sourceRow": 225
         },
         {
           "id": "2026|10|5|regular|レギュラー異業種交流会|13:00-14:00",
@@ -4278,20 +4278,6 @@
           "sourceRow": 211
         },
         {
-          "id": "2026|10|9|regular|レギュラー異業種交流会|13:00-14:00",
-          "year": 2026,
-          "month": 10,
-          "category": "regular",
-          "day": 9,
-          "title": "レギュラー異業種交流会",
-          "meta": "13:00-14:00",
-          "timeRange": "13:00-14:00",
-          "venue": "",
-          "eventName": "レギュラー異業種交流会",
-          "time": "13:00-14:00",
-          "sourceRow": 212
-        },
-        {
           "id": "2026|10|12|regular|レギュラー異業種交流会|10:00-11:00",
           "year": 2026,
           "month": 10,
@@ -4303,7 +4289,7 @@
           "venue": "",
           "eventName": "朝活異業種交流会",
           "time": "10:00-11:00",
-          "sourceRow": 227
+          "sourceRow": 226
         },
         {
           "id": "2026|10|13|regular|レギュラー異業種交流会|13:00-14:00",
@@ -4317,7 +4303,7 @@
           "venue": "",
           "eventName": "レギュラー異業種交流会",
           "time": "13:00-14:00",
-          "sourceRow": 213
+          "sourceRow": 212
         },
         {
           "id": "2026|10|14|regular|レギュラー異業種交流会|13:00-14:00",
@@ -4331,7 +4317,7 @@
           "venue": "",
           "eventName": "レギュラー異業種交流会",
           "time": "13:00-14:00",
-          "sourceRow": 214
+          "sourceRow": 213
         },
         {
           "id": "2026|10|15|regular|レギュラー異業種交流会|13:00-14:00",
@@ -4345,7 +4331,7 @@
           "venue": "",
           "eventName": "レギュラー異業種交流会",
           "time": "13:00-14:00",
-          "sourceRow": 215
+          "sourceRow": 214
         },
         {
           "id": "2026|10|16|regular|レギュラー異業種交流会|12:00-13:00",
@@ -4359,7 +4345,7 @@
           "venue": "",
           "eventName": "レギュラー異業種交流会",
           "time": "12:00-13:00",
-          "sourceRow": 216
+          "sourceRow": 215
         },
         {
           "id": "2026|10|18|regular|レギュラー異業種交流会|10:00-11:00",
@@ -4373,7 +4359,7 @@
           "venue": "",
           "eventName": "朝活異業種交流会",
           "time": "10:00-11:00",
-          "sourceRow": 228
+          "sourceRow": 227
         },
         {
           "id": "2026|10|19|regular|レギュラー異業種交流会|13:00-14:00",
@@ -4387,7 +4373,7 @@
           "venue": "",
           "eventName": "レギュラー異業種交流会",
           "time": "13:00-14:00",
-          "sourceRow": 217
+          "sourceRow": 216
         },
         {
           "id": "2026|10|20|regular|レギュラー異業種交流会|13:00-14:00",
@@ -4401,7 +4387,7 @@
           "venue": "",
           "eventName": "レギュラー異業種交流会",
           "time": "13:00-14:00",
-          "sourceRow": 218
+          "sourceRow": 217
         },
         {
           "id": "2026|10|21|regular|レギュラー異業種交流会|13:00-14:00",
@@ -4415,7 +4401,7 @@
           "venue": "",
           "eventName": "レギュラー異業種交流会",
           "time": "13:00-14:00",
-          "sourceRow": 219
+          "sourceRow": 218
         },
         {
           "id": "2026|10|22|regular|レギュラー異業種交流会|13:00-14:00",
@@ -4429,7 +4415,7 @@
           "venue": "",
           "eventName": "レギュラー異業種交流会",
           "time": "13:00-14:00",
-          "sourceRow": 220
+          "sourceRow": 219
         },
         {
           "id": "2026|10|23|regular|レギュラー異業種交流会|13:00-14:00",
@@ -4443,7 +4429,7 @@
           "venue": "",
           "eventName": "レギュラー異業種交流会",
           "time": "13:00-14:00",
-          "sourceRow": 221
+          "sourceRow": 220
         },
         {
           "id": "2026|10|25|regular|レギュラー異業種交流会|10:00-11:00",
@@ -4457,7 +4443,7 @@
           "venue": "",
           "eventName": "朝活異業種交流会",
           "time": "10:00-11:00",
-          "sourceRow": 229
+          "sourceRow": 228
         },
         {
           "id": "2026|10|26|regular|レギュラー異業種交流会|13:00-14:00",
@@ -4471,7 +4457,7 @@
           "venue": "",
           "eventName": "レギュラー異業種交流会",
           "time": "13:00-14:00",
-          "sourceRow": 222
+          "sourceRow": 221
         },
         {
           "id": "2026|10|27|regular|レギュラー異業種交流会|13:00-14:00",
@@ -4485,7 +4471,7 @@
           "venue": "",
           "eventName": "レギュラー異業種交流会",
           "time": "13:00-14:00",
-          "sourceRow": 223
+          "sourceRow": 222
         },
         {
           "id": "2026|10|28|regular|レギュラー異業種交流会|13:00-14:00",
@@ -4499,7 +4485,7 @@
           "venue": "",
           "eventName": "レギュラー異業種交流会",
           "time": "13:00-14:00",
-          "sourceRow": 224
+          "sourceRow": 223
         },
         {
           "id": "2026|10|30|regular|レギュラー異業種交流会|13:00-14:00",
@@ -4513,7 +4499,7 @@
           "venue": "",
           "eventName": "レギュラー異業種交流会",
           "time": "13:00-14:00",
-          "sourceRow": 225
+          "sourceRow": 224
         },
         {
           "id": "2026|10|31|regular|レギュラー異業種交流会|10:00-11:00",
@@ -4527,7 +4513,7 @@
           "venue": "",
           "eventName": "朝活異業種交流会",
           "time": "10:00-11:00",
-          "sourceRow": 230
+          "sourceRow": 229
         }
       ]
     },
@@ -4554,7 +4540,7 @@
           "venue": "",
           "eventName": "ミーティング",
           "time": "17:00-18:30",
-          "sourceRow": 231
+          "sourceRow": 230
         },
         {
           "id": "2026|10|29|meeting|ミーティング|11:00-12:00",
@@ -4568,7 +4554,7 @@
           "venue": "",
           "eventName": "ミーティング",
           "time": "11:00-12:00",
-          "sourceRow": 232
+          "sourceRow": 231
         },
         {
           "id": "2026|10|29|meeting|ミーティング|17:00-18:00",
@@ -4582,7 +4568,7 @@
           "venue": "",
           "eventName": "ミーティング",
           "time": "17:00-18:00",
-          "sourceRow": 233
+          "sourceRow": 232
         }
       ]
     },

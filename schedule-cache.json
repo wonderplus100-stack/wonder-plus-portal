@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "updatedAt": "2026-09-30T05:59:00.361Z",
+  "updatedAt": "2026-09-30T12:17:54.841Z",
   "source": "formatted-schedule-sheet",
   "masterSource": "formatted-schedule-sheet",
   "scheduleCounts": {
@@ -695,7 +695,8 @@
     "2026|9|30|wonder|銀座wonder+cxo|19:30-21:30": [
       "大西正人",
       "小宮留衣",
-      "高杉裕輔"
+      "高杉裕輔",
+      "米元惠一朗"
     ],
     "2026|9|10|wonder|銀座wonder+ladies|15:00-16:30": [
       "大西正人",
@@ -937,6 +938,10 @@
       "大西正人",
       "長田瑞穂"
     ],
+    "2026|10|28|wonder|横浜wonder+|19:30-21:00": [
+      "荒井沙也香",
+      "高杉裕輔"
+    ],
     "2026|10|1|wonder|銀座wonder+freelance|19:30-21:00": [
       "小宮留衣",
       "高杉裕輔",
@@ -1016,9 +1021,6 @@
       "大西正人"
     ],
     "2026|10|27|wonder|名古屋wonder+|19:30-21:00": [
-      "高杉裕輔"
-    ],
-    "2026|10|28|wonder|横浜wonder+|19:30-21:00": [
       "高杉裕輔"
     ],
     "2026|10|28|wonder|銀座wonder+beauty|15:00-16:30": [

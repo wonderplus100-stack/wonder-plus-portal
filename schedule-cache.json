@@ -1,14 +1,14 @@
 {
   "ok": true,
-  "updatedAt": "2026-10-01T14:40:58.872Z",
+  "updatedAt": "2026-10-01T19:51:24.307Z",
   "source": "formatted-schedule-sheet",
   "masterSource": "formatted-schedule-sheet",
   "scheduleCounts": {
     "juneWonder": 1,
-    "julyWonder": 26,
+    "julyWonder": 25,
     "julyRegular": 21,
     "julyMeeting": 2,
-    "augustWonder": 26,
+    "augustWonder": 25,
     "augustRegular": 15,
     "augustMeeting": 3,
     "septemberWonder": 43,
@@ -1294,7 +1294,7 @@
       "label": "6月 Wonder+",
       "items": [
         {
-          "id": "2026|6|30|wonder|北九州wonder+|13:00-14:30|2",
+          "id": "2026|6|30|wonder|北九州wonder+|13:00-14:30",
           "year": 2026,
           "month": 6,
           "category": "wonder",
@@ -1333,7 +1333,7 @@
       "label": "7月 Wonder+",
       "items": [
         {
-          "id": "2026|7|1|wonder|熊本wonder+|13:00-14:30|3",
+          "id": "2026|7|1|wonder|熊本wonder+|13:00-14:30",
           "year": 2026,
           "month": 7,
           "category": "wonder",
@@ -1347,7 +1347,7 @@
           "sourceRow": 3
         },
         {
-          "id": "2026|7|2|wonder|銀座wonder+|15:30-17:30|4",
+          "id": "2026|7|2|wonder|銀座wonder+|15:30-17:30",
           "year": 2026,
           "month": 7,
           "category": "wonder",
@@ -1361,7 +1361,7 @@
           "sourceRow": 4
         },
         {
-          "id": "2026|7|7|wonder|郡山wonder+|13:00-14:30|5",
+          "id": "2026|7|7|wonder|郡山wonder+|13:00-14:30",
           "year": 2026,
           "month": 7,
           "category": "wonder",
@@ -1375,7 +1375,7 @@
           "sourceRow": 5
         },
         {
-          "id": "2026|7|7|wonder|仙台wonder+|13:00-14:30|6",
+          "id": "2026|7|7|wonder|仙台wonder+|13:00-14:30",
           "year": 2026,
           "month": 7,
           "category": "wonder",
@@ -1389,7 +1389,7 @@
           "sourceRow": 6
         },
         {
-          "id": "2026|7|8|wonder|新潟wonder+|13:00-14:30|7",
+          "id": "2026|7|8|wonder|新潟wonder+|13:00-14:30",
           "year": 2026,
           "month": 7,
           "category": "wonder",
@@ -1403,7 +1403,7 @@
           "sourceRow": 7
         },
         {
-          "id": "2026|7|10|wonder|銀座+leaderswonder+|12:30-14:30|8",
+          "id": "2026|7|10|wonder|銀座+leaderswonder+|12:30-14:30",
           "year": 2026,
           "month": 7,
           "category": "wonder",
@@ -1417,7 +1417,7 @@
           "sourceRow": 8
         },
         {
-          "id": "2026|7|10|wonder|銀座+ladieswonder+|15:00-16:30|9",
+          "id": "2026|7|10|wonder|銀座+ladieswonder+|15:00-16:30",
           "year": 2026,
           "month": 7,
           "category": "wonder",
@@ -1431,7 +1431,7 @@
           "sourceRow": 9
         },
         {
-          "id": "2026|7|13|wonder|広島wonder+|13:00-14:30|10",
+          "id": "2026|7|13|wonder|広島wonder+|13:00-14:30",
           "year": 2026,
           "month": 7,
           "category": "wonder",
@@ -1445,7 +1445,7 @@
           "sourceRow": 10
         },
         {
-          "id": "2026|7|13|wonder|名古屋+ladieswonder+|13:00-14:30|11",
+          "id": "2026|7|13|wonder|名古屋+ladieswonder+|13:00-14:30",
           "year": 2026,
           "month": 7,
           "category": "wonder",
@@ -1459,7 +1459,7 @@
           "sourceRow": 11
         },
         {
-          "id": "2026|7|13|wonder|神戸wonder+|19:30-21:00|12",
+          "id": "2026|7|13|wonder|神戸wonder+|19:30-21:00",
           "year": 2026,
           "month": 7,
           "category": "wonder",
@@ -1473,7 +1473,7 @@
           "sourceRow": 12
         },
         {
-          "id": "2026|7|14|wonder|京都wonder+|15:00-16:30|13",
+          "id": "2026|7|14|wonder|京都wonder+|15:00-16:30",
           "year": 2026,
           "month": 7,
           "category": "wonder",
@@ -1487,7 +1487,7 @@
           "sourceRow": 13
         },
         {
-          "id": "2026|7|16|wonder|横浜wonder+|15:00-16:30|15",
+          "id": "2026|7|16|wonder|横浜wonder+|15:00-16:30",
           "year": 2026,
           "month": 7,
           "category": "wonder",
@@ -1501,7 +1501,7 @@
           "sourceRow": 15
         },
         {
-          "id": "2026|7|16|wonder|銀座+entertainmentwonder+|15:00-16:30|16",
+          "id": "2026|7|16|wonder|銀座+entertainmentwonder+|15:00-16:30",
           "year": 2026,
           "month": 7,
           "category": "wonder",
@@ -1515,7 +1515,7 @@
           "sourceRow": 16
         },
         {
-          "id": "2026|7|16|wonder|船橋wonder+|15:00-16:30|14",
+          "id": "2026|7|16|wonder|船橋wonder+|15:00-16:30",
           "year": 2026,
           "month": 7,
           "category": "wonder",
@@ -1529,7 +1529,7 @@
           "sourceRow": 14
         },
         {
-          "id": "2026|7|21|wonder|浜松wonder+|14:00-15:30|17",
+          "id": "2026|7|21|wonder|浜松wonder+|14:00-15:30",
           "year": 2026,
           "month": 7,
           "category": "wonder",
@@ -1543,7 +1543,7 @@
           "sourceRow": 17
         },
         {
-          "id": "2026|7|21|wonder|名古屋wonder+|14:00-15:30|18",
+          "id": "2026|7|21|wonder|名古屋wonder+|14:00-15:30",
           "year": 2026,
           "month": 7,
           "category": "wonder",
@@ -1557,7 +1557,7 @@
           "sourceRow": 18
         },
         {
-          "id": "2026|7|22|wonder|大阪wonder+|13:00-14:30|19",
+          "id": "2026|7|22|wonder|大阪wonder+|13:00-14:30",
           "year": 2026,
           "month": 7,
           "category": "wonder",
@@ -1571,7 +1571,7 @@
           "sourceRow": 19
         },
         {
-          "id": "2026|7|23|wonder|銀座+cxowonder+|19:30-21:30|20",
+          "id": "2026|7|23|wonder|銀座+cxowonder+|19:30-21:30",
           "year": 2026,
           "month": 7,
           "category": "wonder",
@@ -1585,7 +1585,7 @@
           "sourceRow": 20
         },
         {
-          "id": "2026|7|27|wonder|静岡wonder+|13:00-14:30|22",
+          "id": "2026|7|27|wonder|静岡wonder+|13:00-14:30",
           "year": 2026,
           "month": 7,
           "category": "wonder",
@@ -1599,7 +1599,7 @@
           "sourceRow": 22
         },
         {
-          "id": "2026|7|27|wonder|前橋wonder+|19:30-21:00|21",
+          "id": "2026|7|27|wonder|前橋wonder+|19:30-21:00",
           "year": 2026,
           "month": 7,
           "category": "wonder",
@@ -1613,7 +1613,7 @@
           "sourceRow": 21
         },
         {
-          "id": "2026|7|28|wonder|銀座+gravitywonder+|19:30-21:00|24",
+          "id": "2026|7|28|wonder|銀座+gravitywonder+|19:30-21:00",
           "year": 2026,
           "month": 7,
           "category": "wonder",
@@ -1627,7 +1627,7 @@
           "sourceRow": 24
         },
         {
-          "id": "2026|7|28|wonder|福岡wonder+|19:30-21:00|23",
+          "id": "2026|7|28|wonder|福岡wonder+|19:30-21:00",
           "year": 2026,
           "month": 7,
           "category": "wonder",
@@ -1641,7 +1641,7 @@
           "sourceRow": 23
         },
         {
-          "id": "2026|7|29|wonder|銀座+beautywonder+|13:00-14:30|26",
+          "id": "2026|7|29|wonder|銀座+beautywonder+|13:00-14:30",
           "year": 2026,
           "month": 7,
           "category": "wonder",
@@ -1655,7 +1655,7 @@
           "sourceRow": 26
         },
         {
-          "id": "2026|7|29|wonder|熊本wonder+|13:00-14:30|25",
+          "id": "2026|7|29|wonder|熊本wonder+|13:00-14:30",
           "year": 2026,
           "month": 7,
           "category": "wonder",
@@ -1669,7 +1669,7 @@
           "sourceRow": 25
         },
         {
-          "id": "2026|7|30|wonder|新宿+100wonder+|13:00-14:30|27",
+          "id": "2026|7|30|wonder|新宿+100wonder+|13:00-14:30",
           "year": 2026,
           "month": 7,
           "category": "wonder",
@@ -1681,20 +1681,6 @@
           "eventName": "イベント",
           "time": "13:00-14:30",
           "sourceRow": 27
-        },
-        {
-          "id": "2026|7|30|wonder|新宿+100wonder+|13:00-14:30|28",
-          "year": 2026,
-          "month": 7,
-          "category": "wonder",
-          "day": 30,
-          "title": "新宿+100 Wonder+",
-          "meta": "13:00-14:30",
-          "timeRange": "13:00-14:30",
-          "venue": "新宿+100",
-          "eventName": "イベント",
-          "time": "13:00-14:30",
-          "sourceRow": 28
         }
       ]
     },
@@ -1704,7 +1690,7 @@
       "label": "7月 レギュラー",
       "items": [
         {
-          "id": "2026|7|1|regular|レギュラー異業種交流会|13:00-14:00|29",
+          "id": "2026|7|1|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 7,
           "category": "regular",
@@ -1718,7 +1704,7 @@
           "sourceRow": 29
         },
         {
-          "id": "2026|7|2|regular|レギュラー異業種交流会|13:00-14:00|30",
+          "id": "2026|7|2|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 7,
           "category": "regular",
@@ -1732,7 +1718,7 @@
           "sourceRow": 30
         },
         {
-          "id": "2026|7|3|regular|レギュラー異業種交流会|13:00-14:00|31",
+          "id": "2026|7|3|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 7,
           "category": "regular",
@@ -1746,7 +1732,7 @@
           "sourceRow": 31
         },
         {
-          "id": "2026|7|5|regular|レギュラー異業種交流会|10:00-11:00|46",
+          "id": "2026|7|5|regular|レギュラー異業種交流会|10:00-11:00",
           "year": 2026,
           "month": 7,
           "category": "regular",
@@ -1760,7 +1746,7 @@
           "sourceRow": 46
         },
         {
-          "id": "2026|7|6|regular|レギュラー異業種交流会|13:00-14:00|32",
+          "id": "2026|7|6|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 7,
           "category": "regular",
@@ -1774,7 +1760,7 @@
           "sourceRow": 32
         },
         {
-          "id": "2026|7|7|regular|レギュラー異業種交流会|13:00-14:00|33",
+          "id": "2026|7|7|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 7,
           "category": "regular",
@@ -1788,7 +1774,7 @@
           "sourceRow": 33
         },
         {
-          "id": "2026|7|12|regular|レギュラー異業種交流会|10:00-11:00|47",
+          "id": "2026|7|12|regular|レギュラー異業種交流会|10:00-11:00",
           "year": 2026,
           "month": 7,
           "category": "regular",
@@ -1802,7 +1788,7 @@
           "sourceRow": 47
         },
         {
-          "id": "2026|7|14|regular|レギュラー異業種交流会|13:00-14:00|34",
+          "id": "2026|7|14|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 7,
           "category": "regular",
@@ -1816,7 +1802,7 @@
           "sourceRow": 34
         },
         {
-          "id": "2026|7|15|regular|レギュラー異業種交流会|13:00-14:00|35",
+          "id": "2026|7|15|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 7,
           "category": "regular",
@@ -1830,7 +1816,7 @@
           "sourceRow": 35
         },
         {
-          "id": "2026|7|16|regular|レギュラー異業種交流会|13:00-14:00|36",
+          "id": "2026|7|16|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 7,
           "category": "regular",
@@ -1844,7 +1830,7 @@
           "sourceRow": 36
         },
         {
-          "id": "2026|7|17|regular|レギュラー異業種交流会|13:00-14:00|37",
+          "id": "2026|7|17|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 7,
           "category": "regular",
@@ -1858,7 +1844,7 @@
           "sourceRow": 37
         },
         {
-          "id": "2026|7|20|regular|レギュラー異業種交流会|10:00-11:00|48",
+          "id": "2026|7|20|regular|レギュラー異業種交流会|10:00-11:00",
           "year": 2026,
           "month": 7,
           "category": "regular",
@@ -1872,7 +1858,7 @@
           "sourceRow": 48
         },
         {
-          "id": "2026|7|21|regular|レギュラー異業種交流会|13:00-14:00|38",
+          "id": "2026|7|21|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 7,
           "category": "regular",
@@ -1886,7 +1872,7 @@
           "sourceRow": 38
         },
         {
-          "id": "2026|7|22|regular|レギュラー異業種交流会|13:00-14:00|39",
+          "id": "2026|7|22|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 7,
           "category": "regular",
@@ -1900,7 +1886,7 @@
           "sourceRow": 39
         },
         {
-          "id": "2026|7|23|regular|レギュラー異業種交流会|13:00-14:00|40",
+          "id": "2026|7|23|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 7,
           "category": "regular",
@@ -1914,7 +1900,7 @@
           "sourceRow": 40
         },
         {
-          "id": "2026|7|24|regular|レギュラー異業種交流会|13:00-14:00|41",
+          "id": "2026|7|24|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 7,
           "category": "regular",
@@ -1928,7 +1914,7 @@
           "sourceRow": 41
         },
         {
-          "id": "2026|7|26|regular|レギュラー異業種交流会|10:00-11:00|49",
+          "id": "2026|7|26|regular|レギュラー異業種交流会|10:00-11:00",
           "year": 2026,
           "month": 7,
           "category": "regular",
@@ -1942,7 +1928,7 @@
           "sourceRow": 49
         },
         {
-          "id": "2026|7|27|regular|レギュラー異業種交流会|13:00-14:00|42",
+          "id": "2026|7|27|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 7,
           "category": "regular",
@@ -1956,7 +1942,7 @@
           "sourceRow": 42
         },
         {
-          "id": "2026|7|28|regular|レギュラー異業種交流会|13:00-14:00|43",
+          "id": "2026|7|28|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 7,
           "category": "regular",
@@ -1970,7 +1956,7 @@
           "sourceRow": 43
         },
         {
-          "id": "2026|7|29|regular|レギュラー異業種交流会|13:00-14:00|44",
+          "id": "2026|7|29|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 7,
           "category": "regular",
@@ -1984,7 +1970,7 @@
           "sourceRow": 44
         },
         {
-          "id": "2026|7|31|regular|レギュラー異業種交流会|13:00-14:00|45",
+          "id": "2026|7|31|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 7,
           "category": "regular",
@@ -2011,7 +1997,7 @@
       "label": "7月 ミーティング",
       "items": [
         {
-          "id": "2026|7|10|meeting|ミーティング|17:00-18:30|50",
+          "id": "2026|7|10|meeting|ミーティング|17:00-18:30",
           "year": 2026,
           "month": 7,
           "category": "meeting",
@@ -2025,7 +2011,7 @@
           "sourceRow": 50
         },
         {
-          "id": "2026|7|30|meeting|ミーティング|17:30-19:00|51",
+          "id": "2026|7|30|meeting|ミーティング|17:30-19:00",
           "year": 2026,
           "month": 7,
           "category": "meeting",
@@ -2046,7 +2032,7 @@
       "label": "8月 Wonder+",
       "items": [
         {
-          "id": "2026|8|4|wonder|福島wonder+|15:00-16:30|52",
+          "id": "2026|8|4|wonder|福島wonder+|15:00-16:30",
           "year": 2026,
           "month": 8,
           "category": "wonder",
@@ -2060,7 +2046,7 @@
           "sourceRow": 52
         },
         {
-          "id": "2026|8|4|wonder|仙台wonder+|19:30-21:00|53",
+          "id": "2026|8|4|wonder|仙台wonder+|19:30-21:00",
           "year": 2026,
           "month": 8,
           "category": "wonder",
@@ -2074,7 +2060,7 @@
           "sourceRow": 53
         },
         {
-          "id": "2026|8|5|wonder|新潟wonder+|13:00-14:30|54",
+          "id": "2026|8|5|wonder|新潟wonder+|13:00-14:30",
           "year": 2026,
           "month": 8,
           "category": "wonder",
@@ -2088,7 +2074,7 @@
           "sourceRow": 54
         },
         {
-          "id": "2026|8|5|wonder|名古屋wonder+ladies|15:00-16:30|55",
+          "id": "2026|8|5|wonder|名古屋wonder+ladies|15:00-16:30",
           "year": 2026,
           "month": 8,
           "category": "wonder",
@@ -2102,7 +2088,7 @@
           "sourceRow": 55
         },
         {
-          "id": "2026|8|6|wonder|新宿wonder+leaders|12:30-14:00|56",
+          "id": "2026|8|6|wonder|新宿wonder+leaders|12:30-14:00",
           "year": 2026,
           "month": 8,
           "category": "wonder",
@@ -2116,7 +2102,7 @@
           "sourceRow": 56
         },
         {
-          "id": "2026|8|6|wonder|新宿wonder+ladies|15:00-16:30|57",
+          "id": "2026|8|6|wonder|新宿wonder+ladies|15:00-16:30",
           "year": 2026,
           "month": 8,
           "category": "wonder",
@@ -2130,7 +2116,7 @@
           "sourceRow": 57
         },
         {
-          "id": "2026|8|10|wonder|銀座wonder+story|15:30-17:30|58",
+          "id": "2026|8|10|wonder|銀座wonder+story|15:30-17:30",
           "year": 2026,
           "month": 8,
           "category": "wonder",
@@ -2144,7 +2130,7 @@
           "sourceRow": 58
         },
         {
-          "id": "2026|8|10|wonder|銀座wonder+gravity|19:30-21:30|59",
+          "id": "2026|8|10|wonder|銀座wonder+gravity|19:30-21:30",
           "year": 2026,
           "month": 8,
           "category": "wonder",
@@ -2158,7 +2144,7 @@
           "sourceRow": 59
         },
         {
-          "id": "2026|8|17|wonder|静岡wonder+|13:00-14:30|60",
+          "id": "2026|8|17|wonder|静岡wonder+|13:00-14:30",
           "year": 2026,
           "month": 8,
           "category": "wonder",
@@ -2172,7 +2158,7 @@
           "sourceRow": 60
         },
         {
-          "id": "2026|8|17|wonder|名古屋wonder+|19:30-21:00|61",
+          "id": "2026|8|17|wonder|名古屋wonder+|19:30-21:00",
           "year": 2026,
           "month": 8,
           "category": "wonder",
@@ -2186,7 +2172,7 @@
           "sourceRow": 61
         },
         {
-          "id": "2026|8|18|wonder|大阪wonder+|13:00-14:30|62",
+          "id": "2026|8|18|wonder|大阪wonder+|13:00-14:30",
           "year": 2026,
           "month": 8,
           "category": "wonder",
@@ -2200,7 +2186,7 @@
           "sourceRow": 62
         },
         {
-          "id": "2026|8|18|wonder|高崎wonder+|15:00-16:30|63",
+          "id": "2026|8|18|wonder|高崎wonder+|15:00-16:30",
           "year": 2026,
           "month": 8,
           "category": "wonder",
@@ -2214,7 +2200,7 @@
           "sourceRow": 63
         },
         {
-          "id": "2026|8|19|wonder|銀座wonder+alliance|19:30-21:00|64",
+          "id": "2026|8|19|wonder|銀座wonder+alliance|19:30-21:00",
           "year": 2026,
           "month": 8,
           "category": "wonder",
@@ -2228,7 +2214,7 @@
           "sourceRow": 64
         },
         {
-          "id": "2026|8|20|wonder|横浜wonder+|15:00-16:30|66",
+          "id": "2026|8|20|wonder|横浜wonder+|15:00-16:30",
           "year": 2026,
           "month": 8,
           "category": "wonder",
@@ -2242,7 +2228,7 @@
           "sourceRow": 66
         },
         {
-          "id": "2026|8|20|wonder|船橋wonder+|15:00-16:30|65",
+          "id": "2026|8|20|wonder|船橋wonder+|15:00-16:30",
           "year": 2026,
           "month": 8,
           "category": "wonder",
@@ -2256,7 +2242,7 @@
           "sourceRow": 65
         },
         {
-          "id": "2026|8|20|wonder|銀座wonder+entertainment|20:00-22:00|67",
+          "id": "2026|8|20|wonder|銀座wonder+entertainment|20:00-22:00",
           "year": 2026,
           "month": 8,
           "category": "wonder",
@@ -2270,7 +2256,7 @@
           "sourceRow": 67
         },
         {
-          "id": "2026|8|21|wonder|宇都宮wonder+|15:00-16:30|68",
+          "id": "2026|8|21|wonder|宇都宮wonder+|15:00-16:30",
           "year": 2026,
           "month": 8,
           "category": "wonder",
@@ -2284,7 +2270,7 @@
           "sourceRow": 68
         },
         {
-          "id": "2026|8|25|wonder|熊本wonder+|13:00-14:30|69",
+          "id": "2026|8|25|wonder|熊本wonder+|13:00-14:30",
           "year": 2026,
           "month": 8,
           "category": "wonder",
@@ -2298,7 +2284,7 @@
           "sourceRow": 69
         },
         {
-          "id": "2026|8|25|wonder|福岡wonder+|19:30-21:00|70",
+          "id": "2026|8|25|wonder|福岡wonder+|19:30-21:00",
           "year": 2026,
           "month": 8,
           "category": "wonder",
@@ -2312,7 +2298,7 @@
           "sourceRow": 70
         },
         {
-          "id": "2026|8|26|wonder|広島wonder+|13:00-14:30|71",
+          "id": "2026|8|26|wonder|広島wonder+|13:00-14:30",
           "year": 2026,
           "month": 8,
           "category": "wonder",
@@ -2326,7 +2312,7 @@
           "sourceRow": 71
         },
         {
-          "id": "2026|8|26|wonder|札幌wonder+|19:00-21:00|72",
+          "id": "2026|8|26|wonder|札幌wonder+|19:00-21:00",
           "year": 2026,
           "month": 8,
           "category": "wonder",
@@ -2340,7 +2326,7 @@
           "sourceRow": 72
         },
         {
-          "id": "2026|8|26|wonder|岡山wonder+|19:30-21:00|73",
+          "id": "2026|8|26|wonder|岡山wonder+|19:30-21:00",
           "year": 2026,
           "month": 8,
           "category": "wonder",
@@ -2354,7 +2340,7 @@
           "sourceRow": 73
         },
         {
-          "id": "2026|8|27|wonder|銀座wonder+beauty|15:00-16:30|74",
+          "id": "2026|8|27|wonder|銀座wonder+beauty|15:00-16:30",
           "year": 2026,
           "month": 8,
           "category": "wonder",
@@ -2368,7 +2354,7 @@
           "sourceRow": 74
         },
         {
-          "id": "2026|8|27|wonder|銀座wonder+cxo|19:30-21:30|75",
+          "id": "2026|8|27|wonder|銀座wonder+cxo|19:30-21:30",
           "year": 2026,
           "month": 8,
           "category": "wonder",
@@ -2382,7 +2368,7 @@
           "sourceRow": 75
         },
         {
-          "id": "2026|8|28|wonder|新宿+100wonder+|13:00-14:30|76",
+          "id": "2026|8|28|wonder|新宿+100wonder+|13:00-14:30",
           "year": 2026,
           "month": 8,
           "category": "wonder",
@@ -2394,20 +2380,6 @@
           "eventName": "イベント",
           "time": "13:00-14:30",
           "sourceRow": 76
-        },
-        {
-          "id": "2026|8|28|wonder|新宿+100wonder+|13:00-14:30|77",
-          "year": 2026,
-          "month": 8,
-          "category": "wonder",
-          "day": 28,
-          "title": "新宿+100 Wonder+",
-          "meta": "13:00-14:30",
-          "timeRange": "13:00-14:30",
-          "venue": "新宿+100",
-          "eventName": "イベント",
-          "time": "13:00-14:30",
-          "sourceRow": 77
         }
       ]
     },
@@ -2417,7 +2389,7 @@
       "label": "8月 レギュラー",
       "items": [
         {
-          "id": "2026|8|2|regular|レギュラー異業種交流会|10:00-11:00|88",
+          "id": "2026|8|2|regular|レギュラー異業種交流会|10:00-11:00",
           "year": 2026,
           "month": 8,
           "category": "regular",
@@ -2431,7 +2403,7 @@
           "sourceRow": 88
         },
         {
-          "id": "2026|8|9|regular|レギュラー異業種交流会|10:00-11:00|89",
+          "id": "2026|8|9|regular|レギュラー異業種交流会|10:00-11:00",
           "year": 2026,
           "month": 8,
           "category": "regular",
@@ -2445,7 +2417,7 @@
           "sourceRow": 89
         },
         {
-          "id": "2026|8|10|regular|レギュラー異業種交流会|13:00-14:00|78",
+          "id": "2026|8|10|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 8,
           "category": "regular",
@@ -2459,7 +2431,7 @@
           "sourceRow": 78
         },
         {
-          "id": "2026|8|12|regular|レギュラー異業種交流会|13:00-14:00|79",
+          "id": "2026|8|12|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 8,
           "category": "regular",
@@ -2473,7 +2445,7 @@
           "sourceRow": 79
         },
         {
-          "id": "2026|8|16|regular|レギュラー異業種交流会|10:00-11:00|90",
+          "id": "2026|8|16|regular|レギュラー異業種交流会|10:00-11:00",
           "year": 2026,
           "month": 8,
           "category": "regular",
@@ -2487,7 +2459,7 @@
           "sourceRow": 90
         },
         {
-          "id": "2026|8|17|regular|レギュラー異業種交流会|13:00-14:00|80",
+          "id": "2026|8|17|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 8,
           "category": "regular",
@@ -2501,7 +2473,7 @@
           "sourceRow": 80
         },
         {
-          "id": "2026|8|20|regular|レギュラー異業種交流会|13:00-14:00|81",
+          "id": "2026|8|20|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 8,
           "category": "regular",
@@ -2515,7 +2487,7 @@
           "sourceRow": 81
         },
         {
-          "id": "2026|8|21|regular|レギュラー異業種交流会|13:00-14:00|82",
+          "id": "2026|8|21|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 8,
           "category": "regular",
@@ -2529,7 +2501,7 @@
           "sourceRow": 82
         },
         {
-          "id": "2026|8|23|regular|レギュラー異業種交流会|10:00-11:00|91",
+          "id": "2026|8|23|regular|レギュラー異業種交流会|10:00-11:00",
           "year": 2026,
           "month": 8,
           "category": "regular",
@@ -2543,7 +2515,7 @@
           "sourceRow": 91
         },
         {
-          "id": "2026|8|24|regular|レギュラー異業種交流会|13:00-14:00|83",
+          "id": "2026|8|24|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 8,
           "category": "regular",
@@ -2557,7 +2529,7 @@
           "sourceRow": 83
         },
         {
-          "id": "2026|8|25|regular|レギュラー異業種交流会|13:00-14:00|84",
+          "id": "2026|8|25|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 8,
           "category": "regular",
@@ -2571,7 +2543,7 @@
           "sourceRow": 84
         },
         {
-          "id": "2026|8|26|regular|レギュラー異業種交流会|13:00-14:00|85",
+          "id": "2026|8|26|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 8,
           "category": "regular",
@@ -2585,7 +2557,7 @@
           "sourceRow": 85
         },
         {
-          "id": "2026|8|27|regular|レギュラー異業種交流会|13:00-14:00|86",
+          "id": "2026|8|27|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 8,
           "category": "regular",
@@ -2599,7 +2571,7 @@
           "sourceRow": 86
         },
         {
-          "id": "2026|8|30|regular|レギュラー異業種交流会|10:00-11:00|92",
+          "id": "2026|8|30|regular|レギュラー異業種交流会|10:00-11:00",
           "year": 2026,
           "month": 8,
           "category": "regular",
@@ -2613,7 +2585,7 @@
           "sourceRow": 92
         },
         {
-          "id": "2026|8|31|regular|レギュラー異業種交流会|13:00-14:00|87",
+          "id": "2026|8|31|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 8,
           "category": "regular",
@@ -2640,7 +2612,7 @@
       "label": "8月 ミーティング",
       "items": [
         {
-          "id": "2026|8|6|meeting|ミーティング|17:00-18:30|93",
+          "id": "2026|8|6|meeting|ミーティング|17:00-18:30",
           "year": 2026,
           "month": 8,
           "category": "meeting",
@@ -2654,7 +2626,7 @@
           "sourceRow": 93
         },
         {
-          "id": "2026|8|28|meeting|ミーティング|11:00-12:00|94",
+          "id": "2026|8|28|meeting|ミーティング|11:00-12:00",
           "year": 2026,
           "month": 8,
           "category": "meeting",
@@ -2668,7 +2640,7 @@
           "sourceRow": 94
         },
         {
-          "id": "2026|8|28|meeting|ミーティング|17:30-19:00|95",
+          "id": "2026|8|28|meeting|ミーティング|17:30-19:00",
           "year": 2026,
           "month": 8,
           "category": "meeting",
@@ -2689,7 +2661,7 @@
       "label": "9月 Wonder+",
       "items": [
         {
-          "id": "2026|9|2|wonder|金沢wonder+|14:00-15:30|96",
+          "id": "2026|9|2|wonder|金沢wonder+|14:00-15:30",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -2703,7 +2675,7 @@
           "sourceRow": 96
         },
         {
-          "id": "2026|9|3|wonder|名古屋wonder+|13:00-14:30|97",
+          "id": "2026|9|3|wonder|名古屋wonder+|13:00-14:30",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -2717,7 +2689,7 @@
           "sourceRow": 97
         },
         {
-          "id": "2026|9|3|wonder|銀座wonder+alliance|19:30-21:00|99",
+          "id": "2026|9|3|wonder|銀座wonder+alliance|19:30-21:00",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -2731,7 +2703,7 @@
           "sourceRow": 99
         },
         {
-          "id": "2026|9|3|wonder|大阪wonder+|20:00-22:00|98",
+          "id": "2026|9|3|wonder|大阪wonder+|20:00-22:00",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -2745,7 +2717,7 @@
           "sourceRow": 98
         },
         {
-          "id": "2026|9|4|wonder|横浜wonder+|15:00-16:00|100",
+          "id": "2026|9|4|wonder|横浜wonder+|15:00-16:00",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -2759,7 +2731,7 @@
           "sourceRow": 100
         },
         {
-          "id": "2026|9|7|wonder|郡山wonder+|13:00-14:30|101",
+          "id": "2026|9|7|wonder|郡山wonder+|13:00-14:30",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -2773,7 +2745,7 @@
           "sourceRow": 101
         },
         {
-          "id": "2026|9|7|wonder|仙台wonder+|19:30-21:00|102",
+          "id": "2026|9|7|wonder|仙台wonder+|19:30-21:00",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -2787,7 +2759,7 @@
           "sourceRow": 102
         },
         {
-          "id": "2026|9|8|wonder|新潟wonder+|13:00-14:30|103",
+          "id": "2026|9|8|wonder|新潟wonder+|13:00-14:30",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -2801,7 +2773,7 @@
           "sourceRow": 103
         },
         {
-          "id": "2026|9|9|wonder|甲府wonder+|13:00-14:30|106",
+          "id": "2026|9|9|wonder|甲府wonder+|13:00-14:30",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -2815,7 +2787,7 @@
           "sourceRow": 106
         },
         {
-          "id": "2026|9|9|wonder|札幌wonder+|13:00-15:00|104",
+          "id": "2026|9|9|wonder|札幌wonder+|13:00-15:00",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -2829,7 +2801,7 @@
           "sourceRow": 104
         },
         {
-          "id": "2026|9|9|wonder|名古屋wonder+ladies|15:00-16:30|105",
+          "id": "2026|9|9|wonder|名古屋wonder+ladies|15:00-16:30",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -2843,7 +2815,7 @@
           "sourceRow": 105
         },
         {
-          "id": "2026|9|9|wonder|銀座wonder+story|15:30-17:30|108",
+          "id": "2026|9|9|wonder|銀座wonder+story|15:30-17:30",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -2857,7 +2829,7 @@
           "sourceRow": 108
         },
         {
-          "id": "2026|9|9|wonder|静岡wonder+|19:30-21:00|107",
+          "id": "2026|9|9|wonder|静岡wonder+|19:30-21:00",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -2871,7 +2843,7 @@
           "sourceRow": 107
         },
         {
-          "id": "2026|9|10|wonder|銀座wonder+leaders|12:30-14:00|109",
+          "id": "2026|9|10|wonder|銀座wonder+leaders|12:30-14:00",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -2885,7 +2857,7 @@
           "sourceRow": 109
         },
         {
-          "id": "2026|9|10|wonder|銀座wonder+ladies|15:00-16:30|110",
+          "id": "2026|9|10|wonder|銀座wonder+ladies|15:00-16:30",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -2899,7 +2871,7 @@
           "sourceRow": 110
         },
         {
-          "id": "2026|9|10|wonder|銀座wonder+realestate|19:30-21:30|111",
+          "id": "2026|9|10|wonder|銀座wonder+realestate|19:30-21:30",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -2913,7 +2885,7 @@
           "sourceRow": 111
         },
         {
-          "id": "2026|9|11|wonder|横浜wonder+|15:00-16:00|112",
+          "id": "2026|9|11|wonder|横浜wonder+|15:00-16:00",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -2927,7 +2899,7 @@
           "sourceRow": 112
         },
         {
-          "id": "2026|9|14|wonder|岡山wonder+|13:00-14:30|114",
+          "id": "2026|9|14|wonder|岡山wonder+|13:00-14:30",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -2941,7 +2913,7 @@
           "sourceRow": 114
         },
         {
-          "id": "2026|9|14|wonder|広島wonder+|13:00-14:30|113",
+          "id": "2026|9|14|wonder|広島wonder+|13:00-14:30",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -2955,7 +2927,7 @@
           "sourceRow": 113
         },
         {
-          "id": "2026|9|14|wonder|京都wonder+|19:30-21:00|116",
+          "id": "2026|9|14|wonder|京都wonder+|19:30-21:00",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -2969,7 +2941,7 @@
           "sourceRow": 116
         },
         {
-          "id": "2026|9|14|wonder|神戸wonder+|19:30-21:00|115",
+          "id": "2026|9|14|wonder|神戸wonder+|19:30-21:00",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -2983,7 +2955,7 @@
           "sourceRow": 115
         },
         {
-          "id": "2026|9|15|wonder|大阪wonder+|13:00-14:30|117",
+          "id": "2026|9|15|wonder|大阪wonder+|13:00-14:30",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -2997,7 +2969,7 @@
           "sourceRow": 117
         },
         {
-          "id": "2026|9|15|wonder|浜松wonder+|19:30-21:00|119",
+          "id": "2026|9|15|wonder|浜松wonder+|19:30-21:00",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -3011,7 +2983,7 @@
           "sourceRow": 119
         },
         {
-          "id": "2026|9|15|wonder|名古屋wonder+|19:30-21:00|118",
+          "id": "2026|9|15|wonder|名古屋wonder+|19:30-21:00",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -3025,7 +2997,7 @@
           "sourceRow": 118
         },
         {
-          "id": "2026|9|16|wonder|大宮wonder+|13:00-14:30|120",
+          "id": "2026|9|16|wonder|大宮wonder+|13:00-14:30",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -3039,7 +3011,7 @@
           "sourceRow": 120
         },
         {
-          "id": "2026|9|16|wonder|高崎wonder+|15:00-16:30|121",
+          "id": "2026|9|16|wonder|高崎wonder+|15:00-16:30",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -3053,7 +3025,7 @@
           "sourceRow": 121
         },
         {
-          "id": "2026|9|16|wonder|銀座wonder+night|19:30-21:30|122",
+          "id": "2026|9|16|wonder|銀座wonder+night|19:30-21:30",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -3067,7 +3039,7 @@
           "sourceRow": 122
         },
         {
-          "id": "2026|9|17|wonder|横浜wonder+|15:00-16:30|124",
+          "id": "2026|9|17|wonder|横浜wonder+|15:00-16:30",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -3081,7 +3053,7 @@
           "sourceRow": 124
         },
         {
-          "id": "2026|9|17|wonder|千葉wonder+|15:00-16:30|123",
+          "id": "2026|9|17|wonder|千葉wonder+|15:00-16:30",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -3095,7 +3067,7 @@
           "sourceRow": 123
         },
         {
-          "id": "2026|9|17|wonder|銀座wonder+entertainment|20:00-22:00|125",
+          "id": "2026|9|17|wonder|銀座wonder+entertainment|20:00-22:00",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -3109,7 +3081,7 @@
           "sourceRow": 125
         },
         {
-          "id": "2026|9|18|wonder|宇都宮wonder+|15:00-16:30|126",
+          "id": "2026|9|18|wonder|宇都宮wonder+|15:00-16:30",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -3123,7 +3095,7 @@
           "sourceRow": 126
         },
         {
-          "id": "2026|9|24|wonder|銀座wonder+beauty|15:00-16:30|127",
+          "id": "2026|9|24|wonder|銀座wonder+beauty|15:00-16:30",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -3137,7 +3109,7 @@
           "sourceRow": 127
         },
         {
-          "id": "2026|9|24|wonder|銀座+gravitywonder+|19:30-21:00|128",
+          "id": "2026|9|24|wonder|銀座+gravitywonder+|19:30-21:00",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -3151,7 +3123,7 @@
           "sourceRow": 128
         },
         {
-          "id": "2026|9|25|wonder|新宿wonder+100|13:00-14:30|129",
+          "id": "2026|9|25|wonder|新宿wonder+100|13:00-14:30",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -3165,7 +3137,7 @@
           "sourceRow": 129
         },
         {
-          "id": "2026|9|25|wonder|新宿wonder+100|15:00-16:30|130",
+          "id": "2026|9|25|wonder|新宿wonder+100|15:00-16:30",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -3179,7 +3151,7 @@
           "sourceRow": 130
         },
         {
-          "id": "2026|9|28|wonder|熊本wonder+|13:00-14:30|131",
+          "id": "2026|9|28|wonder|熊本wonder+|13:00-14:30",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -3193,7 +3165,7 @@
           "sourceRow": 131
         },
         {
-          "id": "2026|9|28|wonder|大阪wonder+|13:00-14:30|133",
+          "id": "2026|9|28|wonder|大阪wonder+|13:00-14:30",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -3207,7 +3179,7 @@
           "sourceRow": 133
         },
         {
-          "id": "2026|9|28|wonder|福岡wonder+|19:30-21:00|132",
+          "id": "2026|9|28|wonder|福岡wonder+|19:30-21:00",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -3221,7 +3193,7 @@
           "sourceRow": 132
         },
         {
-          "id": "2026|9|28|wonder|名古屋wonder+|20:00-21:30|134",
+          "id": "2026|9|28|wonder|名古屋wonder+|20:00-21:30",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -3235,7 +3207,7 @@
           "sourceRow": 134
         },
         {
-          "id": "2026|9|29|wonder|北九州wonder+|14:00-15:30|135",
+          "id": "2026|9|29|wonder|北九州wonder+|14:00-15:30",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -3249,7 +3221,7 @@
           "sourceRow": 135
         },
         {
-          "id": "2026|9|29|wonder|横浜wonder+|19:30-21:00|136",
+          "id": "2026|9|29|wonder|横浜wonder+|19:30-21:00",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -3263,7 +3235,7 @@
           "sourceRow": 136
         },
         {
-          "id": "2026|9|30|wonder|札幌wonder+|19:00-21:00|137",
+          "id": "2026|9|30|wonder|札幌wonder+|19:00-21:00",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -3277,7 +3249,7 @@
           "sourceRow": 137
         },
         {
-          "id": "2026|9|30|wonder|銀座wonder+cxo|19:30-21:30|138",
+          "id": "2026|9|30|wonder|銀座wonder+cxo|19:30-21:30",
           "year": 2026,
           "month": 9,
           "category": "wonder",
@@ -3298,7 +3270,7 @@
       "label": "9月 レギュラー",
       "items": [
         {
-          "id": "2026|9|1|regular|レギュラー異業種交流会|13:00-14:00|139",
+          "id": "2026|9|1|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 9,
           "category": "regular",
@@ -3312,7 +3284,7 @@
           "sourceRow": 139
         },
         {
-          "id": "2026|9|3|regular|レギュラー異業種交流会|13:00-14:00|140",
+          "id": "2026|9|3|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 9,
           "category": "regular",
@@ -3326,7 +3298,7 @@
           "sourceRow": 140
         },
         {
-          "id": "2026|9|4|regular|レギュラー異業種交流会|13:00-14:00|141",
+          "id": "2026|9|4|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 9,
           "category": "regular",
@@ -3340,7 +3312,7 @@
           "sourceRow": 141
         },
         {
-          "id": "2026|9|5|regular|レギュラー異業種交流会|10:00-11:00|152",
+          "id": "2026|9|5|regular|レギュラー異業種交流会|10:00-11:00",
           "year": 2026,
           "month": 9,
           "category": "regular",
@@ -3354,7 +3326,7 @@
           "sourceRow": 152
         },
         {
-          "id": "2026|9|7|regular|レギュラー異業種交流会|13:00-14:00|142",
+          "id": "2026|9|7|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 9,
           "category": "regular",
@@ -3368,7 +3340,7 @@
           "sourceRow": 142
         },
         {
-          "id": "2026|9|8|regular|レギュラー異業種交流会|13:00-14:00|143",
+          "id": "2026|9|8|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 9,
           "category": "regular",
@@ -3382,7 +3354,7 @@
           "sourceRow": 143
         },
         {
-          "id": "2026|9|9|regular|レギュラー異業種交流会|13:00-14:00|144",
+          "id": "2026|9|9|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 9,
           "category": "regular",
@@ -3396,7 +3368,7 @@
           "sourceRow": 144
         },
         {
-          "id": "2026|9|11|regular|レギュラー異業種交流会|13:00-14:00|145",
+          "id": "2026|9|11|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 9,
           "category": "regular",
@@ -3410,7 +3382,7 @@
           "sourceRow": 145
         },
         {
-          "id": "2026|9|13|regular|レギュラー異業種交流会|10:00-11:00|153",
+          "id": "2026|9|13|regular|レギュラー異業種交流会|10:00-11:00",
           "year": 2026,
           "month": 9,
           "category": "regular",
@@ -3424,7 +3396,7 @@
           "sourceRow": 153
         },
         {
-          "id": "2026|9|14|regular|レギュラー異業種交流会|13:00-14:00|146",
+          "id": "2026|9|14|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 9,
           "category": "regular",
@@ -3438,7 +3410,7 @@
           "sourceRow": 146
         },
         {
-          "id": "2026|9|15|regular|レギュラー異業種交流会|13:00-14:00|147",
+          "id": "2026|9|15|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 9,
           "category": "regular",
@@ -3452,7 +3424,7 @@
           "sourceRow": 147
         },
         {
-          "id": "2026|9|18|regular|レギュラー異業種交流会|13:00-14:00|148",
+          "id": "2026|9|18|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 9,
           "category": "regular",
@@ -3466,7 +3438,7 @@
           "sourceRow": 148
         },
         {
-          "id": "2026|9|23|regular|レギュラー異業種交流会|10:00-11:00|154",
+          "id": "2026|9|23|regular|レギュラー異業種交流会|10:00-11:00",
           "year": 2026,
           "month": 9,
           "category": "regular",
@@ -3480,7 +3452,7 @@
           "sourceRow": 154
         },
         {
-          "id": "2026|9|24|regular|レギュラー異業種交流会|13:00-14:00|149",
+          "id": "2026|9|24|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 9,
           "category": "regular",
@@ -3494,7 +3466,7 @@
           "sourceRow": 149
         },
         {
-          "id": "2026|9|27|regular|レギュラー異業種交流会|10:00-11:00|155",
+          "id": "2026|9|27|regular|レギュラー異業種交流会|10:00-11:00",
           "year": 2026,
           "month": 9,
           "category": "regular",
@@ -3508,7 +3480,7 @@
           "sourceRow": 155
         },
         {
-          "id": "2026|9|28|regular|レギュラー異業種交流会|13:00-14:00|150",
+          "id": "2026|9|28|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 9,
           "category": "regular",
@@ -3522,7 +3494,7 @@
           "sourceRow": 150
         },
         {
-          "id": "2026|9|29|regular|レギュラー異業種交流会|13:00-14:00|151",
+          "id": "2026|9|29|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 9,
           "category": "regular",
@@ -3549,7 +3521,7 @@
       "label": "9月 ミーティング",
       "items": [
         {
-          "id": "2026|9|10|meeting|ミーティング|17:00-18:30|156",
+          "id": "2026|9|10|meeting|ミーティング|17:00-18:30",
           "year": 2026,
           "month": 9,
           "category": "meeting",
@@ -3563,7 +3535,7 @@
           "sourceRow": 156
         },
         {
-          "id": "2026|9|25|meeting|ミーティング|11:00-12:00|157",
+          "id": "2026|9|25|meeting|ミーティング|11:00-12:00",
           "year": 2026,
           "month": 9,
           "category": "meeting",
@@ -3577,7 +3549,7 @@
           "sourceRow": 157
         },
         {
-          "id": "2026|9|25|meeting|ミーティング|17:30-19:00|158",
+          "id": "2026|9|25|meeting|ミーティング|17:30-19:00",
           "year": 2026,
           "month": 9,
           "category": "meeting",
@@ -3598,7 +3570,7 @@
       "label": "10月 Wonder+",
       "items": [
         {
-          "id": "2026|10|1|wonder|銀座wonder+story|15:30-17:30|159",
+          "id": "2026|10|1|wonder|銀座wonder+story|15:30-17:30",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -3612,7 +3584,7 @@
           "sourceRow": 159
         },
         {
-          "id": "2026|10|1|wonder|銀座wonder+freelance|19:30-21:00|160",
+          "id": "2026|10|1|wonder|銀座wonder+freelance|19:30-21:00",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -3626,7 +3598,7 @@
           "sourceRow": 160
         },
         {
-          "id": "2026|10|5|wonder|甲府wonder+|13:00-14:30|161",
+          "id": "2026|10|5|wonder|甲府wonder+|13:00-14:30",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -3640,7 +3612,7 @@
           "sourceRow": 161
         },
         {
-          "id": "2026|10|5|wonder|静岡wonder+|19:30-21:00|162",
+          "id": "2026|10|5|wonder|静岡wonder+|19:30-21:00",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -3654,7 +3626,7 @@
           "sourceRow": 162
         },
         {
-          "id": "2026|10|7|wonder|名古屋wonder+ladies|15:00-16:30|163",
+          "id": "2026|10|7|wonder|名古屋wonder+ladies|15:00-16:30",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -3668,7 +3640,7 @@
           "sourceRow": 163
         },
         {
-          "id": "2026|10|8|wonder|新宿wonder+leaders|12:30-14:00|166",
+          "id": "2026|10|8|wonder|新宿wonder+leaders|12:30-14:00",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -3682,7 +3654,7 @@
           "sourceRow": 166
         },
         {
-          "id": "2026|10|8|wonder|新宿wonder+ladies|15:00-16:30|167",
+          "id": "2026|10|8|wonder|新宿wonder+ladies|15:00-16:30",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -3696,7 +3668,7 @@
           "sourceRow": 167
         },
         {
-          "id": "2026|10|8|wonder|前橋wonder+|19:30-21:00|164",
+          "id": "2026|10|8|wonder|前橋wonder+|19:30-21:00",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -3710,7 +3682,7 @@
           "sourceRow": 164
         },
         {
-          "id": "2026|10|8|wonder|新宿wonder+realestate|19:30-21:30|165",
+          "id": "2026|10|8|wonder|新宿wonder+realestate|19:30-21:30",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -3724,7 +3696,7 @@
           "sourceRow": 165
         },
         {
-          "id": "2026|10|9|wonder|横浜wonder+|15:00-16:00|168",
+          "id": "2026|10|9|wonder|横浜wonder+|15:00-16:00",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -3738,7 +3710,7 @@
           "sourceRow": 168
         },
         {
-          "id": "2026|10|13|wonder|仙台wonder+|13:00-14:30|170",
+          "id": "2026|10|13|wonder|仙台wonder+|13:00-14:30",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -3752,7 +3724,7 @@
           "sourceRow": 170
         },
         {
-          "id": "2026|10|13|wonder|宇都宮wonder+|19:30-21:00|169",
+          "id": "2026|10|13|wonder|宇都宮wonder+|19:30-21:00",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -3766,7 +3738,7 @@
           "sourceRow": 169
         },
         {
-          "id": "2026|10|13|wonder|銀座wonder+gravity|19:30-21:00|171",
+          "id": "2026|10|13|wonder|銀座wonder+gravity|19:30-21:00",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -3780,7 +3752,7 @@
           "sourceRow": 171
         },
         {
-          "id": "2026|10|14|wonder|名古屋wonder+|13:00-14:30|173",
+          "id": "2026|10|14|wonder|名古屋wonder+|13:00-14:30",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -3794,7 +3766,7 @@
           "sourceRow": 173
         },
         {
-          "id": "2026|10|14|wonder|千葉wonder+|15:00-16:30|175",
+          "id": "2026|10|14|wonder|千葉wonder+|15:00-16:30",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -3808,7 +3780,7 @@
           "sourceRow": 175
         },
         {
-          "id": "2026|10|14|wonder|札幌wonder+|19:00-21:00|172",
+          "id": "2026|10|14|wonder|札幌wonder+|19:00-21:00",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -3822,7 +3794,7 @@
           "sourceRow": 172
         },
         {
-          "id": "2026|10|14|wonder|銀座wonder+marketing|19:30-21:00|176",
+          "id": "2026|10|14|wonder|銀座wonder+marketing|19:30-21:00",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -3836,7 +3808,7 @@
           "sourceRow": 176
         },
         {
-          "id": "2026|10|14|wonder|大阪wonder+|19:30-21:00|174",
+          "id": "2026|10|14|wonder|大阪wonder+|19:30-21:00",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -3850,7 +3822,7 @@
           "sourceRow": 174
         },
         {
-          "id": "2026|10|15|wonder|横浜wonder+|15:00-16:30|177",
+          "id": "2026|10|15|wonder|横浜wonder+|15:00-16:30",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -3864,7 +3836,7 @@
           "sourceRow": 177
         },
         {
-          "id": "2026|10|15|wonder|銀座wonder+entertainment|20:00-22:00|178",
+          "id": "2026|10|15|wonder|銀座wonder+entertainment|20:00-22:00",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -3878,7 +3850,7 @@
           "sourceRow": 178
         },
         {
-          "id": "2026|10|16|wonder|大阪wonder+ladies|15:00-16:30|179",
+          "id": "2026|10|16|wonder|大阪wonder+ladies|15:00-16:30",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -3892,7 +3864,7 @@
           "sourceRow": 179
         },
         {
-          "id": "2026|10|16|wonder|大阪wonder+sales|15:30-17:00|180",
+          "id": "2026|10|16|wonder|大阪wonder+sales|15:30-17:00",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -3906,7 +3878,7 @@
           "sourceRow": 180
         },
         {
-          "id": "2026|10|16|wonder|京都wonder+|19:30-21:00|181",
+          "id": "2026|10|16|wonder|京都wonder+|19:30-21:00",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -3920,7 +3892,7 @@
           "sourceRow": 181
         },
         {
-          "id": "2026|10|17|wonder|大阪朝wonder+|10:00-11:30|182",
+          "id": "2026|10|17|wonder|大阪朝wonder+|10:00-11:30",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -3934,7 +3906,7 @@
           "sourceRow": 182
         },
         {
-          "id": "2026|10|17|wonder|大阪wonder+100コン|19:30-21:30|183",
+          "id": "2026|10|17|wonder|大阪wonder+100コン|19:30-21:30",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -3948,7 +3920,7 @@
           "sourceRow": 183
         },
         {
-          "id": "2026|10|19|wonder|熊本wonder+|13:00-14:30|184",
+          "id": "2026|10|19|wonder|熊本wonder+|13:00-14:30",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -3962,7 +3934,7 @@
           "sourceRow": 184
         },
         {
-          "id": "2026|10|19|wonder|福岡wonder+|19:30-21:00|185",
+          "id": "2026|10|19|wonder|福岡wonder+|19:30-21:00",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -3976,7 +3948,7 @@
           "sourceRow": 185
         },
         {
-          "id": "2026|10|20|wonder|北九州wonder+|14:00-15:30|186",
+          "id": "2026|10|20|wonder|北九州wonder+|14:00-15:30",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -3990,7 +3962,7 @@
           "sourceRow": 186
         },
         {
-          "id": "2026|10|20|wonder|新宿wonder+alliance|19:30-21:00|187",
+          "id": "2026|10|20|wonder|新宿wonder+alliance|19:30-21:00",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -4004,7 +3976,7 @@
           "sourceRow": 187
         },
         {
-          "id": "2026|10|21|wonder|大宮wonder+|15:00-16:30|188",
+          "id": "2026|10|21|wonder|大宮wonder+|15:00-16:30",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -4018,7 +3990,7 @@
           "sourceRow": 188
         },
         {
-          "id": "2026|10|22|wonder|新宿wonder+ses|14:00-15:30|189",
+          "id": "2026|10|22|wonder|新宿wonder+ses|14:00-15:30",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -4032,7 +4004,7 @@
           "sourceRow": 189
         },
         {
-          "id": "2026|10|22|wonder|銀座wonder+cxo|19:30-21:00|190",
+          "id": "2026|10|22|wonder|銀座wonder+cxo|19:30-21:00",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -4046,7 +4018,7 @@
           "sourceRow": 190
         },
         {
-          "id": "2026|10|23|wonder|横浜wonder+|15:00-16:00|191",
+          "id": "2026|10|23|wonder|横浜wonder+|15:00-16:00",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -4060,7 +4032,7 @@
           "sourceRow": 191
         },
         {
-          "id": "2026|10|26|wonder|岡山wonder+|13:00-14:30|193",
+          "id": "2026|10|26|wonder|岡山wonder+|13:00-14:30",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -4074,7 +4046,7 @@
           "sourceRow": 193
         },
         {
-          "id": "2026|10|26|wonder|広島wonder+|13:00-14:30|192",
+          "id": "2026|10|26|wonder|広島wonder+|13:00-14:30",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -4088,7 +4060,7 @@
           "sourceRow": 192
         },
         {
-          "id": "2026|10|26|wonder|高崎wonder+|13:00-14:30|194",
+          "id": "2026|10|26|wonder|高崎wonder+|13:00-14:30",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -4102,7 +4074,7 @@
           "sourceRow": 194
         },
         {
-          "id": "2026|10|26|wonder|神戸wonder+|19:30-21:00|195",
+          "id": "2026|10|26|wonder|神戸wonder+|19:30-21:00",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -4116,7 +4088,7 @@
           "sourceRow": 195
         },
         {
-          "id": "2026|10|27|wonder|大阪wonder+|13:00-14:30|196",
+          "id": "2026|10|27|wonder|大阪wonder+|13:00-14:30",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -4130,7 +4102,7 @@
           "sourceRow": 196
         },
         {
-          "id": "2026|10|27|wonder|浜松wonder+|19:30-21:00|198",
+          "id": "2026|10|27|wonder|浜松wonder+|19:30-21:00",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -4144,7 +4116,7 @@
           "sourceRow": 198
         },
         {
-          "id": "2026|10|27|wonder|名古屋wonder+|19:30-21:00|197",
+          "id": "2026|10|27|wonder|名古屋wonder+|19:30-21:00",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -4158,7 +4130,7 @@
           "sourceRow": 197
         },
         {
-          "id": "2026|10|28|wonder|札幌wonder+|13:00-14:30|199",
+          "id": "2026|10|28|wonder|札幌wonder+|13:00-14:30",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -4172,7 +4144,7 @@
           "sourceRow": 199
         },
         {
-          "id": "2026|10|28|wonder|銀座wonder+beauty|15:00-16:30|200",
+          "id": "2026|10|28|wonder|銀座wonder+beauty|15:00-16:30",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -4186,7 +4158,7 @@
           "sourceRow": 200
         },
         {
-          "id": "2026|10|28|wonder|横浜wonder+|19:30-21:00|202",
+          "id": "2026|10|28|wonder|横浜wonder+|19:30-21:00",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -4200,7 +4172,7 @@
           "sourceRow": 202
         },
         {
-          "id": "2026|10|28|wonder|銀座wonder+gravity|19:30-21:00|201",
+          "id": "2026|10|28|wonder|銀座wonder+gravity|19:30-21:00",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -4214,7 +4186,7 @@
           "sourceRow": 201
         },
         {
-          "id": "2026|10|29|wonder|新宿wonder+100|13:00-14:30|203",
+          "id": "2026|10|29|wonder|新宿wonder+100|13:00-14:30",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -4228,7 +4200,7 @@
           "sourceRow": 203
         },
         {
-          "id": "2026|10|29|wonder|新宿wonder+100|15:00-16:30|204",
+          "id": "2026|10|29|wonder|新宿wonder+100|15:00-16:30",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -4242,7 +4214,7 @@
           "sourceRow": 204
         },
         {
-          "id": "2026|10|29|wonder|銀座wonder+hr（人材）|19:30-21:00|205",
+          "id": "2026|10|29|wonder|銀座wonder+hr（人材）|19:30-21:00",
           "year": 2026,
           "month": 10,
           "category": "wonder",
@@ -4263,7 +4235,7 @@
       "label": "10月 レギュラー",
       "items": [
         {
-          "id": "2026|10|1|regular|レギュラー異業種交流会|13:00-14:00|206",
+          "id": "2026|10|1|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 10,
           "category": "regular",
@@ -4277,7 +4249,7 @@
           "sourceRow": 206
         },
         {
-          "id": "2026|10|2|regular|レギュラー異業種交流会|14:30-15:30|207",
+          "id": "2026|10|2|regular|レギュラー異業種交流会|14:30-15:30",
           "year": 2026,
           "month": 10,
           "category": "regular",
@@ -4291,7 +4263,7 @@
           "sourceRow": 207
         },
         {
-          "id": "2026|10|3|regular|レギュラー異業種交流会|10:00-11:00|225",
+          "id": "2026|10|3|regular|レギュラー異業種交流会|10:00-11:00",
           "year": 2026,
           "month": 10,
           "category": "regular",
@@ -4305,7 +4277,7 @@
           "sourceRow": 225
         },
         {
-          "id": "2026|10|5|regular|レギュラー異業種交流会|13:00-14:00|208",
+          "id": "2026|10|5|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 10,
           "category": "regular",
@@ -4319,7 +4291,7 @@
           "sourceRow": 208
         },
         {
-          "id": "2026|10|6|regular|レギュラー異業種交流会|13:00-14:00|209",
+          "id": "2026|10|6|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 10,
           "category": "regular",
@@ -4333,7 +4305,7 @@
           "sourceRow": 209
         },
         {
-          "id": "2026|10|7|regular|レギュラー異業種交流会|13:00-14:00|210",
+          "id": "2026|10|7|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 10,
           "category": "regular",
@@ -4347,7 +4319,7 @@
           "sourceRow": 210
         },
         {
-          "id": "2026|10|8|regular|レギュラー異業種交流会|13:00-14:00|211",
+          "id": "2026|10|8|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 10,
           "category": "regular",
@@ -4361,7 +4333,7 @@
           "sourceRow": 211
         },
         {
-          "id": "2026|10|12|regular|レギュラー異業種交流会|10:00-11:00|226",
+          "id": "2026|10|12|regular|レギュラー異業種交流会|10:00-11:00",
           "year": 2026,
           "month": 10,
           "category": "regular",
@@ -4375,7 +4347,7 @@
           "sourceRow": 226
         },
         {
-          "id": "2026|10|13|regular|レギュラー異業種交流会|13:00-14:00|212",
+          "id": "2026|10|13|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 10,
           "category": "regular",
@@ -4389,7 +4361,7 @@
           "sourceRow": 212
         },
         {
-          "id": "2026|10|14|regular|レギュラー異業種交流会|13:00-14:00|213",
+          "id": "2026|10|14|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 10,
           "category": "regular",
@@ -4403,7 +4375,7 @@
           "sourceRow": 213
         },
         {
-          "id": "2026|10|15|regular|レギュラー異業種交流会|13:00-14:00|214",
+          "id": "2026|10|15|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 10,
           "category": "regular",
@@ -4417,7 +4389,7 @@
           "sourceRow": 214
         },
         {
-          "id": "2026|10|16|regular|レギュラー異業種交流会|12:00-13:00|215",
+          "id": "2026|10|16|regular|レギュラー異業種交流会|12:00-13:00",
           "year": 2026,
           "month": 10,
           "category": "regular",
@@ -4431,7 +4403,7 @@
           "sourceRow": 215
         },
         {
-          "id": "2026|10|18|regular|レギュラー異業種交流会|10:00-11:00|227",
+          "id": "2026|10|18|regular|レギュラー異業種交流会|10:00-11:00",
           "year": 2026,
           "month": 10,
           "category": "regular",
@@ -4445,7 +4417,7 @@
           "sourceRow": 227
         },
         {
-          "id": "2026|10|19|regular|レギュラー異業種交流会|13:00-14:00|216",
+          "id": "2026|10|19|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 10,
           "category": "regular",
@@ -4459,7 +4431,7 @@
           "sourceRow": 216
         },
         {
-          "id": "2026|10|20|regular|レギュラー異業種交流会|13:00-14:00|217",
+          "id": "2026|10|20|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 10,
           "category": "regular",
@@ -4473,7 +4445,7 @@
           "sourceRow": 217
         },
         {
-          "id": "2026|10|21|regular|レギュラー異業種交流会|13:00-14:00|218",
+          "id": "2026|10|21|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 10,
           "category": "regular",
@@ -4487,7 +4459,7 @@
           "sourceRow": 218
         },
         {
-          "id": "2026|10|22|regular|レギュラー異業種交流会|13:00-14:00|219",
+          "id": "2026|10|22|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 10,
           "category": "regular",
@@ -4501,7 +4473,7 @@
           "sourceRow": 219
         },
         {
-          "id": "2026|10|23|regular|レギュラー異業種交流会|13:00-14:00|220",
+          "id": "2026|10|23|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 10,
           "category": "regular",
@@ -4515,7 +4487,7 @@
           "sourceRow": 220
         },
         {
-          "id": "2026|10|25|regular|レギュラー異業種交流会|10:00-11:00|228",
+          "id": "2026|10|25|regular|レギュラー異業種交流会|10:00-11:00",
           "year": 2026,
           "month": 10,
           "category": "regular",
@@ -4529,7 +4501,7 @@
           "sourceRow": 228
         },
         {
-          "id": "2026|10|26|regular|レギュラー異業種交流会|13:00-14:00|221",
+          "id": "2026|10|26|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 10,
           "category": "regular",
@@ -4543,7 +4515,7 @@
           "sourceRow": 221
         },
         {
-          "id": "2026|10|27|regular|レギュラー異業種交流会|13:00-14:00|222",
+          "id": "2026|10|27|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 10,
           "category": "regular",
@@ -4557,7 +4529,7 @@
           "sourceRow": 222
         },
         {
-          "id": "2026|10|28|regular|レギュラー異業種交流会|13:00-14:00|223",
+          "id": "2026|10|28|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 10,
           "category": "regular",
@@ -4571,7 +4543,7 @@
           "sourceRow": 223
         },
         {
-          "id": "2026|10|30|regular|レギュラー異業種交流会|13:00-14:00|224",
+          "id": "2026|10|30|regular|レギュラー異業種交流会|13:00-14:00",
           "year": 2026,
           "month": 10,
           "category": "regular",
@@ -4585,7 +4557,7 @@
           "sourceRow": 224
         },
         {
-          "id": "2026|10|31|regular|レギュラー異業種交流会|10:00-11:00|229",
+          "id": "2026|10|31|regular|レギュラー異業種交流会|10:00-11:00",
           "year": 2026,
           "month": 10,
           "category": "regular",
@@ -4612,7 +4584,7 @@
       "label": "10月 ミーティング",
       "items": [
         {
-          "id": "2026|10|8|meeting|ミーティング|17:00-18:30|230",
+          "id": "2026|10|8|meeting|ミーティング|17:00-18:30",
           "year": 2026,
           "month": 10,
           "category": "meeting",
@@ -4626,7 +4598,7 @@
           "sourceRow": 230
         },
         {
-          "id": "2026|10|29|meeting|ミーティング|11:00-12:00|231",
+          "id": "2026|10|29|meeting|ミーティング|11:00-12:00",
           "year": 2026,
           "month": 10,
           "category": "meeting",
@@ -4640,7 +4612,7 @@
           "sourceRow": 231
         },
         {
-          "id": "2026|10|29|meeting|ミーティング|17:00-18:00|232",
+          "id": "2026|10|29|meeting|ミーティング|17:00-18:00",
           "year": 2026,
           "month": 10,
           "category": "meeting",

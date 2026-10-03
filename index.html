@@ -4971,8 +4971,20 @@
       return (await fetchEventGuideApiResult()).guides;
     }
 
+    // The live schedule response already carries the joined guides and the
+    // venue master, so a second round trip to fetch them is pure waiting.
+    function getEmbeddedGuideResult(payload) {
+      const guides = getPayloadEventGuideDocuments(payload);
+      if (!guides.length) return null;
+      if (!isCurrentEventGuidePayload({ ok: payload?.ok, source: REQUIRED_EVENT_GUIDE_SOURCE, eventGuides: guides })) return null;
+      const usable = getUsableEventGuideDocuments(guides);
+      return usable.length ? { ok: true, guides: usable, payload } : null;
+    }
+
     async function hydrateEventGuideDocuments(payload, { skipLive = false } = {}) {
-      const apiResult = skipLive ? { ok: false, guides: [] } : await fetchEventGuideApiResult();
+      const apiResult = skipLive
+        ? { ok: false, guides: [] }
+        : (getEmbeddedGuideResult(payload) || await fetchEventGuideApiResult());
       const apiGuides = apiResult.guides;
       if (apiResult.ok && apiGuides.length) {
         setVenueMaster(apiResult.payload?.venueMaster);
@@ -5031,7 +5043,7 @@
         hasInitializedScheduleMonth = true;
       }
       syncActiveScheduleFromState(activeScheduleMonth, activeScheduleCategory);
-      await loadAssignments({ skipLive });
+      await loadAssignments({ skipLive, schedulePayload: payload });
       updateScheduleTabVisibility();
       renderSchedule(activeScheduleKey);
       renderArchiveSchedule();
@@ -5603,10 +5615,15 @@
       }, 10 * 60 * 1000);
     }
 
-    async function loadAssignments({ skipLive = false } = {}) {
+    async function loadAssignments({ skipLive = false, schedulePayload = null } = {}) {
       if (skipLive) return;
       try {
-        const payload = await callPortalAction("assignments");
+        // The live schedule response now carries current assignments, so only
+        // fall back to the separate (slower) request when it didn't.
+        const embedded = schedulePayload?.assignments;
+        const payload = embedded && Object.keys(embedded).length
+          ? { assignments: embedded }
+          : await callPortalAction("assignments");
         const nextAssignments = payload.assignments || {};
         if (Object.keys(nextAssignments).length) {
           rawAssignmentMap = nextAssignments;
@@ -7654,6 +7671,21 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
       `).join("") : emptyRows;
     }
 
+    const BOARD_CACHE_STORAGE_KEY = "wonderPlusPortal.boardPosts.v1";
+
+    function showCachedBoardPosts() {
+      if (!boardFeed || boardPostsCache.length) return;
+      try {
+        const cached = JSON.parse(window.localStorage?.getItem(BOARD_CACHE_STORAGE_KEY) || "null");
+        if (Array.isArray(cached?.posts) && cached.posts.length) {
+          boardPostsCache = cached.posts;
+          renderBoardPosts(boardPostsCache);
+        }
+      } catch (error) {
+        // A corrupt cache entry is simply ignored.
+      }
+    }
+
     async function loadSharedBoardPosts() {
       if (!boardFeed) return;
       try {
@@ -7663,6 +7695,11 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
         if (nextPosts.length || !boardPostsCache.length) {
           boardPostsCache = nextPosts;
           renderBoardPosts(boardPostsCache);
+          try {
+            window.localStorage?.setItem(BOARD_CACHE_STORAGE_KEY, JSON.stringify({ storedAt: new Date().toISOString(), posts: nextPosts }));
+          } catch (error) {
+            // localStorage may be disabled or full; the board just loads normally next time.
+          }
         }
       } catch (error) {
         console.warn("Shared board API unavailable:", error);
@@ -7950,13 +7987,43 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
       });
     }
 
+    const MINUTES_CACHE_STORAGE_KEY = "wonderPlusPortal.minutes.v1";
+
     async function loadMinutesRows() {
       try {
         const payload = await callPortalAction("minutes");
         renderMinutesRows(normalizeMinutesRows(payload));
+        try {
+          window.localStorage?.setItem(MINUTES_CACHE_STORAGE_KEY, JSON.stringify({ storedAt: new Date().toISOString(), payload }));
+        } catch (error) {
+          // Too large for localStorage here; it just loads fresh each time.
+        }
       } catch (error) {
-        renderMinutesRows([]);
+        if (!document.querySelector("[data-minutes-category]")) renderMinutesRows([]);
       }
+    }
+
+    // The minutes call is the slowest one at startup (several seconds) and
+    // sits far down the page: show the last copy instantly and only fetch the
+    // fresh one when the section is about to scroll into view.
+    function loadMinutesRowsWhenNeeded() {
+      try {
+        const cached = JSON.parse(window.localStorage?.getItem(MINUTES_CACHE_STORAGE_KEY) || "null");
+        if (cached?.payload) renderMinutesRows(normalizeMinutesRows(cached.payload));
+      } catch (error) {
+        // Ignore a corrupt cache entry.
+      }
+      const section = document.getElementById("minutes");
+      if (!section || !("IntersectionObserver" in window)) {
+        loadMinutesRows();
+        return;
+      }
+      const observer = new IntersectionObserver((entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        observer.disconnect();
+        loadMinutesRows();
+      }, { rootMargin: "400px" });
+      observer.observe(section);
     }
 
     document.querySelectorAll("[data-minutes-filter]").forEach((button) => {
@@ -8207,8 +8274,9 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
     if (queryParams.get("view") === "minutes-detail") {
       renderMinutesDetailPage();
     } else {
+      showCachedBoardPosts();
       loadSharedBoardPosts();
-      loadMinutesRows();
+      loadMinutesRowsWhenNeeded();
 
       document.querySelectorAll(".is-pending[href='#']").forEach((link) => {
         link.addEventListener("click", (event) => event.preventDefault());

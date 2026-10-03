@@ -1560,6 +1560,12 @@
       gap: 12px;
     }
 
+    .event-guide-body.is-audit {
+      max-height: min(70vh, 720px);
+      white-space: normal;
+      background: #fff;
+    }
+
     .event-guide-body {
       border: 1px solid #d9e5ee;
       border-radius: 8px;
@@ -6448,6 +6454,7 @@
     function renderEventGuidePicker() {
       if (!eventGuideSelect) return;
       renderEventGuideMonthTabs();
+      eventGuideBody?.classList.toggle("is-audit", activeGuideMode === "audit");
       document.querySelectorAll("[data-guide-brand]").forEach((button) => {
         button.classList.toggle("is-active", button.dataset.guideBrand === activeGuideBrand);
       });

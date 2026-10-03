@@ -1806,6 +1806,65 @@
       max-width: none;
     }
 
+    .audit-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .audit-toggle {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin: 8px 0;
+      font-size: 13px;
+    }
+
+    .audit-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: start;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .audit-issue {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      margin-top: 4px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .audit-badge {
+      flex: 0 0 auto;
+      border-radius: 999px;
+      padding: 1px 8px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .audit-badge.is-error { background: #c62828; }
+    .audit-badge.is-warn { background: #b26a00; }
+    .audit-badge.is-info { background: #6b7c8a; }
+    .audit-badge.is-orphan { background: #6a1b9a; }
+
+    .audit-row-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .audit-row-actions a.member-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+    }
+
     @media (max-width: 1080px) {
       .layout,
       .calendar-wrap {
@@ -3266,6 +3325,19 @@
                 <div class="member-status">管理者のみ、申請アカウントの承認・停止ができます。</div>
                 <div class="admin-list" id="adminUserList"></div>
               </div>
+
+              <div class="member-card member-session" id="guideAuditCard">
+                <div class="member-actions">
+                  <strong>案内チェック</strong>
+                  <span class="audit-actions">
+                    <button class="member-button" id="refreshGuideAudit" type="button">再チェック</button>
+                    <button class="member-button" id="refreshGuideFormChoices" type="button">フォーム選択肢を更新</button>
+                  </span>
+                </div>
+                <div class="member-status" id="guideAuditSummary">今後の開催について、案内文の不足・日付や時間の食い違いなどを一覧で確認できます。</div>
+                <label class="audit-toggle"><input type="checkbox" id="guideAuditShowInfo"> 参考情報も表示する</label>
+                <div class="admin-list audit-list" id="guideAuditList"></div>
+              </div>
             </div>
           </section>
 
@@ -3737,6 +3809,12 @@
     const memberMonthTabs = document.querySelector(".member-month-tabs");
     const adminCard = document.querySelector("#adminCard");
     const adminUserList = document.querySelector("#adminUserList");
+    const guideAuditCard = document.querySelector("#guideAuditCard");
+    const guideAuditList = document.querySelector("#guideAuditList");
+    const guideAuditSummary = document.querySelector("#guideAuditSummary");
+    const guideAuditShowInfo = document.querySelector("#guideAuditShowInfo");
+    let guideAuditData = null;
+    let guideAuditLoading = false;
     const portalTitle = document.querySelector("#portalTitle");
     const portalSub = document.querySelector("#portalSub");
     const personalSchedulePrompt = document.querySelector("#personalSchedulePrompt");
@@ -5479,6 +5557,7 @@
         showElement("#minutes", false);
         showElement("#ai", false);
         showElement("#adminCard", false);
+        showElement("#guideAuditCard", false);
 
       }
     }
@@ -5494,10 +5573,14 @@
       if (memberName) memberName.textContent = currentMember ? `${currentMember.name}さんの運営参加チェック` : "運営参加チェック";
       if (memberRole) memberRole.textContent = currentMember ? `${normalizePhase(currentMember.phase) || "未設定"} / ${currentMember.role || "member"}` : "保存済みプロフィールがないため、初回のみ個人ログインで識別してください";
       if (adminCard) adminCard.style.display = currentMember?.role === "admin" ? "" : "none";
+      if (guideAuditCard) guideAuditCard.style.display = currentMember?.role === "admin" ? "" : "none";
       applyPortalAccessView();
       renderMemberScheduleList();
       updateAssignmentSaveState();
-      if (currentMember?.role === "admin") loadAdminUsers();
+      if (currentMember?.role === "admin") {
+        loadAdminUsers();
+        if (!guideAuditData) loadGuideAudit();
+      }
     }
 
     function renderMemberScheduleList() {
@@ -5763,6 +5846,114 @@
         adminUserList.innerHTML = `<div class="admin-row"><div>管理情報を読み込めませんでした。</div></div>`;
       }
     }
+
+    async function loadGuideAudit({ fresh = false } = {}) {
+      if (!currentMember || currentMember.role !== "admin" || !guideAuditList || guideAuditLoading) return;
+      guideAuditLoading = true;
+      guideAuditSummary.textContent = fresh
+        ? "最新データで再チェックしています…(10秒ほどかかります)"
+        : "チェック中…(数秒かかります)";
+      try {
+        const payload = await callPortalAction("guideAudit", {
+          token: localStorage.getItem("wonderMemberToken"),
+          fresh: fresh ? "1" : ""
+        });
+        if (payload?.ok === false) throw new Error(payload.message || payload.error || "guideAudit failed");
+        guideAuditData = payload;
+        renderGuideAudit();
+      } catch (error) {
+        console.warn("Guide audit failed:", error);
+        guideAuditSummary.textContent = "チェックを実行できませんでした。時間をおいて「再チェック」を押してください。";
+      } finally {
+        guideAuditLoading = false;
+      }
+    }
+
+    function renderGuideAudit() {
+      const data = guideAuditData;
+      if (!data || !guideAuditList) return;
+      const summary = data.summary || {};
+      const showInfo = Boolean(guideAuditShowInfo?.checked);
+      const generated = data.generatedAt ? new Date(data.generatedAt).toLocaleString("ja-JP") : "";
+      const parts = [
+        `今後${summary.total || 0}件中`,
+        `要修正 ${summary.error || 0}件`,
+        `要確認 ${summary.warn || 0}件`,
+        `問題なし ${summary.ok || 0}件`
+      ];
+      if (summary.orphans) parts.push(`紐づけ切れの案内文 ${summary.orphans}件`);
+      guideAuditSummary.textContent = `${parts.join(" / ")}(チェック日時 ${generated})`
+        + (data.formCheck && data.formCheck.ok === false ? ` ※フォームの選択肢は確認できませんでした: ${data.formCheck.error || ""}` : "");
+
+      const levelLabel = { error: "要修正", warn: "要確認", info: "参考" };
+      const orphanRows = (data.orphans || []).map((orphan) => `
+        <div class="audit-row">
+          <div>
+            <strong>${escapeHtml(orphan.date)} ${escapeHtml(orphan.title)}</strong>
+            <div class="audit-issue"><span class="audit-badge is-orphan">紐づけ切れ</span><span>${escapeHtml(orphan.message)}</span></div>
+            ${orphan.candidates?.length ? `<div class="event-meta">同日の開催回: ${orphan.candidates.map(escapeHtml).join(" / ")}</div>` : ""}
+          </div>
+        </div>
+      `);
+      const itemRows = (data.items || [])
+        .map((item) => ({ item, issues: item.issues.filter((issue) => showInfo || issue.level !== "info") }))
+        .filter(({ issues }) => issues.length)
+        .map(({ item, issues }) => `
+          <div class="audit-row">
+            <div>
+              <strong>${escapeHtml(`${item.month}/${item.day} ${item.title}`)}</strong>
+              <div class="event-meta">${escapeHtml(item.meta)}</div>
+              ${issues.map((issue) => `
+                <div class="audit-issue"><span class="audit-badge is-${escapeHtml(issue.level)}">${levelLabel[issue.level] || ""}</span><span>${escapeHtml(issue.message)}</span></div>
+              `).join("")}
+            </div>
+            <div class="audit-row-actions">
+              <button class="member-button" type="button" data-audit-open="${escapeHtml(item.id)}" data-audit-month="${item.month}">案内を開く</button>
+              ${issues.some((issue) => issue.code === "no_guide") && data.formUrl
+                ? `<a class="member-button" href="${escapeHtml(data.formUrl)}" target="_blank" rel="noopener">案内文を投稿</a>`
+                : ""}
+            </div>
+          </div>
+        `);
+      const rows = [...orphanRows, ...itemRows];
+      guideAuditList.innerHTML = rows.length
+        ? rows.join("")
+        : `<div class="admin-row"><div>問題は見つかりませんでした。</div></div>`;
+    }
+
+    function openGuideFromAudit(eventId, month) {
+      activeGuideMode = "guide";
+      activeGuideBrand = "wonder";
+      activeGuideMonth = Number(month) || activeGuideMonth;
+      renderEventGuidePicker();
+      if (eventGuideSelect && [...eventGuideSelect.options].some((option) => option.value === eventId)) {
+        eventGuideSelect.value = eventId;
+        renderSelectedEventGuide();
+      }
+      document.getElementById("event-info")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    document.querySelector("#refreshGuideAudit")?.addEventListener("click", () => loadGuideAudit({ fresh: true }));
+    document.querySelector("#refreshGuideFormChoices")?.addEventListener("click", async (event) => {
+      const button = event.currentTarget;
+      button.disabled = true;
+      guideAuditSummary.textContent = "フォームの選択肢を更新しています…";
+      try {
+        const result = await callPortalAction("refreshEventGuideFormChoices");
+        if (result?.ok === false) throw new Error(result.error || result.message || "refresh failed");
+        await loadGuideAudit({ fresh: true });
+      } catch (error) {
+        console.warn("Form choices refresh failed:", error);
+        guideAuditSummary.textContent = "フォーム選択肢の更新に失敗しました。時間をおいて再度お試しください。";
+      } finally {
+        button.disabled = false;
+      }
+    });
+    guideAuditShowInfo?.addEventListener("change", renderGuideAudit);
+    guideAuditList?.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-audit-open]");
+      if (button) openGuideFromAudit(button.dataset.auditOpen, button.dataset.auditMonth);
+    });
 
     document.addEventListener("click", (event) => {
       const button = event.target.closest(".tab-button");

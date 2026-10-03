@@ -3795,6 +3795,16 @@
       { area: "熊本県 / 熊本会場", address: "熊本県熊本市中央区下通1-6-27 タカハマビル5階", venue: "イベントスペースStylus〈スタイラス〉" },
       { area: "栃木県 / 宇都宮会場", address: "栃木県宇都宮市本町4-12 虎屋ビル 7F", venue: "宇都宮コンファレンスホール" }
     ];
+    // Served by the API from the 会場マスタ sheet. When present it is the only
+    // source for 会場住所一覧; the hardcoded venueAddresses above (and the
+    // addresses scraped out of guide text) are just the fallback for when the
+    // master can't be fetched.
+    let venueMasterList = [];
+    function setVenueMaster(list) {
+      if (!Array.isArray(list)) return;
+      const valid = list.filter((entry) => entry && entry.venue && entry.address);
+      if (valid.length) venueMasterList = valid;
+    }
     const defaultEventGuideDocuments = [];
     let eventGuideDocuments = [...defaultEventGuideDocuments];
     let scheduleLogs = [];
@@ -4809,6 +4819,7 @@
         const payload = JSON.parse(raw);
         if (payload?.cacheVersion !== STATIC_CACHE_VERSION) return [];
         if (isLocalCacheEntryStale(payload?.updatedAt)) return [];
+        setVenueMaster(payload?.venueMaster);
         return getUsableEventGuideDocuments(getPayloadEventGuideDocuments(payload));
       } catch (error) {
         return [];
@@ -4822,6 +4833,7 @@
           cacheVersion: STATIC_CACHE_VERSION,
           updatedAt: new Date().toISOString(),
           source: REQUIRED_EVENT_GUIDE_SOURCE,
+          venueMaster: venueMasterList,
           eventGuides: guides
         }));
       } catch (error) {
@@ -4854,6 +4866,7 @@
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const payload = await response.json();
         if (!isCurrentEventGuidePayload(payload)) return [];
+        setVenueMaster(payload?.venueMaster);
         return getUsableEventGuideDocuments(getPayloadEventGuideDocuments(payload));
       } catch (error) {
         return [];
@@ -4886,6 +4899,7 @@
       const apiResult = skipLive ? { ok: false, guides: [] } : await fetchEventGuideApiResult();
       const apiGuides = apiResult.guides;
       if (apiResult.ok && apiGuides.length) {
+        setVenueMaster(apiResult.payload?.venueMaster);
         eventGuideDocuments = mergeEventGuideDocuments(apiGuides);
         storeEventGuideDocuments(eventGuideDocuments);
         return;
@@ -4901,6 +4915,7 @@
 
       const payloadGuides = getUsableEventGuideDocuments(getPayloadEventGuideDocuments(payload));
       if (payloadGuides.length) {
+        setVenueMaster(payload?.venueMaster);
         eventGuideDocuments = mergeEventGuideDocuments(payloadGuides);
         storeEventGuideDocuments(eventGuideDocuments);
         return;
@@ -6159,6 +6174,13 @@
     }
 
     function getMergedVenueAddresses() {
+      if (venueMasterList.length) {
+        return venueMasterList.map((entry) => ({
+          area: String(entry.area || entry.key || entry.venue).trim(),
+          address: String(entry.address).trim(),
+          venue: String(entry.venue).trim()
+        }));
+      }
       return [...getGuideVenueCandidates(), ...venueAddresses].reduce((list, item) => {
         if (!item) return list;
         const address = sanitizeVenueAddressOnly(item.address);
@@ -6175,9 +6197,11 @@
       eventGuideTitle.textContent = "会場住所一覧";
       const mergedVenueAddresses = getMergedVenueAddresses();
       const addedCount = Math.max(0, mergedVenueAddresses.length - venueAddresses.length);
-      eventGuideMeta.textContent = addedCount
-        ? `Wonder＋で使用する会場住所です。フォーム連携から${addedCount}件を自動追加しています。`
-        : "Wonder＋で使用する各会場の住所と会場名を一覧で確認できます。";
+      eventGuideMeta.textContent = venueMasterList.length
+        ? "Wonder＋で使用する各会場の住所と会場名です(会場マスタで管理)。"
+        : addedCount
+          ? `Wonder＋で使用する会場住所です。フォーム連携から${addedCount}件を自動追加しています。`
+          : "Wonder＋で使用する各会場の住所と会場名を一覧で確認できます。";
       eventGuideBody.innerHTML = `
         <div class="venue-address-list">
           ${mergedVenueAddresses.map((item) => `

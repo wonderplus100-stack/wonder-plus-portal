@@ -112,6 +112,7 @@ const eventGuidePayload = {
   source: REQUIRED_EVENT_GUIDE_SOURCE,
   count: eventGuides.length,
   eventGuides,
+  venueMaster: Array.isArray(payload.venueMaster) ? payload.venueMaster : [],
   scheduleReadiness: { ok: true, source: "live-api-snapshot", missing: [] }
 };
 writeJson("event-guide-cache.json", eventGuidePayload);

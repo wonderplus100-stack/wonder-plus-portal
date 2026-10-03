@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "updatedAt": "2026-10-03T12:54:09.596Z",
+  "updatedAt": "2026-10-03T14:25:30.038Z",
   "source": "formatted-schedule-sheet",
   "masterSource": "formatted-schedule-sheet",
   "scheduleCounts": {
@@ -4706,17 +4706,17 @@
           "sourceRow": 237
         },
         {
-          "id": "2026|11|6|wonder|銀座wonder+story|15:30-17:00",
+          "id": "2026|11|6|wonder|銀座wonder+story|15:30-17:30",
           "year": 2026,
           "month": 11,
           "category": "wonder",
           "day": 6,
           "title": "銀座 Wonder+Story",
-          "meta": "15:30-17:00",
-          "timeRange": "15:30-17:00",
+          "meta": "15:30-17:30",
+          "timeRange": "15:30-17:30",
           "venue": "銀座",
           "eventName": "W+Story",
-          "time": "15:30-17:00",
+          "time": "15:30-17:30",
           "sourceRow": 238
         },
         {

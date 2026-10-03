@@ -5394,7 +5394,31 @@
       renderEventGuidePicker();
     }
 
+    let scheduleLoadInFlight = false;
+    let lastLiveScheduleAt = 0;
+    let scheduleRetryCount = 0;
+    const SCHEDULE_RETRY_DELAYS_MS = [20000, 60000, 180000];
+
+    // One load at a time (the 5-minute timer, resuming the page and the retry
+    // below can all call this), and a quick retry when the live API doesn't
+    // answer so a device isn't left on the old snapshot until the next tick.
     async function loadSchedules() {
+      if (scheduleLoadInFlight) return;
+      scheduleLoadInFlight = true;
+      try {
+        await loadSchedulesCore();
+      } finally {
+        scheduleLoadInFlight = false;
+      }
+      if (lastLiveScheduleAt && Date.now() - lastLiveScheduleAt < 5000) {
+        scheduleRetryCount = 0;
+      } else if (scheduleRetryCount < SCHEDULE_RETRY_DELAYS_MS.length) {
+        window.setTimeout(loadSchedules, SCHEDULE_RETRY_DELAYS_MS[scheduleRetryCount]);
+        scheduleRetryCount += 1;
+      }
+    }
+
+    async function loadSchedulesCore() {
       const apiUrl = getScheduleApiUrl();
       activeMemberMonth = getNearestVisibleScheduleMonth(currentScheduleMonth());
       renderMemberMonthTabs();
@@ -5428,6 +5452,7 @@
         if (!payload?.schedules) throw new Error("schedule payload is empty");
         storeSchedulePayload(payload);
         await applySchedulePayload(payload);
+        lastLiveScheduleAt = Date.now();
 
         const updatedAt = payload?.updatedAt ? new Date(payload.updatedAt) : null;
         const suffix = updatedAt && !Number.isNaN(updatedAt.getTime())
@@ -5451,6 +5476,131 @@
         renderEventGuidePicker();
         setScheduleStatus("Schedule load failed. Current API data is not available.");
       }
+    }
+
+    /* Keeps every device on the latest page and data.
+       The page is a single file that browsers (and in-app browsers such as
+       LINE's) happily keep for hours or days, and GitHub Pages lets it be
+       cached for 10 minutes, so devices ended up running different versions
+       of this code. When the page comes back to the foreground (or every few
+       minutes while open) it asks the server for the page's Last-Modified;
+       if the server's copy is newer than the one running, it reloads - unless
+       something unsaved is on screen, in which case it shows a banner instead.
+       Resuming also re-fetches the schedule/guides right away, since timers
+       don't run while a phone is asleep. */
+    const PAGE_LOADED_AT = Date.now();
+    const PAGE_LAST_MODIFIED = (() => {
+      const time = Date.parse(document.lastModified);
+      // document.lastModified falls back to "now" when the server sent no
+      // Last-Modified, which would make every comparison meaningless.
+      return Number.isNaN(time) || Math.abs(time - PAGE_LOADED_AT) < 5000 ? 0 : time;
+    })();
+    let pageBaselineEtag = "";
+    let updateBannerShown = false;
+
+    async function fetchServerPageStamp() {
+      try {
+        const response = await fetch(`${window.location.origin}${window.location.pathname}`, { method: "HEAD", cache: "no-store" });
+        if (!response.ok) return null;
+        const lastModified = Date.parse(response.headers.get("last-modified") || "");
+        return { lastModified: Number.isNaN(lastModified) ? 0 : lastModified, etag: response.headers.get("etag") || "" };
+      } catch (error) {
+        return null;
+      }
+    }
+
+    function hasUnsavedInput() {
+      const visibleText = [...document.querySelectorAll("textarea, input[type=password]")]
+        .some((field) => field.value.trim() && field.offsetParent !== null);
+      const editing = Boolean(eventGuideEditPanel && !eventGuideEditPanel.hidden);
+      const pendingSave = document.querySelector("#memberSaveAssignments");
+      return visibleText || editing || Boolean(pendingSave && !pendingSave.disabled);
+    }
+
+    function reloadWithFreshPage() {
+      try {
+        const attempts = JSON.parse(sessionStorage.getItem("wonderAutoReloads") || "[]").filter((time) => Date.now() - time < 10 * 60 * 1000);
+        attempts.push(Date.now());
+        sessionStorage.setItem("wonderAutoReloads", JSON.stringify(attempts));
+      } catch (error) {
+        // sessionStorage can be unavailable; the loop guard below then just stays permissive.
+      }
+      const url = new URL(window.location.href);
+      url.searchParams.set("_r", String(Date.now()));
+      window.location.replace(url.toString());
+    }
+
+    function canAutoReload() {
+      try {
+        const attempts = JSON.parse(sessionStorage.getItem("wonderAutoReloads") || "[]").filter((time) => Date.now() - time < 10 * 60 * 1000);
+        return attempts.length < 2;
+      } catch (error) {
+        return true;
+      }
+    }
+
+    function showUpdateBanner() {
+      if (updateBannerShown) return;
+      updateBannerShown = true;
+      const banner = document.createElement("div");
+      banner.setAttribute("role", "status");
+      banner.style.cssText = "position:fixed;left:12px;right:12px;bottom:12px;z-index:9999;display:flex;gap:10px;align-items:center;justify-content:space-between;padding:10px 14px;border-radius:10px;background:#12344d;color:#fff;font-size:13px;box-shadow:0 4px 16px rgba(0,0,0,.25)";
+      banner.innerHTML = `<span>新しいバージョンがあります。</span><button type="button" style="border:0;border-radius:7px;padding:8px 12px;font:inherit;font-weight:700;background:#fff;color:#12344d;cursor:pointer">今すぐ更新</button>`;
+      banner.querySelector("button").addEventListener("click", reloadWithFreshPage);
+      document.body.appendChild(banner);
+    }
+
+    // Returns true when it started a reload.
+    async function checkForNewVersion({ allowAutoReload }) {
+      const stamp = await fetchServerPageStamp();
+      if (!stamp) return false;
+      const isNewer = PAGE_LAST_MODIFIED
+        ? stamp.lastModified > PAGE_LAST_MODIFIED + 1000
+        : Boolean(stamp.etag && pageBaselineEtag && stamp.etag !== pageBaselineEtag);
+      if (!PAGE_LAST_MODIFIED && !pageBaselineEtag) pageBaselineEtag = stamp.etag;
+      if (!isNewer) return false;
+      if (allowAutoReload && canAutoReload() && !hasUnsavedInput()) {
+        reloadWithFreshPage();
+        return true;
+      }
+      showUpdateBanner();
+      return false;
+    }
+
+    let resumeCheckInFlight = false;
+
+    async function refreshOnResume() {
+      if (document.visibilityState !== "visible" || resumeCheckInFlight) return;
+      resumeCheckInFlight = true;
+      try {
+        if (await checkForNewVersion({ allowAutoReload: true })) return;
+        if (Date.now() - lastLiveScheduleAt > 60 * 1000) loadSchedules();
+      } finally {
+        resumeCheckInFlight = false;
+      }
+    }
+
+    function startKeepFresh() {
+      // Drop the cache-busting parameter a forced reload added.
+      try {
+        const url = new URL(window.location.href);
+        if (url.searchParams.has("_r")) {
+          url.searchParams.delete("_r");
+          window.history.replaceState(null, "", url.toString());
+        }
+      } catch (error) {
+        // Not worth failing startup over.
+      }
+      document.addEventListener("visibilitychange", refreshOnResume);
+      window.addEventListener("pageshow", (event) => { if (event.persisted) refreshOnResume(); });
+      window.addEventListener("online", refreshOnResume);
+      window.addEventListener("focus", refreshOnResume);
+      // Right after opening: a copy served from the browser's 10-minute cache may already be old.
+      window.setTimeout(() => checkForNewVersion({ allowAutoReload: true }), 3000);
+      // A page left open and visible: offer the update instead of yanking it away.
+      window.setInterval(() => {
+        if (document.visibilityState === "visible") checkForNewVersion({ allowAutoReload: false });
+      }, 10 * 60 * 1000);
     }
 
     async function loadAssignments({ skipLive = false } = {}) {
@@ -8161,6 +8311,7 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
       loadSchedules();
       restoreMemberSession();
       window.setInterval(loadSchedules, 5 * 60 * 1000);
+      startKeepFresh();
       applySplitView();
       resetInitialPortalScroll();
     }

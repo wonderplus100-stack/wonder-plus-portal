@@ -8013,17 +8013,26 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
       } catch (error) {
         // Ignore a corrupt cache entry.
       }
+      let requested = false;
+      const run = () => {
+        if (requested) return;
+        requested = true;
+        loadMinutesRows();
+      };
       const section = document.getElementById("minutes");
       if (!section || !("IntersectionObserver" in window)) {
-        loadMinutesRows();
+        run();
         return;
       }
       const observer = new IntersectionObserver((entries) => {
         if (!entries.some((entry) => entry.isIntersecting)) return;
         observer.disconnect();
-        loadMinutesRows();
+        run();
       }, { rootMargin: "400px" });
       observer.observe(section);
+      // Not scrolled to yet: still fetch it once the main data has had time to
+      // settle, so it is already there when the reader gets to it.
+      window.setTimeout(run, 12000);
     }
 
     document.querySelectorAll("[data-minutes-filter]").forEach((button) => {

@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "updatedAt": "2026-10-05T06:24:09.551Z",
+  "updatedAt": "2026-10-05T15:14:09.086Z",
   "source": "formatted-schedule-sheet",
   "masterSource": "formatted-schedule-sheet",
   "scheduleCounts": {
@@ -1171,7 +1171,8 @@
       "小宮留衣"
     ],
     "2026|11|10|wonder|静岡wonder+|13:00-14:30": [
-      "望月佳奈"
+      "望月佳奈",
+      "飯田　泰之"
     ]
   },
   "schedules": {

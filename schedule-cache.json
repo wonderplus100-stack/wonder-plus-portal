@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "updatedAt": "2026-10-05T00:54:09.452Z",
+  "updatedAt": "2026-10-05T06:24:09.551Z",
   "source": "formatted-schedule-sheet",
   "masterSource": "formatted-schedule-sheet",
   "scheduleCounts": {
@@ -888,7 +888,8 @@
     "2026|10|5|wonder|静岡wonder+|19:30-21:00": [
       "望月佳奈",
       "飯田　泰之",
-      "高杉裕輔"
+      "高杉裕輔",
+      "石田琴美"
     ],
     "2026|9|25|meeting|ミーティング|11:00-12:00": [
       "湯原咲",

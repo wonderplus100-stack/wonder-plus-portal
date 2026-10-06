@@ -4981,6 +4981,22 @@
       return usable.length ? { ok: true, guides: usable, payload } : null;
     }
 
+    // The API joins exactly one guide to every schedule item and tags it with
+    // that item's id. mergeEventGuideDocuments collapses guides that share a
+    // date, title and body (e.g. every event of a city that reuses one guide)
+    // into a single entry, so keep the un-merged list indexed by that id and
+    // match on it first instead of guessing from titles.
+    let eventGuidesByItemId = new Map();
+
+    function applyEventGuides(guides, { store = false } = {}) {
+      eventGuidesByItemId = new Map();
+      guides.forEach((guide) => {
+        if (guide?.scheduleItemId) eventGuidesByItemId.set(guide.scheduleItemId, guide);
+      });
+      eventGuideDocuments = mergeEventGuideDocuments(guides);
+      if (store) storeEventGuideDocuments(guides);
+    }
+
     async function hydrateEventGuideDocuments(payload, { skipLive = false } = {}) {
       const apiResult = skipLive
         ? { ok: false, guides: [] }
@@ -4988,15 +5004,14 @@
       const apiGuides = apiResult.guides;
       if (apiResult.ok && apiGuides.length) {
         setVenueMaster(apiResult.payload?.venueMaster);
-        eventGuideDocuments = mergeEventGuideDocuments(apiGuides);
-        storeEventGuideDocuments(eventGuideDocuments);
+        applyEventGuides(apiGuides, { store: true });
         return;
       }
 
       if (skipLive) {
         const storedFirst = readStoredEventGuideDocuments();
         if (storedFirst.length) {
-          eventGuideDocuments = mergeEventGuideDocuments(storedFirst);
+          applyEventGuides(storedFirst);
           return;
         }
       }
@@ -5004,26 +5019,24 @@
       const payloadGuides = getUsableEventGuideDocuments(getPayloadEventGuideDocuments(payload));
       if (payloadGuides.length) {
         setVenueMaster(payload?.venueMaster);
-        eventGuideDocuments = mergeEventGuideDocuments(payloadGuides);
-        storeEventGuideDocuments(eventGuideDocuments);
+        applyEventGuides(payloadGuides, { store: true });
         return;
       }
 
       const staticGuides = await fetchStaticEventGuideDocuments();
       if (staticGuides.length) {
-        eventGuideDocuments = mergeEventGuideDocuments(staticGuides);
-        storeEventGuideDocuments(eventGuideDocuments);
+        applyEventGuides(staticGuides, { store: true });
         return;
       }
 
       const storedGuides = readStoredEventGuideDocuments();
       if (storedGuides.length) {
-        eventGuideDocuments = mergeEventGuideDocuments(storedGuides);
+        applyEventGuides(storedGuides);
         return;
       }
 
       if (apiResult.ok) clearStoredEventGuideDocuments();
-      eventGuideDocuments = [];
+      applyEventGuides([]);
     }
 
     async function getFastSchedulePayload() {
@@ -6922,6 +6935,8 @@
     }
 
     function findDriveEventGuide(group, item) {
+      const exact = eventGuidesByItemId.get(getEventId(group, item));
+      if (exact) return exact;
       const title = item.title;
       const month = Number(group.month);
       const category = getMemberScheduleCategory(item);
@@ -7276,6 +7291,9 @@
       // Looking within the first few lines catches both layouts.
       const hasOwnGuideLabel = /【案内文】/.test(bodyText.trim().split("\n").slice(0, 5).join("\n"));
       const guideLabel = hasOwnGuideLabel ? "" : "【案内文】\n";
+      // A body saved from the edit box already starts with these two lines
+      // (the server keeps their date/time current); don't add a second pair.
+      if (/【開催日時】/.test(bodyText.trim().split("\n").slice(0, 4).join("\n"))) return bodyText;
       return `【イベント名】${guide.title || guide.eventName || item.title}
 【開催日時】${dateLine}
 ${guideLabel}${bodyText}`;

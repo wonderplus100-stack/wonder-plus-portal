@@ -7278,11 +7278,15 @@
     }
 
     function buildDriveEventGuideBody(guide, group, item) {
-      const body = replaceGuideVenueSection(
-        replaceGuideScheduleTimeLine(getGuideBodyText(guide), group, item),
-        group,
-        item
-      );
+      // A guide the server has already joined to this event (scheduleItemId) has
+      // its date/time and venue kept in step with the schedule and the venue
+      // master there; rewriting them again here only stacked a duplicate time
+      // line under the header and could overwrite the master's venue with this
+      // page's older address list. Still add a venue section when it has none.
+      const rawBody = getGuideBodyText(guide);
+      const body = guide?.scheduleItemId
+        ? (/(^|\n)[■▪・\s-]*会場/.test(rawBody) ? rawBody : replaceGuideVenueSection(rawBody, group, item))
+        : replaceGuideVenueSection(replaceGuideScheduleTimeLine(rawBody, group, item), group, item);
       const dateLine = `${group.month}月${item.day}日 ${formatScheduleDisplayMeta(item, group) || "詳細未入力"}`;
       const bodyText = body || "このイベントに紐づくDriveファイルは見つかっていますが、本文はまだ取得できていません。Googleフォームに案内本文を入力して返す、またはApps ScriptでGoogleドキュメント本文を抽出して eventGuides の本文フィールドに入れると、ここに全文が表示されます。";
       // Some submitters put a short time line before their own 【案内文】

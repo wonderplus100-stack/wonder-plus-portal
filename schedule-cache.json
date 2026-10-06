@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "updatedAt": "2026-10-06T09:09:08.597Z",
+  "updatedAt": "2026-10-06T15:39:08.965Z",
   "source": "formatted-schedule-sheet",
   "masterSource": "formatted-schedule-sheet",
   "scheduleCounts": {
@@ -1044,7 +1044,8 @@
     "2026|10|28|wonder|銀座wonder+beauty|15:00-16:30": [
       "高杉裕輔",
       "大西正人",
-      "小宮留衣"
+      "小宮留衣",
+      "荒井沙也香"
     ],
     "2026|10|29|wonder|銀座wonder+hr（人材）|19:30-21:00": [
       "高杉裕輔",

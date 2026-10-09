@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "updatedAt": "2026-10-09T10:24:08.521Z",
+  "updatedAt": "2026-10-09T17:09:10.016Z",
   "source": "formatted-schedule-sheet",
   "masterSource": "formatted-schedule-sheet",
   "scheduleCounts": {
@@ -5183,29 +5183,29 @@
           "sourceRow": 271
         },
         {
-          "id": "2026|11|26|wonder|銀座wonder+100|13:00-14:30",
+          "id": "2026|11|26|wonder|新宿wonder+100|13:00-14:30",
           "year": 2026,
           "month": 11,
           "category": "wonder",
           "day": 26,
-          "title": "銀座 Wonder+100",
+          "title": "新宿 Wonder+100",
           "meta": "13:00-14:30",
           "timeRange": "13:00-14:30",
-          "venue": "銀座",
+          "venue": "新宿",
           "eventName": "W+100",
           "time": "13:00-14:30",
           "sourceRow": 272
         },
         {
-          "id": "2026|11|26|wonder|銀座wonder+100|15:00-16:30",
+          "id": "2026|11|26|wonder|新宿wonder+100|15:00-16:30",
           "year": 2026,
           "month": 11,
           "category": "wonder",
           "day": 26,
-          "title": "銀座 Wonder+100",
+          "title": "新宿 Wonder+100",
           "meta": "15:00-16:30",
           "timeRange": "15:00-16:30",
-          "venue": "銀座",
+          "venue": "新宿",
           "eventName": "W+100",
           "time": "15:00-16:30",
           "sourceRow": 273
@@ -5239,15 +5239,15 @@
           "sourceRow": 276
         },
         {
-          "id": "2026|11|30|wonder|千葉wonder+|15:00-16:30",
+          "id": "2026|11|30|wonder|大宮wonder+|15:00-16:30",
           "year": 2026,
           "month": 11,
           "category": "wonder",
           "day": 30,
-          "title": "千葉 Wonder+",
+          "title": "大宮 Wonder+",
           "meta": "15:00-16:30",
           "timeRange": "15:00-16:30",
-          "venue": "千葉",
+          "venue": "大宮",
           "eventName": "イベント",
           "time": "15:00-16:30",
           "sourceRow": 275

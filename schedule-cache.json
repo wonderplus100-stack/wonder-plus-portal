@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "updatedAt": "2026-10-12T07:34:09.698Z",
+  "updatedAt": "2026-10-12T16:59:09.110Z",
   "source": "formatted-schedule-sheet",
   "masterSource": "formatted-schedule-sheet",
   "scheduleCounts": {
@@ -981,7 +981,8 @@
       "池田葵"
     ],
     "2026|10|13|wonder|銀座wonder+gravity|19:30-21:00": [
-      "高杉裕輔"
+      "高杉裕輔",
+      "小宮留衣"
     ],
     "2026|10|14|wonder|銀座wonder+marketing|19:30-21:00": [
       "高杉裕輔",
@@ -3717,15 +3718,15 @@
           "sourceRow": 165
         },
         {
-          "id": "2026|10|9|wonder|横浜wonder+|15:00-16:00",
+          "id": "2026|10|9|wonder|横浜横浜1on1wonder+|15:00-16:00",
           "year": 2026,
           "month": 10,
           "category": "wonder",
           "day": 9,
-          "title": "横浜 Wonder+",
+          "title": "横浜横浜1on1 Wonder+",
           "meta": "15:00-16:00",
           "timeRange": "15:00-16:00",
-          "venue": "横浜",
+          "venue": "横浜横浜1on1",
           "eventName": "イベント",
           "time": "15:00-16:00",
           "sourceRow": 168
@@ -4039,15 +4040,15 @@
           "sourceRow": 190
         },
         {
-          "id": "2026|10|23|wonder|横浜wonder+|15:00-16:00",
+          "id": "2026|10|23|wonder|横浜1on1wonder+|15:00-16:00",
           "year": 2026,
           "month": 10,
           "category": "wonder",
           "day": 23,
-          "title": "横浜 Wonder+",
+          "title": "横浜1on1 Wonder+",
           "meta": "15:00-16:00",
           "timeRange": "15:00-16:00",
-          "venue": "横浜",
+          "venue": "横浜1on1",
           "eventName": "イベント",
           "time": "15:00-16:00",
           "sourceRow": 191

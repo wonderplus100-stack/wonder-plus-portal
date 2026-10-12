@@ -1,6 +1,9 @@
 <!doctype html>
 <html lang="ja">
 <head>
+  <!-- members-only gate: nothing is shown until a portal login exists in this browser -->
+  <style id="auth-gate">html{visibility:hidden}</style>
+  <script>(function(){var ok=false;try{ok=!!(localStorage.getItem("wonderMemberToken")||localStorage.getItem("wonderMemberProfile")||localStorage.getItem("wonderSavedLogin"))}catch(e){}if(ok){var s=document.getElementById("auth-gate");if(s)s.remove();return}if(window.top===window){location.replace("index.html")}})();</script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Wonder+異業種交流会 運営アナウンス基本マニュアル</title>

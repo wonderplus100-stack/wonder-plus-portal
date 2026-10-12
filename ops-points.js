@@ -75,19 +75,53 @@
     });
   }
 
+  var ICON_PEOPLE = '<svg class="ops-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.4"/><path d="M16 14.2c3 .2 5 2.3 5 5.3"/></svg>';
+  var ICON_GAUGE = '<svg class="ops-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19a8 8 0 1 1 16 0"/><path d="M12 19l4-6"/></svg>';
+
+  /** short, scannable causes instead of sentences: [text, tone] */
+  function tagsOf(v) {
+    var tags = [], hold = v.holdCodes || [];
+    if (hold.indexOf('rule') >= 0) tags.push(['基準未設定', 'blue']);
+    if (hold.indexOf('type') >= 0) tags.push(['種別が未確定', 'blue']);
+    if (hold.indexOf('unconfirmed') >= 0) tags.push(['評価未確定の参加者あり', 'blue']);
+    if (hold.indexOf('later') >= 0) tags.push(['判定は開催前に開始', 'blue']);
+    if (v.status !== 'hold') {
+      if (v.staffShort > 0) tags.push(['人数 あと' + v.staffShort + '名', 'bad']);
+      if (v.pointShort > 0) tags.push(['pt あと' + v.pointShort, 'bad']);
+      (v.taskShort || []).forEach(function (t) { tags.push([t.n + ' ' + t.s + '名不足', 'warn']); });
+      if (v.clashes > 0) tags.push(['担当の時間が重複', 'bad']);
+      if (!tags.length) tags.push(['条件を満たしています', 'good']);
+      if (v.source === 'auto' && v.count > 0) tags.push(['割当は自動案', 'plain']);
+    }
+    if (v.fromHistory) tags.push(['終了済みの記録', 'plain']);
+    return tags;
+  }
+  function tagsHtml(v) {
+    return '<span class="ops-tags">' + tagsOf(v).map(function (t) { return '<span class="ops-tag is-' + t[1] + '">' + esc(t[0]) + '</span>'; }).join('') + '</span>';
+  }
+  function meterHtml(label, value, target, unit, status) {
+    if (target === null || target === undefined || !(target > 0)) return '';
+    var ratio = Math.max(0, Math.min(100, value / target * 100)), met = value >= target;
+    var tone = met ? 'good' : (status === 'ng' ? 'red' : status === 'adjust' ? 'amber' : 'blue');
+    return '<span class="ops-meter" role="img" aria-label="' + esc(label) + ' ' + value + '/' + target + unit + '">'
+      + '<span class="ops-ml">' + esc(label) + '</span>'
+      + '<span class="ops-bar"><i class="is-' + tone + '" style="width:' + ratio.toFixed(0) + '%"></i></span>'
+      + '<span class="ops-mv"><b>' + value + '</b>/' + target + unit + '</span></span>';
+  }
+
   function badgeHtml(v) {
     var m = META[v.status] || META.hold;
-    var short = v.staffShort > 0 ? ' <span class="ops-short">不足:' + v.staffShort + '名</span>' : '';
-    var minText = v.min === null || v.min === undefined ? '未設定' : v.min + '名';
-    var lines = '<span>参加 ' + v.count + '名／最低' + minText + short + '</span>';
-    if (v.rate !== null && v.rate !== undefined) lines += '<span>達成率 ' + pct(v.rate) + '</span>';
-    lines += '<span>判定：<span class="ops-chip ' + m.cls + '">' + m.icon + ' ' + esc(v.label) + '</span></span>';
+    var top = '<span class="ops-chip ' + m.cls + '">' + m.icon + ' ' + esc(v.label) + '</span>'
+      + '<span class="ops-fig' + (v.staffShort > 0 ? ' is-bad' : '') + '" title="参加人数">' + ICON_PEOPLE + '<b>' + v.count + '</b>' + (v.min === null || v.min === undefined ? '' : '<small>/' + v.min + '名</small>') + '</span>'
+      + (v.rate !== null && v.rate !== undefined ? '<span class="ops-fig' + (v.rate < 100 ? ' is-bad' : '') + '" title="達成率">' + ICON_GAUGE + '<b>' + Math.round(v.rate) + '</b><small>%</small></span>' : '')
+      + '<button type="button" class="ops-more">詳細</button>';
+    var meters = (v.required !== null && v.required !== undefined)
+      ? '<div class="ops-meters">' + meterHtml('人数', v.count, v.min, '名', v.status) + meterHtml('pt', v.effective, v.required, 'pt', v.status) + '</div>' : '';
     var reasons = (v.reasons || []).map(function (r) { return '<li>' + esc(r) + '</li>'; }).join('');
     var calc = (v.required !== null && v.required !== undefined)
       ? '<li>必要ポイント ' + v.required + 'pt / 実ポイント合計 ' + v.raw + 'pt / 制限適用後 ' + v.effective + 'pt' + (v.pointShort > 0 ? '(あと' + v.pointShort + 'pt)' : '') + '</li>' : '';
     var hist = v.fromHistory ? '<li>終了したイベントのため、判定時点の記録を表示しています。</li>' : '';
-    return '<div class="ops-lines">' + lines + '</div>'
-      + '<div class="ops-reason">' + esc((v.reasons || [])[0] || '') + '<button type="button" class="ops-more">詳細</button></div>'
+    return '<div class="ops-top">' + top + '</div>' + meters + '<div class="ops-tagrow">' + tagsHtml(v) + '</div>'
       + '<div class="ops-detail" hidden><ul>' + calc + reasons + hist + '</ul></div>';
   }
 
@@ -99,8 +133,7 @@
     var events = (S.overview && S.overview.events) || {};
     list.querySelectorAll('.check-row').forEach(function (row) {
       var input = row.querySelector('input[data-event-id]');
-      var body = row.children[2];
-      if (!input || !body) return;
+      if (!input) return;
       var v = events[input.dataset.eventId];
       var existing = row.querySelector('.ops-badge');
       row.classList.remove('ops-row-yellow', 'ops-row-red', 'ops-row-blue');
@@ -113,7 +146,7 @@
       var el = document.createElement('div');
       el.className = 'ops-badge'; el.dataset.sig = sig; el.innerHTML = badgeHtml(v);
       if (open) el.querySelector('.ops-detail').hidden = false;
-      body.appendChild(el);
+      row.appendChild(el);
     });
     renderMe();
     if (observer && list) observer.observe(list, { childList: true });
@@ -252,15 +285,15 @@
   }
 
   function eventHtml(e, d) {
-    var color = META[e.status] && e.status === 'adjust' ? 'yellow' : e.status === 'ng' ? 'red' : e.status === 'hold' ? 'blue' : '';
+    var color = e.status === 'adjust' ? 'yellow' : e.status === 'ng' ? 'red' : e.status === 'hold' ? 'blue' : '';
     var open = !!A.open[e.eventId];
-    var short = e.staffShort > 0 ? ' ・ <span class="ops-short">不足:' + e.staffShort + '名</span>' : '';
-    var meta = '参加 ' + e.count + '名／最低' + (e.min === null ? '未設定' : e.min + '名') + short + (e.rate !== null ? ' ・ 達成率 ' + pct(e.rate) : '') + (e.typeName ? ' ・ 基準: ' + esc(e.typeName) : ' ・ 基準: 未判定');
+    var figs = '<span class="ops-fig' + (e.staffShort > 0 ? ' is-bad' : '') + '">' + ICON_PEOPLE + '<b>' + e.count + '</b>' + (e.min === null ? '' : '<small>/' + e.min + '名</small>') + '</span>'
+      + (e.rate !== null ? '<span class="ops-fig' + (e.rate < 100 ? ' is-bad' : '') + '">' + ICON_GAUGE + '<b>' + Math.round(e.rate) + '</b><small>%</small></span>' : '');
     return '<div class="ops-event ' + (color ? 'is-' + color : '') + '">'
       + '<button type="button" class="ops-event-head" data-act="event" data-id="' + esc(e.eventId) + '" aria-expanded="' + open + '">'
-      + '<span class="ops-date">' + esc(e.date) + '</span><span><strong>' + esc(e.title) + '</strong> ' + chip(e.status, e.label) + '</span>'
-      + '<span class="ops-meta">' + meta + '</span>'
-      + '<span class="ops-meta">' + esc((e.reasons || [])[0] || '') + '</span></button>'
+      + '<span class="ops-date">' + esc(e.date) + '</span><span class="ops-title"><strong>' + esc(e.title) + '</strong>' + (e.typeName ? '<small>基準: ' + esc(e.typeName) + '</small>' : '') + '</span>'
+      + '<span class="ops-meta ops-headline">' + chip(e.status, e.label) + figs + '</span>'
+      + '<span class="ops-meta">' + tagsHtml(e) + '</span></button>'
       + (open ? '<div class="ops-event-body">' + detailHtml(e.eventId) + '</div>' : '') + '</div>';
   }
 

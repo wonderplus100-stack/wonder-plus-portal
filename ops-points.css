@@ -87,3 +87,50 @@
   .ops-event-head .ops-meta { grid-column: 1; }
   .ops-badge .ops-lines > span { white-space: normal; }
 }
+
+
+/* ---- 図(アイコン・メーター・タグ)中心の判定表示。判定は本文欄ではなくカード全幅の別行に置く ---- */
+.check-row > .ops-badge { grid-column: 1 / -1; margin-top: 2px; }
+.ops-badge { font-size: 13px; }
+.ops-badge .ops-top, .ops-headline { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; }
+.ops-top .ops-more { margin-left: auto; min-height: 32px; padding: 2px 10px; border: 1px solid var(--line); border-radius: 999px; background: #fff; text-decoration: none; color: var(--blue); font-weight: 600; }
+.ops-fig { display: inline-flex; align-items: center; gap: 4px; font-size: 14px; white-space: nowrap; color: var(--ink); }
+.ops-fig b { font-size: 17px; line-height: 1; }
+.ops-fig small { color: var(--muted); font-size: 12px; }
+.ops-fig.is-bad, .ops-fig.is-bad b { color: #8f1f14; }
+.ops-ico { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: 0 0 auto; }
+
+.ops-meters { display: grid; grid-template-columns: 1fr; gap: 5px; margin-top: 7px; }
+@media (min-width: 560px) { .ops-meters { grid-template-columns: 1fr 1fr; gap: 6px 16px; } }
+.ops-meter { display: grid; grid-template-columns: 34px 1fr auto; align-items: center; gap: 8px; }
+.ops-ml { font-size: 12px; color: var(--muted); }
+.ops-mv { font-size: 12px; color: var(--muted); white-space: nowrap; }
+.ops-mv b { color: var(--ink); font-size: 13px; }
+.ops-bar { display: block; height: 9px; border-radius: 999px; background: #dfe6ec; overflow: hidden; }
+.ops-bar i { display: block; height: 100%; border-radius: 999px; min-width: 2px; }
+.ops-bar i.is-good { background: #3a9a6c; } .ops-bar i.is-amber { background: #e0a800; }
+.ops-bar i.is-red { background: #c0392b; } .ops-bar i.is-blue { background: #2f6fb3; }
+
+.ops-tagrow { margin-top: 6px; }
+.ops-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.ops-tag { display: inline-block; padding: 1px 9px; border-radius: 6px; font-size: 12px; line-height: 1.7; border: 1px solid var(--line); background: #fff; color: var(--ink); }
+.ops-tag.is-good { color: var(--green); border-color: #b9d8c9; background: #f1f9f5; }
+.ops-tag.is-warn { color: #7a5a00; border-color: #e6c75a; background: #fff3c4; }
+.ops-tag.is-bad { color: #8f1f14; border-color: #e3a29b; background: #fbd9d5; font-weight: 700; }
+.ops-tag.is-blue { color: #1d4f86; border-color: #a8c6e6; background: #d9e8f7; }
+.ops-tag.is-plain { color: var(--muted); }
+
+/* 管理画面のイベント一覧: 1行目=日付+名前 / 2行目=判定と数字 / 3行目=タグ */
+.ops-event-head { grid-template-columns: auto minmax(0, 1fr); }
+.ops-event-head .ops-title { display: grid; gap: 1px; }
+.ops-event-head .ops-title small { color: var(--muted); font-size: 12px; }
+.ops-event-head .ops-meta { grid-column: 1 / -1; }
+.ops-event-head .ops-headline .ops-fig b { font-size: 16px; }
+@media (max-width: 640px) {
+  .ops-event-head { grid-template-columns: auto minmax(0, 1fr); }
+  .ops-event-head .ops-meta { grid-column: 1 / -1; }
+  .ops-detail { font-size: 13px; }
+  .ops-table { font-size: 12px; }
+  .ops-tabs .tab-button { flex: 1 1 auto; }
+  .ops-toolbar > * { flex: 1 1 140px; }
+}

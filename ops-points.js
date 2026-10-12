@@ -211,7 +211,7 @@
       banners += '<div class="ops-note is-warn">保存用のシートがまだありません。管理シートに「運営_」で始まる6つのシートを<strong>新規追加</strong>します(既存のシート・データは変更しません)。 <button class="member-button" type="button" data-act="setup"' + busyAttr('setup') + '>' + spin('setup', '保存用シートを準備する') + '</button></div>';
     }
     if (d.settingsWarnings && d.settingsWarnings.length) banners += '<div class="ops-note is-warn">保存済みの設定に不正な値があったため初期値を使っています: ' + esc(d.settingsWarnings.join(' / ')) + '</div>';
-    var pending = (d.staff || []).filter(function (s) { return s.mapping.status !== 'confirmed'; }).length;
+    var pending = (d.staff || []).filter(function (s) { return ['confirmed', 'auto'].indexOf(s.mapping.status) < 0; }).length;
     if (pending) banners += '<div class="ops-note is-warn">アカウントとの対応付けが未確認のスタッフが ' + pending + '名 います(「スタッフ能力」で確認)。確認が済むまで、そのスタッフが参加するイベントは判定保留になります。</div>';
     var tabs = '<div class="ops-tabs">' + TABS.map(function (t) { return '<button type="button" class="tab-button ' + (A.tab === t[0] ? 'is-active' : '') + '" data-act="tab" data-tab="' + t[0] + '">' + t[1] + '</button>'; }).join('') + '</div>';
     var body = { dash: renderDash, staff: renderStaff, rules: renderRules, settings: renderSettings, tools: renderTools }[A.tab](d);
@@ -336,8 +336,8 @@
       var rated = skills.map(function (k) { var v = s.ratings[k.id]; return '<td class="num ops-r' + (v === null ? 0 : v) + '">' + (v === null ? '—' : v) + '</td>'; }).join('');
       var rank = s.complete ? esc(s.rank) : '<span title="未評価があるため確定していません">暫定' + (s.provisionalRange ? esc(s.provisionalRange.best === s.provisionalRange.worst ? s.provisionalRange.best : s.provisionalRange.best + '〜' + s.provisionalRange.worst) : '') + '</span>';
       var map = s.mapping, acct;
-      if (map.status === 'confirmed') {
-        acct = '<span class="ops-pill">✓ ' + esc(map.email) + '<button type="button" title="対応付けを解除" data-act="unlink" data-staff="' + esc(s.staffKey) + '"' + busyAttr('map') + '>×</button></span>';
+      if (map.status === 'confirmed' || map.status === 'auto') {
+        acct = '<span class="ops-pill">✓ ' + esc(map.email) + (map.status === 'auto' ? ' <small>名前が一致</small>' : '') + '<button type="button" title="対応付けを解除" data-act="unlink" data-staff="' + esc(s.staffKey) + '"' + busyAttr('map') + '>×</button></span>';
       } else {
         var sug = s.suggestions.map(function (u) { return '<option value="' + esc(u.email) + '">候補: ' + esc(u.name) + ' (' + esc(u.email) + ')</option>'; }).join('');
         var others = users.filter(function (u) { return !s.suggestions.some(function (x) { return x.email === u.email; }); }).map(function (u) { return '<option value="' + esc(u.email) + '">' + esc(u.name) + ' (' + esc(u.email) + ')</option>'; }).join('');
@@ -346,7 +346,7 @@
       }
       return '<tr><td class="ops-sticky"><strong>' + esc(s.name) + '</strong></td>' + rated + '<td class="num">' + s.total + (s.complete ? '' : '*') + '</td><td class="num">' + rank + '</td><td class="num">' + (s.points === null ? '—' : s.points) + '</td><td class="num">' + (s.unratedCount || '') + '</td><td>' + esc(s.updatedAt ? new Date(s.updatedAt).toLocaleDateString('ja-JP') : '未記録') + '</td><td>' + esc(s.evaluator || '未記録') + '</td><td>' + acct + '</td></tr>';
     }).join('');
-    var single = d.staff.filter(function (s) { return s.mapping.status !== 'confirmed' && s.suggestions.length === 1; });
+    var single = d.staff.filter(function (s) { return ['confirmed', 'auto'].indexOf(s.mapping.status) < 0 && s.suggestions.length === 1; });
     return '<h4>スタッフ能力(Excelの値を表示)</h4>'
       + '<div class="ops-sub">評価はExcel「運営ポイント」シートで編集します。編集するとここにも反映されます(最大5分)。合計・ランク・ポイントはポータル側で自動計算し、手入力値は使いません。* は未評価あり(暫定)。</div>'
       + '<div class="ops-toolbar"><a class="member-button" href="' + esc(d.sourceUrl) + '" target="_blank" rel="noopener">Excelを開いて編集</a>'
@@ -537,7 +537,7 @@
       return run('map', '保存中', function () { return api('opsSaveStaffMap', { items: JSON.stringify([{ staffKey: sk, email: email, status: act === 'unlink' ? 'unlinked' : 'confirmed' }]) }).then(reloadAfter); }, act === 'unlink' ? '対応付けを解除しました。' : '対応付けを確定しました。');
     }
     if (act === 'confirm-all') {
-      var singles = d.staff.filter(function (s) { return s.mapping.status !== 'confirmed' && s.suggestions.length === 1; });
+      var singles = d.staff.filter(function (s) { return ['confirmed', 'auto'].indexOf(s.mapping.status) < 0 && s.suggestions.length === 1; });
       if (!window.confirm('次の対応付けを確定します。\n\n' + singles.map(function (s) { return s.name + ' → ' + s.suggestions[0].name + ' (' + s.suggestions[0].email + ')'; }).join('\n') + '\n\n氏名が似ているだけの別人ではないか確認のうえ、よろしければOKを押してください。')) return;
       return run('map', '保存中', function () { return api('opsSaveStaffMap', { items: JSON.stringify(singles.map(function (s) { return { staffKey: s.staffKey, email: s.suggestions[0].email, status: 'confirmed' }; })) }).then(reloadAfter); }, '対応付けを確定しました。');
     }

@@ -825,9 +825,12 @@
     body.auth-required:not(.is-member-logged-in) #mindset,
     body.auth-required:not(.is-member-logged-in) #reports,
     body.auth-required:not(.is-member-logged-in) #minutes,
+    body.auth-required:not(.is-member-logged-in) #materials,
     body.auth-required:not(.is-member-logged-in) #ai {
       display: none !important;
     }
+
+    body.auth-restoring:not(.is-member-logged-in) #member-portal { visibility: hidden; }
 
     body.auth-required:not(.is-member-logged-in) .layout {
       display: block;
@@ -3065,7 +3068,8 @@
   </style>
   <link rel="stylesheet" href="ops-points.css?v=ops-20261012-1">
 </head>
-<body>
+<body class="auth-required">
+  <script>try{if(localStorage.getItem("wonderMemberToken")||localStorage.getItem("wonderSavedLogin")||localStorage.getItem("wonderMemberProfile"))document.body.classList.add("auth-restoring")}catch(e){}</script>
   <main class="portal" id="top">
     <div class="shell">
       <header class="topbar">
@@ -3840,7 +3844,7 @@
     const eventGuidePicker = document.querySelector(".event-guide-picker");
     const eventGuideMonthTabs = document.querySelector("#eventGuideMonthTabs");
     const queryParams = new URLSearchParams(window.location.search);
-    const authRequired = queryParams.get("view") === "member";
+    const authRequired = true; // the portal is members-only: logged-out visitors only see the login screen
     const forceLogin = queryParams.get("login") === "1";
     if (authRequired) document.body.classList.add("auth-required");
     let selectedScheduleDay = null;
@@ -8409,7 +8413,8 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
 
       loadRememberedLoginFields();
       loadSchedules();
-      restoreMemberSession();
+      restoreMemberSession().finally(() => document.body.classList.remove("auth-restoring"));
+      window.setTimeout(() => document.body.classList.remove("auth-restoring"), 8000);
       window.setInterval(loadSchedules, 5 * 60 * 1000);
       startKeepFresh();
       applySplitView();

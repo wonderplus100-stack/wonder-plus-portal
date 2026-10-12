@@ -1,0 +1,89 @@
+/* 運営ポイント: 運営参加チェックの判定表示と管理画面。色だけに頼らず、文言とアイコンも必ず併記する。 */
+
+/* ---- 運営参加チェックのイベントカード ---- */
+.check-row.ops-row-yellow { background: #fff8e1; box-shadow: inset 4px 0 0 #e0a800; }
+.check-row.ops-row-red { background: #fdecec; box-shadow: inset 4px 0 0 #c0392b; }
+.check-row.ops-row-blue { background: #eaf2fb; box-shadow: inset 4px 0 0 #2f6fb3; }
+
+.ops-badge { margin-top: 6px; font-size: 13px; line-height: 1.55; color: var(--ink); }
+.ops-badge .ops-lines { display: flex; flex-wrap: wrap; gap: 2px 14px; align-items: center; }
+.ops-badge .ops-lines > span { white-space: nowrap; }
+.ops-chip {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 1px 9px; border-radius: 999px; font-weight: 700; font-size: 12.5px;
+  border: 1px solid var(--line); background: #fff; color: var(--ink);
+}
+.ops-chip.is-good { color: var(--green); border-color: #b9d8c9; background: #f1f9f5; }
+.ops-chip.is-yellow { color: #7a5a00; border-color: #e6c75a; background: #fff3c4; }
+.ops-chip.is-red { color: #8f1f14; border-color: #e3a29b; background: #fbd9d5; }
+.ops-chip.is-blue { color: #1d4f86; border-color: #a8c6e6; background: #d9e8f7; }
+.ops-short { color: #8f1f14; font-weight: 700; }
+.ops-reason { margin-top: 2px; color: var(--muted); font-size: 12.5px; }
+.ops-more {
+  margin-left: 4px; padding: 0 6px; border: 0; background: none; color: var(--blue);
+  font: inherit; font-size: 12.5px; text-decoration: underline; cursor: pointer;
+}
+.ops-detail { margin-top: 6px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: rgba(255, 255, 255, .85); font-size: 12.5px; }
+.ops-detail[hidden] { display: none; }
+.ops-detail ul { margin: 4px 0 0; padding-left: 18px; }
+.ops-me { margin: 6px 0 10px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--soft); font-size: 13px; }
+.ops-me strong { font-size: 14px; }
+
+/* ---- 管理画面 ---- */
+.ops-admin { display: grid; gap: 10px; }
+.ops-admin h3 { margin: 0; font-size: 16px; }
+.ops-admin h4 { margin: 14px 0 6px; font-size: 14px; }
+.ops-admin .ops-sub { color: var(--muted); font-size: 12.5px; }
+.ops-tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+.ops-tabs .tab-button { min-height: 36px; }
+.ops-note { padding: 8px 12px; border-radius: 8px; font-size: 13px; border: 1px solid var(--line); background: var(--soft); }
+.ops-note.is-error { border-color: #e3a29b; background: #fdecec; color: #8f1f14; }
+.ops-note.is-ok { border-color: #b9d8c9; background: #f1f9f5; color: var(--green); }
+.ops-note.is-warn { border-color: #e6c75a; background: #fff8e1; color: #7a5a00; }
+.ops-toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.ops-toolbar select, .ops-toolbar input[type="text"], .ops-toolbar input[type="number"] { min-height: 36px; }
+.ops-summary { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.ops-table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: #fff; -webkit-overflow-scrolling: touch; }
+.ops-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.ops-table th, .ops-table td { padding: 6px 8px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: middle; }
+.ops-table th { background: var(--soft); font-weight: 700; white-space: nowrap; }
+.ops-table td.num, .ops-table th.num { text-align: center; }
+.ops-table tr:last-child td { border-bottom: 0; }
+.ops-table .ops-sticky { position: sticky; left: 0; background: #fff; z-index: 1; white-space: nowrap; }
+.ops-table th.ops-sticky { background: var(--soft); }
+.ops-r1 { background: #e3f4ea; } .ops-r2 { background: #f0f8f2; } .ops-r3 { background: #fff; }
+.ops-r4 { background: #fff4e0; } .ops-r5 { background: #fbdede; } .ops-r0 { background: #eceff2; color: var(--muted); }
+
+.ops-event-list { display: grid; gap: 8px; }
+.ops-event { border: 1px solid var(--line); border-radius: 8px; background: #fff; overflow: hidden; }
+.ops-event.is-yellow { border-left: 5px solid #e0a800; background: #fff8e1; }
+.ops-event.is-red { border-left: 5px solid #c0392b; background: #fdecec; }
+.ops-event.is-blue { border-left: 5px solid #2f6fb3; background: #eaf2fb; }
+.ops-event-head { display: grid; grid-template-columns: auto 1fr; gap: 4px 10px; align-items: center; width: 100%; padding: 8px 10px; border: 0; background: none; text-align: left; font: inherit; color: inherit; cursor: pointer; }
+.ops-event-head .ops-date { font-weight: 700; min-width: 44px; }
+.ops-event-head .ops-meta { grid-column: 2; color: var(--muted); font-size: 12.5px; }
+.ops-event-body { padding: 4px 12px 12px; border-top: 1px solid var(--line); background: rgba(255, 255, 255, .7); }
+.ops-grid { display: grid; gap: 10px; }
+@media (min-width: 760px) { .ops-grid.cols-2 { grid-template-columns: 1fr 1fr; } }
+
+.ops-form { display: grid; gap: 8px; }
+.ops-form label { display: grid; gap: 3px; font-size: 12.5px; font-weight: 600; }
+.ops-form input, .ops-form select { min-height: 36px; padding: 4px 8px; border: 1px solid var(--line-strong, #b9c4cd); border-radius: 6px; font: inherit; background: #fff; }
+.ops-form .ops-inline { display: flex; flex-wrap: wrap; gap: 8px; align-items: end; }
+.ops-form .ops-inline label { flex: 1 1 110px; }
+.ops-assign { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.ops-pill { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--line); background: #fff; font-size: 12px; }
+.ops-pill button { border: 0; background: none; cursor: pointer; color: #8f1f14; font-size: 14px; line-height: 1; padding: 0 2px; }
+.ops-pill.is-warn { background: #fff3c4; border-color: #e6c75a; }
+.ops-pill.is-bad { background: #fbd9d5; border-color: #e3a29b; }
+.ops-spin { display: inline-block; width: 12px; height: 12px; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: ops-spin .8s linear infinite; vertical-align: -2px; margin-right: 4px; }
+@keyframes ops-spin { to { transform: rotate(360deg); } }
+.ops-log { font-size: 12px; }
+.ops-log td { vertical-align: top; }
+.ops-code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 11.5px; word-break: break-all; color: var(--muted); }
+@media (max-width: 640px) {
+  .ops-event-head { grid-template-columns: 1fr; }
+  .ops-event-head .ops-meta { grid-column: 1; }
+  .ops-badge .ops-lines > span { white-space: normal; }
+}

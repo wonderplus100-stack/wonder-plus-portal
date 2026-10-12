@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "updatedAt": "2026-10-12T16:59:09.110Z",
+  "updatedAt": "2026-10-12T23:34:12.788Z",
   "source": "formatted-schedule-sheet",
   "masterSource": "formatted-schedule-sheet",
   "scheduleCounts": {
@@ -1186,7 +1186,8 @@
       "飯田　泰之"
     ],
     "2026|10|15|regular|レギュラー異業種交流会|13:00-14:00": [
-      "高杉裕輔"
+      "高杉裕輔",
+      "大榮里菜"
     ]
   },
   "schedules": {

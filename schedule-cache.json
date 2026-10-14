@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "updatedAt": "2026-10-14T12:44:11.057Z",
+  "updatedAt": "2026-10-14T17:44:11.473Z",
   "source": "formatted-schedule-sheet",
   "masterSource": "formatted-schedule-sheet",
   "scheduleCounts": {
@@ -3920,17 +3920,17 @@
           "sourceRow": 181
         },
         {
-          "id": "2026|10|17|wonder|大阪朝wonder+|10:00-11:30",
+          "id": "2026|10|17|wonder|大阪朝wonder+|10:00-11:00",
           "year": 2026,
           "month": 10,
           "category": "wonder",
           "day": 17,
           "title": "大阪朝 Wonder+",
-          "meta": "10:00-11:30",
-          "timeRange": "10:00-11:30",
+          "meta": "10:00-11:00",
+          "timeRange": "10:00-11:00",
           "venue": "大阪朝",
           "eventName": "イベント",
-          "time": "10:00-11:30",
+          "time": "10:00-11:00",
           "sourceRow": 182
         },
         {

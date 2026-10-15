@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "updatedAt": "2026-10-14T21:14:08.457Z",
+  "updatedAt": "2026-10-14T23:54:12.778Z",
   "source": "formatted-schedule-sheet",
   "masterSource": "formatted-schedule-sheet",
   "scheduleCounts": {
@@ -1100,7 +1100,8 @@
     ],
     "2026|10|20|wonder|新宿wonder+alliance|19:30-21:00": [
       "大西正人",
-      "小宮留衣"
+      "小宮留衣",
+      "石田和久"
     ],
     "2026|10|21|wonder|大宮wonder+|15:00-16:30": [
       "大西正人"
@@ -1188,7 +1189,8 @@
     ],
     "2026|11|10|wonder|静岡wonder+|13:00-14:30": [
       "望月佳奈",
-      "飯田　泰之"
+      "飯田　泰之",
+      "石田琴美"
     ],
     "2026|10|15|regular|レギュラー異業種交流会|13:00-14:00": [
       "高杉裕輔",

@@ -83,8 +83,9 @@
     var tags = [], hold = v.holdCodes || [];
     if (hold.indexOf('rule') >= 0) tags.push(['基準未設定', 'blue']);
     if (hold.indexOf('type') >= 0) tags.push(['種別が未確定', 'blue']);
-    if (hold.indexOf('unconfirmed') >= 0) tags.push(['評価未確定の参加者あり', 'blue']);
+    if (hold.indexOf('unconfirmed') >= 0) tags.push(['評価未確定の参加者あり' + ((v.unconfirmedNames || []).length ? '(' + v.unconfirmedNames.join('・') + ')' : ''), 'blue']);
     if (hold.indexOf('later') >= 0) tags.push(['判定は開催前に開始', 'blue']);
+    if (v.unconfirmed > 0 && hold.indexOf('unconfirmed') < 0) tags.push(['評価未確定 ' + v.unconfirmed + '名はポイント外' + ((v.unconfirmedNames || []).length ? '(' + v.unconfirmedNames.join('・') + ')' : ''), 'blue']);
     if (v.status !== 'hold') {
       if (v.staffShort > 0) tags.push(['人数 あと' + v.staffShort + '名', 'bad']);
       if (v.pointShort > 0) tags.push(['pt あと' + v.pointShort, 'bad']);
@@ -466,6 +467,14 @@
       + '<h4>判定のしきい値(達成率 %)</h4><div class="ops-inline"><label>余裕あり(以上)' + num('th:abundant', s.thresholds.abundant, 1) + '</label><label>安定運営(以上)' + num('th:stable', s.thresholds.stable, 1) + '</label><label>運営可能(以上)' + num('th:ok', s.thresholds.ok, 1) + '</label></div>'
       + '<h4>業務の適格基準(評価の値)</h4><div class="ops-inline"><label>主担当 〜' + num('el:mainMax', s.eligibility.mainMax, 1, 5) + '</label><label>補助 〜' + num('el:supportMax', s.eligibility.supportMax, 1, 5) + '</label><label>研修扱い 〜' + num('el:trainingMax', s.eligibility.trainingMax, 1, 5) + '</label><label>主担当が必要な人数' + num('mainSlots', s.mainSlots, 0, 10) + '</label></div>'
       + '<div class="ops-sub">既定: 評価1〜2=主担当可 / 3=補助のみ / 4=研修扱い(人数に数えない) / 5=担当不可。</div>'
+      + '<h4>ドリンク・フードの判定が必要なイベント</h4><div class="ops-sub">チェックしたイベントだけ、その業務を判定します(それ以外のイベントでは除外)。</div>'
+      + ['drink', 'food'].map(function (id) {
+        var t = d.tasks.filter(function (x) { return x.id === id; })[0];
+        var on = (s.taskScope && s.taskScope[id]) || [];
+        return '<div class="ops-inline"><strong style="flex:0 0 100%">' + esc(t.name) + '</strong>' + d.eventRules.filter(function (r) { return r.configured; }).map(function (r) {
+          return '<label class="ops-pill" style="flex:0 0 auto"><input type="checkbox" name="scope:' + id + ':' + esc(r.typeId) + '"' + (on.indexOf(r.typeId) >= 0 ? ' checked' : '') + '> ' + esc(r.name) + '</label>';
+        }).join('') + '</div>';
+      }).join('')
       + '<h4>ミライバ業務と能力の対応</h4><div class="ops-inline">' + abil + '</div><div class="ops-sub">初期状態では「ミライバ案内」「ミライバ運営」とも「ミライバ」能力を参照します。同時に充足できるとは見なしません。</div>'
       + '<h4>業務の時間帯(仮設定)</h4><div class="ops-sub">同じスタッフを同じ時間帯の複数業務に割り当てられないための基準です。開場＝開始の' + s.openLeadMinutes + '分前。</div>'
       + '<div class="ops-table-wrap"><table class="ops-table"><thead><tr><th>業務</th><th>開始</th><th>終了</th></tr></thead><tbody>' + wins + '</tbody></table></div>'
@@ -485,6 +494,10 @@
     s.thresholds = { abundant: Number(val('th:abundant')), stable: Number(val('th:stable')), ok: Number(val('th:ok')) };
     s.eligibility = { mainMax: Number(val('el:mainMax')), supportMax: Number(val('el:supportMax')), trainingMax: Number(val('el:trainingMax')) };
     s.mainSlots = Number(val('mainSlots'));
+    s.taskScope = {};
+    ['drink', 'food'].forEach(function (id) {
+      s.taskScope[id] = [].slice.call(root.querySelectorAll('input[name^="scope:' + id + ':"]')).filter(function (i) { return i.checked; }).map(function (i) { return i.name.split(':')[2]; });
+    });
     s.abilityMap = {}; ['miraiba_guide', 'miraiba_ops'].forEach(function (id) { s.abilityMap[id] = val('ab:' + id); });
     s.taskWindows = {};
     d.tasks.forEach(function (t) { s.taskWindows[t.id] = { from: { anchor: val('win:' + t.id + ':fa'), offset: Number(val('win:' + t.id + ':fo')) }, to: { anchor: val('win:' + t.id + ':ta'), offset: Number(val('win:' + t.id + ':to')) } }; });

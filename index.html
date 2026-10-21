@@ -3066,7 +3066,7 @@
       height: 30px !important;
     }
   </style>
-  <link rel="stylesheet" href="ops-points.css?v=ops-20261013-2">
+  <link rel="stylesheet" href="ops-points.css?v=ops-20261021-3">
 </head>
 <body class="auth-required">
   <script>try{if(localStorage.getItem("wonderMemberToken")||localStorage.getItem("wonderSavedLogin")||localStorage.getItem("wonderMemberProfile"))document.body.classList.add("auth-restoring")}catch(e){}</script>
@@ -3818,6 +3818,9 @@
     let guideAuditLoading = false;
     let guideAuditShowInfo = false;
     let guideAuditStatus = "";
+    let officialAuditData = null;
+    let officialAuditLoading = false;
+    let officialAuditStatus = "";
     const portalTitle = document.querySelector("#portalTitle");
     const portalSub = document.querySelector("#portalSub");
     const personalSchedulePrompt = document.querySelector("#personalSchedulePrompt");
@@ -6097,6 +6100,7 @@
         <div class="audit-toolbar">
           <button class="member-button" type="button" data-audit-refresh ${guideAuditLoading ? "disabled" : ""}>再チェック</button>
           <button class="member-button" type="button" data-audit-form ${guideAuditLoading ? "disabled" : ""}>フォーム選択肢を更新</button>
+          <button class="member-button" type="button" data-audit-official ${officialAuditLoading ? "disabled" : ""}>${officialAuditLoading ? "照合中…" : "公式サイトと照合"}</button>
           <label class="audit-toggle"><input type="checkbox" data-audit-info ${guideAuditShowInfo ? "checked" : ""}> 参考情報も表示する</label>
         </div>`;
 
@@ -6133,8 +6137,73 @@
       const list = data
         ? (rows.length ? rows.join("") : `<div class="audit-row"><div>問題は見つかりませんでした。</div></div>`)
         : "";
-      eventGuideBody.innerHTML = `${toolbar}<div class="audit-list">${list}</div>`.replace(/>\s+</g, "><").trim();
+      eventGuideBody.innerHTML = `${toolbar}<div class="audit-list">${list}</div>${renderOfficialAuditHtml()}`.replace(/>\s+</g, "><").trim();
       renderEventGuideAssets(null);
+    }
+
+    const OFFICIAL_ISSUE_LABELS = {
+      date_differs: "開催日", start_differs: "開始時刻", end_differs: "終了時刻", series_differs: "イベント種別",
+      fee_differs: "参加費", fee_missing: "参加費の記載なし", address_differs: "会場住所", master_differs: "会場マスタ",
+      no_guide: "案内文未登録", cancelled: "開催状況", not_on_official: "公式に掲載なし"
+    };
+
+    function renderOfficialAuditHtml() {
+      if (officialAuditLoading || officialAuditStatus) {
+        return `<div class="audit-list"><div class="audit-row"><div>${escapeHtml(officialAuditStatus || "公式サイトと照合中…(20秒ほどかかります)")}</div></div></div>`;
+      }
+      const data = officialAuditData;
+      if (!data) return "";
+      const generated = data.generatedAt ? new Date(data.generatedAt).toLocaleString("ja-JP") : "";
+      const rows = (data.issues || []).map((issue) => `
+        <div class="audit-row">
+          <div>
+            <strong>${escapeHtml(issue.date)} ${escapeHtml(issue.title)}</strong>
+            <div class="audit-issue"><span class="audit-badge is-${escapeHtml(issue.level)}">${escapeHtml(OFFICIAL_ISSUE_LABELS[issue.code] || issue.field)}</span>
+              <span>${escapeHtml(issue.field)}: ポータル「${escapeHtml(issue.portal)}」→ 公式「${escapeHtml(issue.official)}」${issue.hint ? `(${escapeHtml(issue.hint)})` : ""}</span></div>
+          </div>
+          <div class="audit-row-actions">
+            ${issue.itemId ? `<button class="member-button" type="button" data-audit-open="${escapeHtml(issue.itemId)}" data-audit-month="${Number(String(issue.date).split("/")[0]) || ""}">案内を開く</button>` : ""}
+            ${issue.url ? `<a class="member-button" href="${escapeHtml(issue.url)}" target="_blank" rel="noopener">公式ページ</a>` : ""}
+          </div>
+        </div>`).join("");
+      const only = (data.officialOnly || []).map((o) => `
+        <div class="audit-row">
+          <div>
+            <strong>${escapeHtml(o.date.slice(5).replace("-", "/"))} ${escapeHtml(o.start)}${o.end ? `-${escapeHtml(o.end)}` : ""} ${escapeHtml(o.name || `${o.city} ${o.series}`)}</strong>
+            <div class="audit-issue"><span class="audit-badge is-info">公式のみ</span><span>ポータルのスケジュールに掲載がありません</span></div>
+          </div>
+          <div class="audit-row-actions"><a class="member-button" href="${escapeHtml(o.url)}" target="_blank" rel="noopener">公式ページ</a></div>
+        </div>`).join("");
+      const counts = data.counts || {};
+      return `
+        <div class="audit-list">
+          <div class="audit-row"><div><strong>公式サイトとの照合</strong>
+            <div class="event-meta">基準: wonderplus.ne.jp/events/ ・ ポータルの今後${data.checked || 0}件を照合 ・ 要修正 ${counts.error || 0}件 / 要確認 ${counts.warn || 0}件 / 公式のみ掲載 ${(data.officialOnly || []).length}件(照合日時 ${escapeHtml(generated)})</div></div></div>
+          ${rows || `<div class="audit-row"><div>相違は見つかりませんでした。</div></div>`}
+          ${only ? `<div class="audit-row"><div><strong>公式サイトにだけ掲載されている開催</strong><div class="event-meta">カフェ会などポータルの管理対象外は除いています。</div></div></div>${only}` : ""}
+        </div>`;
+    }
+
+    async function loadOfficialAudit({ fresh = false } = {}) {
+      if (!canUseGuideAudit() || officialAuditLoading) return;
+      officialAuditLoading = true;
+      officialAuditStatus = "";
+      renderGuideAuditPanel();
+      try {
+        const payload = await callPortalAction("officialAudit", {
+          token: localStorage.getItem("wonderMemberToken"),
+          fresh: fresh ? "1" : ""
+        });
+        if (payload?.ok === false) throw new Error(payload.message || payload.error || "officialAudit failed");
+        officialAuditData = payload;
+      } catch (error) {
+        console.warn("Official audit failed:", error);
+        officialAuditStatus = `公式サイトとの照合を実行できませんでした(${error?.message || "通信エラー"})。時間をおいて再度お試しください。`;
+      } finally {
+        officialAuditLoading = false;
+        renderGuideAuditPanel();
+        if (officialAuditStatus) setTimeout(() => { officialAuditStatus = ""; renderGuideAuditPanel(); }, 8000);
+      }
     }
 
     function openGuideFromAudit(eventId, month) {
@@ -6171,6 +6240,7 @@
       const open = event.target.closest("[data-audit-open]");
       if (open) return openGuideFromAudit(open.dataset.auditOpen, open.dataset.auditMonth);
       if (event.target.closest("[data-audit-refresh]")) return loadGuideAudit({ fresh: true });
+      if (event.target.closest("[data-audit-official]")) return loadOfficialAudit({ fresh: true });
       if (event.target.closest("[data-audit-form]")) refreshGuideFormChoicesFromAudit();
     });
     eventGuideBody?.addEventListener("change", (event) => {
@@ -8421,6 +8491,6 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
       resetInitialPortalScroll();
     }
     </script>
-    <script src="ops-points.js?v=ops-20261013-2"></script>
+    <script src="ops-points.js?v=ops-20261021-3"></script>
   </body>
 </html>

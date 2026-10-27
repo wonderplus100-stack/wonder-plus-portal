@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "updatedAt": "2026-10-27T14:24:12.847Z",
+  "updatedAt": "2026-10-27T19:34:09.608Z",
   "source": "formatted-schedule-sheet",
   "masterSource": "formatted-schedule-sheet",
   "scheduleCounts": {
@@ -1052,9 +1052,6 @@
       "高杉裕輔",
       "大西正人"
     ],
-    "2026|10|27|wonder|名古屋wonder+|19:30-21:00": [
-      "高杉裕輔"
-    ],
     "2026|10|28|wonder|銀座wonder+beauty|15:00-16:30": [
       "高杉裕輔",
       "大西正人",
@@ -1116,7 +1113,8 @@
       "大西正人"
     ],
     "2026|10|27|wonder|浜松wonder+|19:30-21:00": [
-      "大西正人"
+      "大西正人",
+      "高杉裕輔"
     ],
     "2026|10|28|wonder|銀座wonder+gravity|19:30-21:00": [
       "大西正人",
@@ -1204,6 +1202,9 @@
     ],
     "2026|10|29|meeting|ミーティング|17:00-18:00": [
       "日比野里泉"
+    ],
+    "2026|10|28|wonder|横浜wonder+leaders|19:30-21:00": [
+      "高杉裕輔"
     ]
   },
   "schedules": {

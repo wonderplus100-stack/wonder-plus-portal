@@ -3856,8 +3856,23 @@
     let currentMember = null;
     let userAssignments = new Set();
     let pendingAssignments = new Set();
-    let activeMemberCategory = "wonder";
-    let activeMemberMonth = 6;
+    // 参加チェックで選んだ月・分類は、この画面の間ずっと保持する(スケジュールの再読み込み・自動更新・ページの
+    // 自動再読み込みで現在の月に戻らないように、タブごとに sessionStorage へ保存する)。
+    const MEMBER_VIEW_STORAGE_KEY = "wonderPlus.memberView.v1";
+    const MEMBER_CATEGORIES = ["wonder", "regular", "morning", "miraiba", "meeting"];
+    function readSavedMemberView() {
+      try { return JSON.parse(sessionStorage.getItem(MEMBER_VIEW_STORAGE_KEY) || "null") || {}; } catch (error) { return {}; }
+    }
+    const savedMemberView = readSavedMemberView();
+    let activeMemberCategory = MEMBER_CATEGORIES.includes(savedMemberView.category) ? savedMemberView.category : "wonder";
+    let activeMemberMonth = Number(savedMemberView.month) || 6;
+    let memberMonthWanted = Number(savedMemberView.month) || 0; // 0 = まだ月を選んでいない(現在の月を表示)
+    function saveMemberView() {
+      try { sessionStorage.setItem(MEMBER_VIEW_STORAGE_KEY, JSON.stringify({ month: memberMonthWanted, category: activeMemberCategory })); } catch (error) { /* sessionStorage unavailable */ }
+    }
+    document.querySelectorAll("[data-member-category]").forEach((tab) => {
+      tab.classList.toggle("is-active", tab.dataset.memberCategory === activeMemberCategory);
+    });
     let activeGuideMonth = 6;
     let activeGuideBrand = "wonder";
     let activeGuideMode = "guide";
@@ -5210,7 +5225,7 @@
     function renderMemberMonthTabs() {
       if (!memberMonthTabs) return;
       const visibleMonths = getVisibleScheduleMonths();
-      activeMemberMonth = getNearestVisibleScheduleMonth(activeMemberMonth);
+      activeMemberMonth = getNearestVisibleScheduleMonth(memberMonthWanted || activeMemberMonth);
       memberMonthTabs.innerHTML = visibleMonths.map((month) => `
         <button class="tab-button ${month === activeMemberMonth ? "is-active" : ""}" type="button" data-member-month="${month}">${month}月</button>
       `).join("");
@@ -5453,7 +5468,7 @@
 
     async function loadSchedulesCore() {
       const apiUrl = getScheduleApiUrl();
-      activeMemberMonth = getNearestVisibleScheduleMonth(currentScheduleMonth());
+      if (!memberMonthWanted) activeMemberMonth = getNearestVisibleScheduleMonth(currentScheduleMonth());
       renderMemberMonthTabs();
       renderScheduleLogs();
       renderSchedule(activeScheduleKey);
@@ -6267,6 +6282,7 @@
       }
       if (button.dataset.memberCategory) {
         activeMemberCategory = button.dataset.memberCategory;
+        saveMemberView();
         document.querySelectorAll("[data-member-category]").forEach((tab) => {
           tab.classList.toggle("is-active", tab === button);
         });
@@ -6274,6 +6290,8 @@
       }
       if (button.dataset.memberMonth) {
         activeMemberMonth = Number(button.dataset.memberMonth);
+        memberMonthWanted = activeMemberMonth;
+        saveMemberView();
         renderMemberMonthTabs();
         renderMemberScheduleList();
       }

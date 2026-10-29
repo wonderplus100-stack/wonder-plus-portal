@@ -3066,7 +3066,7 @@
       height: 30px !important;
     }
   </style>
-  <link rel="stylesheet" href="ops-points.css?v=ops-20261021-3">
+  <link rel="stylesheet" href="ops-points.css?v=ops-20261029-4">
 </head>
 <body class="auth-required">
   <script>try{if(localStorage.getItem("wonderMemberToken")||localStorage.getItem("wonderSavedLogin")||localStorage.getItem("wonderMemberProfile"))document.body.classList.add("auth-restoring")}catch(e){}</script>
@@ -5987,6 +5987,13 @@
         applyMemberSession(null);
         return;
       }
+      // 保存済みのプロフィールがあれば、ログイン確認(Apps Scriptの呼び出しで数秒かかる)を待たずに先に画面を表示し、
+      // 確認は裏で行う。確認に失敗した場合の動作は従来どおり(下のcatch)。
+      const earlyProfile = getRememberedMemberProfile();
+      if (earlyProfile && !currentMember) {
+        userAssignments = loadStoredMemberAssignments(earlyProfile);
+        applyMemberSession(earlyProfile);
+      }
       try {
         const payload = await callPortalAction("me", { token });
         if (!payload.ok) throw new Error(payload.message || "ログイン期限切れです");
@@ -8491,6 +8498,6 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
       resetInitialPortalScroll();
     }
     </script>
-    <script src="ops-points.js?v=ops-20261021-3"></script>
+    <script src="ops-points.js?v=ops-20261029-4"></script>
   </body>
 </html>

@@ -50,19 +50,23 @@
   /* ------------------------------------------------------------------ member view */
   var S = { overview: null, loading: false, error: '', email: '' };
 
+  function profileEmail() {
+    try { var p = JSON.parse(localStorage.getItem('wonderMemberProfile') || 'null'); return String((p && (p.email || p.name)) || '').toLowerCase(); } catch (e) { return ''; }
+  }
+  function currentEmail() { var m = me(); return m ? String(m.email || '').toLowerCase() : profileEmail(); }
+
   function readCache() {
     try {
-      var c = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
-      var m = me();
-      if (c && m && c.email === String(m.email || '').toLowerCase()) S.overview = c.data;
+      var c = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null'), email = currentEmail();
+      if (c && email && c.email === email) S.overview = c.data;
     } catch (e) { /* ignore */ }
   }
   function writeCache(data) {
-    try { var m = me(); localStorage.setItem(CACHE_KEY, JSON.stringify({ email: String(m && m.email || '').toLowerCase(), data: data })); } catch (e) { /* ignore */ }
+    try { localStorage.setItem(CACHE_KEY, JSON.stringify({ email: currentEmail(), data: data })); } catch (e) { /* ignore */ }
   }
 
   function loadOverview() {
-    if (!me() || !token()) { S.overview = null; decorate(); return; }
+    if (!token()) { S.overview = null; decorate(); return; }
     if (S.loading) { S.again = true; return; }
     S.loading = true;
     api('opsOverview').then(function (p) {
@@ -132,13 +136,19 @@
     if (!list) return;
     if (observer) observer.disconnect();
     var events = (S.overview && S.overview.events) || {};
+    var waiting = !S.overview && !!token();
     list.querySelectorAll('.check-row').forEach(function (row) {
       var input = row.querySelector('input[data-event-id]');
       if (!input) return;
       var v = events[input.dataset.eventId];
       var existing = row.querySelector('.ops-badge');
       row.classList.remove('ops-row-yellow', 'ops-row-red', 'ops-row-blue');
-      if (!v) { if (existing) existing.remove(); return; }
+      if (!v) {
+        if (waiting) {
+          if (!existing) { var sk = document.createElement('div'); sk.className = 'ops-badge ops-skel'; sk.setAttribute('aria-hidden', 'true'); sk.innerHTML = '<span class="ops-skel-bar"></span>'; row.appendChild(sk); }
+        } else if (existing) existing.remove();
+        return;
+      }
       var sig = JSON.stringify(v);
       if (v.color && v.color !== 'none') row.classList.add('ops-row-' + v.color);
       if (existing && existing.dataset.sig === sig) return;
@@ -669,36 +679,46 @@
 
   /* ------------------------------------------------------------------ boot */
   function boot() {
-    readCache();
+    readCache();                       // last result for this account: shown as soon as the list is drawn
     var list = document.getElementById('memberScheduleList');
     if (list) {
       observer = new MutationObserver(function () { decorate(); });
       observer.observe(list, { childList: true });
+      decorate();
     }
+    if (token()) loadOverview();       // runs in parallel with the portal's own session restore
     // the portal re-renders the list from the saved checks; refresh verdicts right after a save
     try {
       if (typeof callPortalAction === 'function') {
         var orig = callPortalAction;
         callPortalAction = function (action) {
           var p = orig.apply(this, arguments);
-          if (/^toggleAssignment/.test(String(action))) { p.then(function () { setTimeout(loadOverview, 400); }, function () { /* ignore */ }); }
+          if (/^toggleAssignment/.test(String(action))) { p.then(function () { setTimeout(loadOverview, 150); }, function () { /* ignore */ }); }
           return p;
         };
       }
     } catch (err) { /* fall back to the periodic refresh below */ }
-    var lastUser = '';
-    setInterval(function () {
-      var m = me(), email = m ? String(m.email || '').toLowerCase() : '';
+    var lastUser = currentEmail(), lastAdmin = null;
+    function syncUser() {
+      var email = currentEmail();
       if (email !== lastUser) {
         lastUser = email; S.overview = null; A.data = null; A.detail = {};
-        if (email) { readCache(); decorate(); loadOverview(); }
-        else decorate();
-        syncAdmin();
+        if (email) { readCache(); decorate(); loadOverview(); } else decorate();
       }
-    }, 1500);
+      var adm = isAdmin();
+      if (adm !== lastAdmin) { lastAdmin = adm; syncAdmin(); }
+    }
+    // react the moment the portal applies a login (the 3 s timer below is only a safety net)
+    try {
+      if (typeof applyMemberSession === 'function') {
+        var origApply = applyMemberSession;
+        applyMemberSession = function () { var r = origApply.apply(this, arguments); setTimeout(syncUser, 0); return r; };
+      }
+    } catch (err) { /* timer fallback */ }
+    setInterval(syncUser, 3000);
     setInterval(function () { if (me() && !document.hidden) loadOverview(); }, 120000);
     document.addEventListener('visibilitychange', function () { if (!document.hidden && me()) loadOverview(); });
-    syncAdmin();
+    syncUser();
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();

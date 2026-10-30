@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "updatedAt": "2026-10-30T20:14:15.833Z",
+  "updatedAt": "2026-10-30T23:54:09.359Z",
   "source": "formatted-schedule-sheet",
   "masterSource": "formatted-schedule-sheet",
   "scheduleCounts": {
@@ -1152,7 +1152,8 @@
     ],
     "2026|10|31|regular|レギュラー異業種交流会|10:00-11:00": [
       "大西正人",
-      "志村優佳"
+      "志村優佳",
+      "小宮留衣"
     ],
     "2026|10|1|wonder|銀座wonder+story|15:30-17:30": [
       "大西正人",

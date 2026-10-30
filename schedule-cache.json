@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "updatedAt": "2026-10-29T23:04:10.721Z",
+  "updatedAt": "2026-10-30T02:34:08.328Z",
   "source": "formatted-schedule-sheet",
   "masterSource": "formatted-schedule-sheet",
   "scheduleCounts": {
@@ -6341,17 +6341,17 @@
           "sourceRow": 333
         },
         {
-          "id": "2026|12|17|wonder|銀座wonder+entertainment|19:30-21:30",
+          "id": "2026|12|17|wonder|銀座wonder+entertainment|20:00-22:00",
           "year": 2026,
           "month": 12,
           "category": "wonder",
           "day": 17,
           "title": "銀座 Wonder+Entertainment",
-          "meta": "19:30-21:30",
-          "timeRange": "19:30-21:30",
+          "meta": "20:00-22:00",
+          "timeRange": "20:00-22:00",
           "venue": "銀座",
           "eventName": "W+Entertainment",
-          "time": "19:30-21:30",
+          "time": "20:00-22:00",
           "sourceRow": 334
         },
         {
@@ -6369,20 +6369,6 @@
           "sourceRow": 335
         },
         {
-          "id": "2026|12|21|wonder|新宿wonder+best|15:00-16:30",
-          "year": 2026,
-          "month": 12,
-          "category": "wonder",
-          "day": 21,
-          "title": "新宿 Wonder+Best",
-          "meta": "15:00-16:30",
-          "timeRange": "15:00-16:30",
-          "venue": "新宿",
-          "eventName": "W+Best",
-          "time": "15:00-16:30",
-          "sourceRow": 336
-        },
-        {
           "id": "2026|12|21|wonder|新宿wonder+freelance|15:00-16:30",
           "year": 2026,
           "month": 12,
@@ -6395,6 +6381,20 @@
           "eventName": "W+Freelance",
           "time": "15:00-16:30",
           "sourceRow": 337
+        },
+        {
+          "id": "2026|12|21|wonder|船橋wonder+|15:00-16:30",
+          "year": 2026,
+          "month": 12,
+          "category": "wonder",
+          "day": 21,
+          "title": "船橋 Wonder+",
+          "meta": "15:00-16:30",
+          "timeRange": "15:00-16:30",
+          "venue": "船橋",
+          "eventName": "イベント",
+          "time": "15:00-16:30",
+          "sourceRow": 336
         },
         {
           "id": "2026|12|21|wonder|大阪wonder+leaders|19:30-21:00",

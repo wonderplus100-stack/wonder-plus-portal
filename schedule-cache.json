@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "updatedAt": "2026-11-01T08:34:11.566Z",
+  "updatedAt": "2026-11-01T15:24:10.742Z",
   "source": "formatted-schedule-sheet",
   "masterSource": "formatted-schedule-sheet",
   "scheduleCounts": {
@@ -1380,7 +1380,8 @@
       "大西正人"
     ],
     "2026|11|6|regular|レギュラー異業種交流会|13:00-14:00": [
-      "大西正人"
+      "大西正人",
+      "小宮留衣"
     ],
     "2026|11|16|regular|レギュラー異業種交流会|13:00-14:00": [
       "大西正人"
@@ -5383,6 +5384,20 @@
           "sourceRow": 266
         },
         {
+          "id": "2026|11|24|wonder|札幌wonder+|19:00-20:30",
+          "year": 2026,
+          "month": 11,
+          "category": "wonder",
+          "day": 24,
+          "title": "札幌 Wonder+",
+          "meta": "19:00-20:30",
+          "timeRange": "19:00-20:30",
+          "venue": "札幌",
+          "eventName": "イベント",
+          "time": "19:00-20:30",
+          "sourceRow": 268
+        },
+        {
           "id": "2026|11|24|wonder|名古屋wonder+|19:30-21:00",
           "year": 2026,
           "month": 11,
@@ -5395,20 +5410,6 @@
           "eventName": "イベント",
           "time": "19:30-21:00",
           "sourceRow": 267
-        },
-        {
-          "id": "2026|11|25|wonder|札幌wonder+|19:00-20:30",
-          "year": 2026,
-          "month": 11,
-          "category": "wonder",
-          "day": 25,
-          "title": "札幌 Wonder+",
-          "meta": "19:00-20:30",
-          "timeRange": "19:00-20:30",
-          "venue": "札幌",
-          "eventName": "イベント",
-          "time": "19:00-20:30",
-          "sourceRow": 268
         },
         {
           "id": "2026|11|25|wonder|銀座wonder+cxo|19:30-21:00",

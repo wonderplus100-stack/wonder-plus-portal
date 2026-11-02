@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "updatedAt": "2026-11-02T02:34:09.574Z",
+  "updatedAt": "2026-11-02T09:54:12.216Z",
   "source": "formatted-schedule-sheet",
   "masterSource": "formatted-schedule-sheet",
   "scheduleCounts": {
@@ -1402,7 +1402,8 @@
     ],
     "2026|11|11|wonder|新宿wonder+realestate|13:00-14:30": [
       "米元惠一朗",
-      "高杉裕輔"
+      "高杉裕輔",
+      "古川大祐"
     ],
     "2026|11|5|wonder|大宮wonder+|18:50-20:00": [
       "高杉裕輔"

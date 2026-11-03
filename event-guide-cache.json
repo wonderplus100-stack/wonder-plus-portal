@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "updatedAt": "2026-11-03T09:44:08.597Z",
+  "updatedAt": "2026-11-03T17:24:11.565Z",
   "source": "schedule-joined-event-guides",
   "count": 231,
   "eventGuides": [
@@ -39,7 +39,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+KITAKYUSYU",
       "guideUpdatedAt": "2026-06-26T00:25:40.000Z",
-      "updatedAt": "2026-11-03T09:44:11.188Z"
+      "updatedAt": "2026-11-03T17:24:19.767Z"
     },
     {
       "id": "month7-wonder-1-熊本wonder+-13:00-14:30",
@@ -76,7 +76,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+KUMAMOTO",
       "guideUpdatedAt": "2026-07-07T00:59:27.000Z",
-      "updatedAt": "2026-11-03T09:44:11.189Z"
+      "updatedAt": "2026-11-03T17:24:19.769Z"
     },
     {
       "id": "month7-wonder-2-銀座wonder+-15:30-17:30",
@@ -100,7 +100,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "",
       "guideUpdatedAt": "",
-      "updatedAt": "2026-11-03T09:44:11.189Z"
+      "updatedAt": "2026-11-03T17:24:19.769Z"
     },
     {
       "id": "month7-wonder-7-郡山wonder+-13:00-14:30",
@@ -137,7 +137,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+KORIYAMA",
       "guideUpdatedAt": "2026-07-07T01:08:06.000Z",
-      "updatedAt": "2026-11-03T09:44:11.189Z"
+      "updatedAt": "2026-11-03T17:24:19.772Z"
     },
     {
       "id": "month7-wonder-7-仙台wonder+-13:00-14:30",
@@ -174,7 +174,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+SENDAI",
       "guideUpdatedAt": "2026-07-07T01:09:11.000Z",
-      "updatedAt": "2026-11-03T09:44:11.190Z"
+      "updatedAt": "2026-11-03T17:24:19.772Z"
     },
     {
       "id": "month7-wonder-8-新潟wonder+-13:00-14:30",
@@ -198,7 +198,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "",
       "guideUpdatedAt": "",
-      "updatedAt": "2026-11-03T09:44:11.190Z"
+      "updatedAt": "2026-11-03T17:24:19.772Z"
     },
     {
       "id": "month7-wonder-10-銀座+leaderswonder+-12:30-14:30",
@@ -222,7 +222,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "銀座 Wonder+Leaders",
       "guideUpdatedAt": "2026-10-21T12:35:40.000Z",
-      "updatedAt": "2026-11-03T09:44:11.190Z"
+      "updatedAt": "2026-11-03T17:24:19.774Z"
     },
     {
       "id": "month7-wonder-10-銀座+ladieswonder+-15:00-16:30",
@@ -246,7 +246,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+ Ladies",
       "guideUpdatedAt": "2026-10-21T15:00:00.000Z",
-      "updatedAt": "2026-11-03T09:44:11.192Z"
+      "updatedAt": "2026-11-03T17:24:19.775Z"
     },
     {
       "id": "month7-wonder-13-広島wonder+-13:00-14:30",
@@ -283,7 +283,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+HIROSHIMA",
       "guideUpdatedAt": "2026-06-28T01:41:17.000Z",
-      "updatedAt": "2026-11-03T09:44:11.193Z"
+      "updatedAt": "2026-11-03T17:24:19.776Z"
     },
     {
       "id": "month7-wonder-13-名古屋+ladieswonder+-13:00-14:30",
@@ -320,7 +320,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+NAGOYA",
       "guideUpdatedAt": "2026-06-28T03:50:40.000Z",
-      "updatedAt": "2026-11-03T09:44:11.193Z"
+      "updatedAt": "2026-11-03T17:24:19.777Z"
     },
     {
       "id": "month7-wonder-13-神戸wonder+-19:30-21:00",
@@ -351,7 +351,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+KOBE",
       "guideUpdatedAt": "2026-09-14T12:40:13.000Z",
-      "updatedAt": "2026-11-03T09:44:11.194Z"
+      "updatedAt": "2026-11-03T17:24:19.777Z"
     },
     {
       "id": "month7-wonder-14-京都wonder+-15:00-16:30",
@@ -388,7 +388,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+KYOTO",
       "guideUpdatedAt": "2026-06-28T03:21:03.000Z",
-      "updatedAt": "2026-11-03T09:44:11.194Z"
+      "updatedAt": "2026-11-03T17:24:19.778Z"
     },
     {
       "id": "month7-wonder-16-横浜wonder+-15:00-16:30",
@@ -425,7 +425,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+YOKOHAMA",
       "guideUpdatedAt": "2026-06-28T03:24:09.000Z",
-      "updatedAt": "2026-11-03T09:44:11.194Z"
+      "updatedAt": "2026-11-03T17:24:19.778Z"
     },
     {
       "id": "month7-wonder-16-銀座+entertainmentwonder+-15:00-16:30",
@@ -462,7 +462,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+Entertainment",
       "guideUpdatedAt": "2026-07-03T23:39:42.000Z",
-      "updatedAt": "2026-11-03T09:44:11.195Z"
+      "updatedAt": "2026-11-03T17:24:19.792Z"
     },
     {
       "id": "month7-wonder-16-船橋wonder+-15:00-16:30",
@@ -499,7 +499,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+CHIBA",
       "guideUpdatedAt": "2026-06-28T03:26:54.000Z",
-      "updatedAt": "2026-11-03T09:44:11.195Z"
+      "updatedAt": "2026-11-03T17:24:19.793Z"
     },
     {
       "id": "month7-wonder-21-浜松wonder+-14:00-15:30",
@@ -523,7 +523,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "",
       "guideUpdatedAt": "",
-      "updatedAt": "2026-11-03T09:44:11.195Z"
+      "updatedAt": "2026-11-03T17:24:19.793Z"
     },
     {
       "id": "month7-wonder-21-名古屋wonder+-14:00-15:30",
@@ -560,7 +560,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+NAGOYA",
       "guideUpdatedAt": "2026-06-28T03:50:40.000Z",
-      "updatedAt": "2026-11-03T09:44:11.195Z"
+      "updatedAt": "2026-11-03T17:24:19.794Z"
     },
     {
       "id": "month7-wonder-22-大阪wonder+-13:00-14:30",
@@ -597,7 +597,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+OSAKA",
       "guideUpdatedAt": "2026-06-28T04:13:11.000Z",
-      "updatedAt": "2026-11-03T09:44:11.195Z"
+      "updatedAt": "2026-11-03T17:24:19.794Z"
     },
     {
       "id": "month7-wonder-23-銀座+cxowonder+-19:30-21:30",
@@ -634,7 +634,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+CXO",
       "guideUpdatedAt": "2026-08-23T06:11:55.000Z",
-      "updatedAt": "2026-11-03T09:44:11.195Z"
+      "updatedAt": "2026-11-03T17:24:19.795Z"
     },
     {
       "id": "month7-wonder-27-静岡wonder+-13:00-14:30",
@@ -671,7 +671,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+SHIZUOKA",
       "guideUpdatedAt": "2026-06-28T03:54:08.000Z",
-      "updatedAt": "2026-11-03T09:44:11.195Z"
+      "updatedAt": "2026-11-03T17:24:19.796Z"
     },
     {
       "id": "month7-wonder-27-前橋wonder+-19:30-21:00/追加（高崎ではなく前橋で開催）",
@@ -708,7 +708,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+MAEBASHI",
       "guideUpdatedAt": "2026-06-28T03:59:49.000Z",
-      "updatedAt": "2026-11-03T09:44:11.195Z"
+      "updatedAt": "2026-11-03T17:24:19.797Z"
     },
     {
       "id": "month7-wonder-28-銀座+gravitywonder+-19:30-21:00",
@@ -745,7 +745,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+Gravity",
       "guideUpdatedAt": "2026-07-03T23:57:31.000Z",
-      "updatedAt": "2026-11-03T09:44:11.196Z"
+      "updatedAt": "2026-11-03T17:24:19.799Z"
     },
     {
       "id": "month7-wonder-28-福岡wonder+-19:30-21:00/高杉+現地スタッフ運営",
@@ -782,7 +782,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+FUKUOKA",
       "guideUpdatedAt": "2026-08-09T13:41:54.000Z",
-      "updatedAt": "2026-11-03T09:44:11.196Z"
+      "updatedAt": "2026-11-03T17:24:19.799Z"
     },
     {
       "id": "month7-wonder-29-銀座+beautywonder+-13:00-14:30",
@@ -813,7 +813,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+Beauty",
       "guideUpdatedAt": "2026-09-23T07:48:47.000Z",
-      "updatedAt": "2026-11-03T09:44:11.196Z"
+      "updatedAt": "2026-11-03T17:24:19.800Z"
     },
     {
       "id": "month7-wonder-29-熊本wonder+-13:00-14:30/高杉+現地スタッフ運営",
@@ -850,7 +850,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+KUMAMOTO",
       "guideUpdatedAt": "2026-07-07T00:59:27.000Z",
-      "updatedAt": "2026-11-03T09:44:11.196Z"
+      "updatedAt": "2026-11-03T17:24:19.800Z"
     },
     {
       "id": "month7-wonder-30-新宿+100wonder+-13:00-14:30",
@@ -859,22 +859,29 @@
       "month": 7,
       "day": 30,
       "title": "新宿+100 Wonder+",
-      "eventName": "東京100人カフェ会Wonder+",
+      "eventName": "新宿 Wonder+100",
       "scheduleTitle": "新宿+100 Wonder+",
       "scheduleMeta": "13:00-14:30",
       "venue": "新宿+100",
       "category": "wonder",
       "brand": "100",
-      "body": "【イベント名】東京100人カフェ会 Wonder+\n【開催日時】7月30日 13:00-14:30\n【案内文】\n\n大人気100人規模の異業種交流会「Wonder+100」のご案内✨\n\nこんにちは！Wonder＋運営事務局です。\n東京で月3,000人以上が参加する大人気ビジネス交流会！\n\n「友達」ではなく、ビジネスを共に加速させる「仲間」と出会いませんか？\n単なる「営業」や「売り先探し」の場ではなく、互いの目的を理解し、得意を持ち寄って協業できる仲間と出会う場所です。\n\nもちろんビジネス目的が必須ではないため、趣味の仲間探しや情報交換としてもご活用いただけます。初参加やお一人でのご参加（毎回約半数！）も大歓迎です。ぜひお気軽にご参加ください！\n\n📅 イベント概要\n■ 日時\n12:45 オープン｜13:00 スタート｜14:30 クローズ\n\n■ 会場\n東京都新宿区西新宿1-19-5 \n新宿幸容ビル 4F\n\n■ 参加費\n男性 3,000円／女性 2,500円（税込・ドリンク付）\n※当日会場にて現金払い（キャッシュレス非対応）\n※インボイス対応領収書の発行可\n\n✨ Wonder+の特長\nイベントコンシェルジュが常駐\n大人数での交流が苦手な方や初参加の方も安心！「こんな人に出会いたい」を女性コンシェルジュをはじめとするスタッフにお伝えいただければ、お繋ぎをサポートします。\n\n専用プロフィール名札\n名札に「Wants（求めていること）」と「Free Offer（自分ができること）」を記入。視覚的に効率よくマッチング可能です。\n\n自由なスタンディング形式\n固定席ではないため、ご自身のペースに合わせて自由に移動しながら、気になる相手と交流できます。\n\n👥 こんな方におすすめ\n新しいビジネスの相談相手やコラボ先を探している方\n\n各種クリエイターやマーケターと繋がりたい方\n\n起業・独立・副業の仲間が欲しい方\n\n経営者、フリーランス、IT、医療、士業など、多彩な職種の方と交流したい方\n\n新しい刺激やビジネスのきっかけ、情報交換がしたい方\n\n📋 事前のご案内（FAQ・規約）\n服装： 清潔感のあるスマートカジュアルを推奨します。\n\n持ち物： 筆記用具、参加費（現金）、名刺（お持ちの方）。\n※受付で紹介用に名刺を1枚ご提出いただきます。表面に事業内容などを手書きメモしておくと交流がよりスムーズになります。\n\n途中入退室： 可能です。\n\nキャンセル： 前日・当日のキャンセルは参加費の100%が発生いたします。お早めに予約元からお手続きください。\n\n禁止事項： 強引な営業・売り込み、MLM・ネットワークビジネス・宗教等の勧誘行為、執拗な連絡先収集は固くお断りいたします（見つけ次第ご退場いただきます）。\n\n免責事項： 会場内でのトラブルや紛争に対し、当イベントは仲裁や介入を行いません。\n\n新しい出会いが、あなたのビジネスの突破口になります。\nビジネスシーンを一緒に盛り上げましょう！\n皆様のご参加をスタッフ一同、心よりお待ちしております。",
+      "body": "【イベント名】東京100人異業種交流会 Wonder+\n【開催日時】7月30日 13:00-14:30\n【案内文】\n\n大人気100人規模の異業種交流会「Wonder+100」のご案内✨\n\nこんにちは！Wonder＋運営事務局です。\n東京で月3,000人以上が参加する大人気ビジネス交流会！\n\n「友達」ではなく、ビジネスを共に加速させる「仲間」と出会いませんか？\n単なる「営業」や「売り先探し」の場ではなく、互いの目的を理解し、得意を持ち寄って協業できる仲間と出会う場所です。\n\nもちろんビジネス目的が必須ではないため、趣味の仲間探しや情報交換としてもご活用いただけます。初参加やお一人でのご参加（毎回約半数！）も大歓迎です。ぜひお気軽にご参加ください！\n\n📅 イベント概要\n■ 日時\n12:45 オープン｜13:00 スタート｜14:30 クローズ\n\n■ 会場\n東京都新宿区西新宿1-19-5 \n新宿幸容ビル 4F\n\n■ 参加費\n一部参加 男性 3,000円／女性 3,000円（税込・ドリンク付）\n一部、二部参加 男性 4,500円／女性 4,500円（税込・ドリンク付）\n※当日会場にて現金払い（キャッシュレス非対応）\n※インボイス対応領収書の発行可\n\n✨ Wonder+の特長\nイベントコンシェルジュが常駐\n大人数での交流が苦手な方や初参加の方も安心！「こんな人に出会いたい」を女性コンシェルジュをはじめとするスタッフにお伝えいただければ、お繋ぎをサポートします。\n\n専用プロフィール名札\n名札に「Wants（求めていること）」と「Free Offer（自分ができること）」を記入。視覚的に効率よくマッチング可能です。\n\n自由なスタンディング形式\n固定席ではないため、ご自身のペースに合わせて自由に移動しながら、気になる相手と交流できます。\n\n👥 こんな方におすすめ\n新しいビジネスの相談相手やコラボ先を探している方\n\n各種クリエイターやマーケターと繋がりたい方\n\n起業・独立・副業の仲間が欲しい方\n\n経営者、フリーランス、IT、医療、士業など、多彩な職種の方と交流したい方\n\n新しい刺激やビジネスのきっかけ、情報交換がしたい方\n\n📋 事前のご案内（FAQ・規約）\n服装： 清潔感のあるスマートカジュアルを推奨します。\n\n持ち物： 筆記用具、参加費（現金）、名刺（お持ちの方）。\n※受付で紹介用に名刺を1枚ご提出いただきます。表面に事業内容などを手書きメモしておくと交流がよりスムーズになります。\n\n途中入退室： 可能です。\n\nキャンセル： 前日・当日のキャンセルは参加費の100%が発生いたします。お早めに予約元からお手続きください。\n\n禁止事項： 強引な営業・売り込み、MLM・ネットワークビジネス・宗教等の勧誘行為、執拗な連絡先収集は固くお断りいたします（見つけ次第ご退場いただきます）。\n\n免責事項： 会場内でのトラブルや紛争に対し、当イベントは仲裁や介入を行いません。\n\n新しい出会いが、あなたのビジネスの突破口になります。\nビジネスシーンを一緒に盛り上げましょう！\n皆様のご参加をスタッフ一同、心よりお待ちしております。",
       "materialUrl": "",
-      "attachments": [],
+      "attachments": [
+        {
+          "name": "投稿素材1",
+          "url": "https://drive.google.com/open?id=1f6eSkXUFgPM5l-AYGDTvS4L8C0jECXIw",
+          "downloadUrl": "https://wonderplus100-stack.github.io/wonder-plus-portal/assets/guide-images/1f6eSkXUFgPM5l-AYGDTvS4L8C0jECXIw.png",
+          "thumbnailUrl": "https://wonderplus100-stack.github.io/wonder-plus-portal/assets/guide-images/1f6eSkXUFgPM5l-AYGDTvS4L8C0jECXIw.png"
+        }
+      ],
       "guideMatched": true,
       "guideLinked": false,
       "venueAdjusted": false,
       "datetimeAdjusted": true,
-      "matchedGuideTitle": "東京100人カフェ会Wonder+",
-      "guideUpdatedAt": "2026-11-01T13:51:46.000Z",
-      "updatedAt": "2026-11-03T09:44:11.197Z"
+      "matchedGuideTitle": "新宿 Wonder+100",
+      "guideUpdatedAt": "2026-11-03T14:07:41.000Z",
+      "updatedAt": "2026-11-03T17:24:19.801Z"
     },
     {
       "id": "month8-wonder-4-福島wonder+-15:00-16:30/新規開催＊会場未定",
@@ -911,7 +918,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+FUKUSHIM",
       "guideUpdatedAt": "2026-08-04T01:49:05.000Z",
-      "updatedAt": "2026-11-03T09:44:11.197Z"
+      "updatedAt": "2026-11-03T17:24:19.804Z"
     },
     {
       "id": "month8-wonder-4-仙台wonder+-19:30-21:00",
@@ -948,7 +955,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+SENDAI",
       "guideUpdatedAt": "2026-07-07T01:09:11.000Z",
-      "updatedAt": "2026-11-03T09:44:11.197Z"
+      "updatedAt": "2026-11-03T17:24:19.805Z"
     },
     {
       "id": "month8-wonder-5-新潟wonder+-13:00-14:30",
@@ -972,7 +979,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "",
       "guideUpdatedAt": "",
-      "updatedAt": "2026-11-03T09:44:11.197Z"
+      "updatedAt": "2026-11-03T17:24:19.805Z"
     },
     {
       "id": "month8-wonder-5-名古屋wonder+ladies-15:00-16:30",
@@ -1009,7 +1016,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+NAGOYA",
       "guideUpdatedAt": "2026-06-28T03:50:40.000Z",
-      "updatedAt": "2026-11-03T09:44:11.197Z"
+      "updatedAt": "2026-11-03T17:24:19.805Z"
     },
     {
       "id": "month8-wonder-6-新宿wonder+leaders-12:30-14:00",
@@ -1033,7 +1040,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "",
       "guideUpdatedAt": "",
-      "updatedAt": "2026-11-03T09:44:11.197Z"
+      "updatedAt": "2026-11-03T17:24:19.805Z"
     },
     {
       "id": "month8-wonder-6-新宿wonder+ladies-15:00-16:30",
@@ -1057,7 +1064,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+ Ladies",
       "guideUpdatedAt": "2026-10-21T15:00:00.000Z",
-      "updatedAt": "2026-11-03T09:44:11.197Z"
+      "updatedAt": "2026-11-03T17:24:19.805Z"
     },
     {
       "id": "month8-wonder-10-銀座wonder+story-15:30-17:30",
@@ -1087,7 +1094,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+Story",
       "guideUpdatedAt": "2026-10-21T07:02:17.000Z",
-      "updatedAt": "2026-11-03T09:44:11.198Z"
+      "updatedAt": "2026-11-03T17:24:19.809Z"
     },
     {
       "id": "month8-wonder-10-銀座wonder+gravity-19:30-21:30",
@@ -1124,7 +1131,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+Gravity",
       "guideUpdatedAt": "2026-07-03T23:57:31.000Z",
-      "updatedAt": "2026-11-03T09:44:11.199Z"
+      "updatedAt": "2026-11-03T17:24:19.811Z"
     },
     {
       "id": "month8-wonder-17-静岡wonder+-13:00-14:30",
@@ -1161,7 +1168,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+SHIZUOKA",
       "guideUpdatedAt": "2026-06-28T03:54:08.000Z",
-      "updatedAt": "2026-11-03T09:44:11.199Z"
+      "updatedAt": "2026-11-03T17:24:19.811Z"
     },
     {
       "id": "month8-wonder-17-名古屋wonder+-19:30-21:00",
@@ -1198,7 +1205,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+NAGOYA",
       "guideUpdatedAt": "2026-06-28T03:50:40.000Z",
-      "updatedAt": "2026-11-03T09:44:11.199Z"
+      "updatedAt": "2026-11-03T17:24:19.811Z"
     },
     {
       "id": "month8-wonder-18-大阪wonder+-13:00-14:30",
@@ -1235,7 +1242,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+OSAKA",
       "guideUpdatedAt": "2026-06-28T04:13:11.000Z",
-      "updatedAt": "2026-11-03T09:44:11.199Z"
+      "updatedAt": "2026-11-03T17:24:19.811Z"
     },
     {
       "id": "month8-wonder-18-高崎wonder+-15:00-16:30/会場はlabiへ戻り",
@@ -1272,7 +1279,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+TAKASAKI",
       "guideUpdatedAt": "2026-07-25T14:36:03.000Z",
-      "updatedAt": "2026-11-03T09:44:11.199Z"
+      "updatedAt": "2026-11-03T17:24:19.811Z"
     },
     {
       "id": "month8-wonder-19-銀座wonder+alliance-19:30-21:00",
@@ -1309,7 +1316,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+Alliance",
       "guideUpdatedAt": "2026-08-06T11:32:15.000Z",
-      "updatedAt": "2026-11-03T09:44:11.199Z"
+      "updatedAt": "2026-11-03T17:24:19.812Z"
     },
     {
       "id": "month8-wonder-20-横浜wonder+-15:00-16:30",
@@ -1346,7 +1353,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+YOKOHAMA",
       "guideUpdatedAt": "2026-06-28T03:24:09.000Z",
-      "updatedAt": "2026-11-03T09:44:11.200Z"
+      "updatedAt": "2026-11-03T17:24:19.818Z"
     },
     {
       "id": "month8-wonder-20-船橋wonder+-15:00-16:30",
@@ -1383,7 +1390,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+CHIBA",
       "guideUpdatedAt": "2026-06-28T03:26:54.000Z",
-      "updatedAt": "2026-11-03T09:44:11.200Z"
+      "updatedAt": "2026-11-03T17:24:19.821Z"
     },
     {
       "id": "month8-wonder-20-銀座wonder+entertainment-20:00-22:00",
@@ -1420,7 +1427,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+Entertainment",
       "guideUpdatedAt": "2026-07-03T23:39:42.000Z",
-      "updatedAt": "2026-11-03T09:44:11.200Z"
+      "updatedAt": "2026-11-03T17:24:19.822Z"
     },
     {
       "id": "month8-wonder-21-宇都宮wonder+-15:00-16:30/新規開催",
@@ -1457,7 +1464,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+UTUNOMIYA",
       "guideUpdatedAt": "2026-08-09T13:20:44.000Z",
-      "updatedAt": "2026-11-03T09:44:11.200Z"
+      "updatedAt": "2026-11-03T17:24:19.828Z"
     },
     {
       "id": "month8-wonder-25-熊本wonder+-13:00-14:30",
@@ -1494,7 +1501,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+KUMAMOTO",
       "guideUpdatedAt": "2026-07-07T00:59:27.000Z",
-      "updatedAt": "2026-11-03T09:44:11.200Z"
+      "updatedAt": "2026-11-03T17:24:19.829Z"
     },
     {
       "id": "month8-wonder-25-福岡wonder+-19:30-21:00",
@@ -1531,7 +1538,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+FUKUOKA",
       "guideUpdatedAt": "2026-08-09T13:41:54.000Z",
-      "updatedAt": "2026-11-03T09:44:11.201Z"
+      "updatedAt": "2026-11-03T17:24:19.829Z"
     },
     {
       "id": "month8-wonder-26-広島wonder+-13:00-14:30",
@@ -1568,7 +1575,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+HIROSHIMA",
       "guideUpdatedAt": "2026-06-28T01:41:17.000Z",
-      "updatedAt": "2026-11-03T09:44:11.201Z"
+      "updatedAt": "2026-11-03T17:24:19.829Z"
     },
     {
       "id": "month8-wonder-26-札幌wonder+-19:00-21:00",
@@ -1592,7 +1599,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "札幌 Wonder+",
       "guideUpdatedAt": "2026-11-01T13:52:53.000Z",
-      "updatedAt": "2026-11-03T09:44:11.201Z"
+      "updatedAt": "2026-11-03T17:24:19.830Z"
     },
     {
       "id": "month8-wonder-26-岡山wonder+-19:30-21:00/会場変更あり",
@@ -1629,7 +1636,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+OKAYAMA",
       "guideUpdatedAt": "2026-09-10T08:32:24.000Z",
-      "updatedAt": "2026-11-03T09:44:11.201Z"
+      "updatedAt": "2026-11-03T17:24:19.831Z"
     },
     {
       "id": "month8-wonder-27-銀座wonder+beauty-15:00-16:30",
@@ -1660,7 +1667,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+Beauty",
       "guideUpdatedAt": "2026-09-23T07:48:47.000Z",
-      "updatedAt": "2026-11-03T09:44:11.201Z"
+      "updatedAt": "2026-11-03T17:24:19.832Z"
     },
     {
       "id": "month8-wonder-27-銀座wonder+cxo-19:30-21:30",
@@ -1697,7 +1704,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+CXO",
       "guideUpdatedAt": "2026-08-23T06:11:55.000Z",
-      "updatedAt": "2026-11-03T09:44:11.201Z"
+      "updatedAt": "2026-11-03T17:24:19.832Z"
     },
     {
       "id": "month8-wonder-28-新宿+100wonder+-13:00-14:30",
@@ -1706,22 +1713,29 @@
       "month": 8,
       "day": 28,
       "title": "新宿+100 Wonder+",
-      "eventName": "東京100人カフェ会Wonder+",
+      "eventName": "新宿 Wonder+100",
       "scheduleTitle": "新宿+100 Wonder+",
       "scheduleMeta": "13:00-14:30",
       "venue": "新宿+100",
       "category": "wonder",
       "brand": "100",
-      "body": "【イベント名】東京100人カフェ会 Wonder+\n【開催日時】8月28日 13:00-14:30\n【案内文】\n\n大人気100人規模の異業種交流会「Wonder+100」のご案内✨\n\nこんにちは！Wonder＋運営事務局です。\n東京で月3,000人以上が参加する大人気ビジネス交流会！\n\n「友達」ではなく、ビジネスを共に加速させる「仲間」と出会いませんか？\n単なる「営業」や「売り先探し」の場ではなく、互いの目的を理解し、得意を持ち寄って協業できる仲間と出会う場所です。\n\nもちろんビジネス目的が必須ではないため、趣味の仲間探しや情報交換としてもご活用いただけます。初参加やお一人でのご参加（毎回約半数！）も大歓迎です。ぜひお気軽にご参加ください！\n\n📅 イベント概要\n■ 日時\n12:45 オープン｜13:00 スタート｜14:30 クローズ\n\n■ 会場\n東京都新宿区西新宿1-19-5 \n新宿幸容ビル 4F\n\n■ 参加費\n男性 3,000円／女性 2,500円（税込・ドリンク付）\n※当日会場にて現金払い（キャッシュレス非対応）\n※インボイス対応領収書の発行可\n\n✨ Wonder+の特長\nイベントコンシェルジュが常駐\n大人数での交流が苦手な方や初参加の方も安心！「こんな人に出会いたい」を女性コンシェルジュをはじめとするスタッフにお伝えいただければ、お繋ぎをサポートします。\n\n専用プロフィール名札\n名札に「Wants（求めていること）」と「Free Offer（自分ができること）」を記入。視覚的に効率よくマッチング可能です。\n\n自由なスタンディング形式\n固定席ではないため、ご自身のペースに合わせて自由に移動しながら、気になる相手と交流できます。\n\n👥 こんな方におすすめ\n新しいビジネスの相談相手やコラボ先を探している方\n\n各種クリエイターやマーケターと繋がりたい方\n\n起業・独立・副業の仲間が欲しい方\n\n経営者、フリーランス、IT、医療、士業など、多彩な職種の方と交流したい方\n\n新しい刺激やビジネスのきっかけ、情報交換がしたい方\n\n📋 事前のご案内（FAQ・規約）\n服装： 清潔感のあるスマートカジュアルを推奨します。\n\n持ち物： 筆記用具、参加費（現金）、名刺（お持ちの方）。\n※受付で紹介用に名刺を1枚ご提出いただきます。表面に事業内容などを手書きメモしておくと交流がよりスムーズになります。\n\n途中入退室： 可能です。\n\nキャンセル： 前日・当日のキャンセルは参加費の100%が発生いたします。お早めに予約元からお手続きください。\n\n禁止事項： 強引な営業・売り込み、MLM・ネットワークビジネス・宗教等の勧誘行為、執拗な連絡先収集は固くお断りいたします（見つけ次第ご退場いただきます）。\n\n免責事項： 会場内でのトラブルや紛争に対し、当イベントは仲裁や介入を行いません。\n\n新しい出会いが、あなたのビジネスの突破口になります。\nビジネスシーンを一緒に盛り上げましょう！\n皆様のご参加をスタッフ一同、心よりお待ちしております。",
+      "body": "【イベント名】東京100人異業種交流会 Wonder+\n【開催日時】8月28日 13:00-14:30\n【案内文】\n\n大人気100人規模の異業種交流会「Wonder+100」のご案内✨\n\nこんにちは！Wonder＋運営事務局です。\n東京で月3,000人以上が参加する大人気ビジネス交流会！\n\n「友達」ではなく、ビジネスを共に加速させる「仲間」と出会いませんか？\n単なる「営業」や「売り先探し」の場ではなく、互いの目的を理解し、得意を持ち寄って協業できる仲間と出会う場所です。\n\nもちろんビジネス目的が必須ではないため、趣味の仲間探しや情報交換としてもご活用いただけます。初参加やお一人でのご参加（毎回約半数！）も大歓迎です。ぜひお気軽にご参加ください！\n\n📅 イベント概要\n■ 日時\n12:45 オープン｜13:00 スタート｜14:30 クローズ\n\n■ 会場\n東京都新宿区西新宿1-19-5 \n新宿幸容ビル 4F\n\n■ 参加費\n一部参加 男性 3,000円／女性 3,000円（税込・ドリンク付）\n一部、二部参加 男性 4,500円／女性 4,500円（税込・ドリンク付）\n※当日会場にて現金払い（キャッシュレス非対応）\n※インボイス対応領収書の発行可\n\n✨ Wonder+の特長\nイベントコンシェルジュが常駐\n大人数での交流が苦手な方や初参加の方も安心！「こんな人に出会いたい」を女性コンシェルジュをはじめとするスタッフにお伝えいただければ、お繋ぎをサポートします。\n\n専用プロフィール名札\n名札に「Wants（求めていること）」と「Free Offer（自分ができること）」を記入。視覚的に効率よくマッチング可能です。\n\n自由なスタンディング形式\n固定席ではないため、ご自身のペースに合わせて自由に移動しながら、気になる相手と交流できます。\n\n👥 こんな方におすすめ\n新しいビジネスの相談相手やコラボ先を探している方\n\n各種クリエイターやマーケターと繋がりたい方\n\n起業・独立・副業の仲間が欲しい方\n\n経営者、フリーランス、IT、医療、士業など、多彩な職種の方と交流したい方\n\n新しい刺激やビジネスのきっかけ、情報交換がしたい方\n\n📋 事前のご案内（FAQ・規約）\n服装： 清潔感のあるスマートカジュアルを推奨します。\n\n持ち物： 筆記用具、参加費（現金）、名刺（お持ちの方）。\n※受付で紹介用に名刺を1枚ご提出いただきます。表面に事業内容などを手書きメモしておくと交流がよりスムーズになります。\n\n途中入退室： 可能です。\n\nキャンセル： 前日・当日のキャンセルは参加費の100%が発生いたします。お早めに予約元からお手続きください。\n\n禁止事項： 強引な営業・売り込み、MLM・ネットワークビジネス・宗教等の勧誘行為、執拗な連絡先収集は固くお断りいたします（見つけ次第ご退場いただきます）。\n\n免責事項： 会場内でのトラブルや紛争に対し、当イベントは仲裁や介入を行いません。\n\n新しい出会いが、あなたのビジネスの突破口になります。\nビジネスシーンを一緒に盛り上げましょう！\n皆様のご参加をスタッフ一同、心よりお待ちしております。",
       "materialUrl": "",
-      "attachments": [],
+      "attachments": [
+        {
+          "name": "投稿素材1",
+          "url": "https://drive.google.com/open?id=1f6eSkXUFgPM5l-AYGDTvS4L8C0jECXIw",
+          "downloadUrl": "https://wonderplus100-stack.github.io/wonder-plus-portal/assets/guide-images/1f6eSkXUFgPM5l-AYGDTvS4L8C0jECXIw.png",
+          "thumbnailUrl": "https://wonderplus100-stack.github.io/wonder-plus-portal/assets/guide-images/1f6eSkXUFgPM5l-AYGDTvS4L8C0jECXIw.png"
+        }
+      ],
       "guideMatched": true,
       "guideLinked": false,
       "venueAdjusted": false,
       "datetimeAdjusted": true,
-      "matchedGuideTitle": "東京100人カフェ会Wonder+",
-      "guideUpdatedAt": "2026-11-01T13:51:46.000Z",
-      "updatedAt": "2026-11-03T09:44:11.201Z"
+      "matchedGuideTitle": "新宿 Wonder+100",
+      "guideUpdatedAt": "2026-11-03T14:07:41.000Z",
+      "updatedAt": "2026-11-03T17:24:19.832Z"
     },
     {
       "id": "month9-wonder-2-金沢wonder+-14:00-15:30",
@@ -1758,7 +1772,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+KANAZAWA",
       "guideUpdatedAt": "2026-08-04T01:59:36.000Z",
-      "updatedAt": "2026-11-03T09:44:11.201Z"
+      "updatedAt": "2026-11-03T17:24:19.832Z"
     },
     {
       "id": "month9-wonder-3-名古屋wonder+-13:00-14:30",
@@ -1795,7 +1809,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+NAGOYA",
       "guideUpdatedAt": "2026-06-28T03:50:40.000Z",
-      "updatedAt": "2026-11-03T09:44:11.201Z"
+      "updatedAt": "2026-11-03T17:24:19.832Z"
     },
     {
       "id": "month9-wonder-3-銀座wonder+alliance-19:30-21:00",
@@ -1832,7 +1846,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+Alliance",
       "guideUpdatedAt": "2026-08-06T11:32:15.000Z",
-      "updatedAt": "2026-11-03T09:44:11.202Z"
+      "updatedAt": "2026-11-03T17:24:19.832Z"
     },
     {
       "id": "month9-wonder-3-大阪wonder+-20:00-22:00",
@@ -1869,7 +1883,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+OSAKA",
       "guideUpdatedAt": "2026-06-28T04:13:11.000Z",
-      "updatedAt": "2026-11-03T09:44:11.202Z"
+      "updatedAt": "2026-11-03T17:24:19.832Z"
     },
     {
       "id": "month9-wonder-4-横浜wonder+-15:00-16:00",
@@ -1906,7 +1920,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+YOKOHAMA",
       "guideUpdatedAt": "2026-06-28T03:24:09.000Z",
-      "updatedAt": "2026-11-03T09:44:11.202Z"
+      "updatedAt": "2026-11-03T17:24:19.833Z"
     },
     {
       "id": "month9-wonder-7-郡山wonder+-13:00-14:30",
@@ -1943,7 +1957,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+KORIYAMA",
       "guideUpdatedAt": "2026-07-07T01:08:06.000Z",
-      "updatedAt": "2026-11-03T09:44:11.202Z"
+      "updatedAt": "2026-11-03T17:24:19.833Z"
     },
     {
       "id": "month9-wonder-7-仙台wonder+-19:30-21:00",
@@ -1980,7 +1994,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+SENDAI",
       "guideUpdatedAt": "2026-07-07T01:09:11.000Z",
-      "updatedAt": "2026-11-03T09:44:11.202Z"
+      "updatedAt": "2026-11-03T17:24:19.833Z"
     },
     {
       "id": "month9-wonder-8-新潟wonder+-13:00-14:30",
@@ -2004,7 +2018,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "",
       "guideUpdatedAt": "",
-      "updatedAt": "2026-11-03T09:44:11.202Z"
+      "updatedAt": "2026-11-03T17:24:19.833Z"
     },
     {
       "id": "month9-wonder-9-甲府wonder+-13:00-14:30",
@@ -2041,7 +2055,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+KOFU",
       "guideUpdatedAt": "2026-08-11T15:50:03.000Z",
-      "updatedAt": "2026-11-03T09:44:11.202Z"
+      "updatedAt": "2026-11-03T17:24:19.836Z"
     },
     {
       "id": "month9-wonder-9-札幌wonder+-13:00-15:00",
@@ -2065,7 +2079,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "札幌 Wonder+",
       "guideUpdatedAt": "2026-11-01T13:52:53.000Z",
-      "updatedAt": "2026-11-03T09:44:11.202Z"
+      "updatedAt": "2026-11-03T17:24:19.841Z"
     },
     {
       "id": "month9-wonder-9-名古屋wonder+ladies-15:00-16:30",
@@ -2102,7 +2116,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+NAGOYA",
       "guideUpdatedAt": "2026-06-28T03:50:40.000Z",
-      "updatedAt": "2026-11-03T09:44:11.202Z"
+      "updatedAt": "2026-11-03T17:24:19.841Z"
     },
     {
       "id": "month9-wonder-9-銀座wonder+story-15:30-17:30",
@@ -2132,7 +2146,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+Story",
       "guideUpdatedAt": "2026-10-21T07:02:17.000Z",
-      "updatedAt": "2026-11-03T09:44:11.202Z"
+      "updatedAt": "2026-11-03T17:24:19.844Z"
     },
     {
       "id": "month9-wonder-9-静岡wonder+-19:30-21:00",
@@ -2169,7 +2183,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+SHIZUOKA",
       "guideUpdatedAt": "2026-06-28T03:54:08.000Z",
-      "updatedAt": "2026-11-03T09:44:11.203Z"
+      "updatedAt": "2026-11-03T17:24:19.848Z"
     },
     {
       "id": "month9-wonder-10-銀座wonder+leaders-12:30-14:00",
@@ -2193,7 +2207,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "銀座 Wonder+Leaders",
       "guideUpdatedAt": "2026-10-21T12:35:40.000Z",
-      "updatedAt": "2026-11-03T09:44:11.203Z"
+      "updatedAt": "2026-11-03T17:24:19.848Z"
     },
     {
       "id": "month9-wonder-10-銀座wonder+ladies-15:00-16:30",
@@ -2217,7 +2231,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+ Ladies",
       "guideUpdatedAt": "2026-10-21T15:00:00.000Z",
-      "updatedAt": "2026-11-03T09:44:11.203Z"
+      "updatedAt": "2026-11-03T17:24:19.848Z"
     },
     {
       "id": "month9-wonder-10-銀座wonder+realestate-19:30-21:30",
@@ -2241,7 +2255,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "",
       "guideUpdatedAt": "",
-      "updatedAt": "2026-11-03T09:44:11.203Z"
+      "updatedAt": "2026-11-03T17:24:19.848Z"
     },
     {
       "id": "month9-wonder-11-横浜wonder+-15:00-16:00",
@@ -2278,7 +2292,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+YOKOHAMA",
       "guideUpdatedAt": "2026-06-28T03:24:09.000Z",
-      "updatedAt": "2026-11-03T09:44:11.203Z"
+      "updatedAt": "2026-11-03T17:24:19.848Z"
     },
     {
       "id": "month9-wonder-14-岡山wonder+-13:00-14:30",
@@ -2315,7 +2329,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+OKAYAMA",
       "guideUpdatedAt": "2026-09-10T08:32:24.000Z",
-      "updatedAt": "2026-11-03T09:44:11.203Z"
+      "updatedAt": "2026-11-03T17:24:19.849Z"
     },
     {
       "id": "month9-wonder-14-広島wonder+-13:00-14:30",
@@ -2352,7 +2366,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+HIROSHIMA",
       "guideUpdatedAt": "2026-06-28T01:41:17.000Z",
-      "updatedAt": "2026-11-03T09:44:11.203Z"
+      "updatedAt": "2026-11-03T17:24:19.849Z"
     },
     {
       "id": "month9-wonder-14-京都wonder+-19:30-21:00",
@@ -2389,7 +2403,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+KYOTO",
       "guideUpdatedAt": "2026-06-28T03:21:03.000Z",
-      "updatedAt": "2026-11-03T09:44:11.203Z"
+      "updatedAt": "2026-11-03T17:24:19.850Z"
     },
     {
       "id": "month9-wonder-14-神戸wonder+-19:30-21:00",
@@ -2420,7 +2434,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+KOBE",
       "guideUpdatedAt": "2026-09-14T12:40:13.000Z",
-      "updatedAt": "2026-11-03T09:44:11.203Z"
+      "updatedAt": "2026-11-03T17:24:19.850Z"
     },
     {
       "id": "month9-wonder-15-大阪wonder+-13:00-14:30",
@@ -2457,7 +2471,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+OSAKA",
       "guideUpdatedAt": "2026-06-28T04:13:11.000Z",
-      "updatedAt": "2026-11-03T09:44:11.204Z"
+      "updatedAt": "2026-11-03T17:24:19.850Z"
     },
     {
       "id": "month9-wonder-15-浜松wonder+-19:30-21:00",
@@ -2481,7 +2495,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "",
       "guideUpdatedAt": "",
-      "updatedAt": "2026-11-03T09:44:11.204Z"
+      "updatedAt": "2026-11-03T17:24:19.850Z"
     },
     {
       "id": "month9-wonder-15-名古屋wonder+-19:30-21:00",
@@ -2518,7 +2532,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+NAGOYA",
       "guideUpdatedAt": "2026-06-28T03:50:40.000Z",
-      "updatedAt": "2026-11-03T09:44:11.204Z"
+      "updatedAt": "2026-11-03T17:24:19.851Z"
     },
     {
       "id": "month9-wonder-16-大宮wonder+-13:00-14:30",
@@ -2555,7 +2569,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+OMIYA",
       "guideUpdatedAt": "2026-08-11T15:46:11.000Z",
-      "updatedAt": "2026-11-03T09:44:11.204Z"
+      "updatedAt": "2026-11-03T17:24:19.851Z"
     },
     {
       "id": "month9-wonder-16-高崎wonder+-15:00-16:30",
@@ -2592,7 +2606,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+TAKASAKI",
       "guideUpdatedAt": "2026-07-25T14:36:03.000Z",
-      "updatedAt": "2026-11-03T09:44:11.204Z"
+      "updatedAt": "2026-11-03T17:24:19.851Z"
     },
     {
       "id": "month9-wonder-16-銀座wonder+night-19:30-21:30",
@@ -2629,7 +2643,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+Night",
       "guideUpdatedAt": "2026-09-10T16:31:28.000Z",
-      "updatedAt": "2026-11-03T09:44:11.204Z"
+      "updatedAt": "2026-11-03T17:24:19.851Z"
     },
     {
       "id": "month9-wonder-17-横浜wonder+-15:00-16:30",
@@ -2666,7 +2680,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+YOKOHAMA",
       "guideUpdatedAt": "2026-06-28T03:24:09.000Z",
-      "updatedAt": "2026-11-03T09:44:11.204Z"
+      "updatedAt": "2026-11-03T17:24:19.851Z"
     },
     {
       "id": "month9-wonder-17-千葉wonder+-15:00-16:30",
@@ -2703,7 +2717,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+CHIBA",
       "guideUpdatedAt": "2026-06-28T03:26:54.000Z",
-      "updatedAt": "2026-11-03T09:44:11.204Z"
+      "updatedAt": "2026-11-03T17:24:19.851Z"
     },
     {
       "id": "month9-wonder-17-銀座wonder+entertainment-20:00-22:00",
@@ -2740,7 +2754,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+Entertainment",
       "guideUpdatedAt": "2026-07-03T23:39:42.000Z",
-      "updatedAt": "2026-11-03T09:44:11.209Z"
+      "updatedAt": "2026-11-03T17:24:19.851Z"
     },
     {
       "id": "month9-wonder-18-宇都宮wonder+-15:00-16:30",
@@ -2777,7 +2791,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+UTUNOMIYA",
       "guideUpdatedAt": "2026-08-09T13:20:44.000Z",
-      "updatedAt": "2026-11-03T09:44:11.209Z"
+      "updatedAt": "2026-11-03T17:24:19.851Z"
     },
     {
       "id": "month9-wonder-24-銀座wonder+beauty-15:00-16:30",
@@ -2808,7 +2822,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+Beauty",
       "guideUpdatedAt": "2026-09-23T07:48:47.000Z",
-      "updatedAt": "2026-11-03T09:44:11.209Z"
+      "updatedAt": "2026-11-03T17:24:19.851Z"
     },
     {
       "id": "month9-wonder-24-銀座+gravitywonder+-19:30-21:00",
@@ -2845,7 +2859,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+Gravity",
       "guideUpdatedAt": "2026-07-03T23:57:31.000Z",
-      "updatedAt": "2026-11-03T09:44:11.209Z"
+      "updatedAt": "2026-11-03T17:24:19.852Z"
     },
     {
       "id": "month9-wonder-25-新宿wonder+100-13:00-14:30",
@@ -2854,22 +2868,29 @@
       "month": 9,
       "day": 25,
       "title": "新宿 Wonder+100",
-      "eventName": "東京100人カフェ会Wonder+",
+      "eventName": "新宿 Wonder+100",
       "scheduleTitle": "新宿 Wonder+100",
       "scheduleMeta": "13:00-14:30",
       "venue": "新宿",
       "category": "wonder",
       "brand": "100",
-      "body": "【イベント名】東京100人カフェ会 Wonder+\n【開催日時】9月25日 13:00-14:30\n【案内文】\n\n大人気100人規模の異業種交流会「Wonder+100」のご案内✨\n\nこんにちは！Wonder＋運営事務局です。\n東京で月3,000人以上が参加する大人気ビジネス交流会！\n\n「友達」ではなく、ビジネスを共に加速させる「仲間」と出会いませんか？\n単なる「営業」や「売り先探し」の場ではなく、互いの目的を理解し、得意を持ち寄って協業できる仲間と出会う場所です。\n\nもちろんビジネス目的が必須ではないため、趣味の仲間探しや情報交換としてもご活用いただけます。初参加やお一人でのご参加（毎回約半数！）も大歓迎です。ぜひお気軽にご参加ください！\n\n📅 イベント概要\n■ 日時\n12:45 オープン｜13:00 スタート｜14:30 クローズ\n\n■ 会場\n東京都新宿区西新宿1-19-5 \n新宿幸容ビル 4F\n\n■ 参加費\n男性 3,000円／女性 2,500円（税込・ドリンク付）\n※当日会場にて現金払い（キャッシュレス非対応）\n※インボイス対応領収書の発行可\n\n✨ Wonder+の特長\nイベントコンシェルジュが常駐\n大人数での交流が苦手な方や初参加の方も安心！「こんな人に出会いたい」を女性コンシェルジュをはじめとするスタッフにお伝えいただければ、お繋ぎをサポートします。\n\n専用プロフィール名札\n名札に「Wants（求めていること）」と「Free Offer（自分ができること）」を記入。視覚的に効率よくマッチング可能です。\n\n自由なスタンディング形式\n固定席ではないため、ご自身のペースに合わせて自由に移動しながら、気になる相手と交流できます。\n\n👥 こんな方におすすめ\n新しいビジネスの相談相手やコラボ先を探している方\n\n各種クリエイターやマーケターと繋がりたい方\n\n起業・独立・副業の仲間が欲しい方\n\n経営者、フリーランス、IT、医療、士業など、多彩な職種の方と交流したい方\n\n新しい刺激やビジネスのきっかけ、情報交換がしたい方\n\n📋 事前のご案内（FAQ・規約）\n服装： 清潔感のあるスマートカジュアルを推奨します。\n\n持ち物： 筆記用具、参加費（現金）、名刺（お持ちの方）。\n※受付で紹介用に名刺を1枚ご提出いただきます。表面に事業内容などを手書きメモしておくと交流がよりスムーズになります。\n\n途中入退室： 可能です。\n\nキャンセル： 前日・当日のキャンセルは参加費の100%が発生いたします。お早めに予約元からお手続きください。\n\n禁止事項： 強引な営業・売り込み、MLM・ネットワークビジネス・宗教等の勧誘行為、執拗な連絡先収集は固くお断りいたします（見つけ次第ご退場いただきます）。\n\n免責事項： 会場内でのトラブルや紛争に対し、当イベントは仲裁や介入を行いません。\n\n新しい出会いが、あなたのビジネスの突破口になります。\nビジネスシーンを一緒に盛り上げましょう！\n皆様のご参加をスタッフ一同、心よりお待ちしております。",
+      "body": "【イベント名】東京100人異業種交流会 Wonder+\n【開催日時】9月25日 13:00-14:30\n【案内文】\n\n大人気100人規模の異業種交流会「Wonder+100」のご案内✨\n\nこんにちは！Wonder＋運営事務局です。\n東京で月3,000人以上が参加する大人気ビジネス交流会！\n\n「友達」ではなく、ビジネスを共に加速させる「仲間」と出会いませんか？\n単なる「営業」や「売り先探し」の場ではなく、互いの目的を理解し、得意を持ち寄って協業できる仲間と出会う場所です。\n\nもちろんビジネス目的が必須ではないため、趣味の仲間探しや情報交換としてもご活用いただけます。初参加やお一人でのご参加（毎回約半数！）も大歓迎です。ぜひお気軽にご参加ください！\n\n📅 イベント概要\n■ 日時\n12:45 オープン｜13:00 スタート｜14:30 クローズ\n\n■ 会場\n東京都新宿区西新宿1-19-5 \n新宿幸容ビル 4F\n\n■ 参加費\n一部参加 男性 3,000円／女性 3,000円（税込・ドリンク付）\n一部、二部参加 男性 4,500円／女性 4,500円（税込・ドリンク付）\n※当日会場にて現金払い（キャッシュレス非対応）\n※インボイス対応領収書の発行可\n\n✨ Wonder+の特長\nイベントコンシェルジュが常駐\n大人数での交流が苦手な方や初参加の方も安心！「こんな人に出会いたい」を女性コンシェルジュをはじめとするスタッフにお伝えいただければ、お繋ぎをサポートします。\n\n専用プロフィール名札\n名札に「Wants（求めていること）」と「Free Offer（自分ができること）」を記入。視覚的に効率よくマッチング可能です。\n\n自由なスタンディング形式\n固定席ではないため、ご自身のペースに合わせて自由に移動しながら、気になる相手と交流できます。\n\n👥 こんな方におすすめ\n新しいビジネスの相談相手やコラボ先を探している方\n\n各種クリエイターやマーケターと繋がりたい方\n\n起業・独立・副業の仲間が欲しい方\n\n経営者、フリーランス、IT、医療、士業など、多彩な職種の方と交流したい方\n\n新しい刺激やビジネスのきっかけ、情報交換がしたい方\n\n📋 事前のご案内（FAQ・規約）\n服装： 清潔感のあるスマートカジュアルを推奨します。\n\n持ち物： 筆記用具、参加費（現金）、名刺（お持ちの方）。\n※受付で紹介用に名刺を1枚ご提出いただきます。表面に事業内容などを手書きメモしておくと交流がよりスムーズになります。\n\n途中入退室： 可能です。\n\nキャンセル： 前日・当日のキャンセルは参加費の100%が発生いたします。お早めに予約元からお手続きください。\n\n禁止事項： 強引な営業・売り込み、MLM・ネットワークビジネス・宗教等の勧誘行為、執拗な連絡先収集は固くお断りいたします（見つけ次第ご退場いただきます）。\n\n免責事項： 会場内でのトラブルや紛争に対し、当イベントは仲裁や介入を行いません。\n\n新しい出会いが、あなたのビジネスの突破口になります。\nビジネスシーンを一緒に盛り上げましょう！\n皆様のご参加をスタッフ一同、心よりお待ちしております。",
       "materialUrl": "",
-      "attachments": [],
+      "attachments": [
+        {
+          "name": "投稿素材1",
+          "url": "https://drive.google.com/open?id=1f6eSkXUFgPM5l-AYGDTvS4L8C0jECXIw",
+          "downloadUrl": "https://wonderplus100-stack.github.io/wonder-plus-portal/assets/guide-images/1f6eSkXUFgPM5l-AYGDTvS4L8C0jECXIw.png",
+          "thumbnailUrl": "https://wonderplus100-stack.github.io/wonder-plus-portal/assets/guide-images/1f6eSkXUFgPM5l-AYGDTvS4L8C0jECXIw.png"
+        }
+      ],
       "guideMatched": true,
       "guideLinked": false,
       "venueAdjusted": false,
       "datetimeAdjusted": true,
-      "matchedGuideTitle": "東京100人カフェ会Wonder+",
-      "guideUpdatedAt": "2026-11-01T13:51:46.000Z",
-      "updatedAt": "2026-11-03T09:44:11.209Z"
+      "matchedGuideTitle": "新宿 Wonder+100",
+      "guideUpdatedAt": "2026-11-03T14:07:41.000Z",
+      "updatedAt": "2026-11-03T17:24:19.852Z"
     },
     {
       "id": "month9-wonder-25-新宿wonder+100-15:00-16:30",
@@ -2878,22 +2899,29 @@
       "month": 9,
       "day": 25,
       "title": "新宿 Wonder+100",
-      "eventName": "東京100人カフェ会Wonder+",
+      "eventName": "新宿 Wonder+100",
       "scheduleTitle": "新宿 Wonder+100",
       "scheduleMeta": "15:00-16:30",
       "venue": "新宿",
       "category": "wonder",
       "brand": "100",
-      "body": "【イベント名】東京100人カフェ会 Wonder+\n【開催日時】9月25日 15:00-16:30\n【案内文】\n\n大人気100人規模の異業種交流会「Wonder+100」のご案内✨\n\nこんにちは！Wonder＋運営事務局です。\n東京で月3,000人以上が参加する大人気ビジネス交流会！\n\n「友達」ではなく、ビジネスを共に加速させる「仲間」と出会いませんか？\n単なる「営業」や「売り先探し」の場ではなく、互いの目的を理解し、得意を持ち寄って協業できる仲間と出会う場所です。\n\nもちろんビジネス目的が必須ではないため、趣味の仲間探しや情報交換としてもご活用いただけます。初参加やお一人でのご参加（毎回約半数！）も大歓迎です。ぜひお気軽にご参加ください！\n\n📅 イベント概要\n■ 日時\n14:45 オープン｜15:00 スタート｜16:30 クローズ\n\n■ 会場\n東京都新宿区西新宿1-19-5 \n新宿幸容ビル 4F\n\n■ 参加費\n男性 3,000円／女性 2,500円（税込・ドリンク付）\n※当日会場にて現金払い（キャッシュレス非対応）\n※インボイス対応領収書の発行可\n\n✨ Wonder+の特長\nイベントコンシェルジュが常駐\n大人数での交流が苦手な方や初参加の方も安心！「こんな人に出会いたい」を女性コンシェルジュをはじめとするスタッフにお伝えいただければ、お繋ぎをサポートします。\n\n専用プロフィール名札\n名札に「Wants（求めていること）」と「Free Offer（自分ができること）」を記入。視覚的に効率よくマッチング可能です。\n\n自由なスタンディング形式\n固定席ではないため、ご自身のペースに合わせて自由に移動しながら、気になる相手と交流できます。\n\n👥 こんな方におすすめ\n新しいビジネスの相談相手やコラボ先を探している方\n\n各種クリエイターやマーケターと繋がりたい方\n\n起業・独立・副業の仲間が欲しい方\n\n経営者、フリーランス、IT、医療、士業など、多彩な職種の方と交流したい方\n\n新しい刺激やビジネスのきっかけ、情報交換がしたい方\n\n📋 事前のご案内（FAQ・規約）\n服装： 清潔感のあるスマートカジュアルを推奨します。\n\n持ち物： 筆記用具、参加費（現金）、名刺（お持ちの方）。\n※受付で紹介用に名刺を1枚ご提出いただきます。表面に事業内容などを手書きメモしておくと交流がよりスムーズになります。\n\n途中入退室： 可能です。\n\nキャンセル： 前日・当日のキャンセルは参加費の100%が発生いたします。お早めに予約元からお手続きください。\n\n禁止事項： 強引な営業・売り込み、MLM・ネットワークビジネス・宗教等の勧誘行為、執拗な連絡先収集は固くお断りいたします（見つけ次第ご退場いただきます）。\n\n免責事項： 会場内でのトラブルや紛争に対し、当イベントは仲裁や介入を行いません。\n\n新しい出会いが、あなたのビジネスの突破口になります。\nビジネスシーンを一緒に盛り上げましょう！\n皆様のご参加をスタッフ一同、心よりお待ちしております。",
+      "body": "【イベント名】東京100人異業種交流会 Wonder+\n【開催日時】9月25日 15:00-16:30\n【案内文】\n\n大人気100人規模の異業種交流会「Wonder+100」のご案内✨\n\nこんにちは！Wonder＋運営事務局です。\n東京で月3,000人以上が参加する大人気ビジネス交流会！\n\n「友達」ではなく、ビジネスを共に加速させる「仲間」と出会いませんか？\n単なる「営業」や「売り先探し」の場ではなく、互いの目的を理解し、得意を持ち寄って協業できる仲間と出会う場所です。\n\nもちろんビジネス目的が必須ではないため、趣味の仲間探しや情報交換としてもご活用いただけます。初参加やお一人でのご参加（毎回約半数！）も大歓迎です。ぜひお気軽にご参加ください！\n\n📅 イベント概要\n■ 日時\n14:45 オープン｜15:00 スタート｜16:30 クローズ\n\n■ 会場\n東京都新宿区西新宿1-19-5 \n新宿幸容ビル 4F\n\n■ 参加費\n一部参加 男性 3,000円／女性 3,000円（税込・ドリンク付）\n一部、二部参加 男性 4,500円／女性 4,500円（税込・ドリンク付）\n※当日会場にて現金払い（キャッシュレス非対応）\n※インボイス対応領収書の発行可\n\n✨ Wonder+の特長\nイベントコンシェルジュが常駐\n大人数での交流が苦手な方や初参加の方も安心！「こんな人に出会いたい」を女性コンシェルジュをはじめとするスタッフにお伝えいただければ、お繋ぎをサポートします。\n\n専用プロフィール名札\n名札に「Wants（求めていること）」と「Free Offer（自分ができること）」を記入。視覚的に効率よくマッチング可能です。\n\n自由なスタンディング形式\n固定席ではないため、ご自身のペースに合わせて自由に移動しながら、気になる相手と交流できます。\n\n👥 こんな方におすすめ\n新しいビジネスの相談相手やコラボ先を探している方\n\n各種クリエイターやマーケターと繋がりたい方\n\n起業・独立・副業の仲間が欲しい方\n\n経営者、フリーランス、IT、医療、士業など、多彩な職種の方と交流したい方\n\n新しい刺激やビジネスのきっかけ、情報交換がしたい方\n\n📋 事前のご案内（FAQ・規約）\n服装： 清潔感のあるスマートカジュアルを推奨します。\n\n持ち物： 筆記用具、参加費（現金）、名刺（お持ちの方）。\n※受付で紹介用に名刺を1枚ご提出いただきます。表面に事業内容などを手書きメモしておくと交流がよりスムーズになります。\n\n途中入退室： 可能です。\n\nキャンセル： 前日・当日のキャンセルは参加費の100%が発生いたします。お早めに予約元からお手続きください。\n\n禁止事項： 強引な営業・売り込み、MLM・ネットワークビジネス・宗教等の勧誘行為、執拗な連絡先収集は固くお断りいたします（見つけ次第ご退場いただきます）。\n\n免責事項： 会場内でのトラブルや紛争に対し、当イベントは仲裁や介入を行いません。\n\n新しい出会いが、あなたのビジネスの突破口になります。\nビジネスシーンを一緒に盛り上げましょう！\n皆様のご参加をスタッフ一同、心よりお待ちしております。",
       "materialUrl": "",
-      "attachments": [],
+      "attachments": [
+        {
+          "name": "投稿素材1",
+          "url": "https://drive.google.com/open?id=1f6eSkXUFgPM5l-AYGDTvS4L8C0jECXIw",
+          "downloadUrl": "https://wonderplus100-stack.github.io/wonder-plus-portal/assets/guide-images/1f6eSkXUFgPM5l-AYGDTvS4L8C0jECXIw.png",
+          "thumbnailUrl": "https://wonderplus100-stack.github.io/wonder-plus-portal/assets/guide-images/1f6eSkXUFgPM5l-AYGDTvS4L8C0jECXIw.png"
+        }
+      ],
       "guideMatched": true,
       "guideLinked": false,
       "venueAdjusted": false,
       "datetimeAdjusted": true,
-      "matchedGuideTitle": "東京100人カフェ会Wonder+",
-      "guideUpdatedAt": "2026-11-01T13:51:46.000Z",
-      "updatedAt": "2026-11-03T09:44:11.209Z"
+      "matchedGuideTitle": "新宿 Wonder+100",
+      "guideUpdatedAt": "2026-11-03T14:07:41.000Z",
+      "updatedAt": "2026-11-03T17:24:19.852Z"
     },
     {
       "id": "month9-wonder-28-熊本wonder+-13:00-14:30",
@@ -2930,7 +2958,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+KUMAMOTO",
       "guideUpdatedAt": "2026-07-07T00:59:27.000Z",
-      "updatedAt": "2026-11-03T09:44:11.210Z"
+      "updatedAt": "2026-11-03T17:24:19.852Z"
     },
     {
       "id": "month9-wonder-28-大阪wonder+-13:00-14:30",
@@ -2967,7 +2995,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+OSAKA",
       "guideUpdatedAt": "2026-06-28T04:13:11.000Z",
-      "updatedAt": "2026-11-03T09:44:11.210Z"
+      "updatedAt": "2026-11-03T17:24:19.852Z"
     },
     {
       "id": "month9-wonder-28-福岡wonder+-19:30-21:00",
@@ -3004,7 +3032,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+FUKUOKA",
       "guideUpdatedAt": "2026-08-09T13:41:54.000Z",
-      "updatedAt": "2026-11-03T09:44:11.210Z"
+      "updatedAt": "2026-11-03T17:24:19.853Z"
     },
     {
       "id": "month9-wonder-28-名古屋wonder+-20:00-21:30",
@@ -3041,7 +3069,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+NAGOYA",
       "guideUpdatedAt": "2026-06-28T03:50:40.000Z",
-      "updatedAt": "2026-11-03T09:44:11.210Z"
+      "updatedAt": "2026-11-03T17:24:19.853Z"
     },
     {
       "id": "month9-wonder-29-北九州wonder+-14:00-15:30",
@@ -3078,7 +3106,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+KITAKYUSYU",
       "guideUpdatedAt": "2026-06-26T00:25:40.000Z",
-      "updatedAt": "2026-11-03T09:44:11.210Z"
+      "updatedAt": "2026-11-03T17:24:19.853Z"
     },
     {
       "id": "month9-wonder-29-横浜wonder+-19:30-21:00",
@@ -3115,7 +3143,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+YOKOHAMA",
       "guideUpdatedAt": "2026-06-28T03:24:09.000Z",
-      "updatedAt": "2026-11-03T09:44:11.210Z"
+      "updatedAt": "2026-11-03T17:24:19.854Z"
     },
     {
       "id": "month9-wonder-30-札幌wonder+-19:00-21:00",
@@ -3139,7 +3167,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "札幌 Wonder+",
       "guideUpdatedAt": "2026-11-01T13:52:53.000Z",
-      "updatedAt": "2026-11-03T09:44:11.211Z"
+      "updatedAt": "2026-11-03T17:24:19.854Z"
     },
     {
       "id": "month9-wonder-30-銀座wonder+cxo-19:30-21:30",
@@ -3176,7 +3204,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+CXO",
       "guideUpdatedAt": "2026-08-23T06:11:55.000Z",
-      "updatedAt": "2026-11-03T09:44:11.211Z"
+      "updatedAt": "2026-11-03T17:24:19.854Z"
     },
     {
       "id": "month10-wonder-1-銀座wonder+story-15:30-17:30",
@@ -3206,7 +3234,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+Story",
       "guideUpdatedAt": "2026-10-21T07:02:17.000Z",
-      "updatedAt": "2026-11-03T09:44:11.211Z"
+      "updatedAt": "2026-11-03T17:24:19.855Z"
     },
     {
       "id": "month10-wonder-1-銀座wonder+freelance-19:30-21:00",
@@ -3230,7 +3258,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "銀座 Wonder+Freelance",
       "guideUpdatedAt": "2026-10-21T12:33:37.000Z",
-      "updatedAt": "2026-11-03T09:44:11.211Z"
+      "updatedAt": "2026-11-03T17:24:19.855Z"
     },
     {
       "id": "month10-wonder-5-甲府wonder+-13:00-14:30",
@@ -3267,7 +3295,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+KOFU",
       "guideUpdatedAt": "2026-08-11T15:50:03.000Z",
-      "updatedAt": "2026-11-03T09:44:11.211Z"
+      "updatedAt": "2026-11-03T17:24:19.856Z"
     },
     {
       "id": "month10-wonder-5-静岡wonder+-19:30-21:00",
@@ -3304,7 +3332,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+SHIZUOKA",
       "guideUpdatedAt": "2026-06-28T03:54:08.000Z",
-      "updatedAt": "2026-11-03T09:44:11.211Z"
+      "updatedAt": "2026-11-03T17:24:19.856Z"
     },
     {
       "id": "month10-wonder-7-名古屋wonder+ladies-15:00-16:30",
@@ -3341,7 +3369,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+NAGOYA",
       "guideUpdatedAt": "2026-06-28T03:50:40.000Z",
-      "updatedAt": "2026-11-03T09:44:11.212Z"
+      "updatedAt": "2026-11-03T17:24:19.856Z"
     },
     {
       "id": "month10-wonder-8-新宿wonder+leaders-12:30-14:00",
@@ -3365,7 +3393,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "",
       "guideUpdatedAt": "",
-      "updatedAt": "2026-11-03T09:44:11.212Z"
+      "updatedAt": "2026-11-03T17:24:19.856Z"
     },
     {
       "id": "month10-wonder-8-新宿wonder+ladies-15:00-16:30",
@@ -3396,7 +3424,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+Ladies",
       "guideUpdatedAt": "2026-10-03T15:58:55.000Z",
-      "updatedAt": "2026-11-03T09:44:11.212Z"
+      "updatedAt": "2026-11-03T17:24:19.857Z"
     },
     {
       "id": "month10-wonder-8-前橋wonder+-19:30-21:00",
@@ -3433,7 +3461,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+MAEBASHI",
       "guideUpdatedAt": "2026-06-28T03:59:49.000Z",
-      "updatedAt": "2026-11-03T09:44:11.212Z"
+      "updatedAt": "2026-11-03T17:24:19.857Z"
     },
     {
       "id": "month10-wonder-8-新宿wonder+realestate-19:30-21:30",
@@ -3464,7 +3492,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+ Real Estate",
       "guideUpdatedAt": "2026-10-06T02:54:20.000Z",
-      "updatedAt": "2026-11-03T09:44:11.213Z"
+      "updatedAt": "2026-11-03T17:24:19.858Z"
     },
     {
       "id": "month10-wonder-9-横浜横浜1on1wonder+-15:00-16:00",
@@ -3488,7 +3516,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+ 1on1",
       "guideUpdatedAt": "2026-10-06T15:00:00.000Z",
-      "updatedAt": "2026-11-03T09:44:11.213Z"
+      "updatedAt": "2026-11-03T17:24:19.858Z"
     },
     {
       "id": "month10-wonder-13-仙台wonder+-13:00-14:30",
@@ -3525,7 +3553,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+SENDAI",
       "guideUpdatedAt": "2026-07-07T01:09:11.000Z",
-      "updatedAt": "2026-11-03T09:44:11.214Z"
+      "updatedAt": "2026-11-03T17:24:19.860Z"
     },
     {
       "id": "month10-wonder-13-宇都宮wonder+-19:30-21:00",
@@ -3562,7 +3590,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+UTUNOMIYA",
       "guideUpdatedAt": "2026-08-09T13:20:44.000Z",
-      "updatedAt": "2026-11-03T09:44:11.214Z"
+      "updatedAt": "2026-11-03T17:24:19.860Z"
     },
     {
       "id": "month10-wonder-13-銀座wonder+gravity-19:30-21:00",
@@ -3599,7 +3627,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+Gravity",
       "guideUpdatedAt": "2026-07-03T23:57:31.000Z",
-      "updatedAt": "2026-11-03T09:44:11.217Z"
+      "updatedAt": "2026-11-03T17:24:19.860Z"
     },
     {
       "id": "month10-wonder-14-名古屋wonder+-13:00-14:30",
@@ -3636,7 +3664,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+NAGOYA",
       "guideUpdatedAt": "2026-06-28T03:50:40.000Z",
-      "updatedAt": "2026-11-03T09:44:11.217Z"
+      "updatedAt": "2026-11-03T17:24:19.861Z"
     },
     {
       "id": "month10-wonder-14-千葉wonder+-15:00-16:30",
@@ -3673,7 +3701,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+CHIBA",
       "guideUpdatedAt": "2026-06-28T03:26:54.000Z",
-      "updatedAt": "2026-11-03T09:44:11.217Z"
+      "updatedAt": "2026-11-03T17:24:19.861Z"
     },
     {
       "id": "month10-wonder-14-札幌wonder+-19:00-21:00",
@@ -3697,7 +3725,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "札幌 Wonder+",
       "guideUpdatedAt": "2026-11-01T13:52:53.000Z",
-      "updatedAt": "2026-11-03T09:44:11.217Z"
+      "updatedAt": "2026-11-03T17:24:19.861Z"
     },
     {
       "id": "month10-wonder-14-銀座wonder+marketing-19:30-21:00",
@@ -3734,7 +3762,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+ Marketing",
       "guideUpdatedAt": "2026-09-10T23:43:50.000Z",
-      "updatedAt": "2026-11-03T09:44:11.218Z"
+      "updatedAt": "2026-11-03T17:24:19.863Z"
     },
     {
       "id": "month10-wonder-14-大阪wonder+-19:30-21:00",
@@ -3771,7 +3799,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+OSAKA",
       "guideUpdatedAt": "2026-06-28T04:13:11.000Z",
-      "updatedAt": "2026-11-03T09:44:11.218Z"
+      "updatedAt": "2026-11-03T17:24:19.863Z"
     },
     {
       "id": "month10-wonder-15-横浜wonder+-15:00-16:30",
@@ -3808,7 +3836,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+YOKOHAMA",
       "guideUpdatedAt": "2026-06-28T03:24:09.000Z",
-      "updatedAt": "2026-11-03T09:44:11.218Z"
+      "updatedAt": "2026-11-03T17:24:19.865Z"
     },
     {
       "id": "month10-wonder-15-銀座wonder+entertainment-20:00-22:00",
@@ -3845,7 +3873,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+Entertainment",
       "guideUpdatedAt": "2026-07-03T23:39:42.000Z",
-      "updatedAt": "2026-11-03T09:44:11.218Z"
+      "updatedAt": "2026-11-03T17:24:19.873Z"
     },
     {
       "id": "month10-wonder-16-大阪wonder+ladies-15:00-16:30",
@@ -3882,7 +3910,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+OSAKA",
       "guideUpdatedAt": "2026-06-28T04:13:11.000Z",
-      "updatedAt": "2026-11-03T09:44:11.218Z"
+      "updatedAt": "2026-11-03T17:24:19.876Z"
     },
     {
       "id": "month10-wonder-16-大阪wonder+sales-15:30-17:00",
@@ -3919,7 +3947,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+OSAKA",
       "guideUpdatedAt": "2026-06-28T04:13:11.000Z",
-      "updatedAt": "2026-11-03T09:44:11.218Z"
+      "updatedAt": "2026-11-03T17:24:19.877Z"
     },
     {
       "id": "month10-wonder-16-京都wonder+-19:30-21:00",
@@ -3956,7 +3984,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+KYOTO",
       "guideUpdatedAt": "2026-06-28T03:21:03.000Z",
-      "updatedAt": "2026-11-03T09:44:11.218Z"
+      "updatedAt": "2026-11-03T17:24:19.881Z"
     },
     {
       "id": "month10-wonder-17-大阪朝wonder+-10:00-11:00",
@@ -3993,7 +4021,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+OSAKA",
       "guideUpdatedAt": "2026-06-28T04:13:11.000Z",
-      "updatedAt": "2026-11-03T09:44:11.218Z"
+      "updatedAt": "2026-11-03T17:24:19.886Z"
     },
     {
       "id": "month10-wonder-17-大阪wonder+100コン-19:30-21:30",
@@ -4024,7 +4052,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+100コン",
       "guideUpdatedAt": "2026-10-05T14:35:44.000Z",
-      "updatedAt": "2026-11-03T09:44:11.219Z"
+      "updatedAt": "2026-11-03T17:24:19.889Z"
     },
     {
       "id": "month10-wonder-19-熊本wonder+-13:00-14:30",
@@ -4061,7 +4089,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+KUMAMOTO",
       "guideUpdatedAt": "2026-07-07T00:59:27.000Z",
-      "updatedAt": "2026-11-03T09:44:11.219Z"
+      "updatedAt": "2026-11-03T17:24:19.889Z"
     },
     {
       "id": "month10-wonder-19-福岡wonder+-19:30-21:00",
@@ -4098,7 +4126,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+FUKUOKA",
       "guideUpdatedAt": "2026-08-09T13:41:54.000Z",
-      "updatedAt": "2026-11-03T09:44:11.219Z"
+      "updatedAt": "2026-11-03T17:24:19.892Z"
     },
     {
       "id": "month10-wonder-20-北九州wonder+-14:00-15:30",
@@ -4135,7 +4163,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+KITAKYUSYU",
       "guideUpdatedAt": "2026-06-26T00:25:40.000Z",
-      "updatedAt": "2026-11-03T09:44:11.219Z"
+      "updatedAt": "2026-11-03T17:24:19.892Z"
     },
     {
       "id": "month10-wonder-20-新宿wonder+alliance-19:30-21:00",
@@ -4172,7 +4200,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+Alliance",
       "guideUpdatedAt": "2026-08-06T11:32:15.000Z",
-      "updatedAt": "2026-11-03T09:44:11.219Z"
+      "updatedAt": "2026-11-03T17:24:19.893Z"
     },
     {
       "id": "month10-wonder-21-大宮wonder+-15:00-16:30",
@@ -4209,7 +4237,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+OMIYA",
       "guideUpdatedAt": "2026-08-11T15:46:11.000Z",
-      "updatedAt": "2026-11-03T09:44:11.219Z"
+      "updatedAt": "2026-11-03T17:24:19.893Z"
     },
     {
       "id": "month10-wonder-22-新宿wonder+ses-14:00-15:30",
@@ -4240,7 +4268,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+ SES",
       "guideUpdatedAt": "2026-09-11T01:49:42.000Z",
-      "updatedAt": "2026-11-03T09:44:11.220Z"
+      "updatedAt": "2026-11-03T17:24:19.895Z"
     },
     {
       "id": "month10-wonder-22-銀座wonder+cxo-19:30-21:00",
@@ -4277,7 +4305,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+CXO",
       "guideUpdatedAt": "2026-08-23T06:11:55.000Z",
-      "updatedAt": "2026-11-03T09:44:11.220Z"
+      "updatedAt": "2026-11-03T17:24:19.895Z"
     },
     {
       "id": "month10-wonder-23-横浜1on1wonder+-15:00-16:00",
@@ -4301,7 +4329,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+ 1on1",
       "guideUpdatedAt": "2026-10-06T15:00:00.000Z",
-      "updatedAt": "2026-11-03T09:44:11.220Z"
+      "updatedAt": "2026-11-03T17:24:19.895Z"
     },
     {
       "id": "month10-wonder-26-岡山wonder+-13:00-14:30",
@@ -4338,7 +4366,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+OKAYAMA",
       "guideUpdatedAt": "2026-09-10T08:32:24.000Z",
-      "updatedAt": "2026-11-03T09:44:11.222Z"
+      "updatedAt": "2026-11-03T17:24:19.896Z"
     },
     {
       "id": "month10-wonder-26-広島wonder+-13:00-14:30",
@@ -4375,7 +4403,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+HIROSHIMA",
       "guideUpdatedAt": "2026-06-28T01:41:17.000Z",
-      "updatedAt": "2026-11-03T09:44:11.226Z"
+      "updatedAt": "2026-11-03T17:24:19.896Z"
     },
     {
       "id": "month10-wonder-26-高崎wonder+-13:00-14:30",
@@ -4412,7 +4440,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+TAKASAKI",
       "guideUpdatedAt": "2026-07-25T14:36:03.000Z",
-      "updatedAt": "2026-11-03T09:44:11.227Z"
+      "updatedAt": "2026-11-03T17:24:19.896Z"
     },
     {
       "id": "month10-wonder-26-神戸wonder+-19:30-21:00",
@@ -4443,7 +4471,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+KOBE",
       "guideUpdatedAt": "2026-09-14T12:40:13.000Z",
-      "updatedAt": "2026-11-03T09:44:11.227Z"
+      "updatedAt": "2026-11-03T17:24:19.896Z"
     },
     {
       "id": "month10-wonder-27-大阪wonder+-13:00-14:30",
@@ -4480,7 +4508,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+OSAKA",
       "guideUpdatedAt": "2026-06-28T04:13:11.000Z",
-      "updatedAt": "2026-11-03T09:44:11.227Z"
+      "updatedAt": "2026-11-03T17:24:19.897Z"
     },
     {
       "id": "month10-wonder-27-浜松wonder+-19:30-21:00",
@@ -4504,7 +4532,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "",
       "guideUpdatedAt": "",
-      "updatedAt": "2026-11-03T09:44:11.227Z"
+      "updatedAt": "2026-11-03T17:24:19.897Z"
     },
     {
       "id": "month10-wonder-27-名古屋wonder+-19:30-21:00",
@@ -4541,7 +4569,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+NAGOYA",
       "guideUpdatedAt": "2026-06-28T03:50:40.000Z",
-      "updatedAt": "2026-11-03T09:44:11.227Z"
+      "updatedAt": "2026-11-03T17:24:19.897Z"
     },
     {
       "id": "month10-wonder-28-札幌wonder+-13:00-14:30",
@@ -4565,7 +4593,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "札幌 Wonder+",
       "guideUpdatedAt": "2026-11-01T13:52:53.000Z",
-      "updatedAt": "2026-11-03T09:44:11.227Z"
+      "updatedAt": "2026-11-03T17:24:19.897Z"
     },
     {
       "id": "month10-wonder-28-銀座wonder+beauty-15:00-16:30",
@@ -4596,7 +4624,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+Beauty",
       "guideUpdatedAt": "2026-09-23T07:48:47.000Z",
-      "updatedAt": "2026-11-03T09:44:11.227Z"
+      "updatedAt": "2026-11-03T17:24:19.897Z"
     },
     {
       "id": "month10-wonder-28-横浜wonder+leaders-19:30-21:00",
@@ -4626,7 +4654,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "横浜Wonder+Leaders",
       "guideUpdatedAt": "2026-10-21T12:30:48.000Z",
-      "updatedAt": "2026-11-03T09:44:11.228Z"
+      "updatedAt": "2026-11-03T17:24:19.898Z"
     },
     {
       "id": "month10-wonder-28-銀座wonder+gravity-19:30-21:00",
@@ -4663,7 +4691,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+Gravity",
       "guideUpdatedAt": "2026-07-03T23:57:31.000Z",
-      "updatedAt": "2026-11-03T09:44:11.228Z"
+      "updatedAt": "2026-11-03T17:24:19.899Z"
     },
     {
       "id": "month10-wonder-29-新宿wonder+100-13:00-14:30",
@@ -4672,22 +4700,29 @@
       "month": 10,
       "day": 29,
       "title": "新宿 Wonder+100",
-      "eventName": "東京100人カフェ会Wonder+",
+      "eventName": "新宿 Wonder+100",
       "scheduleTitle": "新宿 Wonder+100",
       "scheduleMeta": "13:00-14:30",
       "venue": "新宿",
       "category": "wonder",
       "brand": "100",
-      "body": "【イベント名】東京100人カフェ会 Wonder+\n【開催日時】10月29日 13:00-14:30\n【案内文】\n\n大人気100人規模の異業種交流会「Wonder+100」のご案内✨\n\nこんにちは！Wonder＋運営事務局です。\n東京で月3,000人以上が参加する大人気ビジネス交流会！\n\n「友達」ではなく、ビジネスを共に加速させる「仲間」と出会いませんか？\n単なる「営業」や「売り先探し」の場ではなく、互いの目的を理解し、得意を持ち寄って協業できる仲間と出会う場所です。\n\nもちろんビジネス目的が必須ではないため、趣味の仲間探しや情報交換としてもご活用いただけます。初参加やお一人でのご参加（毎回約半数！）も大歓迎です。ぜひお気軽にご参加ください！\n\n📅 イベント概要\n■ 日時\n12:45 オープン｜13:00 スタート｜14:30 クローズ\n\n■ 会場\n東京都新宿区西新宿1-19-5 \n新宿幸容ビル 4F\n\n■ 参加費\n男性 3,000円／女性 2,500円（税込・ドリンク付）\n※当日会場にて現金払い（キャッシュレス非対応）\n※インボイス対応領収書の発行可\n\n✨ Wonder+の特長\nイベントコンシェルジュが常駐\n大人数での交流が苦手な方や初参加の方も安心！「こんな人に出会いたい」を女性コンシェルジュをはじめとするスタッフにお伝えいただければ、お繋ぎをサポートします。\n\n専用プロフィール名札\n名札に「Wants（求めていること）」と「Free Offer（自分ができること）」を記入。視覚的に効率よくマッチング可能です。\n\n自由なスタンディング形式\n固定席ではないため、ご自身のペースに合わせて自由に移動しながら、気になる相手と交流できます。\n\n👥 こんな方におすすめ\n新しいビジネスの相談相手やコラボ先を探している方\n\n各種クリエイターやマーケターと繋がりたい方\n\n起業・独立・副業の仲間が欲しい方\n\n経営者、フリーランス、IT、医療、士業など、多彩な職種の方と交流したい方\n\n新しい刺激やビジネスのきっかけ、情報交換がしたい方\n\n📋 事前のご案内（FAQ・規約）\n服装： 清潔感のあるスマートカジュアルを推奨します。\n\n持ち物： 筆記用具、参加費（現金）、名刺（お持ちの方）。\n※受付で紹介用に名刺を1枚ご提出いただきます。表面に事業内容などを手書きメモしておくと交流がよりスムーズになります。\n\n途中入退室： 可能です。\n\nキャンセル： 前日・当日のキャンセルは参加費の100%が発生いたします。お早めに予約元からお手続きください。\n\n禁止事項： 強引な営業・売り込み、MLM・ネットワークビジネス・宗教等の勧誘行為、執拗な連絡先収集は固くお断りいたします（見つけ次第ご退場いただきます）。\n\n免責事項： 会場内でのトラブルや紛争に対し、当イベントは仲裁や介入を行いません。\n\n新しい出会いが、あなたのビジネスの突破口になります。\nビジネスシーンを一緒に盛り上げましょう！\n皆様のご参加をスタッフ一同、心よりお待ちしております。",
+      "body": "【イベント名】東京100人異業種交流会 Wonder+\n【開催日時】10月29日 13:00-14:30\n【案内文】\n\n大人気100人規模の異業種交流会「Wonder+100」のご案内✨\n\nこんにちは！Wonder＋運営事務局です。\n東京で月3,000人以上が参加する大人気ビジネス交流会！\n\n「友達」ではなく、ビジネスを共に加速させる「仲間」と出会いませんか？\n単なる「営業」や「売り先探し」の場ではなく、互いの目的を理解し、得意を持ち寄って協業できる仲間と出会う場所です。\n\nもちろんビジネス目的が必須ではないため、趣味の仲間探しや情報交換としてもご活用いただけます。初参加やお一人でのご参加（毎回約半数！）も大歓迎です。ぜひお気軽にご参加ください！\n\n📅 イベント概要\n■ 日時\n12:45 オープン｜13:00 スタート｜14:30 クローズ\n\n■ 会場\n東京都新宿区西新宿1-19-5 \n新宿幸容ビル 4F\n\n■ 参加費\n一部参加 男性 3,000円／女性 3,000円（税込・ドリンク付）\n一部、二部参加 男性 4,500円／女性 4,500円（税込・ドリンク付）\n※当日会場にて現金払い（キャッシュレス非対応）\n※インボイス対応領収書の発行可\n\n✨ Wonder+の特長\nイベントコンシェルジュが常駐\n大人数での交流が苦手な方や初参加の方も安心！「こんな人に出会いたい」を女性コンシェルジュをはじめとするスタッフにお伝えいただければ、お繋ぎをサポートします。\n\n専用プロフィール名札\n名札に「Wants（求めていること）」と「Free Offer（自分ができること）」を記入。視覚的に効率よくマッチング可能です。\n\n自由なスタンディング形式\n固定席ではないため、ご自身のペースに合わせて自由に移動しながら、気になる相手と交流できます。\n\n👥 こんな方におすすめ\n新しいビジネスの相談相手やコラボ先を探している方\n\n各種クリエイターやマーケターと繋がりたい方\n\n起業・独立・副業の仲間が欲しい方\n\n経営者、フリーランス、IT、医療、士業など、多彩な職種の方と交流したい方\n\n新しい刺激やビジネスのきっかけ、情報交換がしたい方\n\n📋 事前のご案内（FAQ・規約）\n服装： 清潔感のあるスマートカジュアルを推奨します。\n\n持ち物： 筆記用具、参加費（現金）、名刺（お持ちの方）。\n※受付で紹介用に名刺を1枚ご提出いただきます。表面に事業内容などを手書きメモしておくと交流がよりスムーズになります。\n\n途中入退室： 可能です。\n\nキャンセル： 前日・当日のキャンセルは参加費の100%が発生いたします。お早めに予約元からお手続きください。\n\n禁止事項： 強引な営業・売り込み、MLM・ネットワークビジネス・宗教等の勧誘行為、執拗な連絡先収集は固くお断りいたします（見つけ次第ご退場いただきます）。\n\n免責事項： 会場内でのトラブルや紛争に対し、当イベントは仲裁や介入を行いません。\n\n新しい出会いが、あなたのビジネスの突破口になります。\nビジネスシーンを一緒に盛り上げましょう！\n皆様のご参加をスタッフ一同、心よりお待ちしております。",
       "materialUrl": "",
-      "attachments": [],
+      "attachments": [
+        {
+          "name": "投稿素材1",
+          "url": "https://drive.google.com/open?id=1f6eSkXUFgPM5l-AYGDTvS4L8C0jECXIw",
+          "downloadUrl": "https://wonderplus100-stack.github.io/wonder-plus-portal/assets/guide-images/1f6eSkXUFgPM5l-AYGDTvS4L8C0jECXIw.png",
+          "thumbnailUrl": "https://wonderplus100-stack.github.io/wonder-plus-portal/assets/guide-images/1f6eSkXUFgPM5l-AYGDTvS4L8C0jECXIw.png"
+        }
+      ],
       "guideMatched": true,
-      "guideLinked": false,
+      "guideLinked": true,
       "venueAdjusted": false,
-      "datetimeAdjusted": true,
-      "matchedGuideTitle": "東京100人カフェ会Wonder+",
-      "guideUpdatedAt": "2026-11-01T13:51:46.000Z",
-      "updatedAt": "2026-11-03T09:44:11.228Z"
+      "datetimeAdjusted": false,
+      "matchedGuideTitle": "新宿 Wonder+100",
+      "guideUpdatedAt": "2026-11-03T14:07:41.000Z",
+      "updatedAt": "2026-11-03T17:24:19.899Z"
     },
     {
       "id": "month10-wonder-29-新宿wonder+100-15:00-16:30",
@@ -4696,22 +4731,29 @@
       "month": 10,
       "day": 29,
       "title": "新宿 Wonder+100",
-      "eventName": "東京100人カフェ会Wonder+",
+      "eventName": "新宿 Wonder+100",
       "scheduleTitle": "新宿 Wonder+100",
       "scheduleMeta": "15:00-16:30",
       "venue": "新宿",
       "category": "wonder",
       "brand": "100",
-      "body": "【イベント名】東京100人カフェ会 Wonder+\n【開催日時】10月29日 15:00-16:30\n【案内文】\n\n大人気100人規模の異業種交流会「Wonder+100」のご案内✨\n\nこんにちは！Wonder＋運営事務局です。\n東京で月3,000人以上が参加する大人気ビジネス交流会！\n\n「友達」ではなく、ビジネスを共に加速させる「仲間」と出会いませんか？\n単なる「営業」や「売り先探し」の場ではなく、互いの目的を理解し、得意を持ち寄って協業できる仲間と出会う場所です。\n\nもちろんビジネス目的が必須ではないため、趣味の仲間探しや情報交換としてもご活用いただけます。初参加やお一人でのご参加（毎回約半数！）も大歓迎です。ぜひお気軽にご参加ください！\n\n📅 イベント概要\n■ 日時\n14:45 オープン｜15:00 スタート｜16:30 クローズ\n\n■ 会場\n東京都新宿区西新宿1-19-5 \n新宿幸容ビル 4F\n\n■ 参加費\n男性 3,000円／女性 2,500円（税込・ドリンク付）\n※当日会場にて現金払い（キャッシュレス非対応）\n※インボイス対応領収書の発行可\n\n✨ Wonder+の特長\nイベントコンシェルジュが常駐\n大人数での交流が苦手な方や初参加の方も安心！「こんな人に出会いたい」を女性コンシェルジュをはじめとするスタッフにお伝えいただければ、お繋ぎをサポートします。\n\n専用プロフィール名札\n名札に「Wants（求めていること）」と「Free Offer（自分ができること）」を記入。視覚的に効率よくマッチング可能です。\n\n自由なスタンディング形式\n固定席ではないため、ご自身のペースに合わせて自由に移動しながら、気になる相手と交流できます。\n\n👥 こんな方におすすめ\n新しいビジネスの相談相手やコラボ先を探している方\n\n各種クリエイターやマーケターと繋がりたい方\n\n起業・独立・副業の仲間が欲しい方\n\n経営者、フリーランス、IT、医療、士業など、多彩な職種の方と交流したい方\n\n新しい刺激やビジネスのきっかけ、情報交換がしたい方\n\n📋 事前のご案内（FAQ・規約）\n服装： 清潔感のあるスマートカジュアルを推奨します。\n\n持ち物： 筆記用具、参加費（現金）、名刺（お持ちの方）。\n※受付で紹介用に名刺を1枚ご提出いただきます。表面に事業内容などを手書きメモしておくと交流がよりスムーズになります。\n\n途中入退室： 可能です。\n\nキャンセル： 前日・当日のキャンセルは参加費の100%が発生いたします。お早めに予約元からお手続きください。\n\n禁止事項： 強引な営業・売り込み、MLM・ネットワークビジネス・宗教等の勧誘行為、執拗な連絡先収集は固くお断りいたします（見つけ次第ご退場いただきます）。\n\n免責事項： 会場内でのトラブルや紛争に対し、当イベントは仲裁や介入を行いません。\n\n新しい出会いが、あなたのビジネスの突破口になります。\nビジネスシーンを一緒に盛り上げましょう！\n皆様のご参加をスタッフ一同、心よりお待ちしております。",
+      "body": "【イベント名】東京100人異業種交流会 Wonder+\n【開催日時】10月29日 15:00-16:30\n【案内文】\n\n大人気100人規模の異業種交流会「Wonder+100」のご案内✨\n\nこんにちは！Wonder＋運営事務局です。\n東京で月3,000人以上が参加する大人気ビジネス交流会！\n\n「友達」ではなく、ビジネスを共に加速させる「仲間」と出会いませんか？\n単なる「営業」や「売り先探し」の場ではなく、互いの目的を理解し、得意を持ち寄って協業できる仲間と出会う場所です。\n\nもちろんビジネス目的が必須ではないため、趣味の仲間探しや情報交換としてもご活用いただけます。初参加やお一人でのご参加（毎回約半数！）も大歓迎です。ぜひお気軽にご参加ください！\n\n📅 イベント概要\n■ 日時\n14:45 オープン｜15:00 スタート｜16:30 クローズ\n\n■ 会場\n東京都新宿区西新宿1-19-5 \n新宿幸容ビル 4F\n\n■ 参加費\n一部参加 男性 3,000円／女性 3,000円（税込・ドリンク付）\n一部、二部参加 男性 4,500円／女性 4,500円（税込・ドリンク付）\n※当日会場にて現金払い（キャッシュレス非対応）\n※インボイス対応領収書の発行可\n\n✨ Wonder+の特長\nイベントコンシェルジュが常駐\n大人数での交流が苦手な方や初参加の方も安心！「こんな人に出会いたい」を女性コンシェルジュをはじめとするスタッフにお伝えいただければ、お繋ぎをサポートします。\n\n専用プロフィール名札\n名札に「Wants（求めていること）」と「Free Offer（自分ができること）」を記入。視覚的に効率よくマッチング可能です。\n\n自由なスタンディング形式\n固定席ではないため、ご自身のペースに合わせて自由に移動しながら、気になる相手と交流できます。\n\n👥 こんな方におすすめ\n新しいビジネスの相談相手やコラボ先を探している方\n\n各種クリエイターやマーケターと繋がりたい方\n\n起業・独立・副業の仲間が欲しい方\n\n経営者、フリーランス、IT、医療、士業など、多彩な職種の方と交流したい方\n\n新しい刺激やビジネスのきっかけ、情報交換がしたい方\n\n📋 事前のご案内（FAQ・規約）\n服装： 清潔感のあるスマートカジュアルを推奨します。\n\n持ち物： 筆記用具、参加費（現金）、名刺（お持ちの方）。\n※受付で紹介用に名刺を1枚ご提出いただきます。表面に事業内容などを手書きメモしておくと交流がよりスムーズになります。\n\n途中入退室： 可能です。\n\nキャンセル： 前日・当日のキャンセルは参加費の100%が発生いたします。お早めに予約元からお手続きください。\n\n禁止事項： 強引な営業・売り込み、MLM・ネットワークビジネス・宗教等の勧誘行為、執拗な連絡先収集は固くお断りいたします（見つけ次第ご退場いただきます）。\n\n免責事項： 会場内でのトラブルや紛争に対し、当イベントは仲裁や介入を行いません。\n\n新しい出会いが、あなたのビジネスの突破口になります。\nビジネスシーンを一緒に盛り上げましょう！\n皆様のご参加をスタッフ一同、心よりお待ちしております。",
       "materialUrl": "",
-      "attachments": [],
+      "attachments": [
+        {
+          "name": "投稿素材1",
+          "url": "https://drive.google.com/open?id=1f6eSkXUFgPM5l-AYGDTvS4L8C0jECXIw",
+          "downloadUrl": "https://wonderplus100-stack.github.io/wonder-plus-portal/assets/guide-images/1f6eSkXUFgPM5l-AYGDTvS4L8C0jECXIw.png",
+          "thumbnailUrl": "https://wonderplus100-stack.github.io/wonder-plus-portal/assets/guide-images/1f6eSkXUFgPM5l-AYGDTvS4L8C0jECXIw.png"
+        }
+      ],
       "guideMatched": true,
       "guideLinked": false,
       "venueAdjusted": false,
       "datetimeAdjusted": true,
-      "matchedGuideTitle": "東京100人カフェ会Wonder+",
-      "guideUpdatedAt": "2026-11-01T13:51:46.000Z",
-      "updatedAt": "2026-11-03T09:44:11.228Z"
+      "matchedGuideTitle": "新宿 Wonder+100",
+      "guideUpdatedAt": "2026-11-03T14:07:41.000Z",
+      "updatedAt": "2026-11-03T17:24:19.899Z"
     },
     {
       "id": "month10-wonder-29-銀座wonder+hr（人材）-19:30-21:00",
@@ -4742,7 +4784,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+ HR",
       "guideUpdatedAt": "2026-09-11T01:52:29.000Z",
-      "updatedAt": "2026-11-03T09:44:11.228Z"
+      "updatedAt": "2026-11-03T17:24:19.899Z"
     },
     {
       "id": "month11-wonder-4-横浜wonder+-15:00-16:30",
@@ -4779,7 +4821,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+YOKOHAMA",
       "guideUpdatedAt": "2026-06-28T03:24:09.000Z",
-      "updatedAt": "2026-11-03T09:44:11.228Z"
+      "updatedAt": "2026-11-03T17:24:19.900Z"
     },
     {
       "id": "month11-wonder-5-名古屋ladieswonder+-15:00-16:30",
@@ -4816,7 +4858,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+NAGOYA",
       "guideUpdatedAt": "2026-06-28T03:50:40.000Z",
-      "updatedAt": "2026-11-03T09:44:11.228Z"
+      "updatedAt": "2026-11-03T17:24:19.900Z"
     },
     {
       "id": "month11-wonder-5-大宮wonder+-18:50-20:00",
@@ -4853,7 +4895,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+OMIYA",
       "guideUpdatedAt": "2026-08-11T15:46:11.000Z",
-      "updatedAt": "2026-11-03T09:44:11.228Z"
+      "updatedAt": "2026-11-03T17:24:19.900Z"
     },
     {
       "id": "month11-wonder-6-銀座wonder+story-15:30-17:30",
@@ -4883,7 +4925,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+Story",
       "guideUpdatedAt": "2026-10-21T07:02:17.000Z",
-      "updatedAt": "2026-11-03T09:44:11.229Z"
+      "updatedAt": "2026-11-03T17:24:19.901Z"
     },
     {
       "id": "month11-wonder-6-銀座wonder+freelance-19:30-21:00",
@@ -4907,7 +4949,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "銀座 Wonder+Freelance",
       "guideUpdatedAt": "2026-10-21T12:33:37.000Z",
-      "updatedAt": "2026-11-03T09:44:11.229Z"
+      "updatedAt": "2026-11-03T17:24:19.901Z"
     },
     {
       "id": "month11-wonder-10-静岡wonder+-13:00-14:30",
@@ -4944,7 +4986,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+SHIZUOKA",
       "guideUpdatedAt": "2026-06-28T03:54:08.000Z",
-      "updatedAt": "2026-11-03T09:44:11.229Z"
+      "updatedAt": "2026-11-03T17:24:19.902Z"
     },
     {
       "id": "month11-wonder-10-横浜wonder+leaders-19:30-21:00",
@@ -4974,7 +5016,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "横浜Wonder+Leaders",
       "guideUpdatedAt": "2026-10-21T12:30:48.000Z",
-      "updatedAt": "2026-11-03T09:44:11.229Z"
+      "updatedAt": "2026-11-03T17:24:19.902Z"
     },
     {
       "id": "month11-wonder-10-大阪wonder+-19:30-21:00",
@@ -5011,7 +5053,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+OSAKA",
       "guideUpdatedAt": "2026-06-28T04:13:11.000Z",
-      "updatedAt": "2026-11-03T09:44:11.230Z"
+      "updatedAt": "2026-11-03T17:24:19.903Z"
     },
     {
       "id": "month11-wonder-11-札幌wonder+-13:00-14:30",
@@ -5035,7 +5077,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "札幌 Wonder+",
       "guideUpdatedAt": "2026-11-01T13:52:53.000Z",
-      "updatedAt": "2026-11-03T09:44:11.230Z"
+      "updatedAt": "2026-11-03T17:24:19.904Z"
     },
     {
       "id": "month11-wonder-11-新宿wonder+realestate-13:00-14:30",
@@ -5059,7 +5101,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "新宿 Wonder+RealEstate",
       "guideUpdatedAt": "2026-09-11T02:01:50.000Z",
-      "updatedAt": "2026-11-03T09:44:11.230Z"
+      "updatedAt": "2026-11-03T17:24:19.904Z"
     },
     {
       "id": "month11-wonder-11-名古屋wonder+-15:00-16:30",
@@ -5096,7 +5138,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+NAGOYA",
       "guideUpdatedAt": "2026-06-28T03:50:40.000Z",
-      "updatedAt": "2026-11-03T09:44:11.230Z"
+      "updatedAt": "2026-11-03T17:24:19.904Z"
     },
     {
       "id": "month11-wonder-11-新宿wonder+hr-19:30-21:00",
@@ -5127,7 +5169,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+ HR",
       "guideUpdatedAt": "2026-09-11T01:52:29.000Z",
-      "updatedAt": "2026-11-03T09:44:11.230Z"
+      "updatedAt": "2026-11-03T17:24:19.904Z"
     },
     {
       "id": "month11-wonder-12-銀座wonder+leaders-12:30-14:00",
@@ -5151,7 +5193,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "銀座 Wonder+Leaders",
       "guideUpdatedAt": "2026-10-21T12:35:40.000Z",
-      "updatedAt": "2026-11-03T09:44:11.230Z"
+      "updatedAt": "2026-11-03T17:24:19.905Z"
     },
     {
       "id": "month11-wonder-12-銀座wonder+ladies-15:00-16:30",
@@ -5175,7 +5217,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+ Ladies",
       "guideUpdatedAt": "2026-10-21T15:00:00.000Z",
-      "updatedAt": "2026-11-03T09:44:11.231Z"
+      "updatedAt": "2026-11-03T17:24:19.905Z"
     },
     {
       "id": "month11-wonder-12-銀座wonder+ses-19:30-21:00",
@@ -5206,7 +5248,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+ SES",
       "guideUpdatedAt": "2026-09-11T01:49:42.000Z",
-      "updatedAt": "2026-11-03T09:44:11.231Z"
+      "updatedAt": "2026-11-03T17:24:19.905Z"
     },
     {
       "id": "month11-wonder-13-横浜1on1wonder+-15:00-16:00",
@@ -5230,7 +5272,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+ 1on1",
       "guideUpdatedAt": "2026-10-06T15:00:00.000Z",
-      "updatedAt": "2026-11-03T09:44:11.231Z"
+      "updatedAt": "2026-11-03T17:24:19.905Z"
     },
     {
       "id": "month11-wonder-16-熊本wonder+-13:00-14:30",
@@ -5267,7 +5309,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+KUMAMOTO",
       "guideUpdatedAt": "2026-07-07T00:59:27.000Z",
-      "updatedAt": "2026-11-03T09:44:11.231Z"
+      "updatedAt": "2026-11-03T17:24:19.906Z"
     },
     {
       "id": "month11-wonder-16-銀座+gravitywonder+-19:30-21:00",
@@ -5304,7 +5346,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+Gravity",
       "guideUpdatedAt": "2026-07-03T23:57:31.000Z",
-      "updatedAt": "2026-11-03T09:44:11.231Z"
+      "updatedAt": "2026-11-03T17:24:19.908Z"
     },
     {
       "id": "month11-wonder-16-福岡wonder+-19:30-21:00",
@@ -5341,7 +5383,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+FUKUOKA",
       "guideUpdatedAt": "2026-08-09T13:41:54.000Z",
-      "updatedAt": "2026-11-03T09:44:11.231Z"
+      "updatedAt": "2026-11-03T17:24:19.908Z"
     },
     {
       "id": "month11-wonder-17-大阪leaderswonder+-13:00-14:30",
@@ -5371,7 +5413,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "大阪Wonder+Leaders",
       "guideUpdatedAt": "2026-10-21T12:19:36.000Z",
-      "updatedAt": "2026-11-03T09:44:11.232Z"
+      "updatedAt": "2026-11-03T17:24:19.908Z"
     },
     {
       "id": "month11-wonder-17-広島wonder+-15:00-16:30",
@@ -5408,7 +5450,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+HIROSHIMA",
       "guideUpdatedAt": "2026-06-28T01:41:17.000Z",
-      "updatedAt": "2026-11-03T09:44:11.232Z"
+      "updatedAt": "2026-11-03T17:24:19.908Z"
     },
     {
       "id": "month11-wonder-17-名古屋leaderswonder+-19:30-21:00",
@@ -5438,7 +5480,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "名古屋Wonder+Leaders",
       "guideUpdatedAt": "2026-10-21T12:27:03.000Z",
-      "updatedAt": "2026-11-03T09:44:11.232Z"
+      "updatedAt": "2026-11-03T17:24:19.908Z"
     },
     {
       "id": "month11-wonder-18-新宿wonder+beauty-15:00-16:30",
@@ -5469,7 +5511,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+Beauty",
       "guideUpdatedAt": "2026-09-23T07:48:47.000Z",
-      "updatedAt": "2026-11-03T09:44:11.232Z"
+      "updatedAt": "2026-11-03T17:24:19.909Z"
     },
     {
       "id": "month11-wonder-18-新宿wonder+marketing-19:30-21:00",
@@ -5506,7 +5548,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+ Marketing",
       "guideUpdatedAt": "2026-09-10T23:43:50.000Z",
-      "updatedAt": "2026-11-03T09:44:11.232Z"
+      "updatedAt": "2026-11-03T17:24:19.909Z"
     },
     {
       "id": "month11-wonder-19-横浜wonder+-19:30-21:00",
@@ -5543,7 +5585,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+YOKOHAMA",
       "guideUpdatedAt": "2026-06-28T03:24:09.000Z",
-      "updatedAt": "2026-11-03T09:44:11.232Z"
+      "updatedAt": "2026-11-03T17:24:19.909Z"
     },
     {
       "id": "month11-wonder-19-銀座wonder+entertainment-20:00-22:00",
@@ -5580,7 +5622,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+Entertainment",
       "guideUpdatedAt": "2026-07-03T23:39:42.000Z",
-      "updatedAt": "2026-11-03T09:44:11.232Z"
+      "updatedAt": "2026-11-03T17:24:19.910Z"
     },
     {
       "id": "month11-wonder-20-大阪saleswonder+-14:30-16:00",
@@ -5617,7 +5659,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+OSAKA",
       "guideUpdatedAt": "2026-06-28T04:13:11.000Z",
-      "updatedAt": "2026-11-03T09:44:11.233Z"
+      "updatedAt": "2026-11-03T17:24:19.910Z"
     },
     {
       "id": "month11-wonder-20-大阪ladieswonder+-15:00-16:30",
@@ -5654,7 +5696,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+OSAKA",
       "guideUpdatedAt": "2026-06-28T04:13:11.000Z",
-      "updatedAt": "2026-11-03T09:44:11.233Z"
+      "updatedAt": "2026-11-03T17:24:19.910Z"
     },
     {
       "id": "month11-wonder-20-京都wonder+-19:30-21:00",
@@ -5691,7 +5733,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+KYOTO",
       "guideUpdatedAt": "2026-06-28T03:21:03.000Z",
-      "updatedAt": "2026-11-03T09:44:11.233Z"
+      "updatedAt": "2026-11-03T17:24:19.910Z"
     },
     {
       "id": "month11-wonder-20-神戸wonder+-19:30-21:00",
@@ -5722,7 +5764,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+KOBE",
       "guideUpdatedAt": "2026-09-14T12:40:13.000Z",
-      "updatedAt": "2026-11-03T09:44:11.233Z"
+      "updatedAt": "2026-11-03T17:24:19.910Z"
     },
     {
       "id": "month11-wonder-21-大阪100人合コンwonder+-19:30-21:30",
@@ -5731,22 +5773,35 @@
       "month": 11,
       "day": 21,
       "title": "大阪100人合コン Wonder+",
-      "eventName": "東京100人カフェ会Wonder+",
+      "eventName": "Wonder+OSAKA",
       "scheduleTitle": "大阪100人合コン Wonder+",
       "scheduleMeta": "19:30-21:30",
       "venue": "大阪100人合コン",
       "category": "wonder",
       "brand": "100",
-      "body": "【イベント名】東京100人カフェ会 Wonder+\n【開催日時】11月21日 19:30-21:30\n【案内文】\n\n大人気100人規模の異業種交流会「Wonder+100」のご案内✨\n\nこんにちは！Wonder＋運営事務局です。\n東京で月3,000人以上が参加する大人気ビジネス交流会！\n\n「友達」ではなく、ビジネスを共に加速させる「仲間」と出会いませんか？\n単なる「営業」や「売り先探し」の場ではなく、互いの目的を理解し、得意を持ち寄って協業できる仲間と出会う場所です。\n\nもちろんビジネス目的が必須ではないため、趣味の仲間探しや情報交換としてもご活用いただけます。初参加やお一人でのご参加（毎回約半数！）も大歓迎です。ぜひお気軽にご参加ください！\n\n📅 イベント概要\n■ 日時\n19:15 オープン｜19:30 スタート｜21:30 クローズ\n\n■ 会場\n「Hikari Lounge」ヒカリラウンジ\n大阪府大阪市北区梅田1丁目3-1 大阪駅前第一ビル9F\n\n■ 参加費\n男性 3,000円／女性 2,500円（税込・ドリンク付）\n※当日会場にて現金払い（キャッシュレス非対応）\n※インボイス対応領収書の発行可\n\n✨ Wonder+の特長\nイベントコンシェルジュが常駐\n大人数での交流が苦手な方や初参加の方も安心！「こんな人に出会いたい」を女性コンシェルジュをはじめとするスタッフにお伝えいただければ、お繋ぎをサポートします。\n\n専用プロフィール名札\n名札に「Wants（求めていること）」と「Free Offer（自分ができること）」を記入。視覚的に効率よくマッチング可能です。\n\n自由なスタンディング形式\n固定席ではないため、ご自身のペースに合わせて自由に移動しながら、気になる相手と交流できます。\n\n👥 こんな方におすすめ\n新しいビジネスの相談相手やコラボ先を探している方\n\n各種クリエイターやマーケターと繋がりたい方\n\n起業・独立・副業の仲間が欲しい方\n\n経営者、フリーランス、IT、医療、士業など、多彩な職種の方と交流したい方\n\n新しい刺激やビジネスのきっかけ、情報交換がしたい方\n\n📋 事前のご案内（FAQ・規約）\n服装： 清潔感のあるスマートカジュアルを推奨します。\n\n持ち物： 筆記用具、参加費（現金）、名刺（お持ちの方）。\n※受付で紹介用に名刺を1枚ご提出いただきます。表面に事業内容などを手書きメモしておくと交流がよりスムーズになります。\n\n途中入退室： 可能です。\n\nキャンセル： 前日・当日のキャンセルは参加費の100%が発生いたします。お早めに予約元からお手続きください。\n\n禁止事項： 強引な営業・売り込み、MLM・ネットワークビジネス・宗教等の勧誘行為、執拗な連絡先収集は固くお断りいたします（見つけ次第ご退場いただきます）。\n\n免責事項： 会場内でのトラブルや紛争に対し、当イベントは仲裁や介入を行いません。\n\n新しい出会いが、あなたのビジネスの突破口になります。\nビジネスシーンを一緒に盛り上げましょう！\n皆様のご参加をスタッフ一同、心よりお待ちしております。",
+      "body": "【案内文】\n\n大人気100人規模の異業種交流会「Wonder+OSAKA」のご案内✨\n\nこんにちは！Wonder＋運営事務局です。\n東京で月3,000人以上が参加する大人気ビジネス交流会が、ついに大阪へ上陸！\n\n「友達」ではなく、ビジネスを共に加速させる「仲間」と出会いませんか？\n単なる「営業」や「売り先探し」の場ではなく、互いの目的を理解し、得意を持ち寄って協業できる仲間と出会う場所です。\n\nもちろんビジネス目的が必須ではないため、趣味の仲間探しや情報交換としてもご活用いただけます。初参加やお一人でのご参加（毎回約半数！）も大歓迎です。ぜひお気軽にご参加ください！\n\n📅 イベント概要\n■ 日時\n19:15 オープン｜19:30 スタート｜21:30 クローズ\n\n■ 会場\n「Hikari Lounge」ヒカリラウンジ\n大阪府大阪市北区梅田1丁目3-1　大阪駅前第一ビル9F\n\n■ 参加費\n3,000円（税込・ドリンク付）\n※当日会場にて現金払い（キャッシュレス非対応）\n※インボイス対応領収書の発行可\n\n✨ Wonder+の特長\nイベントコンシェルジュが常駐\n大人数での交流が苦手な方や初参加の方も安心！「こんな人に出会いたい」を女性コンシェルジュをはじめとするスタッフにお伝えいただければ、お繋ぎをサポートします。\n\n専用プロフィール名札\n名札に「Wants（求めていること）」と「Free Offer（自分ができること）」を記入。視覚的に効率よくマッチング可能です。\n\n自由なスタンディング形式\n固定席ではないため、ご自身のペースに合わせて自由に移動しながら、気になる相手と交流できます。\n\n👥 こんな方におすすめ\n新しいビジネスの相談相手やコラボ先を探している方\n\n各種クリエイターやマーケターと繋がりたい方\n\n起業・独立・副業の仲間が欲しい方\n\n経営者、フリーランス、IT、医療、士業など、多彩な職種の方と交流したい方\n\n新しい刺激やビジネスのきっかけ、情報交換がしたい方\n\n📋 事前のご案内（FAQ・規約）\n服装： 清潔感のあるスマートカジュアルを推奨します。\n\n持ち物： 筆記用具、参加費（現金）、名刺（お持ちの方）。\n※受付で紹介用に名刺を1枚ご提出いただきます。表面に事業内容などを手書きメモしておくと交流がよりスムーズになります。\n\n途中入退室： 可能です。\n\nキャンセル： 前日・当日のキャンセルは参加費の100%が発生いたします。お早めに予約元からお手続きください。\n\n禁止事項： 強引な営業・売り込み、MLM・ネットワークビジネス・宗教等の勧誘行為、執拗な連絡先収集は固くお断りいたします（見つけ次第ご退場いただきます）。\n\n免責事項： 会場内でのトラブルや紛争に対し、当イベントは仲裁や介入を行いません。\n\n新しい出会いが、あなたのビジネスの突破口になります。\nビジネスシーンを一緒に盛り上げましょう！\n皆様のご参加をスタッフ一同、心よりお待ちしております。",
       "materialUrl": "",
-      "attachments": [],
+      "attachments": [
+        {
+          "name": "投稿素材1",
+          "url": "https://drive.google.com/open?id=1Q-q0o56OGknjmQ2Sp7ZE5BGa211eHHGS",
+          "downloadUrl": "https://wonderplus100-stack.github.io/wonder-plus-portal/assets/guide-images/1Q-q0o56OGknjmQ2Sp7ZE5BGa211eHHGS.png",
+          "thumbnailUrl": "https://wonderplus100-stack.github.io/wonder-plus-portal/assets/guide-images/1Q-q0o56OGknjmQ2Sp7ZE5BGa211eHHGS.png"
+        },
+        {
+          "name": "投稿素材2",
+          "url": "https://drive.google.com/open?id=1MQZKdU6ahsj3Z14VzafNJM6Yshr1irAU",
+          "downloadUrl": "https://wonderplus100-stack.github.io/wonder-plus-portal/assets/guide-images/1MQZKdU6ahsj3Z14VzafNJM6Yshr1irAU.png",
+          "thumbnailUrl": "https://wonderplus100-stack.github.io/wonder-plus-portal/assets/guide-images/1MQZKdU6ahsj3Z14VzafNJM6Yshr1irAU.png"
+        }
+      ],
       "guideMatched": true,
       "guideLinked": false,
-      "venueAdjusted": true,
+      "venueAdjusted": false,
       "datetimeAdjusted": true,
-      "matchedGuideTitle": "東京100人カフェ会Wonder+",
-      "guideUpdatedAt": "2026-11-01T13:51:46.000Z",
-      "updatedAt": "2026-11-03T09:44:11.233Z"
+      "matchedGuideTitle": "Wonder+OSAKA",
+      "guideUpdatedAt": "2026-06-28T04:13:11.000Z",
+      "updatedAt": "2026-11-03T17:24:19.911Z"
     },
     {
       "id": "month11-wonder-23-東京100人カフェ会wonder+-13:00-15:00",
@@ -5770,7 +5825,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "東京100人カフェ会Wonder+",
       "guideUpdatedAt": "2026-11-01T13:51:46.000Z",
-      "updatedAt": "2026-11-03T09:44:11.233Z"
+      "updatedAt": "2026-11-03T17:24:19.911Z"
     },
     {
       "id": "month11-wonder-24-大阪wonder+-13:00-14:30",
@@ -5807,7 +5862,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+OSAKA",
       "guideUpdatedAt": "2026-06-28T04:13:11.000Z",
-      "updatedAt": "2026-11-03T09:44:11.233Z"
+      "updatedAt": "2026-11-03T17:24:19.911Z"
     },
     {
       "id": "month11-wonder-24-札幌wonder+-19:00-20:30",
@@ -5831,7 +5886,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "札幌 Wonder+",
       "guideUpdatedAt": "2026-11-01T13:52:53.000Z",
-      "updatedAt": "2026-11-03T09:44:11.233Z"
+      "updatedAt": "2026-11-03T17:24:19.911Z"
     },
     {
       "id": "month11-wonder-24-名古屋wonder+-19:30-21:00",
@@ -5868,7 +5923,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+NAGOYA",
       "guideUpdatedAt": "2026-06-28T03:50:40.000Z",
-      "updatedAt": "2026-11-03T09:44:11.233Z"
+      "updatedAt": "2026-11-03T17:24:19.912Z"
     },
     {
       "id": "month11-wonder-25-銀座wonder+cxo-19:30-21:00",
@@ -5905,7 +5960,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+CXO",
       "guideUpdatedAt": "2026-08-23T06:11:55.000Z",
-      "updatedAt": "2026-11-03T09:44:11.234Z"
+      "updatedAt": "2026-11-03T17:24:19.913Z"
     },
     {
       "id": "month11-wonder-26-新宿wonder+100-13:00-14:30",
@@ -5914,22 +5969,29 @@
       "month": 11,
       "day": 26,
       "title": "新宿 Wonder+100",
-      "eventName": "東京100人カフェ会Wonder+",
+      "eventName": "新宿 Wonder+100",
       "scheduleTitle": "新宿 Wonder+100",
       "scheduleMeta": "13:00-14:30",
       "venue": "新宿",
       "category": "wonder",
       "brand": "100",
-      "body": "【イベント名】東京100人カフェ会 Wonder+\n【開催日時】11月26日 13:00-14:30\n【案内文】\n\n大人気100人規模の異業種交流会「Wonder+100」のご案内✨\n\nこんにちは！Wonder＋運営事務局です。\n東京で月3,000人以上が参加する大人気ビジネス交流会！\n\n「友達」ではなく、ビジネスを共に加速させる「仲間」と出会いませんか？\n単なる「営業」や「売り先探し」の場ではなく、互いの目的を理解し、得意を持ち寄って協業できる仲間と出会う場所です。\n\nもちろんビジネス目的が必須ではないため、趣味の仲間探しや情報交換としてもご活用いただけます。初参加やお一人でのご参加（毎回約半数！）も大歓迎です。ぜひお気軽にご参加ください！\n\n📅 イベント概要\n■ 日時\n12:45 オープン｜13:00 スタート｜14:30 クローズ\n\n■ 会場\n東京都新宿区西新宿1-19-5 \n新宿幸容ビル 4F\n\n■ 参加費\n男性 3,000円／女性 2,500円（税込・ドリンク付）\n※当日会場にて現金払い（キャッシュレス非対応）\n※インボイス対応領収書の発行可\n\n✨ Wonder+の特長\nイベントコンシェルジュが常駐\n大人数での交流が苦手な方や初参加の方も安心！「こんな人に出会いたい」を女性コンシェルジュをはじめとするスタッフにお伝えいただければ、お繋ぎをサポートします。\n\n専用プロフィール名札\n名札に「Wants（求めていること）」と「Free Offer（自分ができること）」を記入。視覚的に効率よくマッチング可能です。\n\n自由なスタンディング形式\n固定席ではないため、ご自身のペースに合わせて自由に移動しながら、気になる相手と交流できます。\n\n👥 こんな方におすすめ\n新しいビジネスの相談相手やコラボ先を探している方\n\n各種クリエイターやマーケターと繋がりたい方\n\n起業・独立・副業の仲間が欲しい方\n\n経営者、フリーランス、IT、医療、士業など、多彩な職種の方と交流したい方\n\n新しい刺激やビジネスのきっかけ、情報交換がしたい方\n\n📋 事前のご案内（FAQ・規約）\n服装： 清潔感のあるスマートカジュアルを推奨します。\n\n持ち物： 筆記用具、参加費（現金）、名刺（お持ちの方）。\n※受付で紹介用に名刺を1枚ご提出いただきます。表面に事業内容などを手書きメモしておくと交流がよりスムーズになります。\n\n途中入退室： 可能です。\n\nキャンセル： 前日・当日のキャンセルは参加費の100%が発生いたします。お早めに予約元からお手続きください。\n\n禁止事項： 強引な営業・売り込み、MLM・ネットワークビジネス・宗教等の勧誘行為、執拗な連絡先収集は固くお断りいたします（見つけ次第ご退場いただきます）。\n\n免責事項： 会場内でのトラブルや紛争に対し、当イベントは仲裁や介入を行いません。\n\n新しい出会いが、あなたのビジネスの突破口になります。\nビジネスシーンを一緒に盛り上げましょう！\n皆様のご参加をスタッフ一同、心よりお待ちしております。",
+      "body": "【イベント名】東京100人異業種交流会 Wonder+\n【開催日時】11月26日 13:00-14:30\n【案内文】\n\n大人気100人規模の異業種交流会「Wonder+100」のご案内✨\n\nこんにちは！Wonder＋運営事務局です。\n東京で月3,000人以上が参加する大人気ビジネス交流会！\n\n「友達」ではなく、ビジネスを共に加速させる「仲間」と出会いませんか？\n単なる「営業」や「売り先探し」の場ではなく、互いの目的を理解し、得意を持ち寄って協業できる仲間と出会う場所です。\n\nもちろんビジネス目的が必須ではないため、趣味の仲間探しや情報交換としてもご活用いただけます。初参加やお一人でのご参加（毎回約半数！）も大歓迎です。ぜひお気軽にご参加ください！\n\n📅 イベント概要\n■ 日時\n12:45 オープン｜13:00 スタート｜14:30 クローズ\n\n■ 会場\n東京都新宿区西新宿1-19-5 \n新宿幸容ビル 4F\n\n■ 参加費\n一部参加 男性 3,000円／女性 3,000円（税込・ドリンク付）\n一部、二部参加 男性 4,500円／女性 4,500円（税込・ドリンク付）\n※当日会場にて現金払い（キャッシュレス非対応）\n※インボイス対応領収書の発行可\n\n✨ Wonder+の特長\nイベントコンシェルジュが常駐\n大人数での交流が苦手な方や初参加の方も安心！「こんな人に出会いたい」を女性コンシェルジュをはじめとするスタッフにお伝えいただければ、お繋ぎをサポートします。\n\n専用プロフィール名札\n名札に「Wants（求めていること）」と「Free Offer（自分ができること）」を記入。視覚的に効率よくマッチング可能です。\n\n自由なスタンディング形式\n固定席ではないため、ご自身のペースに合わせて自由に移動しながら、気になる相手と交流できます。\n\n👥 こんな方におすすめ\n新しいビジネスの相談相手やコラボ先を探している方\n\n各種クリエイターやマーケターと繋がりたい方\n\n起業・独立・副業の仲間が欲しい方\n\n経営者、フリーランス、IT、医療、士業など、多彩な職種の方と交流したい方\n\n新しい刺激やビジネスのきっかけ、情報交換がしたい方\n\n📋 事前のご案内（FAQ・規約）\n服装： 清潔感のあるスマートカジュアルを推奨します。\n\n持ち物： 筆記用具、参加費（現金）、名刺（お持ちの方）。\n※受付で紹介用に名刺を1枚ご提出いただきます。表面に事業内容などを手書きメモしておくと交流がよりスムーズになります。\n\n途中入退室： 可能です。\n\nキャンセル： 前日・当日のキャンセルは参加費の100%が発生いたします。お早めに予約元からお手続きください。\n\n禁止事項： 強引な営業・売り込み、MLM・ネットワークビジネス・宗教等の勧誘行為、執拗な連絡先収集は固くお断りいたします（見つけ次第ご退場いただきます）。\n\n免責事項： 会場内でのトラブルや紛争に対し、当イベントは仲裁や介入を行いません。\n\n新しい出会いが、あなたのビジネスの突破口になります。\nビジネスシーンを一緒に盛り上げましょう！\n皆様のご参加をスタッフ一同、心よりお待ちしております。",
       "materialUrl": "",
-      "attachments": [],
+      "attachments": [
+        {
+          "name": "投稿素材1",
+          "url": "https://drive.google.com/open?id=1f6eSkXUFgPM5l-AYGDTvS4L8C0jECXIw",
+          "downloadUrl": "https://wonderplus100-stack.github.io/wonder-plus-portal/assets/guide-images/1f6eSkXUFgPM5l-AYGDTvS4L8C0jECXIw.png",
+          "thumbnailUrl": "https://wonderplus100-stack.github.io/wonder-plus-portal/assets/guide-images/1f6eSkXUFgPM5l-AYGDTvS4L8C0jECXIw.png"
+        }
+      ],
       "guideMatched": true,
       "guideLinked": false,
       "venueAdjusted": false,
       "datetimeAdjusted": true,
-      "matchedGuideTitle": "東京100人カフェ会Wonder+",
-      "guideUpdatedAt": "2026-11-01T13:51:46.000Z",
-      "updatedAt": "2026-11-03T09:44:11.234Z"
+      "matchedGuideTitle": "新宿 Wonder+100",
+      "guideUpdatedAt": "2026-11-03T14:07:41.000Z",
+      "updatedAt": "2026-11-03T17:24:19.913Z"
     },
     {
       "id": "month11-wonder-26-新宿wonder+100-15:00-16:30",
@@ -5938,22 +6000,29 @@
       "month": 11,
       "day": 26,
       "title": "新宿 Wonder+100",
-      "eventName": "東京100人カフェ会Wonder+",
+      "eventName": "新宿 Wonder+100",
       "scheduleTitle": "新宿 Wonder+100",
       "scheduleMeta": "15:00-16:30",
       "venue": "新宿",
       "category": "wonder",
       "brand": "100",
-      "body": "【イベント名】東京100人カフェ会 Wonder+\n【開催日時】11月26日 15:00-16:30\n【案内文】\n\n大人気100人規模の異業種交流会「Wonder+100」のご案内✨\n\nこんにちは！Wonder＋運営事務局です。\n東京で月3,000人以上が参加する大人気ビジネス交流会！\n\n「友達」ではなく、ビジネスを共に加速させる「仲間」と出会いませんか？\n単なる「営業」や「売り先探し」の場ではなく、互いの目的を理解し、得意を持ち寄って協業できる仲間と出会う場所です。\n\nもちろんビジネス目的が必須ではないため、趣味の仲間探しや情報交換としてもご活用いただけます。初参加やお一人でのご参加（毎回約半数！）も大歓迎です。ぜひお気軽にご参加ください！\n\n📅 イベント概要\n■ 日時\n14:45 オープン｜15:00 スタート｜16:30 クローズ\n\n■ 会場\n東京都新宿区西新宿1-19-5 \n新宿幸容ビル 4F\n\n■ 参加費\n男性 3,000円／女性 2,500円（税込・ドリンク付）\n※当日会場にて現金払い（キャッシュレス非対応）\n※インボイス対応領収書の発行可\n\n✨ Wonder+の特長\nイベントコンシェルジュが常駐\n大人数での交流が苦手な方や初参加の方も安心！「こんな人に出会いたい」を女性コンシェルジュをはじめとするスタッフにお伝えいただければ、お繋ぎをサポートします。\n\n専用プロフィール名札\n名札に「Wants（求めていること）」と「Free Offer（自分ができること）」を記入。視覚的に効率よくマッチング可能です。\n\n自由なスタンディング形式\n固定席ではないため、ご自身のペースに合わせて自由に移動しながら、気になる相手と交流できます。\n\n👥 こんな方におすすめ\n新しいビジネスの相談相手やコラボ先を探している方\n\n各種クリエイターやマーケターと繋がりたい方\n\n起業・独立・副業の仲間が欲しい方\n\n経営者、フリーランス、IT、医療、士業など、多彩な職種の方と交流したい方\n\n新しい刺激やビジネスのきっかけ、情報交換がしたい方\n\n📋 事前のご案内（FAQ・規約）\n服装： 清潔感のあるスマートカジュアルを推奨します。\n\n持ち物： 筆記用具、参加費（現金）、名刺（お持ちの方）。\n※受付で紹介用に名刺を1枚ご提出いただきます。表面に事業内容などを手書きメモしておくと交流がよりスムーズになります。\n\n途中入退室： 可能です。\n\nキャンセル： 前日・当日のキャンセルは参加費の100%が発生いたします。お早めに予約元からお手続きください。\n\n禁止事項： 強引な営業・売り込み、MLM・ネットワークビジネス・宗教等の勧誘行為、執拗な連絡先収集は固くお断りいたします（見つけ次第ご退場いただきます）。\n\n免責事項： 会場内でのトラブルや紛争に対し、当イベントは仲裁や介入を行いません。\n\n新しい出会いが、あなたのビジネスの突破口になります。\nビジネスシーンを一緒に盛り上げましょう！\n皆様のご参加をスタッフ一同、心よりお待ちしております。",
+      "body": "【イベント名】東京100人異業種交流会 Wonder+\n【開催日時】11月26日 15:00-16:30\n【案内文】\n\n大人気100人規模の異業種交流会「Wonder+100」のご案内✨\n\nこんにちは！Wonder＋運営事務局です。\n東京で月3,000人以上が参加する大人気ビジネス交流会！\n\n「友達」ではなく、ビジネスを共に加速させる「仲間」と出会いませんか？\n単なる「営業」や「売り先探し」の場ではなく、互いの目的を理解し、得意を持ち寄って協業できる仲間と出会う場所です。\n\nもちろんビジネス目的が必須ではないため、趣味の仲間探しや情報交換としてもご活用いただけます。初参加やお一人でのご参加（毎回約半数！）も大歓迎です。ぜひお気軽にご参加ください！\n\n📅 イベント概要\n■ 日時\n14:45 オープン｜15:00 スタート｜16:30 クローズ\n\n■ 会場\n東京都新宿区西新宿1-19-5 \n新宿幸容ビル 4F\n\n■ 参加費\n一部参加 男性 3,000円／女性 3,000円（税込・ドリンク付）\n一部、二部参加 男性 4,500円／女性 4,500円（税込・ドリンク付）\n※当日会場にて現金払い（キャッシュレス非対応）\n※インボイス対応領収書の発行可\n\n✨ Wonder+の特長\nイベントコンシェルジュが常駐\n大人数での交流が苦手な方や初参加の方も安心！「こんな人に出会いたい」を女性コンシェルジュをはじめとするスタッフにお伝えいただければ、お繋ぎをサポートします。\n\n専用プロフィール名札\n名札に「Wants（求めていること）」と「Free Offer（自分ができること）」を記入。視覚的に効率よくマッチング可能です。\n\n自由なスタンディング形式\n固定席ではないため、ご自身のペースに合わせて自由に移動しながら、気になる相手と交流できます。\n\n👥 こんな方におすすめ\n新しいビジネスの相談相手やコラボ先を探している方\n\n各種クリエイターやマーケターと繋がりたい方\n\n起業・独立・副業の仲間が欲しい方\n\n経営者、フリーランス、IT、医療、士業など、多彩な職種の方と交流したい方\n\n新しい刺激やビジネスのきっかけ、情報交換がしたい方\n\n📋 事前のご案内（FAQ・規約）\n服装： 清潔感のあるスマートカジュアルを推奨します。\n\n持ち物： 筆記用具、参加費（現金）、名刺（お持ちの方）。\n※受付で紹介用に名刺を1枚ご提出いただきます。表面に事業内容などを手書きメモしておくと交流がよりスムーズになります。\n\n途中入退室： 可能です。\n\nキャンセル： 前日・当日のキャンセルは参加費の100%が発生いたします。お早めに予約元からお手続きください。\n\n禁止事項： 強引な営業・売り込み、MLM・ネットワークビジネス・宗教等の勧誘行為、執拗な連絡先収集は固くお断りいたします（見つけ次第ご退場いただきます）。\n\n免責事項： 会場内でのトラブルや紛争に対し、当イベントは仲裁や介入を行いません。\n\n新しい出会いが、あなたのビジネスの突破口になります。\nビジネスシーンを一緒に盛り上げましょう！\n皆様のご参加をスタッフ一同、心よりお待ちしております。",
       "materialUrl": "",
-      "attachments": [],
+      "attachments": [
+        {
+          "name": "投稿素材1",
+          "url": "https://drive.google.com/open?id=1f6eSkXUFgPM5l-AYGDTvS4L8C0jECXIw",
+          "downloadUrl": "https://wonderplus100-stack.github.io/wonder-plus-portal/assets/guide-images/1f6eSkXUFgPM5l-AYGDTvS4L8C0jECXIw.png",
+          "thumbnailUrl": "https://wonderplus100-stack.github.io/wonder-plus-portal/assets/guide-images/1f6eSkXUFgPM5l-AYGDTvS4L8C0jECXIw.png"
+        }
+      ],
       "guideMatched": true,
       "guideLinked": false,
       "venueAdjusted": false,
       "datetimeAdjusted": true,
-      "matchedGuideTitle": "東京100人カフェ会Wonder+",
-      "guideUpdatedAt": "2026-11-01T13:51:46.000Z",
-      "updatedAt": "2026-11-03T09:44:11.234Z"
+      "matchedGuideTitle": "新宿 Wonder+100",
+      "guideUpdatedAt": "2026-11-03T14:07:41.000Z",
+      "updatedAt": "2026-11-03T17:24:19.913Z"
     },
     {
       "id": "month11-wonder-27-横浜1on1wonder+-15:00-16:00",
@@ -5977,7 +6046,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+ 1on1",
       "guideUpdatedAt": "2026-10-06T15:00:00.000Z",
-      "updatedAt": "2026-11-03T09:44:11.234Z"
+      "updatedAt": "2026-11-03T17:24:19.915Z"
     },
     {
       "id": "month11-wonder-30-船橋wonder+-14:00-15:30",
@@ -6014,7 +6083,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+CHIBA",
       "guideUpdatedAt": "2026-06-28T03:26:54.000Z",
-      "updatedAt": "2026-11-03T09:44:11.234Z"
+      "updatedAt": "2026-11-03T17:24:19.916Z"
     },
     {
       "id": "month11-wonder-30-大宮wonder+-15:00-16:30",
@@ -6051,7 +6120,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+OMIYA",
       "guideUpdatedAt": "2026-08-11T15:46:11.000Z",
-      "updatedAt": "2026-11-03T09:44:11.234Z"
+      "updatedAt": "2026-11-03T17:24:19.916Z"
     },
     {
       "id": "month11-wonder-30-銀座wonder+alliance-19:30-21:00",
@@ -6088,7 +6157,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+Alliance",
       "guideUpdatedAt": "2026-08-06T11:32:15.000Z",
-      "updatedAt": "2026-11-03T09:44:11.234Z"
+      "updatedAt": "2026-11-03T17:24:19.917Z"
     },
     {
       "id": "month12-wonder-1-宇都宮wonder+-13:00-14:30",
@@ -6125,7 +6194,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+UTUNOMIYA",
       "guideUpdatedAt": "2026-08-09T13:20:44.000Z",
-      "updatedAt": "2026-11-03T09:44:11.235Z"
+      "updatedAt": "2026-11-03T17:24:19.917Z"
     },
     {
       "id": "month12-wonder-1-銀座wonder+prime4-15:00-16:30",
@@ -6149,7 +6218,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "",
       "guideUpdatedAt": "",
-      "updatedAt": "2026-11-03T09:44:11.235Z"
+      "updatedAt": "2026-11-03T17:24:19.917Z"
     },
     {
       "id": "month12-wonder-1-仙台ガーデンwonder+-19:30-21:00",
@@ -6186,7 +6255,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+SENDAI",
       "guideUpdatedAt": "2026-07-07T01:09:11.000Z",
-      "updatedAt": "2026-11-03T09:44:11.235Z"
+      "updatedAt": "2026-11-03T17:24:19.918Z"
     },
     {
       "id": "month12-wonder-2-銀座wonder+freelance-13:00-14:30",
@@ -6210,7 +6279,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "銀座 Wonder+Freelance",
       "guideUpdatedAt": "2026-10-21T12:33:37.000Z",
-      "updatedAt": "2026-11-03T09:44:11.236Z"
+      "updatedAt": "2026-11-03T17:24:19.918Z"
     },
     {
       "id": "month12-wonder-2-名古屋wonder+ladies-15:00-16:30",
@@ -6247,7 +6316,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+NAGOYA",
       "guideUpdatedAt": "2026-06-28T03:50:40.000Z",
-      "updatedAt": "2026-11-03T09:44:11.236Z"
+      "updatedAt": "2026-11-03T17:24:19.920Z"
     },
     {
       "id": "month12-wonder-2-銀座wonder+story-15:30-17:30",
@@ -6277,7 +6346,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+Story",
       "guideUpdatedAt": "2026-10-21T07:02:17.000Z",
-      "updatedAt": "2026-11-03T09:44:11.236Z"
+      "updatedAt": "2026-11-03T17:24:19.921Z"
     },
     {
       "id": "month12-wonder-3-横浜1on1wonder+-15:00-16:00",
@@ -6301,7 +6370,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+ 1on1",
       "guideUpdatedAt": "2026-10-06T15:00:00.000Z",
-      "updatedAt": "2026-11-03T09:44:11.236Z"
+      "updatedAt": "2026-11-03T17:24:19.921Z"
     },
     {
       "id": "month12-wonder-3-銀座wonder+realestate-15:00-16:30",
@@ -6325,7 +6394,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "",
       "guideUpdatedAt": "",
-      "updatedAt": "2026-11-03T09:44:11.236Z"
+      "updatedAt": "2026-11-03T17:24:19.921Z"
     },
     {
       "id": "month12-wonder-7-浜松wonder+-13:00-14:30",
@@ -6349,7 +6418,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "",
       "guideUpdatedAt": "",
-      "updatedAt": "2026-11-03T09:44:11.236Z"
+      "updatedAt": "2026-11-03T17:24:19.921Z"
     },
     {
       "id": "month12-wonder-7-大阪wonder+-19:30-21:00",
@@ -6386,7 +6455,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+OSAKA",
       "guideUpdatedAt": "2026-06-28T04:13:11.000Z",
-      "updatedAt": "2026-11-03T09:44:11.236Z"
+      "updatedAt": "2026-11-03T17:24:19.921Z"
     },
     {
       "id": "month12-wonder-8-熊本未来wonder+-13:00-14:30",
@@ -6423,7 +6492,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+KUMAMOTO",
       "guideUpdatedAt": "2026-07-07T00:59:27.000Z",
-      "updatedAt": "2026-11-03T09:44:11.236Z"
+      "updatedAt": "2026-11-03T17:24:19.921Z"
     },
     {
       "id": "month12-wonder-8-岡山npdwonder+-15:00-16:30",
@@ -6460,7 +6529,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+OKAYAMA",
       "guideUpdatedAt": "2026-09-10T08:32:24.000Z",
-      "updatedAt": "2026-11-03T09:44:11.237Z"
+      "updatedAt": "2026-11-03T17:24:19.921Z"
     },
     {
       "id": "month12-wonder-8-神戸サンwonder+-15:00-16:30",
@@ -6491,7 +6560,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+KOBE",
       "guideUpdatedAt": "2026-09-14T12:40:13.000Z",
-      "updatedAt": "2026-11-03T09:44:11.237Z"
+      "updatedAt": "2026-11-03T17:24:19.922Z"
     },
     {
       "id": "month12-wonder-8-広島サンwonder+-19:30-21:00",
@@ -6528,7 +6597,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+HIROSHIMA",
       "guideUpdatedAt": "2026-06-28T01:41:17.000Z",
-      "updatedAt": "2026-11-03T09:44:11.237Z"
+      "updatedAt": "2026-11-03T17:24:19.922Z"
     },
     {
       "id": "month12-wonder-8-福岡東洋wonder+-19:30-21:00",
@@ -6565,7 +6634,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+FUKUOKA",
       "guideUpdatedAt": "2026-08-09T13:41:54.000Z",
-      "updatedAt": "2026-11-03T09:44:11.237Z"
+      "updatedAt": "2026-11-03T17:24:19.922Z"
     },
     {
       "id": "month12-wonder-9-銀座wonder+ses-13:00-14:30",
@@ -6596,7 +6665,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+ SES",
       "guideUpdatedAt": "2026-09-11T01:49:42.000Z",
-      "updatedAt": "2026-11-03T09:44:11.237Z"
+      "updatedAt": "2026-11-03T17:24:19.922Z"
     },
     {
       "id": "month12-wonder-9-名古屋wonder+-13:00-14:30",
@@ -6633,7 +6702,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+NAGOYA",
       "guideUpdatedAt": "2026-06-28T03:50:40.000Z",
-      "updatedAt": "2026-11-03T09:44:11.237Z"
+      "updatedAt": "2026-11-03T17:24:19.922Z"
     },
     {
       "id": "month12-wonder-9-銀座wonder+hr（人材）-15:00-16:30",
@@ -6664,7 +6733,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+ HR",
       "guideUpdatedAt": "2026-09-11T01:52:29.000Z",
-      "updatedAt": "2026-11-03T09:44:11.237Z"
+      "updatedAt": "2026-11-03T17:24:19.922Z"
     },
     {
       "id": "month12-wonder-10-銀座wonder+20代限定-15:00-16:30",
@@ -6688,7 +6757,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "",
       "guideUpdatedAt": "",
-      "updatedAt": "2026-11-03T09:44:11.237Z"
+      "updatedAt": "2026-11-03T17:24:19.922Z"
     },
     {
       "id": "month12-wonder-10-横浜wonder+leaders-19:30-21:00",
@@ -6718,7 +6787,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "横浜Wonder+Leaders",
       "guideUpdatedAt": "2026-10-21T12:30:48.000Z",
-      "updatedAt": "2026-11-03T09:44:11.238Z"
+      "updatedAt": "2026-11-03T17:24:19.922Z"
     },
     {
       "id": "month12-wonder-10-銀座wonder+gravity-19:30-21:00",
@@ -6755,7 +6824,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+Gravity",
       "guideUpdatedAt": "2026-07-03T23:57:31.000Z",
-      "updatedAt": "2026-11-03T09:44:11.238Z"
+      "updatedAt": "2026-11-03T17:24:19.923Z"
     },
     {
       "id": "month12-wonder-11-大阪wonder+sales-14:30-16:00",
@@ -6792,7 +6861,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+OSAKA",
       "guideUpdatedAt": "2026-06-28T04:13:11.000Z",
-      "updatedAt": "2026-11-03T09:44:11.238Z"
+      "updatedAt": "2026-11-03T17:24:19.925Z"
     },
     {
       "id": "month12-wonder-11-大阪wonder+ladies-15:00-16:30",
@@ -6829,7 +6898,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+OSAKA",
       "guideUpdatedAt": "2026-06-28T04:13:11.000Z",
-      "updatedAt": "2026-11-03T09:44:11.238Z"
+      "updatedAt": "2026-11-03T17:24:19.925Z"
     },
     {
       "id": "month12-wonder-11-京都kokowonder+-19:30-21:00",
@@ -6866,7 +6935,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+KYOTO",
       "guideUpdatedAt": "2026-06-28T03:21:03.000Z",
-      "updatedAt": "2026-11-03T09:44:11.238Z"
+      "updatedAt": "2026-11-03T17:24:19.925Z"
     },
     {
       "id": "month12-wonder-12-大阪wonder+100人コン-19:30-21:30",
@@ -6875,22 +6944,35 @@
       "month": 12,
       "day": 12,
       "title": "大阪 Wonder+100人コン",
-      "eventName": "東京100人カフェ会Wonder+",
+      "eventName": "Wonder+OSAKA",
       "scheduleTitle": "大阪 Wonder+100人コン",
       "scheduleMeta": "19:30-21:30",
       "venue": "大阪",
       "category": "wonder",
       "brand": "100",
-      "body": "【イベント名】東京100人カフェ会 Wonder+\n【開催日時】12月12日 19:30-21:30\n【案内文】\n\n大人気100人規模の異業種交流会「Wonder+100」のご案内✨\n\nこんにちは！Wonder＋運営事務局です。\n東京で月3,000人以上が参加する大人気ビジネス交流会！\n\n「友達」ではなく、ビジネスを共に加速させる「仲間」と出会いませんか？\n単なる「営業」や「売り先探し」の場ではなく、互いの目的を理解し、得意を持ち寄って協業できる仲間と出会う場所です。\n\nもちろんビジネス目的が必須ではないため、趣味の仲間探しや情報交換としてもご活用いただけます。初参加やお一人でのご参加（毎回約半数！）も大歓迎です。ぜひお気軽にご参加ください！\n\n📅 イベント概要\n■ 日時\n19:15 オープン｜19:30 スタート｜21:30 クローズ\n\n■ 会場\n「Hikari Lounge」ヒカリラウンジ\n大阪府大阪市北区梅田1丁目3-1 大阪駅前第一ビル9F\n\n■ 参加費\n男性 3,000円／女性 2,500円（税込・ドリンク付）\n※当日会場にて現金払い（キャッシュレス非対応）\n※インボイス対応領収書の発行可\n\n✨ Wonder+の特長\nイベントコンシェルジュが常駐\n大人数での交流が苦手な方や初参加の方も安心！「こんな人に出会いたい」を女性コンシェルジュをはじめとするスタッフにお伝えいただければ、お繋ぎをサポートします。\n\n専用プロフィール名札\n名札に「Wants（求めていること）」と「Free Offer（自分ができること）」を記入。視覚的に効率よくマッチング可能です。\n\n自由なスタンディング形式\n固定席ではないため、ご自身のペースに合わせて自由に移動しながら、気になる相手と交流できます。\n\n👥 こんな方におすすめ\n新しいビジネスの相談相手やコラボ先を探している方\n\n各種クリエイターやマーケターと繋がりたい方\n\n起業・独立・副業の仲間が欲しい方\n\n経営者、フリーランス、IT、医療、士業など、多彩な職種の方と交流したい方\n\n新しい刺激やビジネスのきっかけ、情報交換がしたい方\n\n📋 事前のご案内（FAQ・規約）\n服装： 清潔感のあるスマートカジュアルを推奨します。\n\n持ち物： 筆記用具、参加費（現金）、名刺（お持ちの方）。\n※受付で紹介用に名刺を1枚ご提出いただきます。表面に事業内容などを手書きメモしておくと交流がよりスムーズになります。\n\n途中入退室： 可能です。\n\nキャンセル： 前日・当日のキャンセルは参加費の100%が発生いたします。お早めに予約元からお手続きください。\n\n禁止事項： 強引な営業・売り込み、MLM・ネットワークビジネス・宗教等の勧誘行為、執拗な連絡先収集は固くお断りいたします（見つけ次第ご退場いただきます）。\n\n免責事項： 会場内でのトラブルや紛争に対し、当イベントは仲裁や介入を行いません。\n\n新しい出会いが、あなたのビジネスの突破口になります。\nビジネスシーンを一緒に盛り上げましょう！\n皆様のご参加をスタッフ一同、心よりお待ちしております。",
+      "body": "【案内文】\n\n大人気100人規模の異業種交流会「Wonder+OSAKA」のご案内✨\n\nこんにちは！Wonder＋運営事務局です。\n東京で月3,000人以上が参加する大人気ビジネス交流会が、ついに大阪へ上陸！\n\n「友達」ではなく、ビジネスを共に加速させる「仲間」と出会いませんか？\n単なる「営業」や「売り先探し」の場ではなく、互いの目的を理解し、得意を持ち寄って協業できる仲間と出会う場所です。\n\nもちろんビジネス目的が必須ではないため、趣味の仲間探しや情報交換としてもご活用いただけます。初参加やお一人でのご参加（毎回約半数！）も大歓迎です。ぜひお気軽にご参加ください！\n\n📅 イベント概要\n■ 日時\n19:15 オープン｜19:30 スタート｜21:30 クローズ\n\n■ 会場\n「Hikari Lounge」ヒカリラウンジ\n大阪府大阪市北区梅田1丁目3-1　大阪駅前第一ビル9F\n\n■ 参加費\n3,000円（税込・ドリンク付）\n※当日会場にて現金払い（キャッシュレス非対応）\n※インボイス対応領収書の発行可\n\n✨ Wonder+の特長\nイベントコンシェルジュが常駐\n大人数での交流が苦手な方や初参加の方も安心！「こんな人に出会いたい」を女性コンシェルジュをはじめとするスタッフにお伝えいただければ、お繋ぎをサポートします。\n\n専用プロフィール名札\n名札に「Wants（求めていること）」と「Free Offer（自分ができること）」を記入。視覚的に効率よくマッチング可能です。\n\n自由なスタンディング形式\n固定席ではないため、ご自身のペースに合わせて自由に移動しながら、気になる相手と交流できます。\n\n👥 こんな方におすすめ\n新しいビジネスの相談相手やコラボ先を探している方\n\n各種クリエイターやマーケターと繋がりたい方\n\n起業・独立・副業の仲間が欲しい方\n\n経営者、フリーランス、IT、医療、士業など、多彩な職種の方と交流したい方\n\n新しい刺激やビジネスのきっかけ、情報交換がしたい方\n\n📋 事前のご案内（FAQ・規約）\n服装： 清潔感のあるスマートカジュアルを推奨します。\n\n持ち物： 筆記用具、参加費（現金）、名刺（お持ちの方）。\n※受付で紹介用に名刺を1枚ご提出いただきます。表面に事業内容などを手書きメモしておくと交流がよりスムーズになります。\n\n途中入退室： 可能です。\n\nキャンセル： 前日・当日のキャンセルは参加費の100%が発生いたします。お早めに予約元からお手続きください。\n\n禁止事項： 強引な営業・売り込み、MLM・ネットワークビジネス・宗教等の勧誘行為、執拗な連絡先収集は固くお断りいたします（見つけ次第ご退場いただきます）。\n\n免責事項： 会場内でのトラブルや紛争に対し、当イベントは仲裁や介入を行いません。\n\n新しい出会いが、あなたのビジネスの突破口になります。\nビジネスシーンを一緒に盛り上げましょう！\n皆様のご参加をスタッフ一同、心よりお待ちしております。",
       "materialUrl": "",
-      "attachments": [],
+      "attachments": [
+        {
+          "name": "投稿素材1",
+          "url": "https://drive.google.com/open?id=1Q-q0o56OGknjmQ2Sp7ZE5BGa211eHHGS",
+          "downloadUrl": "https://wonderplus100-stack.github.io/wonder-plus-portal/assets/guide-images/1Q-q0o56OGknjmQ2Sp7ZE5BGa211eHHGS.png",
+          "thumbnailUrl": "https://wonderplus100-stack.github.io/wonder-plus-portal/assets/guide-images/1Q-q0o56OGknjmQ2Sp7ZE5BGa211eHHGS.png"
+        },
+        {
+          "name": "投稿素材2",
+          "url": "https://drive.google.com/open?id=1MQZKdU6ahsj3Z14VzafNJM6Yshr1irAU",
+          "downloadUrl": "https://wonderplus100-stack.github.io/wonder-plus-portal/assets/guide-images/1MQZKdU6ahsj3Z14VzafNJM6Yshr1irAU.png",
+          "thumbnailUrl": "https://wonderplus100-stack.github.io/wonder-plus-portal/assets/guide-images/1MQZKdU6ahsj3Z14VzafNJM6Yshr1irAU.png"
+        }
+      ],
       "guideMatched": true,
       "guideLinked": false,
-      "venueAdjusted": true,
+      "venueAdjusted": false,
       "datetimeAdjusted": true,
-      "matchedGuideTitle": "東京100人カフェ会Wonder+",
-      "guideUpdatedAt": "2026-11-01T13:51:46.000Z",
-      "updatedAt": "2026-11-03T09:44:11.238Z"
+      "matchedGuideTitle": "Wonder+OSAKA",
+      "guideUpdatedAt": "2026-06-28T04:13:11.000Z",
+      "updatedAt": "2026-11-03T17:24:19.933Z"
     },
     {
       "id": "month12-wonder-14-高崎wonder+-13:00-14:30",
@@ -6927,7 +7009,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+TAKASAKI",
       "guideUpdatedAt": "2026-07-25T14:36:03.000Z",
-      "updatedAt": "2026-11-03T09:44:11.238Z"
+      "updatedAt": "2026-11-03T17:24:19.935Z"
     },
     {
       "id": "month12-wonder-14-銀座wonder+ai＆tech-15:00-16:30",
@@ -6951,7 +7033,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "",
       "guideUpdatedAt": "",
-      "updatedAt": "2026-11-03T09:44:11.238Z"
+      "updatedAt": "2026-11-03T17:24:19.935Z"
     },
     {
       "id": "month12-wonder-14-w+ウィル忘年会wonder+ウィル忘年会-19:30-21:00",
@@ -6975,7 +7057,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "",
       "guideUpdatedAt": "",
-      "updatedAt": "2026-11-03T09:44:11.238Z"
+      "updatedAt": "2026-11-03T17:24:19.935Z"
     },
     {
       "id": "month12-wonder-15-銀座wonder+beauty-13:00-14:30",
@@ -7006,7 +7088,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+Beauty",
       "guideUpdatedAt": "2026-09-23T07:48:47.000Z",
-      "updatedAt": "2026-11-03T09:44:11.239Z"
+      "updatedAt": "2026-11-03T17:24:19.940Z"
     },
     {
       "id": "month12-wonder-15-銀座wonder+marketing-15:00-16:30",
@@ -7043,7 +7125,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+ Marketing",
       "guideUpdatedAt": "2026-09-10T23:43:50.000Z",
-      "updatedAt": "2026-11-03T09:44:11.239Z"
+      "updatedAt": "2026-11-03T17:24:19.941Z"
     },
     {
       "id": "month12-wonder-16-横浜wonder+-15:00-16:30",
@@ -7080,7 +7162,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+YOKOHAMA",
       "guideUpdatedAt": "2026-06-28T03:24:09.000Z",
-      "updatedAt": "2026-11-03T09:44:11.239Z"
+      "updatedAt": "2026-11-03T17:24:19.951Z"
     },
     {
       "id": "month12-wonder-16-銀座wonder+士業professional-15:00-16:30",
@@ -7104,7 +7186,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "",
       "guideUpdatedAt": "",
-      "updatedAt": "2026-11-03T09:44:11.239Z"
+      "updatedAt": "2026-11-03T17:24:19.952Z"
     },
     {
       "id": "month12-wonder-16-銀座wonder+cxo-19:30-21:00",
@@ -7141,7 +7223,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+CXO",
       "guideUpdatedAt": "2026-08-23T06:11:55.000Z",
-      "updatedAt": "2026-11-03T09:44:11.239Z"
+      "updatedAt": "2026-11-03T17:24:19.953Z"
     },
     {
       "id": "month12-wonder-17-銀座wonder+leaders-12:30-14:00",
@@ -7165,7 +7247,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "銀座 Wonder+Leaders",
       "guideUpdatedAt": "2026-10-21T12:35:40.000Z",
-      "updatedAt": "2026-11-03T09:44:11.239Z"
+      "updatedAt": "2026-11-03T17:24:19.953Z"
     },
     {
       "id": "month12-wonder-17-銀座wonder+ladies-15:00-16:30",
@@ -7189,7 +7271,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+ Ladies",
       "guideUpdatedAt": "2026-10-21T15:00:00.000Z",
-      "updatedAt": "2026-11-03T09:44:11.239Z"
+      "updatedAt": "2026-11-03T17:24:19.954Z"
     },
     {
       "id": "month12-wonder-17-銀座wonder+entertainment-20:00-22:00",
@@ -7226,7 +7308,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+Entertainment",
       "guideUpdatedAt": "2026-07-03T23:39:42.000Z",
-      "updatedAt": "2026-11-03T09:44:11.239Z"
+      "updatedAt": "2026-11-03T17:24:19.956Z"
     },
     {
       "id": "month12-wonder-21-名古屋wonder+leaders-13:00-14:30",
@@ -7256,7 +7338,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "名古屋Wonder+Leaders",
       "guideUpdatedAt": "2026-10-21T12:27:03.000Z",
-      "updatedAt": "2026-11-03T09:44:11.239Z"
+      "updatedAt": "2026-11-03T17:24:19.956Z"
     },
     {
       "id": "month12-wonder-21-新宿wonder+freelance-15:00-16:30",
@@ -7280,7 +7362,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "",
       "guideUpdatedAt": "",
-      "updatedAt": "2026-11-03T09:44:11.239Z"
+      "updatedAt": "2026-11-03T17:24:19.957Z"
     },
     {
       "id": "month12-wonder-21-船橋wonder+-15:00-16:30",
@@ -7317,7 +7399,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "Wonder+CHIBA",
       "guideUpdatedAt": "2026-06-28T03:26:54.000Z",
-      "updatedAt": "2026-11-03T09:44:11.240Z"
+      "updatedAt": "2026-11-03T17:24:19.957Z"
     },
     {
       "id": "month12-wonder-21-大阪wonder+leaders-19:30-21:00",
@@ -7347,7 +7429,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "大阪Wonder+Leaders",
       "guideUpdatedAt": "2026-10-21T12:19:36.000Z",
-      "updatedAt": "2026-11-03T09:44:11.240Z"
+      "updatedAt": "2026-11-03T17:24:19.958Z"
     },
     {
       "id": "month12-wonder-22-新宿wonder+realestate-13:00-14:30",
@@ -7371,7 +7453,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "新宿 Wonder+RealEstate",
       "guideUpdatedAt": "2026-09-11T02:01:50.000Z",
-      "updatedAt": "2026-11-03T09:44:11.240Z"
+      "updatedAt": "2026-11-03T17:24:19.958Z"
     },
     {
       "id": "month12-wonder-22-大宮refwonder+-14:00-15:30",
@@ -7408,7 +7490,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+OMIYA",
       "guideUpdatedAt": "2026-08-11T15:46:11.000Z",
-      "updatedAt": "2026-11-03T09:44:11.240Z"
+      "updatedAt": "2026-11-03T17:24:19.959Z"
     },
     {
       "id": "month12-wonder-22-横浜1on1wonder+-19:30-20:30",
@@ -7432,7 +7514,7 @@
       "datetimeAdjusted": true,
       "matchedGuideTitle": "Wonder+ 1on1",
       "guideUpdatedAt": "2026-10-06T15:00:00.000Z",
-      "updatedAt": "2026-11-03T09:44:11.240Z"
+      "updatedAt": "2026-11-03T17:24:19.959Z"
     },
     {
       "id": "month12-wonder-23-新宿wonder+100-13:00-14:30",
@@ -7441,22 +7523,29 @@
       "month": 12,
       "day": 23,
       "title": "新宿 Wonder+100",
-      "eventName": "東京100人カフェ会Wonder+",
+      "eventName": "新宿 Wonder+100",
       "scheduleTitle": "新宿 Wonder+100",
       "scheduleMeta": "13:00-14:30",
       "venue": "新宿",
       "category": "wonder",
       "brand": "100",
-      "body": "【イベント名】東京100人カフェ会 Wonder+\n【開催日時】12月23日 13:00-14:30\n【案内文】\n\n大人気100人規模の異業種交流会「Wonder+100」のご案内✨\n\nこんにちは！Wonder＋運営事務局です。\n東京で月3,000人以上が参加する大人気ビジネス交流会！\n\n「友達」ではなく、ビジネスを共に加速させる「仲間」と出会いませんか？\n単なる「営業」や「売り先探し」の場ではなく、互いの目的を理解し、得意を持ち寄って協業できる仲間と出会う場所です。\n\nもちろんビジネス目的が必須ではないため、趣味の仲間探しや情報交換としてもご活用いただけます。初参加やお一人でのご参加（毎回約半数！）も大歓迎です。ぜひお気軽にご参加ください！\n\n📅 イベント概要\n■ 日時\n12:45 オープン｜13:00 スタート｜14:30 クローズ\n\n■ 会場\n東京都新宿区西新宿1-19-5 \n新宿幸容ビル 4F\n\n■ 参加費\n男性 3,000円／女性 2,500円（税込・ドリンク付）\n※当日会場にて現金払い（キャッシュレス非対応）\n※インボイス対応領収書の発行可\n\n✨ Wonder+の特長\nイベントコンシェルジュが常駐\n大人数での交流が苦手な方や初参加の方も安心！「こんな人に出会いたい」を女性コンシェルジュをはじめとするスタッフにお伝えいただければ、お繋ぎをサポートします。\n\n専用プロフィール名札\n名札に「Wants（求めていること）」と「Free Offer（自分ができること）」を記入。視覚的に効率よくマッチング可能です。\n\n自由なスタンディング形式\n固定席ではないため、ご自身のペースに合わせて自由に移動しながら、気になる相手と交流できます。\n\n👥 こんな方におすすめ\n新しいビジネスの相談相手やコラボ先を探している方\n\n各種クリエイターやマーケターと繋がりたい方\n\n起業・独立・副業の仲間が欲しい方\n\n経営者、フリーランス、IT、医療、士業など、多彩な職種の方と交流したい方\n\n新しい刺激やビジネスのきっかけ、情報交換がしたい方\n\n📋 事前のご案内（FAQ・規約）\n服装： 清潔感のあるスマートカジュアルを推奨します。\n\n持ち物： 筆記用具、参加費（現金）、名刺（お持ちの方）。\n※受付で紹介用に名刺を1枚ご提出いただきます。表面に事業内容などを手書きメモしておくと交流がよりスムーズになります。\n\n途中入退室： 可能です。\n\nキャンセル： 前日・当日のキャンセルは参加費の100%が発生いたします。お早めに予約元からお手続きください。\n\n禁止事項： 強引な営業・売り込み、MLM・ネットワークビジネス・宗教等の勧誘行為、執拗な連絡先収集は固くお断りいたします（見つけ次第ご退場いただきます）。\n\n免責事項： 会場内でのトラブルや紛争に対し、当イベントは仲裁や介入を行いません。\n\n新しい出会いが、あなたのビジネスの突破口になります。\nビジネスシーンを一緒に盛り上げましょう！\n皆様のご参加をスタッフ一同、心よりお待ちしております。",
+      "body": "【イベント名】東京100人異業種交流会 Wonder+\n【開催日時】12月23日 13:00-14:30\n【案内文】\n\n大人気100人規模の異業種交流会「Wonder+100」のご案内✨\n\nこんにちは！Wonder＋運営事務局です。\n東京で月3,000人以上が参加する大人気ビジネス交流会！\n\n「友達」ではなく、ビジネスを共に加速させる「仲間」と出会いませんか？\n単なる「営業」や「売り先探し」の場ではなく、互いの目的を理解し、得意を持ち寄って協業できる仲間と出会う場所です。\n\nもちろんビジネス目的が必須ではないため、趣味の仲間探しや情報交換としてもご活用いただけます。初参加やお一人でのご参加（毎回約半数！）も大歓迎です。ぜひお気軽にご参加ください！\n\n📅 イベント概要\n■ 日時\n12:45 オープン｜13:00 スタート｜14:30 クローズ\n\n■ 会場\n東京都新宿区西新宿1-19-5 \n新宿幸容ビル 4F\n\n■ 参加費\n一部参加 男性 3,000円／女性 3,000円（税込・ドリンク付）\n一部、二部参加 男性 4,500円／女性 4,500円（税込・ドリンク付）\n※当日会場にて現金払い（キャッシュレス非対応）\n※インボイス対応領収書の発行可\n\n✨ Wonder+の特長\nイベントコンシェルジュが常駐\n大人数での交流が苦手な方や初参加の方も安心！「こんな人に出会いたい」を女性コンシェルジュをはじめとするスタッフにお伝えいただければ、お繋ぎをサポートします。\n\n専用プロフィール名札\n名札に「Wants（求めていること）」と「Free Offer（自分ができること）」を記入。視覚的に効率よくマッチング可能です。\n\n自由なスタンディング形式\n固定席ではないため、ご自身のペースに合わせて自由に移動しながら、気になる相手と交流できます。\n\n👥 こんな方におすすめ\n新しいビジネスの相談相手やコラボ先を探している方\n\n各種クリエイターやマーケターと繋がりたい方\n\n起業・独立・副業の仲間が欲しい方\n\n経営者、フリーランス、IT、医療、士業など、多彩な職種の方と交流したい方\n\n新しい刺激やビジネスのきっかけ、情報交換がしたい方\n\n📋 事前のご案内（FAQ・規約）\n服装： 清潔感のあるスマートカジュアルを推奨します。\n\n持ち物： 筆記用具、参加費（現金）、名刺（お持ちの方）。\n※受付で紹介用に名刺を1枚ご提出いただきます。表面に事業内容などを手書きメモしておくと交流がよりスムーズになります。\n\n途中入退室： 可能です。\n\nキャンセル： 前日・当日のキャンセルは参加費の100%が発生いたします。お早めに予約元からお手続きください。\n\n禁止事項： 強引な営業・売り込み、MLM・ネットワークビジネス・宗教等の勧誘行為、執拗な連絡先収集は固くお断りいたします（見つけ次第ご退場いただきます）。\n\n免責事項： 会場内でのトラブルや紛争に対し、当イベントは仲裁や介入を行いません。\n\n新しい出会いが、あなたのビジネスの突破口になります。\nビジネスシーンを一緒に盛り上げましょう！\n皆様のご参加をスタッフ一同、心よりお待ちしております。",
       "materialUrl": "",
-      "attachments": [],
+      "attachments": [
+        {
+          "name": "投稿素材1",
+          "url": "https://drive.google.com/open?id=1f6eSkXUFgPM5l-AYGDTvS4L8C0jECXIw",
+          "downloadUrl": "https://wonderplus100-stack.github.io/wonder-plus-portal/assets/guide-images/1f6eSkXUFgPM5l-AYGDTvS4L8C0jECXIw.png",
+          "thumbnailUrl": "https://wonderplus100-stack.github.io/wonder-plus-portal/assets/guide-images/1f6eSkXUFgPM5l-AYGDTvS4L8C0jECXIw.png"
+        }
+      ],
       "guideMatched": true,
       "guideLinked": false,
       "venueAdjusted": false,
       "datetimeAdjusted": true,
-      "matchedGuideTitle": "東京100人カフェ会Wonder+",
-      "guideUpdatedAt": "2026-11-01T13:51:46.000Z",
-      "updatedAt": "2026-11-03T09:44:11.240Z"
+      "matchedGuideTitle": "新宿 Wonder+100",
+      "guideUpdatedAt": "2026-11-03T14:07:41.000Z",
+      "updatedAt": "2026-11-03T17:24:19.961Z"
     },
     {
       "id": "month12-wonder-23-新宿wonder+100-15:00-16:30",
@@ -7465,22 +7554,29 @@
       "month": 12,
       "day": 23,
       "title": "新宿 Wonder+100",
-      "eventName": "東京100人カフェ会Wonder+",
+      "eventName": "新宿 Wonder+100",
       "scheduleTitle": "新宿 Wonder+100",
       "scheduleMeta": "15:00-16:30",
       "venue": "新宿",
       "category": "wonder",
       "brand": "100",
-      "body": "【イベント名】東京100人カフェ会 Wonder+\n【開催日時】12月23日 15:00-16:30\n【案内文】\n\n大人気100人規模の異業種交流会「Wonder+100」のご案内✨\n\nこんにちは！Wonder＋運営事務局です。\n東京で月3,000人以上が参加する大人気ビジネス交流会！\n\n「友達」ではなく、ビジネスを共に加速させる「仲間」と出会いませんか？\n単なる「営業」や「売り先探し」の場ではなく、互いの目的を理解し、得意を持ち寄って協業できる仲間と出会う場所です。\n\nもちろんビジネス目的が必須ではないため、趣味の仲間探しや情報交換としてもご活用いただけます。初参加やお一人でのご参加（毎回約半数！）も大歓迎です。ぜひお気軽にご参加ください！\n\n📅 イベント概要\n■ 日時\n14:45 オープン｜15:00 スタート｜16:30 クローズ\n\n■ 会場\n東京都新宿区西新宿1-19-5 \n新宿幸容ビル 4F\n\n■ 参加費\n男性 3,000円／女性 2,500円（税込・ドリンク付）\n※当日会場にて現金払い（キャッシュレス非対応）\n※インボイス対応領収書の発行可\n\n✨ Wonder+の特長\nイベントコンシェルジュが常駐\n大人数での交流が苦手な方や初参加の方も安心！「こんな人に出会いたい」を女性コンシェルジュをはじめとするスタッフにお伝えいただければ、お繋ぎをサポートします。\n\n専用プロフィール名札\n名札に「Wants（求めていること）」と「Free Offer（自分ができること）」を記入。視覚的に効率よくマッチング可能です。\n\n自由なスタンディング形式\n固定席ではないため、ご自身のペースに合わせて自由に移動しながら、気になる相手と交流できます。\n\n👥 こんな方におすすめ\n新しいビジネスの相談相手やコラボ先を探している方\n\n各種クリエイターやマーケターと繋がりたい方\n\n起業・独立・副業の仲間が欲しい方\n\n経営者、フリーランス、IT、医療、士業など、多彩な職種の方と交流したい方\n\n新しい刺激やビジネスのきっかけ、情報交換がしたい方\n\n📋 事前のご案内（FAQ・規約）\n服装： 清潔感のあるスマートカジュアルを推奨します。\n\n持ち物： 筆記用具、参加費（現金）、名刺（お持ちの方）。\n※受付で紹介用に名刺を1枚ご提出いただきます。表面に事業内容などを手書きメモしておくと交流がよりスムーズになります。\n\n途中入退室： 可能です。\n\nキャンセル： 前日・当日のキャンセルは参加費の100%が発生いたします。お早めに予約元からお手続きください。\n\n禁止事項： 強引な営業・売り込み、MLM・ネットワークビジネス・宗教等の勧誘行為、執拗な連絡先収集は固くお断りいたします（見つけ次第ご退場いただきます）。\n\n免責事項： 会場内でのトラブルや紛争に対し、当イベントは仲裁や介入を行いません。\n\n新しい出会いが、あなたのビジネスの突破口になります。\nビジネスシーンを一緒に盛り上げましょう！\n皆様のご参加をスタッフ一同、心よりお待ちしております。",
+      "body": "【イベント名】東京100人異業種交流会 Wonder+\n【開催日時】12月23日 15:00-16:30\n【案内文】\n\n大人気100人規模の異業種交流会「Wonder+100」のご案内✨\n\nこんにちは！Wonder＋運営事務局です。\n東京で月3,000人以上が参加する大人気ビジネス交流会！\n\n「友達」ではなく、ビジネスを共に加速させる「仲間」と出会いませんか？\n単なる「営業」や「売り先探し」の場ではなく、互いの目的を理解し、得意を持ち寄って協業できる仲間と出会う場所です。\n\nもちろんビジネス目的が必須ではないため、趣味の仲間探しや情報交換としてもご活用いただけます。初参加やお一人でのご参加（毎回約半数！）も大歓迎です。ぜひお気軽にご参加ください！\n\n📅 イベント概要\n■ 日時\n14:45 オープン｜15:00 スタート｜16:30 クローズ\n\n■ 会場\n東京都新宿区西新宿1-19-5 \n新宿幸容ビル 4F\n\n■ 参加費\n一部参加 男性 3,000円／女性 3,000円（税込・ドリンク付）\n一部、二部参加 男性 4,500円／女性 4,500円（税込・ドリンク付）\n※当日会場にて現金払い（キャッシュレス非対応）\n※インボイス対応領収書の発行可\n\n✨ Wonder+の特長\nイベントコンシェルジュが常駐\n大人数での交流が苦手な方や初参加の方も安心！「こんな人に出会いたい」を女性コンシェルジュをはじめとするスタッフにお伝えいただければ、お繋ぎをサポートします。\n\n専用プロフィール名札\n名札に「Wants（求めていること）」と「Free Offer（自分ができること）」を記入。視覚的に効率よくマッチング可能です。\n\n自由なスタンディング形式\n固定席ではないため、ご自身のペースに合わせて自由に移動しながら、気になる相手と交流できます。\n\n👥 こんな方におすすめ\n新しいビジネスの相談相手やコラボ先を探している方\n\n各種クリエイターやマーケターと繋がりたい方\n\n起業・独立・副業の仲間が欲しい方\n\n経営者、フリーランス、IT、医療、士業など、多彩な職種の方と交流したい方\n\n新しい刺激やビジネスのきっかけ、情報交換がしたい方\n\n📋 事前のご案内（FAQ・規約）\n服装： 清潔感のあるスマートカジュアルを推奨します。\n\n持ち物： 筆記用具、参加費（現金）、名刺（お持ちの方）。\n※受付で紹介用に名刺を1枚ご提出いただきます。表面に事業内容などを手書きメモしておくと交流がよりスムーズになります。\n\n途中入退室： 可能です。\n\nキャンセル： 前日・当日のキャンセルは参加費の100%が発生いたします。お早めに予約元からお手続きください。\n\n禁止事項： 強引な営業・売り込み、MLM・ネットワークビジネス・宗教等の勧誘行為、執拗な連絡先収集は固くお断りいたします（見つけ次第ご退場いただきます）。\n\n免責事項： 会場内でのトラブルや紛争に対し、当イベントは仲裁や介入を行いません。\n\n新しい出会いが、あなたのビジネスの突破口になります。\nビジネスシーンを一緒に盛り上げましょう！\n皆様のご参加をスタッフ一同、心よりお待ちしております。",
       "materialUrl": "",
-      "attachments": [],
+      "attachments": [
+        {
+          "name": "投稿素材1",
+          "url": "https://drive.google.com/open?id=1f6eSkXUFgPM5l-AYGDTvS4L8C0jECXIw",
+          "downloadUrl": "https://wonderplus100-stack.github.io/wonder-plus-portal/assets/guide-images/1f6eSkXUFgPM5l-AYGDTvS4L8C0jECXIw.png",
+          "thumbnailUrl": "https://wonderplus100-stack.github.io/wonder-plus-portal/assets/guide-images/1f6eSkXUFgPM5l-AYGDTvS4L8C0jECXIw.png"
+        }
+      ],
       "guideMatched": true,
       "guideLinked": false,
       "venueAdjusted": false,
       "datetimeAdjusted": true,
-      "matchedGuideTitle": "東京100人カフェ会Wonder+",
-      "guideUpdatedAt": "2026-11-01T13:51:46.000Z",
-      "updatedAt": "2026-11-03T09:44:11.240Z"
+      "matchedGuideTitle": "新宿 Wonder+100",
+      "guideUpdatedAt": "2026-11-03T14:07:41.000Z",
+      "updatedAt": "2026-11-03T17:24:19.962Z"
     },
     {
       "id": "month12-wonder-28-銀座wonder+2026f-19:30-21:00",
@@ -7504,7 +7600,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "",
       "guideUpdatedAt": "",
-      "updatedAt": "2026-11-03T09:44:11.240Z"
+      "updatedAt": "2026-11-03T17:24:19.962Z"
     },
     {
       "id": "month12-wonder-29-新宿100人カフェwonder+-19:30-21:00",
@@ -7513,22 +7609,29 @@
       "month": 12,
       "day": 29,
       "title": "新宿100人カフェ Wonder+",
-      "eventName": "東京100人カフェ会Wonder+",
+      "eventName": "新宿 Wonder+100",
       "scheduleTitle": "新宿100人カフェ Wonder+",
       "scheduleMeta": "19:30-21:00",
       "venue": "新宿100人カフェ",
       "category": "wonder",
       "brand": "100",
-      "body": "【イベント名】東京100人カフェ会 Wonder+\n【開催日時】12月29日 19:30-21:00\n【案内文】\n\n大人気100人規模の異業種交流会「Wonder+100」のご案内✨\n\nこんにちは！Wonder＋運営事務局です。\n東京で月3,000人以上が参加する大人気ビジネス交流会！\n\n「友達」ではなく、ビジネスを共に加速させる「仲間」と出会いませんか？\n単なる「営業」や「売り先探し」の場ではなく、互いの目的を理解し、得意を持ち寄って協業できる仲間と出会う場所です。\n\nもちろんビジネス目的が必須ではないため、趣味の仲間探しや情報交換としてもご活用いただけます。初参加やお一人でのご参加（毎回約半数！）も大歓迎です。ぜひお気軽にご参加ください！\n\n📅 イベント概要\n■ 日時\n19:15 オープン｜19:30 スタート｜21:00 クローズ\n\n■ 会場\n東京都新宿区西新宿1-19-5 \n新宿幸容ビル 4F\n\n■ 参加費\n男性 3,000円／女性 2,500円（税込・ドリンク付）\n※当日会場にて現金払い（キャッシュレス非対応）\n※インボイス対応領収書の発行可\n\n✨ Wonder+の特長\nイベントコンシェルジュが常駐\n大人数での交流が苦手な方や初参加の方も安心！「こんな人に出会いたい」を女性コンシェルジュをはじめとするスタッフにお伝えいただければ、お繋ぎをサポートします。\n\n専用プロフィール名札\n名札に「Wants（求めていること）」と「Free Offer（自分ができること）」を記入。視覚的に効率よくマッチング可能です。\n\n自由なスタンディング形式\n固定席ではないため、ご自身のペースに合わせて自由に移動しながら、気になる相手と交流できます。\n\n👥 こんな方におすすめ\n新しいビジネスの相談相手やコラボ先を探している方\n\n各種クリエイターやマーケターと繋がりたい方\n\n起業・独立・副業の仲間が欲しい方\n\n経営者、フリーランス、IT、医療、士業など、多彩な職種の方と交流したい方\n\n新しい刺激やビジネスのきっかけ、情報交換がしたい方\n\n📋 事前のご案内（FAQ・規約）\n服装： 清潔感のあるスマートカジュアルを推奨します。\n\n持ち物： 筆記用具、参加費（現金）、名刺（お持ちの方）。\n※受付で紹介用に名刺を1枚ご提出いただきます。表面に事業内容などを手書きメモしておくと交流がよりスムーズになります。\n\n途中入退室： 可能です。\n\nキャンセル： 前日・当日のキャンセルは参加費の100%が発生いたします。お早めに予約元からお手続きください。\n\n禁止事項： 強引な営業・売り込み、MLM・ネットワークビジネス・宗教等の勧誘行為、執拗な連絡先収集は固くお断りいたします（見つけ次第ご退場いただきます）。\n\n免責事項： 会場内でのトラブルや紛争に対し、当イベントは仲裁や介入を行いません。\n\n新しい出会いが、あなたのビジネスの突破口になります。\nビジネスシーンを一緒に盛り上げましょう！\n皆様のご参加をスタッフ一同、心よりお待ちしております。",
+      "body": "【イベント名】東京100人異業種交流会 Wonder+\n【開催日時】12月29日 19:30-21:00\n【案内文】\n\n大人気100人規模の異業種交流会「Wonder+100」のご案内✨\n\nこんにちは！Wonder＋運営事務局です。\n東京で月3,000人以上が参加する大人気ビジネス交流会！\n\n「友達」ではなく、ビジネスを共に加速させる「仲間」と出会いませんか？\n単なる「営業」や「売り先探し」の場ではなく、互いの目的を理解し、得意を持ち寄って協業できる仲間と出会う場所です。\n\nもちろんビジネス目的が必須ではないため、趣味の仲間探しや情報交換としてもご活用いただけます。初参加やお一人でのご参加（毎回約半数！）も大歓迎です。ぜひお気軽にご参加ください！\n\n📅 イベント概要\n■ 日時\n19:15 オープン｜19:30 スタート｜21:00 クローズ\n\n■ 会場\n東京都新宿区西新宿1-19-5 \n新宿幸容ビル 4F\n\n■ 参加費\n一部参加 男性 3,000円／女性 3,000円（税込・ドリンク付）\n一部、二部参加 男性 4,500円／女性 4,500円（税込・ドリンク付）\n※当日会場にて現金払い（キャッシュレス非対応）\n※インボイス対応領収書の発行可\n\n✨ Wonder+の特長\nイベントコンシェルジュが常駐\n大人数での交流が苦手な方や初参加の方も安心！「こんな人に出会いたい」を女性コンシェルジュをはじめとするスタッフにお伝えいただければ、お繋ぎをサポートします。\n\n専用プロフィール名札\n名札に「Wants（求めていること）」と「Free Offer（自分ができること）」を記入。視覚的に効率よくマッチング可能です。\n\n自由なスタンディング形式\n固定席ではないため、ご自身のペースに合わせて自由に移動しながら、気になる相手と交流できます。\n\n👥 こんな方におすすめ\n新しいビジネスの相談相手やコラボ先を探している方\n\n各種クリエイターやマーケターと繋がりたい方\n\n起業・独立・副業の仲間が欲しい方\n\n経営者、フリーランス、IT、医療、士業など、多彩な職種の方と交流したい方\n\n新しい刺激やビジネスのきっかけ、情報交換がしたい方\n\n📋 事前のご案内（FAQ・規約）\n服装： 清潔感のあるスマートカジュアルを推奨します。\n\n持ち物： 筆記用具、参加費（現金）、名刺（お持ちの方）。\n※受付で紹介用に名刺を1枚ご提出いただきます。表面に事業内容などを手書きメモしておくと交流がよりスムーズになります。\n\n途中入退室： 可能です。\n\nキャンセル： 前日・当日のキャンセルは参加費の100%が発生いたします。お早めに予約元からお手続きください。\n\n禁止事項： 強引な営業・売り込み、MLM・ネットワークビジネス・宗教等の勧誘行為、執拗な連絡先収集は固くお断りいたします（見つけ次第ご退場いただきます）。\n\n免責事項： 会場内でのトラブルや紛争に対し、当イベントは仲裁や介入を行いません。\n\n新しい出会いが、あなたのビジネスの突破口になります。\nビジネスシーンを一緒に盛り上げましょう！\n皆様のご参加をスタッフ一同、心よりお待ちしております。",
       "materialUrl": "",
-      "attachments": [],
+      "attachments": [
+        {
+          "name": "投稿素材1",
+          "url": "https://drive.google.com/open?id=1f6eSkXUFgPM5l-AYGDTvS4L8C0jECXIw",
+          "downloadUrl": "https://wonderplus100-stack.github.io/wonder-plus-portal/assets/guide-images/1f6eSkXUFgPM5l-AYGDTvS4L8C0jECXIw.png",
+          "thumbnailUrl": "https://wonderplus100-stack.github.io/wonder-plus-portal/assets/guide-images/1f6eSkXUFgPM5l-AYGDTvS4L8C0jECXIw.png"
+        }
+      ],
       "guideMatched": true,
       "guideLinked": false,
       "venueAdjusted": false,
       "datetimeAdjusted": true,
-      "matchedGuideTitle": "東京100人カフェ会Wonder+",
-      "guideUpdatedAt": "2026-11-01T13:51:46.000Z",
-      "updatedAt": "2026-11-03T09:44:11.240Z"
+      "matchedGuideTitle": "新宿 Wonder+100",
+      "guideUpdatedAt": "2026-11-03T14:07:41.000Z",
+      "updatedAt": "2026-11-03T17:24:19.962Z"
     },
     {
       "id": "month12-wonder-31-新宿カウントダウンwonder+-22:00-24:00",
@@ -7552,7 +7655,7 @@
       "datetimeAdjusted": false,
       "matchedGuideTitle": "",
       "guideUpdatedAt": "",
-      "updatedAt": "2026-11-03T09:44:11.240Z"
+      "updatedAt": "2026-11-03T17:24:19.962Z"
     }
   ],
   "venueMaster": [

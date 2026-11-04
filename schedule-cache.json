@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "updatedAt": "2026-11-04T09:44:08.678Z",
+  "updatedAt": "2026-11-04T17:34:13.958Z",
   "source": "formatted-schedule-sheet",
   "masterSource": "formatted-schedule-sheet",
   "scheduleCounts": {
@@ -20,8 +20,8 @@
     "novemberWonder": 42,
     "novemberRegular": 20,
     "novemberMeeting": 3,
-    "decemberWonder": 48,
-    "decemberRegular": 5,
+    "decemberWonder": 49,
+    "decemberRegular": 20,
     "decemberMeeting": 3
   },
   "assignments": {
@@ -5971,6 +5971,20 @@
           "sourceRow": 304
         },
         {
+          "id": "2026|12|3|wonder|銀座w∔engineerwonder+|19:30-20:00",
+          "year": 2026,
+          "month": 12,
+          "category": "wonder",
+          "day": 3,
+          "title": "銀座W∔Engineer Wonder+",
+          "meta": "19:30-20:00",
+          "timeRange": "19:30-20:00",
+          "venue": "銀座W∔Engineer",
+          "eventName": "イベント",
+          "time": "19:30-20:00",
+          "sourceRow": 306
+        },
+        {
           "id": "2026|12|7|wonder|浜松wonder+|13:00-14:30",
           "year": 2026,
           "month": 12,
@@ -5982,7 +5996,7 @@
           "venue": "浜松",
           "eventName": "イベント",
           "time": "13:00-14:30",
-          "sourceRow": 306
+          "sourceRow": 307
         },
         {
           "id": "2026|12|7|wonder|大阪wonder+|19:30-21:00",
@@ -5996,7 +6010,7 @@
           "venue": "大阪",
           "eventName": "イベント",
           "time": "19:30-21:00",
-          "sourceRow": 307
+          "sourceRow": 308
         },
         {
           "id": "2026|12|8|wonder|熊本未来wonder+|13:00-14:30",
@@ -6010,7 +6024,7 @@
           "venue": "熊本未来",
           "eventName": "イベント",
           "time": "13:00-14:30",
-          "sourceRow": 308
+          "sourceRow": 309
         },
         {
           "id": "2026|12|8|wonder|岡山npdwonder+|15:00-16:30",
@@ -6024,7 +6038,7 @@
           "venue": "岡山NPD",
           "eventName": "イベント",
           "time": "15:00-16:30",
-          "sourceRow": 310
+          "sourceRow": 311
         },
         {
           "id": "2026|12|8|wonder|神戸サンwonder+|15:00-16:30",
@@ -6038,7 +6052,7 @@
           "venue": "神戸サン",
           "eventName": "イベント",
           "time": "15:00-16:30",
-          "sourceRow": 309
+          "sourceRow": 310
         },
         {
           "id": "2026|12|8|wonder|広島サンwonder+|19:30-21:00",
@@ -6052,7 +6066,7 @@
           "venue": "広島サン",
           "eventName": "イベント",
           "time": "19:30-21:00",
-          "sourceRow": 312
+          "sourceRow": 313
         },
         {
           "id": "2026|12|8|wonder|福岡東洋wonder+|19:30-21:00",
@@ -6066,7 +6080,7 @@
           "venue": "福岡東洋",
           "eventName": "イベント",
           "time": "19:30-21:00",
-          "sourceRow": 311
+          "sourceRow": 312
         },
         {
           "id": "2026|12|9|wonder|銀座wonder+ses|13:00-14:30",
@@ -6080,7 +6094,7 @@
           "venue": "銀座",
           "eventName": "W+SES",
           "time": "13:00-14:30",
-          "sourceRow": 314
+          "sourceRow": 315
         },
         {
           "id": "2026|12|9|wonder|名古屋wonder+|13:00-14:30",
@@ -6094,7 +6108,7 @@
           "venue": "名古屋",
           "eventName": "イベント",
           "time": "13:00-14:30",
-          "sourceRow": 313
+          "sourceRow": 314
         },
         {
           "id": "2026|12|9|wonder|銀座wonder+hr（人材）|15:00-16:30",
@@ -6108,7 +6122,7 @@
           "venue": "銀座",
           "eventName": "W+HR（人材）",
           "time": "15:00-16:30",
-          "sourceRow": 315
+          "sourceRow": 316
         },
         {
           "id": "2026|12|10|wonder|銀座wonder+20代限定|15:00-16:30",
@@ -6122,7 +6136,7 @@
           "venue": "銀座",
           "eventName": "W+20代限定",
           "time": "15:00-16:30",
-          "sourceRow": 316
+          "sourceRow": 317
         },
         {
           "id": "2026|12|10|wonder|横浜wonder+leaders|19:30-21:00",
@@ -6136,7 +6150,7 @@
           "venue": "横浜",
           "eventName": "W+Leaders",
           "time": "19:30-21:00",
-          "sourceRow": 317
+          "sourceRow": 318
         },
         {
           "id": "2026|12|10|wonder|銀座wonder+gravity|19:30-21:00",
@@ -6150,7 +6164,7 @@
           "venue": "銀座",
           "eventName": "W+Gravity",
           "time": "19:30-21:00",
-          "sourceRow": 318
+          "sourceRow": 319
         },
         {
           "id": "2026|12|11|wonder|大阪wonder+sales|14:30-16:00",
@@ -6164,7 +6178,7 @@
           "venue": "大阪",
           "eventName": "W+Sales",
           "time": "14:30-16:00",
-          "sourceRow": 319
+          "sourceRow": 320
         },
         {
           "id": "2026|12|11|wonder|大阪wonder+ladies|15:00-16:30",
@@ -6178,7 +6192,7 @@
           "venue": "大阪",
           "eventName": "W+Ladies",
           "time": "15:00-16:30",
-          "sourceRow": 320
+          "sourceRow": 321
         },
         {
           "id": "2026|12|11|wonder|京都kokowonder+|19:30-21:00",
@@ -6192,7 +6206,7 @@
           "venue": "京都koko",
           "eventName": "イベント",
           "time": "19:30-21:00",
-          "sourceRow": 321
+          "sourceRow": 322
         },
         {
           "id": "2026|12|12|wonder|大阪wonder+100人コン|19:30-21:30",
@@ -6206,7 +6220,7 @@
           "venue": "大阪",
           "eventName": "W+100人コン",
           "time": "19:30-21:30",
-          "sourceRow": 323
+          "sourceRow": 324
         },
         {
           "id": "2026|12|14|wonder|高崎wonder+|13:00-14:30",
@@ -6220,7 +6234,7 @@
           "venue": "高崎",
           "eventName": "イベント",
           "time": "13:00-14:30",
-          "sourceRow": 324
+          "sourceRow": 325
         },
         {
           "id": "2026|12|14|wonder|銀座wonder+ai＆tech|15:00-16:30",
@@ -6234,7 +6248,7 @@
           "venue": "銀座",
           "eventName": "W+AI＆TECH",
           "time": "15:00-16:30",
-          "sourceRow": 325
+          "sourceRow": 326
         },
         {
           "id": "2026|12|14|wonder|w+ウィル忘年会wonder+ウィル忘年会|19:30-21:00",
@@ -6248,7 +6262,7 @@
           "venue": "W+ウィル忘年会",
           "eventName": "W+ウィル忘年会",
           "time": "19:30-21:00",
-          "sourceRow": 326
+          "sourceRow": 327
         },
         {
           "id": "2026|12|15|wonder|銀座wonder+beauty|13:00-14:30",
@@ -6262,7 +6276,7 @@
           "venue": "銀座",
           "eventName": "W+Beauty",
           "time": "13:00-14:30",
-          "sourceRow": 327
+          "sourceRow": 328
         },
         {
           "id": "2026|12|15|wonder|銀座wonder+marketing|15:00-16:30",
@@ -6276,7 +6290,7 @@
           "venue": "銀座",
           "eventName": "W+Marketing",
           "time": "15:00-16:30",
-          "sourceRow": 328
+          "sourceRow": 329
         },
         {
           "id": "2026|12|16|wonder|横浜wonder+|15:00-16:30",
@@ -6290,7 +6304,7 @@
           "venue": "横浜",
           "eventName": "イベント",
           "time": "15:00-16:30",
-          "sourceRow": 330
+          "sourceRow": 331
         },
         {
           "id": "2026|12|16|wonder|銀座wonder+士業professional|15:00-16:30",
@@ -6304,7 +6318,7 @@
           "venue": "銀座",
           "eventName": "W+士業Professional",
           "time": "15:00-16:30",
-          "sourceRow": 329
+          "sourceRow": 330
         },
         {
           "id": "2026|12|16|wonder|銀座wonder+cxo|19:30-21:00",
@@ -6318,7 +6332,7 @@
           "venue": "銀座",
           "eventName": "W+CXO",
           "time": "19:30-21:00",
-          "sourceRow": 331
+          "sourceRow": 332
         },
         {
           "id": "2026|12|17|wonder|銀座wonder+leaders|12:30-14:00",
@@ -6332,7 +6346,7 @@
           "venue": "銀座",
           "eventName": "W+Leaders",
           "time": "12:30-14:00",
-          "sourceRow": 332
+          "sourceRow": 333
         },
         {
           "id": "2026|12|17|wonder|銀座wonder+ladies|15:00-16:30",
@@ -6346,7 +6360,7 @@
           "venue": "銀座",
           "eventName": "W+Ladies",
           "time": "15:00-16:30",
-          "sourceRow": 333
+          "sourceRow": 334
         },
         {
           "id": "2026|12|17|wonder|銀座wonder+entertainment|20:00-22:00",
@@ -6360,7 +6374,7 @@
           "venue": "銀座",
           "eventName": "W+Entertainment",
           "time": "20:00-22:00",
-          "sourceRow": 334
+          "sourceRow": 335
         },
         {
           "id": "2026|12|21|wonder|名古屋wonder+leaders|13:00-14:30",
@@ -6374,7 +6388,7 @@
           "venue": "名古屋",
           "eventName": "W+Leaders",
           "time": "13:00-14:30",
-          "sourceRow": 335
+          "sourceRow": 336
         },
         {
           "id": "2026|12|21|wonder|新宿wonder+freelance|15:00-16:30",
@@ -6388,7 +6402,7 @@
           "venue": "新宿",
           "eventName": "W+Freelance",
           "time": "15:00-16:30",
-          "sourceRow": 337
+          "sourceRow": 338
         },
         {
           "id": "2026|12|21|wonder|船橋wonder+|15:00-16:30",
@@ -6402,7 +6416,7 @@
           "venue": "船橋",
           "eventName": "イベント",
           "time": "15:00-16:30",
-          "sourceRow": 336
+          "sourceRow": 337
         },
         {
           "id": "2026|12|21|wonder|大阪wonder+leaders|19:30-21:00",
@@ -6416,7 +6430,7 @@
           "venue": "大阪",
           "eventName": "W+Leaders",
           "time": "19:30-21:00",
-          "sourceRow": 338
+          "sourceRow": 339
         },
         {
           "id": "2026|12|22|wonder|新宿wonder+realestate|13:00-14:30",
@@ -6430,7 +6444,7 @@
           "venue": "新宿",
           "eventName": "W+Real Estate",
           "time": "13:00-14:30",
-          "sourceRow": 339
+          "sourceRow": 340
         },
         {
           "id": "2026|12|22|wonder|大宮refwonder+|14:00-15:30",
@@ -6444,7 +6458,7 @@
           "venue": "大宮Ref",
           "eventName": "イベント",
           "time": "14:00-15:30",
-          "sourceRow": 340
+          "sourceRow": 341
         },
         {
           "id": "2026|12|22|wonder|横浜1on1wonder+|19:30-20:30",
@@ -6458,7 +6472,7 @@
           "venue": "横浜1on1",
           "eventName": "イベント",
           "time": "19:30-20:30",
-          "sourceRow": 341
+          "sourceRow": 342
         },
         {
           "id": "2026|12|23|wonder|新宿wonder+100|13:00-14:30",
@@ -6472,7 +6486,7 @@
           "venue": "新宿",
           "eventName": "W+100",
           "time": "13:00-14:30",
-          "sourceRow": 342
+          "sourceRow": 343
         },
         {
           "id": "2026|12|23|wonder|新宿wonder+100|15:00-16:30",
@@ -6486,7 +6500,7 @@
           "venue": "新宿",
           "eventName": "W+100",
           "time": "15:00-16:30",
-          "sourceRow": 343
+          "sourceRow": 344
         },
         {
           "id": "2026|12|28|wonder|銀座wonder+2026f|19:30-21:00",
@@ -6500,7 +6514,7 @@
           "venue": "銀座",
           "eventName": "W+2026F",
           "time": "19:30-21:00",
-          "sourceRow": 344
+          "sourceRow": 345
         },
         {
           "id": "2026|12|29|wonder|新宿100人カフェwonder+|19:30-21:00",
@@ -6514,7 +6528,7 @@
           "venue": "新宿100人カフェ",
           "eventName": "イベント",
           "time": "19:30-21:00",
-          "sourceRow": 345
+          "sourceRow": 346
         },
         {
           "id": "2026|12|31|wonder|新宿カウントダウンwonder+|22:00-24:00",
@@ -6528,7 +6542,7 @@
           "venue": "新宿カウントダウン",
           "eventName": "イベント",
           "time": "22:00-24:00",
-          "sourceRow": 346
+          "sourceRow": 347
         }
       ]
     },
@@ -6537,6 +6551,48 @@
       "category": "regular",
       "label": "12月 レギュラー",
       "items": [
+        {
+          "id": "2026|12|1|regular|レギュラー異業種交流会|13:00-14:00",
+          "year": 2026,
+          "month": 12,
+          "category": "regular",
+          "day": 1,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00",
+          "timeRange": "13:00-14:00",
+          "venue": "",
+          "eventName": "レギュラー異業種交流会",
+          "time": "13:00-14:00",
+          "sourceRow": 348
+        },
+        {
+          "id": "2026|12|3|regular|レギュラー異業種交流会|13:00-14:00",
+          "year": 2026,
+          "month": 12,
+          "category": "regular",
+          "day": 3,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00",
+          "timeRange": "13:00-14:00",
+          "venue": "",
+          "eventName": "レギュラー異業種交流会",
+          "time": "13:00-14:00",
+          "sourceRow": 349
+        },
+        {
+          "id": "2026|12|4|regular|レギュラー異業種交流会|13:00-14:00",
+          "year": 2026,
+          "month": 12,
+          "category": "regular",
+          "day": 4,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00",
+          "timeRange": "13:00-14:00",
+          "venue": "",
+          "eventName": "レギュラー異業種交流会",
+          "time": "13:00-14:00",
+          "sourceRow": 350
+        },
         {
           "id": "2026|12|5|regular|レギュラー異業種交流会|10:00-11:00",
           "year": 2026,
@@ -6549,7 +6605,63 @@
           "venue": "",
           "eventName": "朝活異業種交流会",
           "time": "10:00-11:00",
-          "sourceRow": 347
+          "sourceRow": 363
+        },
+        {
+          "id": "2026|12|7|regular|レギュラー異業種交流会|13:00-14:00",
+          "year": 2026,
+          "month": 12,
+          "category": "regular",
+          "day": 7,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00",
+          "timeRange": "13:00-14:00",
+          "venue": "",
+          "eventName": "レギュラー異業種交流会",
+          "time": "13:00-14:00",
+          "sourceRow": 351
+        },
+        {
+          "id": "2026|12|8|regular|レギュラー異業種交流会|13:00-14:00",
+          "year": 2026,
+          "month": 12,
+          "category": "regular",
+          "day": 8,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00",
+          "timeRange": "13:00-14:00",
+          "venue": "",
+          "eventName": "レギュラー異業種交流会",
+          "time": "13:00-14:00",
+          "sourceRow": 352
+        },
+        {
+          "id": "2026|12|10|regular|レギュラー異業種交流会|13:00-14:00",
+          "year": 2026,
+          "month": 12,
+          "category": "regular",
+          "day": 10,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00",
+          "timeRange": "13:00-14:00",
+          "venue": "",
+          "eventName": "レギュラー異業種交流会",
+          "time": "13:00-14:00",
+          "sourceRow": 353
+        },
+        {
+          "id": "2026|12|11|regular|レギュラー異業種交流会|13:00-14:00",
+          "year": 2026,
+          "month": 12,
+          "category": "regular",
+          "day": 11,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00",
+          "timeRange": "13:00-14:00",
+          "venue": "",
+          "eventName": "レギュラー異業種交流会",
+          "time": "13:00-14:00",
+          "sourceRow": 354
         },
         {
           "id": "2026|12|12|regular|朝活異業種交流会|10:00-11:00",
@@ -6563,7 +6675,7 @@
           "venue": "大阪朝活1on1",
           "eventName": "イベント",
           "time": "10:00-11:00",
-          "sourceRow": 322
+          "sourceRow": 323
         },
         {
           "id": "2026|12|13|regular|レギュラー異業種交流会|10:00-11:00",
@@ -6577,7 +6689,49 @@
           "venue": "",
           "eventName": "朝活異業種交流会",
           "time": "10:00-11:00",
-          "sourceRow": 348
+          "sourceRow": 364
+        },
+        {
+          "id": "2026|12|14|regular|レギュラー異業種交流会|13:00-14:00",
+          "year": 2026,
+          "month": 12,
+          "category": "regular",
+          "day": 14,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00",
+          "timeRange": "13:00-14:00",
+          "venue": "",
+          "eventName": "レギュラー異業種交流会",
+          "time": "13:00-14:00",
+          "sourceRow": 355
+        },
+        {
+          "id": "2026|12|16|regular|レギュラー異業種交流会|13:00-14:00",
+          "year": 2026,
+          "month": 12,
+          "category": "regular",
+          "day": 16,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00",
+          "timeRange": "13:00-14:00",
+          "venue": "",
+          "eventName": "レギュラー異業種交流会",
+          "time": "13:00-14:00",
+          "sourceRow": 356
+        },
+        {
+          "id": "2026|12|18|regular|レギュラー異業種交流会|13:00-14:00",
+          "year": 2026,
+          "month": 12,
+          "category": "regular",
+          "day": 18,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00",
+          "timeRange": "13:00-14:00",
+          "venue": "",
+          "eventName": "レギュラー異業種交流会",
+          "time": "13:00-14:00",
+          "sourceRow": 357
         },
         {
           "id": "2026|12|20|regular|レギュラー異業種交流会|10:00-11:00",
@@ -6591,7 +6745,49 @@
           "venue": "",
           "eventName": "朝活異業種交流会",
           "time": "10:00-11:00",
-          "sourceRow": 349
+          "sourceRow": 365
+        },
+        {
+          "id": "2026|12|22|regular|レギュラー異業種交流会|13:00-14:00",
+          "year": 2026,
+          "month": 12,
+          "category": "regular",
+          "day": 22,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00",
+          "timeRange": "13:00-14:00",
+          "venue": "",
+          "eventName": "レギュラー異業種交流会",
+          "time": "13:00-14:00",
+          "sourceRow": 358
+        },
+        {
+          "id": "2026|12|24|regular|レギュラー異業種交流会|13:00-14:00",
+          "year": 2026,
+          "month": 12,
+          "category": "regular",
+          "day": 24,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00",
+          "timeRange": "13:00-14:00",
+          "venue": "",
+          "eventName": "レギュラー異業種交流会",
+          "time": "13:00-14:00",
+          "sourceRow": 359
+        },
+        {
+          "id": "2026|12|25|regular|レギュラー異業種交流会|13:00-14:00",
+          "year": 2026,
+          "month": 12,
+          "category": "regular",
+          "day": 25,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00",
+          "timeRange": "13:00-14:00",
+          "venue": "",
+          "eventName": "レギュラー異業種交流会",
+          "time": "13:00-14:00",
+          "sourceRow": 360
         },
         {
           "id": "2026|12|27|regular|レギュラー異業種交流会|10:00-11:00",
@@ -6605,7 +6801,35 @@
           "venue": "",
           "eventName": "朝活異業種交流会",
           "time": "10:00-11:00",
-          "sourceRow": 350
+          "sourceRow": 366
+        },
+        {
+          "id": "2026|12|28|regular|レギュラー異業種交流会|13:00-14:00",
+          "year": 2026,
+          "month": 12,
+          "category": "regular",
+          "day": 28,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00",
+          "timeRange": "13:00-14:00",
+          "venue": "",
+          "eventName": "レギュラー異業種交流会",
+          "time": "13:00-14:00",
+          "sourceRow": 361
+        },
+        {
+          "id": "2026|12|29|regular|レギュラー異業種交流会|13:00-14:00",
+          "year": 2026,
+          "month": 12,
+          "category": "regular",
+          "day": 29,
+          "title": "レギュラー異業種交流会",
+          "meta": "13:00-14:00",
+          "timeRange": "13:00-14:00",
+          "venue": "",
+          "eventName": "レギュラー異業種交流会",
+          "time": "13:00-14:00",
+          "sourceRow": 362
         }
       ]
     },
@@ -6632,7 +6856,7 @@
           "venue": "",
           "eventName": "ミーティング",
           "time": "17:00-18:30",
-          "sourceRow": 351
+          "sourceRow": 367
         },
         {
           "id": "2026|12|23|meeting|ミーティング|11:00-12:00",
@@ -6646,7 +6870,7 @@
           "venue": "",
           "eventName": "ミーティング",
           "time": "11:00-12:00",
-          "sourceRow": 352
+          "sourceRow": 368
         },
         {
           "id": "2026|12|23|meeting|ミーティング|17:00-18:30",
@@ -6660,7 +6884,7 @@
           "venue": "",
           "eventName": "ミーティング",
           "time": "17:00-18:30",
-          "sourceRow": 353
+          "sourceRow": 369
         }
       ]
     }

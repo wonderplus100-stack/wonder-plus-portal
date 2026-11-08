@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "updatedAt": "2026-11-08T12:39:09.839Z",
+  "updatedAt": "2026-11-08T17:59:10.280Z",
   "source": "formatted-schedule-sheet",
   "masterSource": "formatted-schedule-sheet",
   "scheduleCounts": {
@@ -5875,16 +5875,16 @@
           "sourceRow": 298
         },
         {
-          "id": "2026|12|1|wonder|銀座wonder+prime4|15:00-16:30",
+          "id": "2026|12|1|wonder|銀座wonder+prime40|15:00-16:30",
           "year": 2026,
           "month": 12,
           "category": "wonder",
           "day": 1,
-          "title": "銀座 Wonder+Prime4",
+          "title": "銀座 Wonder+Prime40",
           "meta": "15:00-16:30",
           "timeRange": "15:00-16:30",
           "venue": "銀座",
-          "eventName": "W+Prime4",
+          "eventName": "W+Prime40",
           "time": "15:00-16:30",
           "sourceRow": 299
         },
@@ -5973,17 +5973,17 @@
           "sourceRow": 304
         },
         {
-          "id": "2026|12|3|wonder|銀座w∔engineerwonder+|19:30-20:00",
+          "id": "2026|12|3|wonder|銀座w∔engineerwonder+|19:30-21:00",
           "year": 2026,
           "month": 12,
           "category": "wonder",
           "day": 3,
           "title": "銀座W∔Engineer Wonder+",
-          "meta": "19:30-20:00",
-          "timeRange": "19:30-20:00",
+          "meta": "19:30-21:00",
+          "timeRange": "19:30-21:00",
           "venue": "銀座W∔Engineer",
           "eventName": "イベント",
-          "time": "19:30-20:00",
+          "time": "19:30-21:00",
           "sourceRow": 306
         },
         {

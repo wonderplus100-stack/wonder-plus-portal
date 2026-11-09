@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "updatedAt": "2026-11-09T01:34:10.050Z",
+  "updatedAt": "2026-11-09T08:34:09.535Z",
   "source": "formatted-schedule-sheet",
   "masterSource": "formatted-schedule-sheet",
   "scheduleCounts": {
@@ -1456,6 +1456,12 @@
     ],
     "2026|11|6|regular|レギュラー異業種交流会|13:00-14:00": [
       "小宮留衣"
+    ],
+    "2026|12|17|wonder|銀座wonder+ladies|15:00-16:30": [
+      "長田瑞穂"
+    ],
+    "2026|12|17|wonder|銀座wonder+leaders|12:30-14:00": [
+      "長田瑞穂"
     ]
   },
   "schedules": {

@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "updatedAt": "2026-11-10T17:24:12.098Z",
+  "updatedAt": "2026-11-10T22:19:10.127Z",
   "source": "formatted-schedule-sheet",
   "masterSource": "formatted-schedule-sheet",
   "scheduleCounts": {
@@ -1465,6 +1465,9 @@
     ],
     "2026|12|7|wonder|浜松wonder+|13:00-14:30": [
       "望月佳奈"
+    ],
+    "2026|11|11|regular|レギュラー異業種交流会|13:00-14:00": [
+      "小宮留衣"
     ]
   },
   "schedules": {

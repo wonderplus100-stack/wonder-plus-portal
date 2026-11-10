@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "updatedAt": "2026-11-10T02:04:09.776Z",
+  "updatedAt": "2026-11-10T09:44:09.449Z",
   "source": "formatted-schedule-sheet",
   "masterSource": "formatted-schedule-sheet",
   "scheduleCounts": {
@@ -1462,6 +1462,9 @@
     ],
     "2026|12|17|wonder|銀座wonder+leaders|12:30-14:00": [
       "長田瑞穂"
+    ],
+    "2026|12|7|wonder|浜松wonder+|13:00-14:30": [
+      "望月佳奈"
     ]
   },
   "schedules": {

@@ -677,15 +677,63 @@
     });
   }
 
+  /* ------------------------------------------------------------------ 来月は「参加なし」の入力
+     毎月15日のリマインド(LINE WORKS)は、翌月の参加チェックを1件も付け外ししていない人に届く。
+     参加できない月の人が「入力済み」になれるよう、翌月を表示しているときだけこの欄を出す。 */
+  var NA = { key: '', state: null, busy: false, loading: false, errAt: 0 };
+
+  function nextMonthInfo() {
+    var d = new Date(), y = d.getFullYear(), m = d.getMonth() + 2;
+    if (m > 12) { m -= 12; y += 1; }
+    return { year: y, month: m, key: y + '-' + pad(m) };
+  }
+  function shownMonth() { try { return typeof activeMemberMonth !== 'undefined' ? Number(activeMemberMonth) : 0; } catch (e) { return 0; } }
+
+  function naLoad(force) {
+    var info = nextMonthInfo();
+    if (!token() || !me() || NA.loading || Date.now() - NA.errAt < 60000) return;
+    if (!force && NA.key === info.key && NA.state) return;
+    NA.loading = true;
+    api('reminderMarkEntered', { month: info.key, status: '1' }).then(function (r) { NA.key = info.key; NA.state = r; }, function () { NA.errAt = Date.now(); /* 欄を出さないだけ */ })
+      .then(function () { NA.loading = false; renderNoAttend(); });
+  }
+
+  function naSet(undo) {
+    var info = nextMonthInfo();
+    if (NA.busy) return;
+    NA.busy = true; renderNoAttend();
+    api('reminderMarkEntered', undo ? { month: info.key, undo: '1' } : { month: info.key }).then(function () { return api('reminderMarkEntered', { month: info.key, status: '1' }); })
+      .then(function (r) { NA.key = info.key; NA.state = r; }, function (err) { alert((err && err.message) || '保存できませんでした。'); })
+      .then(function () { NA.busy = false; renderNoAttend(); });
+  }
+
+  function renderNoAttend() {
+    var info = nextMonthInfo(), bar = document.getElementById('opsNoAttend'), host = document.querySelector('.member-savebar');
+    var show = !!host && !!me() && shownMonth() === info.month;
+    if (!show) { if (bar) bar.remove(); return; }
+    if (!bar) {
+      bar = document.createElement('div'); bar.id = 'opsNoAttend'; bar.className = 'ops-noattend';
+      host.parentNode.insertBefore(bar, host.nextSibling);
+      bar.addEventListener('click', function (ev) { var b = ev.target.closest('button[data-na]'); if (b) naSet(b.dataset.na === 'undo'); });
+    }
+    var st = NA.state && NA.key === info.key ? NA.state : null;
+    if (!st) { bar.innerHTML = '<span class="ops-na-text">' + info.month + '月の入力状況を確認中…</span>'; naLoad(false); return; }
+    var dis = NA.busy ? ' disabled' : '';
+    if (st.via === 'check') bar.innerHTML = '<span class="ops-na-text ops-na-ok">✔ ' + info.month + '月は入力済みです(参加チェックあり)</span>';
+    else if (st.via === 'mark') bar.innerHTML = '<span class="ops-na-text ops-na-ok">✔ ' + info.month + '月は「参加なし」で入力済みです</span><button class="member-button" type="button" data-na="undo"' + dis + '>取り消す</button>';
+    else bar.innerHTML = '<span class="ops-na-text">' + info.month + '月に参加できる日がない方は、こちらを押すと入力済みになります。</span><button class="member-button" type="button" data-na="set"' + dis + '>' + info.month + '月は参加なし(入力完了)</button>';
+  }
+
   /* ------------------------------------------------------------------ boot */
   function boot() {
     readCache();                       // last result for this account: shown as soon as the list is drawn
     var list = document.getElementById('memberScheduleList');
     if (list) {
-      observer = new MutationObserver(function () { decorate(); });
+      observer = new MutationObserver(function () { decorate(); renderNoAttend(); });
       observer.observe(list, { childList: true });
       decorate();
     }
+    renderNoAttend();
     if (token()) loadOverview();       // runs in parallel with the portal's own session restore
     // the portal re-renders the list from the saved checks; refresh verdicts right after a save
     try {
@@ -693,7 +741,7 @@
         var orig = callPortalAction;
         callPortalAction = function (action) {
           var p = orig.apply(this, arguments);
-          if (/^toggleAssignment/.test(String(action))) { p.then(function () { setTimeout(loadOverview, 150); }, function () { /* ignore */ }); }
+          if (/^toggleAssignment/.test(String(action))) { p.then(function () { setTimeout(loadOverview, 150); setTimeout(function () { naLoad(true); }, 300); }, function () { /* ignore */ }); }
           return p;
         };
       }
@@ -702,9 +750,11 @@
     function syncUser() {
       var email = currentEmail();
       if (email !== lastUser) {
-        lastUser = email; S.overview = null; A.data = null; A.detail = {};
+        lastUser = email; S.overview = null; A.data = null; A.detail = {}; NA.state = null; NA.key = '';
         if (email) { readCache(); decorate(); loadOverview(); } else decorate();
       }
+      if (email) { naLoad(false); }
+      renderNoAttend();
       var adm = isAdmin();
       if (adm !== lastAdmin) { lastAdmin = adm; syncAdmin(); }
     }

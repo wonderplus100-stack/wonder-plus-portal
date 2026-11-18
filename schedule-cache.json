@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "updatedAt": "2026-11-18T02:54:11.302Z",
+  "updatedAt": "2026-11-18T11:34:10.611Z",
   "source": "formatted-schedule-sheet",
   "masterSource": "formatted-schedule-sheet",
   "scheduleCounts": {
@@ -1303,7 +1303,8 @@
     ],
     "2026|11|18|wonder|新宿wonder+marketing|19:30-21:00": [
       "小宮留衣",
-      "大西正人"
+      "大西正人",
+      "高杉裕輔"
     ],
     "2026|11|19|wonder|銀座wonder+entertainment|20:00-22:00": [
       "小宮留衣",
@@ -1417,9 +1418,6 @@
       "高杉裕輔"
     ],
     "2026|11|17|wonder|広島wonder+|15:00-16:30": [
-      "高杉裕輔"
-    ],
-    "2026|11|20|wonder|神戸wonder+|19:30-21:00": [
       "高杉裕輔"
     ],
     "2026|11|23|wonder|東京100人カフェ会wonder+|13:00-15:00": [

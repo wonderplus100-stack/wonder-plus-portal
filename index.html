@@ -3067,6 +3067,7 @@
     }
   </style>
   <link rel="stylesheet" href="ops-points.css?v=ops-20261117-1">
+  <link rel="stylesheet" href="settlement.css?v=settle-20261119-1">
 </head>
 <body class="auth-required">
   <script>try{if(localStorage.getItem("wonderMemberToken")||localStorage.getItem("wonderSavedLogin")||localStorage.getItem("wonderMemberProfile"))document.body.classList.add("auth-restoring")}catch(e){}</script>
@@ -3326,6 +3327,7 @@
                   <button class="tab-button" type="button" data-member-category="morning">朝活異業種交流会</button>
                   <button class="tab-button" type="button" data-member-category="miraiba">ミライバ</button>
                   <button class="tab-button" type="button" data-member-category="meeting">ミーティング</button>
+                  <button class="tab-button" type="button" data-member-category="settlement">精算確認</button>
                 </div>
                 <div class="meeting-note" id="meetingNote">ミーティングに参加ができないときのみチェック<br>基本的に２期ミーティングは参加となります。</div>
                 <div class="member-savebar">
@@ -5783,6 +5785,9 @@
     function renderMemberScheduleList() {
       if (!memberScheduleList) return;
       if (meetingNote) meetingNote.classList.toggle("is-visible", activeMemberCategory === "meeting");
+      const memberSaveBar = document.querySelector(".member-savebar");
+      if (memberSaveBar) memberSaveBar.style.display = activeMemberCategory === "settlement" ? "none" : "";
+      if (activeMemberCategory === "settlement" && typeof window.renderSettlementList === "function") { window.renderSettlementList(); return; }
       const entries = getScheduleEntries({ includeArchived: true })
         .filter(({ group, item }) => group.month === activeMemberMonth && getMemberScheduleCategory(item) === activeMemberCategory);
       if (!currentMember) {
@@ -8517,5 +8522,6 @@ Apps Scriptで案内文章Drive内のPDF・スプレッドシート本文を抽�
     }
     </script>
     <script src="ops-points.js?v=ops-20261117-1"></script>
+    <script src="settlement.js?v=settle-20261119-1"></script>
   </body>
 </html>

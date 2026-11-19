@@ -709,7 +709,9 @@
 
   function renderNoAttend() {
     var info = nextMonthInfo(), bar = document.getElementById('opsNoAttend'), host = document.querySelector('.member-savebar');
-    var show = !!host && !!me() && shownMonth() === info.month;
+    var inSettlement = false;
+    try { inSettlement = typeof activeMemberCategory !== 'undefined' && activeMemberCategory === 'settlement'; } catch (e) { /* ignore */ }
+    var show = !!host && !!me() && shownMonth() === info.month && !inSettlement;
     if (!show) { if (bar) bar.remove(); return; }
     if (!bar) {
       bar = document.createElement('div'); bar.id = 'opsNoAttend'; bar.className = 'ops-noattend';

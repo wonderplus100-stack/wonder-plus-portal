@@ -1,0 +1,20 @@
+/* 精算確認タブ */
+.settle-summary { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: center; margin: 4px 0 8px; font-size: 13px; }
+.settle-summary .settle-open { color: #c0261b; font-weight: 700; }
+.settle-summary .settle-done { color: #1c7a45; font-weight: 700; }
+.settle-summary .settle-note { flex: 1 1 100%; color: var(--muted, #52616b); font-size: 12px; }
+.settle-error { margin: 0 0 8px; padding: 8px 10px; border-radius: 8px; background: #fff3e0; color: #8a5a00; font-size: 12px; }
+.settle-row { display: grid; grid-template-columns: auto auto minmax(0, 1fr); align-items: start; gap: 10px; padding: 10px 12px; border-bottom: 1px solid var(--line, #dfe6ea); cursor: pointer; }
+.settle-row input[type="checkbox"] { width: 20px; height: 20px; margin-top: 4px; }
+.settle-row.is-open { border-left: 4px solid #d93025; }
+.settle-row.is-done { border-left: 4px solid #1c7a45; background: #f3faf6; }
+.settle-state { margin-top: 4px; font-size: 13px; font-weight: 700; }
+.settle-state.is-open { color: #d93025; }
+.settle-state.is-done { color: #1c7a45; }
+.settle-by { margin-left: 8px; font-weight: 400; color: #3b4a54; font-size: 12px; }
+@media (prefers-color-scheme: dark) {
+  .settle-row.is-done { background: rgba(28, 122, 69, 0.15); }
+  .settle-state.is-open, .settle-summary .settle-open { color: #ff8a80; }
+  .settle-state.is-done, .settle-summary .settle-done { color: #7ddba3; }
+  .settle-by { color: inherit; opacity: 0.8; }
+}

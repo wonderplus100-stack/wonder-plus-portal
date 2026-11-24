@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "updatedAt": "2026-11-24T05:19:10.382Z",
+  "updatedAt": "2026-11-24T16:04:11.408Z",
   "source": "formatted-schedule-sheet",
   "masterSource": "formatted-schedule-sheet",
   "scheduleCounts": {
@@ -23,7 +23,7 @@
     "decemberWonder": 47,
     "decemberRegular": 20,
     "decemberMeeting": 3,
-    "januaryWonder": 46,
+    "januaryWonder": 47,
     "januaryRegular": 5,
     "januaryMeeting": 3
   },
@@ -1833,6 +1833,20 @@
           "sourceRow": 375
         },
         {
+          "id": "2027|1|13|wonder|岡山wonder+|15:00-16:30",
+          "year": 2027,
+          "month": 1,
+          "category": "wonder",
+          "day": 13,
+          "title": "岡山 Wonder+",
+          "meta": "15:00-16:30",
+          "timeRange": "15:00-16:30",
+          "venue": "岡山",
+          "eventName": "イベント",
+          "time": "15:00-16:30",
+          "sourceRow": 376
+        },
+        {
           "id": "2027|1|13|wonder|名古屋wonder+|19:30-21:00",
           "year": 2027,
           "month": 1,
@@ -1844,7 +1858,7 @@
           "venue": "名古屋",
           "eventName": "イベント",
           "time": "19:30-21:00",
-          "sourceRow": 376
+          "sourceRow": 377
         },
         {
           "id": "2027|1|14|wonder|銀座wonder+40代以上|15:00-16:30",
@@ -1858,7 +1872,7 @@
           "venue": "銀座",
           "eventName": "W+40代以上",
           "time": "15:00-16:30",
-          "sourceRow": 377
+          "sourceRow": 378
         },
         {
           "id": "2027|1|14|wonder|横浜wonder+leaders|19:30-21:00",
@@ -1872,7 +1886,7 @@
           "venue": "横浜",
           "eventName": "W+Leaders",
           "time": "19:30-21:00",
-          "sourceRow": 379
+          "sourceRow": 380
         },
         {
           "id": "2027|1|14|wonder|新宿wonder+20代限定|19:30-21:00",
@@ -1886,7 +1900,7 @@
           "venue": "新宿",
           "eventName": "W+20代限定",
           "time": "19:30-21:00",
-          "sourceRow": 378
+          "sourceRow": 379
         },
         {
           "id": "2027|1|15|wonder|銀座wonder+marketing|15:00-16:30",
@@ -1900,7 +1914,7 @@
           "venue": "銀座",
           "eventName": "W+Marketing",
           "time": "15:00-16:30",
-          "sourceRow": 380
+          "sourceRow": 381
         },
         {
           "id": "2027|1|18|wonder|銀座wonder+beauty|15:00-16:30",
@@ -1914,7 +1928,7 @@
           "venue": "銀座",
           "eventName": "W+Beauty",
           "time": "15:00-16:30",
-          "sourceRow": 381
+          "sourceRow": 382
         },
         {
           "id": "2027|1|18|wonder|銀座wonder+gravity|19:30-21:00",
@@ -1928,7 +1942,7 @@
           "venue": "銀座",
           "eventName": "W+Gravity",
           "time": "19:30-21:00",
-          "sourceRow": 383
+          "sourceRow": 384
         },
         {
           "id": "2027|1|18|wonder|新宿wonder+coaching＆career|19:30-21:00",
@@ -1942,7 +1956,7 @@
           "venue": "新宿",
           "eventName": "W+Coaching＆Career",
           "time": "19:30-21:00",
-          "sourceRow": 382
+          "sourceRow": 383
         },
         {
           "id": "2027|1|19|wonder|横浜wonder+|15:00-16:30",
@@ -1956,7 +1970,7 @@
           "venue": "横浜",
           "eventName": "イベント",
           "time": "15:00-16:30",
-          "sourceRow": 384
+          "sourceRow": 385
         },
         {
           "id": "2027|1|19|wonder|名古屋wonder+ladies|15:00-16:30",
@@ -1970,7 +1984,7 @@
           "venue": "名古屋",
           "eventName": "W+Ladies",
           "time": "15:00-16:30",
-          "sourceRow": 385
+          "sourceRow": 386
         },
         {
           "id": "2027|1|20|wonder|大宮wonder+|14:00-15:30",
@@ -1984,7 +1998,7 @@
           "venue": "大宮",
           "eventName": "イベント",
           "time": "14:00-15:30",
-          "sourceRow": 386
+          "sourceRow": 387
         },
         {
           "id": "2027|1|20|wonder|船橋wonder+best|15:00-16:30",
@@ -1998,7 +2012,7 @@
           "venue": "船橋",
           "eventName": "W+Best",
           "time": "15:00-16:30",
-          "sourceRow": 387
+          "sourceRow": 388
         },
         {
           "id": "2027|1|20|wonder|銀座wonder+士業professional|19:30-21:00",
@@ -2012,7 +2026,7 @@
           "venue": "銀座",
           "eventName": "W+士業Professional",
           "time": "19:30-21:00",
-          "sourceRow": 388
+          "sourceRow": 389
         },
         {
           "id": "2027|1|20|wonder|新宿wonder+freelance|19:30-21:00",
@@ -2026,7 +2040,7 @@
           "venue": "新宿",
           "eventName": "W+Freelance",
           "time": "19:30-21:00",
-          "sourceRow": 389
+          "sourceRow": 390
         },
         {
           "id": "2027|1|21|wonder|銀座wonder+leaders|12:30-14:00",
@@ -2040,7 +2054,7 @@
           "venue": "銀座",
           "eventName": "W+Leaders",
           "time": "12:30-14:00",
-          "sourceRow": 390
+          "sourceRow": 391
         },
         {
           "id": "2027|1|21|wonder|銀座wonder+ladies|15:00-16:30",
@@ -2054,7 +2068,7 @@
           "venue": "銀座",
           "eventName": "W+Ladies",
           "time": "15:00-16:30",
-          "sourceRow": 391
+          "sourceRow": 392
         },
         {
           "id": "2027|1|21|wonder|銀座wonder+entertainment|20:00-22:00",
@@ -2068,7 +2082,7 @@
           "venue": "銀座",
           "eventName": "W+Entertainment",
           "time": "20:00-22:00",
-          "sourceRow": 392
+          "sourceRow": 393
         },
         {
           "id": "2027|1|22|wonder|大阪wonder+ladies|14:30-16:00",
@@ -2082,7 +2096,7 @@
           "venue": "大阪",
           "eventName": "W+Ladies",
           "time": "14:30-16:00",
-          "sourceRow": 393
+          "sourceRow": 394
         },
         {
           "id": "2027|1|22|wonder|大阪wonder+sales|15:00-16:30",
@@ -2096,7 +2110,7 @@
           "venue": "大阪",
           "eventName": "W+Sales",
           "time": "15:00-16:30",
-          "sourceRow": 394
+          "sourceRow": 395
         },
         {
           "id": "2027|1|22|wonder|京都wonder+|19:30-21:00",
@@ -2110,7 +2124,7 @@
           "venue": "京都",
           "eventName": "イベント",
           "time": "19:30-21:00",
-          "sourceRow": 396
+          "sourceRow": 397
         },
         {
           "id": "2027|1|22|wonder|神戸wonder+|19:30-21:00",
@@ -2124,7 +2138,7 @@
           "venue": "神戸",
           "eventName": "イベント",
           "time": "19:30-21:00",
-          "sourceRow": 395
+          "sourceRow": 396
         },
         {
           "id": "2027|1|23|wonder|銀座wonder+story|10:00-12:00",
@@ -2138,7 +2152,7 @@
           "venue": "銀座",
           "eventName": "W+Story",
           "time": "10:00-12:00",
-          "sourceRow": 398
+          "sourceRow": 399
         },
         {
           "id": "2027|1|23|wonder|大阪wonder+100人合コン|19:30-21:00",
@@ -2152,7 +2166,7 @@
           "venue": "大阪",
           "eventName": "W+100人合コン",
           "time": "19:30-21:00",
-          "sourceRow": 399
+          "sourceRow": 400
         },
         {
           "id": "2027|1|25|wonder|新宿wonder+hr（人材）|15:00-16:30",
@@ -2166,7 +2180,7 @@
           "venue": "新宿",
           "eventName": "W+HR（人材）",
           "time": "15:00-16:30",
-          "sourceRow": 400
+          "sourceRow": 401
         },
         {
           "id": "2027|1|25|wonder|新宿wonder+creators|19:30-21:00",
@@ -2180,7 +2194,7 @@
           "venue": "新宿",
           "eventName": "W+Creators",
           "time": "19:30-21:00",
-          "sourceRow": 401
+          "sourceRow": 402
         },
         {
           "id": "2027|1|26|wonder|大阪wonder+leaders|13:00-14:30",
@@ -2194,7 +2208,7 @@
           "venue": "大阪",
           "eventName": "W+Leaders",
           "time": "13:00-14:30",
-          "sourceRow": 402
+          "sourceRow": 403
         },
         {
           "id": "2027|1|26|wonder|銀座wonder+ai＆tech|15:00-16:30",
@@ -2208,7 +2222,7 @@
           "venue": "銀座",
           "eventName": "W+AI＆Tech",
           "time": "15:00-16:30",
-          "sourceRow": 403
+          "sourceRow": 404
         },
         {
           "id": "2027|1|26|wonder|札幌wonder+|19:00-20:30",
@@ -2222,7 +2236,7 @@
           "venue": "札幌",
           "eventName": "イベント",
           "time": "19:00-20:30",
-          "sourceRow": 404
+          "sourceRow": 405
         },
         {
           "id": "2027|1|26|wonder|銀座wonder+alliance|19:30-21:00",
@@ -2236,7 +2250,7 @@
           "venue": "銀座",
           "eventName": "W+Alliance",
           "time": "19:30-21:00",
-          "sourceRow": 406
+          "sourceRow": 407
         },
         {
           "id": "2027|1|26|wonder|名古屋wonder+leaders|19:30-21:00",
@@ -2250,7 +2264,7 @@
           "venue": "名古屋",
           "eventName": "W+Leaders",
           "time": "19:30-21:00",
-          "sourceRow": 405
+          "sourceRow": 406
         },
         {
           "id": "2027|1|27|wonder|新宿wonder+realestate|13:00-14:30",
@@ -2264,7 +2278,7 @@
           "venue": "新宿",
           "eventName": "W+Real Estate",
           "time": "13:00-14:30",
-          "sourceRow": 407
+          "sourceRow": 408
         },
         {
           "id": "2027|1|27|wonder|高崎wonder+|15:00-16:30",
@@ -2278,7 +2292,7 @@
           "venue": "高崎",
           "eventName": "イベント",
           "time": "15:00-16:30",
-          "sourceRow": 408
+          "sourceRow": 409
         },
         {
           "id": "2027|1|27|wonder|新宿wonder+ses|15:00-16:30",
@@ -2292,7 +2306,7 @@
           "venue": "新宿",
           "eventName": "W+SES",
           "time": "15:00-16:30",
-          "sourceRow": 409
+          "sourceRow": 410
         },
         {
           "id": "2027|1|27|wonder|銀座wonder+cxo|19:30-21:00",
@@ -2306,7 +2320,7 @@
           "venue": "銀座",
           "eventName": "W+CXO",
           "time": "19:30-21:00",
-          "sourceRow": 410
+          "sourceRow": 411
         },
         {
           "id": "2027|1|28|wonder|新宿wonder+100|13:00-14:30",
@@ -2320,7 +2334,7 @@
           "venue": "新宿",
           "eventName": "W+100",
           "time": "13:00-14:30",
-          "sourceRow": 411
+          "sourceRow": 412
         },
         {
           "id": "2027|1|28|wonder|新宿wonder+100|15:00-16:30",
@@ -2334,7 +2348,7 @@
           "venue": "新宿",
           "eventName": "W+100",
           "time": "15:00-16:30",
-          "sourceRow": 412
+          "sourceRow": 413
         },
         {
           "id": "2027|1|28|wonder|新宿wonder+spiritual|19:30-21:00",
@@ -2348,7 +2362,7 @@
           "venue": "新宿",
           "eventName": "W+Spiritual",
           "time": "19:30-21:00",
-          "sourceRow": 413
+          "sourceRow": 414
         },
         {
           "id": "2027|1|29|wonder|横浜1on1wonder+|15:00-16:00",
@@ -2362,7 +2376,7 @@
           "venue": "横浜1on1",
           "eventName": "イベント",
           "time": "15:00-16:00",
-          "sourceRow": 414
+          "sourceRow": 415
         }
       ]
     },
@@ -2383,7 +2397,7 @@
           "venue": "",
           "eventName": "朝活異業種交流会",
           "time": "10:00-11:00",
-          "sourceRow": 415
+          "sourceRow": 416
         },
         {
           "id": "2027|1|17|regular|レギュラー異業種交流会|10:00-11:00",
@@ -2397,7 +2411,7 @@
           "venue": "",
           "eventName": "朝活異業種交流会",
           "time": "10:00-11:00",
-          "sourceRow": 416
+          "sourceRow": 417
         },
         {
           "id": "2027|1|23|regular|朝活異業種交流会|10:00-11:00",
@@ -2411,7 +2425,7 @@
           "venue": "大阪朝活1on1",
           "eventName": "イベント",
           "time": "10:00-11:00",
-          "sourceRow": 397
+          "sourceRow": 398
         },
         {
           "id": "2027|1|24|regular|レギュラー異業種交流会|10:00-11:00",
@@ -2425,7 +2439,7 @@
           "venue": "",
           "eventName": "朝活異業種交流会",
           "time": "10:00-11:00",
-          "sourceRow": 417
+          "sourceRow": 418
         },
         {
           "id": "2027|1|31|regular|レギュラー異業種交流会|10:00-11:00",
@@ -2439,7 +2453,7 @@
           "venue": "",
           "eventName": "朝活異業種交流会",
           "time": "10:00-11:00",
-          "sourceRow": 418
+          "sourceRow": 419
         }
       ]
     },
@@ -2466,7 +2480,7 @@
           "venue": "",
           "eventName": "ミーティング",
           "time": "17:00-18:30",
-          "sourceRow": 419
+          "sourceRow": 420
         },
         {
           "id": "2027|1|28|meeting|ミーティング|11:00-12:00",
@@ -2480,7 +2494,7 @@
           "venue": "",
           "eventName": "ミーティング",
           "time": "11:00-12:00",
-          "sourceRow": 420
+          "sourceRow": 421
         },
         {
           "id": "2027|1|28|meeting|ミーティング|17:00-18:30",
@@ -2494,7 +2508,7 @@
           "venue": "",
           "eventName": "ミーティング",
           "time": "17:00-18:30",
-          "sourceRow": 421
+          "sourceRow": 422
         }
       ]
     },

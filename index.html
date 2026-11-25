@@ -3924,12 +3924,30 @@
       return getScheduleApiUrl().split("?")[0];
     }
 
+    // 年またぎ対応: 月ごとの年は、予定データに入っている年(例: 2027年1月)を優先し、データがない月は現在日から決める。
+    function scheduleMonthOffset(month) {
+      const currentMonth = new Date().getMonth() + 1;
+      return ((Number(month) - currentMonth + 1 + 12) % 12) - 1;       // -1(前月)〜10
+    }
+
+    function scheduleYearForMonth(month) {
+      const target = Number(month);
+      if (typeof schedules !== "undefined" && schedules) {
+        for (const category of ["wonder", "regular", "miraiba", "meeting"]) {
+          const year = Number(schedules[getScheduleKey(target, category)]?.items?.find((item) => item && item.year)?.year);
+          if (year) return year;
+        }
+      }
+      const now = new Date();
+      return new Date(now.getFullYear(), now.getMonth() + scheduleMonthOffset(target), 1).getFullYear();
+    }
+
     function daysInMonth(month) {
-      return new Date(SCHEDULE_YEAR, month, 0).getDate();
+      return new Date(scheduleYearForMonth(month), month, 0).getDate();
     }
 
     function firstWeekday(month) {
-      const day = new Date(SCHEDULE_YEAR, month - 1, 1).getDay();
+      const day = new Date(scheduleYearForMonth(month), month - 1, 1).getDay();
       return day === 0 ? 7 : day;
     }
 
@@ -3944,10 +3962,7 @@
     }
 
     function currentScheduleMonth() {
-      const now = new Date();
-      if (now.getFullYear() > SCHEDULE_YEAR) return 13;
-      if (now.getFullYear() < SCHEDULE_YEAR) return 1;
-      return now.getMonth() + 1;
+      return new Date().getMonth() + 1;
     }
 
     function getScheduleCategorySuffix(category) {
@@ -3987,7 +4002,11 @@
     }
 
     function isArchivedScheduleGroup(group) {
-      return Number(group?.month || 0) < currentScheduleMonth();
+      const month = Number(group?.month || 0);
+      if (!month) return false;
+      const year = Number(group?.items?.find((item) => item && item.year)?.year) || scheduleYearForMonth(month);
+      const now = new Date();
+      return year * 12 + month < now.getFullYear() * 12 + (now.getMonth() + 1);
     }
 
     function defaultMeetingItems(month) {
@@ -4010,7 +4029,7 @@
     function defaultMiraibaItems(month) {
       const items = [];
       for (let day = 1; day <= daysInMonth(month); day += 1) {
-        if (new Date(SCHEDULE_YEAR, Number(month) - 1, day).getDay() === 4) {
+        if (new Date(scheduleYearForMonth(month), Number(month) - 1, day).getDay() === 4) {
           items.push({ day, title: "ミライバ", meta: "20:00-21:00" });
         }
       }
@@ -4138,7 +4157,7 @@
       const parsed = parseEventIdForMatching(eventId);
       if (!parsed) return false;
       const category = getMemberScheduleCategory(item);
-      if (parsed.year && parsed.year !== SCHEDULE_YEAR) return false;
+      if (parsed.year && parsed.year !== (Number(item.year) || scheduleYearForMonth(group.month))) return false;
       if (parsed.month !== Number(group.month) || parsed.day !== Number(item.day)) return false;
       if (parsed.category !== category) return false;
       if (category !== "wonder") return true;
@@ -4172,15 +4191,15 @@
       if (stableId) return stableId;
       const category = getMemberScheduleCategory(item);
       const time = normalizeScheduleTime(item.meta);
-      return [SCHEDULE_YEAR, group.month, item.day, category, normalizeScheduleTitleKey(item.title), time].filter(Boolean).join("|");
+      return [Number(item.year) || scheduleYearForMonth(group.month), group.month, item.day, category, normalizeScheduleTitleKey(item.title), time].filter(Boolean).join("|");
     }
 
     function getLegacyEventIds(group, item) {
       const title = normalizeEventTitle(item.title);
       const rawTitle = String(item.title || "予定").trim();
       return [
-        `${SCHEDULE_YEAR}-${group.month}-${item.day}-${title}`,
-        `${SCHEDULE_YEAR}-${group.month}-${item.day}-${rawTitle}`
+        `${Number(item.year) || scheduleYearForMonth(group.month)}-${group.month}-${item.day}-${title}`,
+        `${Number(item.year) || scheduleYearForMonth(group.month)}-${group.month}-${item.day}-${rawTitle}`
       ];
     }
 
@@ -5191,37 +5210,43 @@
       return { month, category };
     }
 
-    function getVisibleScheduleMonths() {
+    // 表示する月の範囲(現在の月の前月〜2か月先)。12月をまたいで1月以降も含める。時系列の並び(例: 10,11,12,1)で返す。
+    function getScheduleWindowMonths() {
       const currentMonth = currentScheduleMonth();
-      const lowerBound = Math.max(1, currentMonth - 1);
-      const upperBound = Math.min(12, currentMonth + 2);
-      const months = [...new Set(Object.values(schedules || {})
-        .filter((group) => group.items?.length)
-        .map((group) => Number(group.month))
-        .filter((month) => month >= lowerBound && month <= upperBound))]
-        .sort((a, b) => a - b);
-      if (Number.isInteger(activeScheduleMonth) && activeScheduleMonth >= lowerBound && activeScheduleMonth <= upperBound && !months.includes(activeScheduleMonth)) {
-        months.push(activeScheduleMonth);
-        months.sort((a, b) => a - b);
-      }
+      return [-1, 0, 1, 2].map((offset) => ((currentMonth - 1 + offset + 12) % 12) + 1);
+    }
+
+    function scheduleGroupBelongsToWindow(group, month) {
+      // 予定データに年が入っているとき、その月の「今の範囲の年」と違う(前の年の古いデータ)なら出さない
+      const dataYear = Number(group?.items?.find((item) => item && item.year)?.year);
+      if (!dataYear) return true;
+      const now = new Date();
+      const expectedYear = new Date(now.getFullYear(), now.getMonth() + scheduleMonthOffset(month), 1).getFullYear();
+      return dataYear === expectedYear;
+    }
+
+    function getVisibleScheduleMonths() {
+      const windowMonths = getScheduleWindowMonths();
+      const hasItems = (month) => Object.values(schedules || {}).some((group) => Number(group.month) === month && group.items?.length && scheduleGroupBelongsToWindow(group, month));
+      const months = windowMonths.filter((month) => hasItems(month) || (Number.isInteger(activeScheduleMonth) && month === activeScheduleMonth));
       if (months.length) return months;
-      const fallback = Math.min(12, Math.max(1, currentMonth));
-      return [fallback];
+      return [Math.min(12, Math.max(1, currentScheduleMonth()))];
     }
 
     function getStableScheduleMonth(month) {
-      const currentMonth = currentScheduleMonth();
-      const lowerBound = Math.max(1, currentMonth - 1);
-      const upperBound = Math.min(12, currentMonth + 2);
-      const requested = Number(month) || activeScheduleMonth || currentMonth;
-      return Math.min(upperBound, Math.max(lowerBound, requested));
+      const windowMonths = getScheduleWindowMonths();
+      const requested = Number(month) || activeScheduleMonth || currentScheduleMonth();
+      if (windowMonths.includes(requested)) return requested;
+      // 範囲の外: 手前(過去)側なら最初の月、先(未来)側なら最後の月に寄せる
+      return scheduleMonthOffset(requested) <= 6 ? windowMonths[windowMonths.length - 1] : windowMonths[0];
     }
 
     function getNearestVisibleScheduleMonth(month) {
       const visibleMonths = getVisibleScheduleMonths();
       const requested = Number(month) || activeScheduleMonth || visibleMonths[0];
       if (visibleMonths.includes(requested)) return requested;
-      return visibleMonths.find((visibleMonth) => visibleMonth >= requested) || visibleMonths[visibleMonths.length - 1] || requested;
+      const requestedOffset = scheduleMonthOffset(requested);
+      return visibleMonths.find((visibleMonth) => scheduleMonthOffset(visibleMonth) >= requestedOffset) || visibleMonths[visibleMonths.length - 1] || requested;
     }
 
     function renderMemberMonthTabs() {
